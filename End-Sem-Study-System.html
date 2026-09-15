@@ -583,7 +583,7 @@ function renderChapter(s, c, isDemo){
 
   if(!c.material){
     html += '<div class="card locked-note">📖 Study material for this chapter has not been added yet — it will appear here once notes for this subject are shared. Topics for this chapter are listed above so you know what to expect.</div>';
-    html += '<div class="btn-row"><button class="btn secondary" onclick="history.back()">← Back</button></div>';
+    html += '<div class="btn-row"><button class="btn secondary" onclick="'+(isDemo?"app.go('home')":"app.go('subject',{sid:'"+sid+"'})")+'">← Back</button></div>';
     return html;
   }
 
@@ -619,7 +619,7 @@ function renderChapter(s, c, isDemo){
   }
   html += '</div>';
 
-  html += '<div class="btn-row"><button class="btn secondary" onclick="history.back()">← Back</button></div>';
+  html += '<div class="btn-row"><button class="btn secondary" onclick="'+(isDemo?"app.go('home')":"app.go('subject',{sid:'"+sid+"'})")+'">← Back</button></div>';
   return html;
 }
 
