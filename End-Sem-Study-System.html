@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>End-Sem Master Study System</title>
+<style>
+  :root{
+    --bg:#f3f4f8; --card:#ffffff; --border:#e2e5ee; --text:#1e2130; --muted:#6b7280;
+    --primary:#4f46e5; --primary-dark:#3730a3; --primary-light:#eef0fd;
+    --green:#16a34a; --green-bg:#dcfce7; --green-border:#86efac;
+    --red:#dc2626; --red-bg:#fee2e2; --red-border:#fca5a5;
+    --yellow:#ca8a04; --yellow-bg:#fef9c3;
+    --easy:#16a34a; --moderate:#d97706; --difficult:#dc2626;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding-bottom:40px;}
+  img{max-width:100%;}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 16px;}
+  header.top{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.12);}
+  header.top .inner{max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  header.top .brand{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:800;font-size:1.05rem;}
+  header.top .brand .logo{font-size:1.4rem;}
+  header.top .chip{background:rgba(255,255,255,.18);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:6px;}
+  nav.crumbs{font-size:.85rem;color:var(--muted);margin:16px 0 6px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+  nav.crumbs a{color:var(--primary);text-decoration:none;cursor:pointer;font-weight:600;}
+  nav.crumbs a:hover{text-decoration:underline;}
+  main{padding-top:6px;}
+  h1{font-size:1.5rem;margin:8px 0 4px;}
+  h2{font-size:1.2rem;margin:0 0 10px;}
+  h3{font-size:1.02rem;margin:0 0 8px;}
+  p{margin:0 0 10px;}
+  .muted{color:var(--muted);}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(20,20,50,.04);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:.95rem;font-weight:700;transition:transform .05s, background .15s;}
+  .btn:hover{background:var(--primary-dark);}
+  .btn:active{transform:scale(.98);}
+  .btn.secondary{background:#fff;color:var(--primary);border:1.5px solid var(--primary);}
+  .btn.secondary:hover{background:var(--primary-light);}
+  .btn.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border);}
+  .btn.green{background:var(--green);}
+  .btn.green:hover{background:#15803d;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .progress-bar{background:#e5e7eb;border-radius:999px;height:10px;overflow:hidden;width:100%;}
+  .progress-bar > div{background:linear-gradient(90deg,var(--primary),#818cf8);height:100%;border-radius:999px;transition:width .3s;}
+  .progress-bar.thin{height:6px;}
+  .subject-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:box-shadow .15s, transform .1s;}
+  .subject-card:hover{box-shadow:0 4px 16px rgba(20,20,60,.1);transform:translateY(-1px);}
+  .subject-card .icon{font-size:1.8rem;}
+  .subject-card .status{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;margin-top:8px;}
+  .status.notstarted{background:#f1f2f6;color:var(--muted);}
+  .status.inprogress{background:var(--yellow-bg);color:var(--yellow);}
+  .status.done{background:var(--green-bg);color:var(--green);}
+  .status.pending{background:#fee2e2;color:#b91c1c;}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .chapter-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;cursor:pointer;background:#fff;}
+  .chapter-item:hover{border-color:var(--primary);background:var(--primary-light);}
+  .chapter-item .left{display:flex;align-items:center;gap:12px;}
+  .chapter-item .num{width:30px;height:30px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;}
+  .chapter-item.complete .num{background:var(--green-bg);color:var(--green);}
+  .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--primary-light);color:var(--primary);margin:0 4px 4px 0;}
+  .tag.easy{background:#dcfce7;color:var(--easy);}
+  .tag.moderate{background:#fef3c7;color:var(--moderate);}
+  .tag.difficult{background:#fee2e2;color:var(--difficult);}
+  .banner{background:var(--yellow-bg);border:1px solid #fde68a;border-radius:12px;padding:12px 14px;font-size:.88rem;margin-bottom:14px;}
+  .banner.info{background:var(--primary-light);border-color:#c7d2fe;}
+  .banner.demo{background:#ecfeff;border-color:#a5f3fc;}
+  ul.clean{margin:0;padding-left:20px;}
+  ul.clean li{margin-bottom:6px;}
+  .section-title{font-size:.75rem;font-weight:800;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin:22px 0 10px;}
+  /* MCQ */
+  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+  .qcounter{font-weight:800;color:var(--primary);letter-spacing:.03em;font-size:.85rem;}
+  .qtext{font-size:1.12rem;font-weight:700;margin:6px 0 16px;}
+  .option{display:flex;align-items:flex-start;gap:12px;border:1.5px solid var(--border);border-radius:12px;padding:13px 14px;margin-bottom:10px;background:#fff;transition:background .12s,border-color .12s;}
+  .option.clickable{cursor:pointer;}
+  .option.clickable:hover{border-color:var(--primary);background:var(--primary-light);}
+  .option .bullet{font-weight:800;width:22px;flex-shrink:0;}
+  .option.correct{background:var(--green-bg);border-color:var(--green-border);}
+  .option.incorrect{background:var(--red-bg);border-color:var(--red-border);}
+  .option .marker{margin-left:auto;font-weight:700;font-size:.85rem;white-space:nowrap;}
+  .feedback{border-radius:12px;padding:16px;margin-top:16px;}
+  .feedback.ok{background:var(--green-bg);border:1.5px solid var(--green-border);}
+  .feedback.bad{background:var(--red-bg);border:1.5px solid var(--red-border);}
+  .feedback h4{margin:0 0 8px;font-size:1.02rem;}
+  .feedback .explain{background:rgba(255,255,255,.6);border-radius:10px;padding:12px;margin-top:10px;font-size:.92rem;}
+  .feedback .explain h5{margin:0 0 6px;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  .whynot-item{margin-bottom:6px;font-size:.9rem;}
+  /* Result dashboard */
+  .result-hero{text-align:center;padding:26px 10px 10px;}
+  .score-big{font-size:2.6rem;font-weight:900;color:var(--primary);}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0;}
+  .stat-box{background:#fafafd;border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;}
+  .stat-box .num{font-size:1.4rem;font-weight:800;}
+  .stat-box .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+  .perf-badge{display:inline-block;font-weight:800;padding:6px 16px;border-radius:999px;margin-top:8px;font-size:.95rem;}
+  /* Caselet */
+  .case-text{background:#fafafd;border-left:4px solid var(--primary);border-radius:8px;padding:14px 16px;font-size:.95rem;white-space:pre-wrap;}
+  textarea.answer-box{width:100%;min-height:110px;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:.92rem;resize:vertical;}
+  textarea.answer-box:focus{outline:2px solid var(--primary);border-color:transparent;}
+  .model-answer{background:#fdfdff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:10px;}
+  .model-answer h5{margin:14px 0 4px;font-size:.85rem;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.03em;}
+  .model-answer h5:first-child{margin-top:0;}
+  .keypoints{background:var(--green-bg);border-radius:10px;padding:12px 14px;margin-top:12px;}
+  .keypoints li{list-style:none;margin-bottom:5px;}
+  .compare-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:640px){.compare-cols{grid-template-columns:1fr;} .stat-grid{grid-template-columns:repeat(3,1fr);} }
+  .divider{height:1px;background:var(--border);margin:16px 0;}
+  footer.appfoot{max-width:920px;margin:30px auto 0;padding:0 16px;color:var(--muted);font-size:.78rem;text-align:center;}
+  .icon-btn{background:none;border:none;color:var(--muted);font-size:1rem;padding:4px 8px;}
+  .difficulty-dist{display:flex;gap:14px;margin:10px 0;flex-wrap:wrap;}
+  .difficulty-dist .d-item{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .locked-note{background:#f8f9fc;border:1px dashed var(--border);border-radius:12px;padding:16px;color:var(--muted);font-size:.9rem;text-align:center;}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="inner">
+    <div class="brand" onclick="app.go('home')"><span class="logo">🎓</span> End-Sem Master Study System</div>
+    <div class="chip" id="headerChip">Overall: 0%</div>
+  </div>
+</header>
+<div class="wrap">
+  <nav class="crumbs" id="crumbs"></nav>
+  <main id="app"></main>
+</div>
+<footer class="appfoot">Works fully offline. Your progress is saved automatically on this device/browser.</footer>
+
+<script>
+/* ============================== DATA ============================== */
+const SUBJECTS = [
+  { id:'me', icon:'📈', name:'Managerial Economics', chapters:[
+    {id:'ch1', title:'Introduction to Managerial Economics & Economic Systems', topics:['Scarcity and Efficiency','Production Possibility Frontier (PPF)','Economic Systems','Economic role of Government']},
+    {id:'ch2', title:'Demand & Supply Analysis', topics:['Demand curve and its determinants','Supply curve and its determinants','Equilibrium and shifts of curves']},
+    {id:'ch3', title:'Elasticity & Consumer Behaviour', topics:['Price elasticity of demand','Marginal Revenue and elasticity','Consumer behaviour and utility','Consumer surplus']},
+    {id:'ch4', title:'Production Analysis', topics:['Short run production: AP, MP','Long run production: isoquants, MRTS, expansion path','Returns to scale']},
+    {id:'ch5', title:'Cost Analysis', topics:['Short run costs: AFC/AVC/MC/TFC/TVC/TC and their shapes','Connecting costs to production','Long run economies & diseconomies of scale and scope','Modern day LAC']},
+    {id:'ch6', title:'Revenue & Profit Maximisation', topics:['Revenue and Marginal Revenue','Profit maximisation','Loss but not shutdown, break-even']},
+    {id:'ch7', title:'Perfect Competition & Monopoly', topics:['Perfect competition: features, short & long run equilibrium','Efficiency under perfect competition','Monopoly: features, barriers to entry, equilibrium','Lerner\'s Index']},
+    {id:'ch8', title:'Price Discrimination & Monopolistic Competition', topics:['Price discrimination: types and examples','Monopolistic competition: features, equilibrium','Excess capacity']},
+    {id:'ch9', title:'Oligopoly & Measures of Economic Power', topics:['Oligopoly: cartel, sticky prices','Price leadership: types and concepts','HHI and Concentration Ratio (CR)']},
+    {id:'ch10', title:'Game Theory', topics:['Dominant strategy','Nash equilibrium','Prisoner\'s dilemma']},
+  ]},
+  { id:'mm', icon:'📣', name:'Marketing Management – I', chapters:[
+    {id:'ch1', title:'Introduction', topics:['Definition, Marketplace and Customer Needs','Customer-Driven Marketing Strategy','Marketing Myopia','Marketing Plan','Customer Relationship Marketing','Challenges for the 21st century']},
+    {id:'ch2', title:'Marketing Environment', topics:['Micro Environment','Macro Environment (PESTEL)','Global Environment','Responding to the Environment']},
+    {id:'ch3', title:'Strategic Planning & Marketing Process', topics:['Company-wise strategic planning','Marketing strategy and marketing mix','Managing the marketing effort']},
+    {id:'ch4', title:'Consumer Markets and Consumer Buyer Behavior', topics:['Model of Consumer Behaviour','Factors affecting Consumer Behaviour','Types of Buying Behaviour','Buyer Decision Process for New Products']},
+    {id:'ch5', title:'Customer-Driven Marketing Strategy', topics:['Market Segmentation, Targeting, Positioning','Differentiation, Competitive Frame of Reference','POP and POD','Positioning Statement','Mass Customization']},
+    {id:'ch6', title:'Products, Services and Brands', topics:['Brand Strategy & Decisions','Product & Services Strategy','PLC and marketing strategies','New Product Development','Co-creation and Leapfrogging']},
+    {id:'ch7', title:'Pricing Decisions', topics:['Concept of Price','Factors in setting prices','New product & product mix pricing strategies','Price adjustment strategies and price changes','Dynamic pricing, Yield pricing']},
+    {id:'ch8', title:'Channel Decisions – Distribution, Retailing & Wholesaling', topics:['Marketing channels: nature, importance, value delivery','Channel organization, design & conflict','Marketing logistics & supply chain','Retailing, Wholesaling, Disintermediation','Role of distribution in the digital era, E-tailing']},
+    {id:'ch9', title:'Integrated Marketing Communications', topics:['The Promotion Mix and Communication Process','Steps in developing marketing communication','Advertising, Sales Promotion, Public Relations','Personal selling and Sales Force Management']},
+  ]},
+  { id:'fm', icon:'💰', name:'Financial Management – I', chapters:[
+    {id:'ch1', title:'Introduction to Financial Management', topics:['Objectives, functions and scope','Interface with other functional areas','Profit maximization vs Wealth maximization','Agency problem']},
+    {id:'ch2', title:'Financial Markets', topics:['Functions and classification of financial markets','Money market instruments: T-bills, CPs, CDs, call money','Forex market, Government securities market','Capital market, Derivatives market, Participants']},
+    {id:'ch3', title:'Time Value of Money', topics:['Types of cash flows','Future value: single flow, multiple flows, annuity','Present value: single flow, multiple flows, annuity due, growing annuity','Perpetuity and growing perpetuity','Loan amortization schedule']},
+    {id:'ch4', title:'Primary & Secondary Markets', topics:['Public issues: IPO, FPO, Rights issue, Private placement','Intermediaries and process of IPO','Bonus and stock splits','Secondary market: trading, settlement, exchanges, indices']},
+    {id:'ch5', title:'Sources of Long-Term Finance', topics:['Equity and Preference capital','Debenture capital, Term loans','Leasing and Hire-purchase','Private Equity and Venture Capital','International markets: ADR, GDR, FCCB, Euro bonds, FDI']},
+    {id:'ch6', title:'Valuation of Securities – Bonds', topics:['Straight and perpetual bonds: valuation','Current yield, Yield to Maturity (YTM)','Yield curve','Risks in bond investment (conceptual)']},
+    {id:'ch7', title:'Valuation – Preference & Equity Shares', topics:['Preference shares: valuation and yield','Equity shares: Dividend Discount Model (DDM), CAPM']},
+    {id:'ch8', title:'Risk & Return', topics:['Risk & return of a single asset','Risk & return of a portfolio (Markowitz)','Measurement of market risk (Beta)','Efficient frontier and minimum variance portfolio','CAPM valuations']},
+    {id:'ch9', title:'Cost of Capital', topics:['Cost of debenture and term loans','Cost of equity capital and retained earnings','Weighted Average Cost of Capital (WACC)','Book value vs market value method']},
+  ]},
+  { id:'ism', icon:'💻', name:'Information Systems for Managers', chapters:[
+    {id:'ch1', title:'Information System Concepts & IT Infrastructure', topics:['Data vs Information, Attributes of Information Quality','IT infrastructure: H/W, S/W, Network resources','Computer networks: LAN, WAN, MAN, Internet, Intranet, Extranet']},
+    {id:'ch2', title:'Introduction to Organizational Systems', topics:['Types of Information Systems','Classification by organizational levels','TPS, MIS, EIS, DSS, ES']},
+    {id:'ch3', title:'Information System Development Concepts', topics:['Feasibility study: technical, behavioural, economical','SDLC – Waterfall model','Prototype model','RAD, JAD, SCRUM']},
+    {id:'ch4', title:'Database Management & ER Modelling', topics:['Database concepts and advantages','ER modelling: entities, attributes, relationships','Keys: Super, Primary, Candidate, Foreign, Composite, Alternate']},
+    {id:'ch5', title:'Introduction to SQL', topics:['Data types, creating tables with/without constraints','Primary key and Foreign key','Insert, Select, Update, Delete, Alter, Drop','Basic queries with joins']},
+    {id:'ch6', title:'Excel Essentials I – Text, Date & Basic Functions', topics:['Spreadsheet design, data entry & editing, cell referencing','Conditional formatting','LEFT, RIGHT, MID, LEN, TRIM, CONCAT, TEXTJOIN, TODAY, NOW','SUM, AVERAGE, COUNT, COUNTA, MAX, MIN, ROUND']},
+    {id:'ch7', title:'Excel Essentials II – Conditional, Lookup & Data Tools', topics:['SUMIF/S, COUNTIF/S, AVERAGEIF/S','IF, Nested IF, IFS, AND, OR, IFERROR','VLOOKUP, HLOOKUP, XLOOKUP, INDEX-MATCH','Sorting, Filtering, Data Validation','Pivot Tables, Pivot Charts, Slicers, Dashboards']},
+    {id:'ch8', title:'ERP, Supply Chain & CRM Applications', topics:['ERP implementation steps, success & failure, pros & cons','Supply chain management, Bullwhip effect, e-SCM','CRM and e-CRM: definition, components, functions']},
+  ]},
+  { id:'afm', icon:'📒', name:'Accounting for Managers', chapters:[
+    {id:'ch1', title:'Introduction to Accounting', topics:['Accounting concepts & conventions','Identifying business transactions','Journal, Ledger, Trial Balance']},
+    {id:'ch2', title:'Sole Proprietor – Final Accounts', topics:['Trading account, P&L account, Balance sheet','Adjustments to accounts']},
+    {id:'ch3', title:'Inventory Valuation', topics:['Importance of inventory valuation','FIFO and Weighted Average Method (WAM)']},
+    {id:'ch4', title:'Depreciation', topics:['Meaning and reasons for depreciation','Straight Line Method (SLM)','Written Down Value method (WDV)']},
+    {id:'ch5', title:'Final Accounts of a Company', topics:['Schedule III of the Companies Act, 2013','P&L account and Balance sheet format','Notes to accounts: provisions, reserves, transfers, depreciation']},
+    {id:'ch6', title:'Cash Flow Statements', topics:['Need and importance','Direct vs Indirect method','Preparation as per Indirect method with adjustments']},
+    {id:'ch7', title:'Understanding Annual Reports & Analysis', topics:['Need and importance of an Annual Report','Composition and content of the report']},
+    {id:'ch8', title:'Ratio Analysis', topics:['Profitability, liquidity, capital, leverage & turnover ratios','Ratio formulae and interpretation']},
+  ]},
+  { id:'ba', icon:'📊', name:'Business Analytics – I', chapters:[
+    {id:'ch1', title:'Introduction to Analytics & Data Types', topics:['Analytical methods & models, categorization of analytics','Types of data, scales of measurement','Questionnaire design','Data visualization using Power BI']},
+    {id:'ch2', title:'Measures of Location & Variability', topics:['Arithmetic mean, weighted mean, geometric mean, CAGR','Standard deviation (sample & population)','Coefficient of variance']},
+    {id:'ch3', title:'Probability & Bayes\' Theorem', topics:['Contingency tables: marginal probability','Addition rule, multiplication rule, conditional probability','Bayes\' theorem']},
+    {id:'ch4', title:'Discrete & Normal Probability Distributions', topics:['Discrete distribution: E(X) and V(X)','Normal distribution and business decisions','Z-table calculations']},
+    {id:'ch5', title:'Sampling Techniques & Estimation', topics:['Probabilistic and non-probabilistic sampling','Confidence interval for mean and proportion','Sample size determination']},
+    {id:'ch6', title:'Hypothesis Testing', topics:['One-sample test of hypothesis for mean and proportion','Excel output interpretation for independent & dependent t-tests']},
+    {id:'ch7', title:'Chi-Square & ANOVA', topics:['Chi-square: test of independence','ANOVA: hypothesis, F value, Sig value, business implications']},
+    {id:'ch8', title:'Correlation & Covariance', topics:['Measures of association between two variables']},
+  ]},
+  { id:'ob', icon:'🧠', name:'Organizational Behaviour', chapters:[
+    {id:'ch1', title:'Individual Learning and Behaviour', topics:['Definition and theoretical process of learning','Application of learning theories for behaviour modification']},
+    {id:'ch2', title:'Attitudes, Values and Job Satisfaction', topics:['Components, sources and types of attitude','Cognitive dissonance theory, Values','Measuring job satisfaction and its effect on performance']},
+    {id:'ch3', title:'Perception', topics:['Factors influencing perception, perceptual selectivity','Rational decision making model, bounded rationality','Perception, decision making and ethics']},
+    {id:'ch4', title:'Personality', topics:['Meaning and determinants of personality','Personality traits, the Big Five model','Emotional labour']},
+    {id:'ch5', title:'Emotional Intelligence', topics:['Emotions and feelings','Aspects of Emotional Intelligence']},
+    {id:'ch6', title:'Motivation', topics:['Meaning of motivation','Primary, general and secondary motives','Content theories of motivation','Process theories of motivation']},
+    {id:'ch7', title:'Groups and Teams', topics:['Types of groups, stages of group development','Informal groups: norms and roles','Teams vs groups, types of teams, quality circles','Group decision-making']},
+    {id:'ch8', title:'Leadership', topics:['Leader vs Manager','Contingency theories: Fiedler, situational, path-goal','Leadership styles: autocratic, democratic, laissez-faire','Transactional, transformational & charismatic leadership']},
+    {id:'ch9', title:'Power, Authority & Politics', topics:['Power vs Authority, bases of power','Power structures and blocks','Impression management, political behaviour']},
+    {id:'ch10', title:'Conflict & Collaboration', topics:['Sources of conflict: intra-individual, interpersonal, intergroup','Organizational conflict and negotiations','Approaches to conflict management, collaboration']},
+    {id:'ch11', title:'Organizational Structure', topics:['Centralization vs Decentralization','Flat vs Tall structures, Departmentalization','Behavioural implications of organizational design']},
+    {id:'ch12', title:'Organizational Culture', topics:['Meaning, creating and sustaining culture','Culture as a liability, employee acculturation','Countries and culture, organizational climate']},
+    {id:'ch13', title:'Organizational Change', topics:['Forces for change, managing planned change','Resistance to change, approaches to managing change','Organizational development and action research']},
+  ]},
+];
+
+// Each real chapter starts with no study material / MCQs / caselets until notes are supplied.
+SUBJECTS.forEach(s=>{ s.caselets = []; s.chapters.forEach(c=>{ c.material=null; c.mcqs=[]; }); });
+
+/* ---------------- DEMO MODULE (sample content to try the system) ---------------- */
+const DEMO_CHAPTER = {
+  id:'demo', title:'Sample Chapter: Motivation', topics:['Meaning of motivation','Content theories (Maslow, Herzberg, McClelland)','Process theories (Vroom, Adams, Locke)'],
+  material:{
+    overview:"Motivation refers to the forces that influence the **direction, intensity and persistence** of a person's effort toward a goal. In management, we study motivation to understand why employees put in effort, what keeps them going, and how organizations can channel that effort productively.",
+    concepts:[
+      {term:'Content theories', explanation:'Focus on WHAT motivates people — i.e. the specific needs or factors that drive behaviour. Examples: Maslow\'s Hierarchy of Needs, Herzberg\'s Two-Factor Theory, McClelland\'s Acquired Needs Theory.'},
+      {term:'Process theories', explanation:'Focus on HOW motivation happens — the thinking process a person goes through. Examples: Vroom\'s Expectancy Theory, Adams\' Equity Theory, Locke\'s Goal-Setting Theory.'},
+      {term:"Herzberg's Two-Factor Theory", explanation:'Hygiene factors (salary, working conditions, company policy) prevent dissatisfaction but do not motivate by themselves. Motivator factors (recognition, achievement, growth) create real motivation and satisfaction.'},
+      {term:"Adams' Equity Theory", explanation:'People compare their own input-to-outcome ratio with that of others. If they perceive unfairness (inequity), motivation drops.'},
+      {term:"Locke's Goal-Setting Theory", explanation:'Specific and challenging goals lead to higher performance than vague or easy goals, provided the person accepts the goal and gets feedback.'},
+    ],
+    examples:[
+      "A employee who is paid well (hygiene factor satisfied) but never gets recognised for good work may still feel unmotivated — this shows hygiene factors alone don't drive motivation (Herzberg).",
+      "Two employees doing the same job for the same pay: if one believes they work harder than the other, they may feel demotivated even though pay is 'equal' — this is Adams' Equity Theory in action.",
+      "A sales team given a specific quarterly number (e.g. '₹50 lakh by March') usually outperforms a team told to simply 'do your best' — this is Locke's Goal-Setting Theory.",
+    ],
+    revision:[
+      'Motivation = forces that affect direction, intensity, persistence of effort.',
+      'Content theories = WHAT motivates (Maslow, Herzberg, McClelland).',
+      'Process theories = HOW motivation happens (Vroom, Adams, Locke).',
+      'Herzberg: Hygiene ≠ Motivator.',
+      'Equity theory: fairness of input/outcome ratio vs others.',
+      'Goal-setting: specific + challenging > vague goals.',
+    ]
+  },
+  mcqs:[
+    {difficulty:'easy', q:"Which of the following best describes motivation?", options:[
+      "Ability to control employees",
+      "Forces that influence a person's direction, intensity and persistence",
+      "Process of evaluating financial performance",
+      "Method of organizational restructuring"
+    ], correct:1,
+    why:"Motivation refers to the forces that influence the direction, intensity and persistence of a person's effort.",
+    whyNot:{0:"This describes control/authority, not motivation.",2:"This relates to financial performance evaluation, a finance concept.",3:"This relates to organizational change, not motivation."}},
+
+    {difficulty:'easy', q:"Maslow's Hierarchy of Needs is generally represented as:", options:[
+      "A random list of needs with no order",
+      "A pyramid moving from basic physiological needs to self-actualization",
+      "A cycle that repeats every year",
+      "A single need that applies equally to everyone"
+    ], correct:1,
+    why:"Maslow arranged human needs into a five-level pyramid, starting from basic physiological needs at the bottom and rising to self-actualization at the top. Lower needs must generally be satisfied before higher ones motivate behaviour.",
+    whyNot:{0:"Maslow's needs are arranged in a specific hierarchical order, not randomly.",2:"It is not a repeating annual cycle; it's a hierarchy of priority.",3:"Different people can be at different levels — it's not one single universal need."}},
+
+    {difficulty:'moderate', q:"According to Herzberg's Two-Factor Theory, which of the following is a HYGIENE factor?", options:[
+      "Recognition for good work",
+      "Salary and working conditions",
+      "Sense of achievement",
+      "Opportunities for growth"
+    ], correct:1,
+    why:"Hygiene factors are related to the job context (e.g. salary, working conditions, company policy). They prevent dissatisfaction but do not by themselves create strong motivation.",
+    whyNot:{0:"Recognition is a motivator factor — it drives satisfaction and motivation.",2:"Achievement is a motivator factor, related to the content of the work itself.",3:"Growth opportunities are a motivator factor, not a hygiene factor."}},
+
+    {difficulty:'moderate', q:"McClelland's Acquired Needs Theory identifies three needs. Which of these is NOT one of them?", options:[
+      "Need for Achievement",
+      "Need for Power",
+      "Need for Affiliation",
+      "Need for Security"
+    ], correct:3,
+    why:"McClelland's theory proposes three learned/acquired needs: Achievement (nAch), Power (nPow), and Affiliation (nAff). Security is not part of this model — it appears instead in Maslow's hierarchy.",
+    whyNot:{0:"Need for Achievement IS one of McClelland's three needs.",1:"Need for Power IS one of McClelland's three needs.",2:"Need for Affiliation IS one of McClelland's three needs."}},
+
+    {difficulty:'moderate', q:"Vroom's Expectancy Theory states that motivation depends on:", options:[
+      "Only the size of the financial reward offered",
+      "Effort–Performance link, Performance–Reward link, and the Valence (value) of the reward",
+      "The organization's hierarchy structure alone",
+      "Peer pressure alone"
+    ], correct:1,
+    why:"Vroom's theory says motivation = Expectancy (effort will lead to performance) × Instrumentality (performance will lead to reward) × Valence (how much the person values that reward). All three must be positive for strong motivation.",
+    whyNot:{0:"Reward size alone ignores whether the person believes effort will actually lead to that reward.",2:"Hierarchy structure is an organizational design topic, not part of expectancy theory.",3:"Peer pressure is a social/group influence factor, not part of Vroom's model."}},
+
+    {difficulty:'moderate', q:"Which type of theory would Herzberg's Two-Factor Theory be classified as?", options:[
+      "Content theory",
+      "Process theory",
+      "Contingency theory",
+      "Trait theory"
+    ], correct:0,
+    why:"Herzberg's theory identifies WHAT specific factors (hygiene vs motivator) affect motivation — this makes it a content theory, like Maslow's and McClelland's theories.",
+    whyNot:{1:"Process theories (like Vroom, Adams, Locke) explain HOW the motivation process unfolds, not what the underlying needs are.",2:"Contingency theories are typically associated with leadership (e.g. Fiedler), not motivation content.",3:"Trait theory is associated with personality and leadership studies, not motivation."}},
+
+    {difficulty:'difficult', q:"A manager pays two employees, A and B, the same salary for the same job. Employee A believes they put in more effort than B, but receives the same reward — and A starts reducing effort. This is best explained by:", options:[
+      "Maslow's Hierarchy of Needs",
+      "Adams' Equity Theory",
+      "Herzberg's Two-Factor Theory",
+      "McClelland's Need for Power"
+    ], correct:1,
+    why:"Adams' Equity Theory explains that people compare their own input-to-outcome ratio to that of others. When Employee A perceives an unfair ratio (more input, same output as B), motivation drops and effort is reduced to restore a sense of fairness.",
+    whyNot:{0:"Maslow's theory is about a hierarchy of needs, not about fairness comparisons between people.",2:"Herzberg's theory concerns hygiene vs motivator factors in the job itself, not social comparison.",3:"Need for Power concerns a desire to influence others, not perceived unfairness of reward."}},
+
+    {difficulty:'difficult', q:"A sales team is given a very specific and challenging quarterly target ('₹50 lakh by March 31') instead of a vague instruction like 'do your best', and performance improves significantly. This scenario best illustrates:", options:[
+      "Herzberg's hygiene factors",
+      "Locke's Goal-Setting Theory",
+      "Maslow's safety needs",
+      "McClelland's need for affiliation"
+    ], correct:1,
+    why:"Locke's Goal-Setting Theory shows that specific, challenging goals (with feedback and acceptance by the employee) lead to significantly higher performance than vague or easy goals such as 'do your best'.",
+    whyNot:{0:"Hygiene factors relate to job context like pay and conditions, not goal specificity.",2:"Safety needs relate to job security and physical/financial safety, not goal clarity.",3:"Need for affiliation is about the desire for social relationships, unrelated to how the target was framed."}},
+  ]
+};
+
+const DEMO_CASELET = {
+  id:'demo-cs', title:'TechNova Solutions — The Disengaged Sales Team', difficulty:'Moderate',
+  topics:['Motivation','Leadership','Equity Theory','Goal-Setting Theory'],
+  caseText: `TechNova Solutions is a mid-sized B2B software company. Ritika, one of its top sales executives, has consistently exceeded her quarterly targets for two years. Despite this, she has never been publicly recognised — her manager, Arjun, tends to take credit for team wins in front of senior leadership and rarely gives individual feedback. Over the last two quarters, Ritika's performance has started slipping, and she has told a colleague she feels "invisible" despite the results she delivers.
+
+Meanwhile, the rest of the sales team has been given only a vague instruction this quarter — "push hard and do your best" — with no specific number attached. Team performance has been inconsistent, and two team members have resigned in the last month citing "lack of direction and appreciation." Arjun manages the team in a highly autocratic style, making all decisions himself and rarely asking for input. HR has flagged rising attrition in the sales function and has asked you, as a management trainee, to analyse the situation.`,
+  questions:[
+    { marks:2, text:'Identify the primary behavioural issue affecting Ritika in this case.',
+      answer:{ issue:'Ritika is experiencing **demotivation despite strong performance**, caused by a lack of recognition from her manager.', concept:'This is best explained by **Herzberg\'s Two-Factor Theory** — recognition is a *motivator* factor, and its absence is causing dissatisfaction even though hygiene factors (pay) are presumably fine.', conclusion:'Without recognition, even high performers like Ritika can disengage over time.' , keyPoints:['Identifies lack of recognition as the issue','Links it to Herzberg\'s motivator factors']}
+    },
+    { marks:5, text:"Which theory best explains Arjun's leadership approach and its effect on team morale? What kind of leadership does this situation call for?",
+      answer:{
+        issue:"Arjun's **autocratic leadership style** — making all decisions himself, taking credit for team success, and giving no individual feedback — is directly damaging team morale and contributing to attrition.",
+        concept:"This can be examined through **leadership styles** (autocratic vs democratic vs laissez-faire) and **transformational leadership** theory.",
+        explanation:"Autocratic leaders centralise decision-making and rarely involve the team, which can work in high-pressure, low-skill situations but is damaging for skilled, experienced employees like Ritika who need autonomy and recognition. Transformational leaders, by contrast, inspire through vision, individualised consideration, and recognition of contribution.",
+        application:"In TechNova's case, Arjun's autocratic style removes any sense of ownership from the team, and by taking credit himself, he also removes the *motivator* factor of recognition (Herzberg) for his best performer, Ritika.",
+        recommendation:"Arjun should shift toward a more **participative/transformational style** — involving the team in goal-setting, giving individual credit publicly, and providing regular feedback.",
+        conclusion:"A leadership style mismatch between an autocratic manager and a team of skilled, achievement-oriented employees is a key driver of the morale problem at TechNova."
+      , keyPoints:['Correctly identifies autocratic leadership as the concept','Explains why it demotivates skilled employees','Links to recognition/Herzberg','Gives a concrete leadership recommendation']}
+    },
+    { marks:5, text:"Using McClelland's theory, explain what might be driving Ritika's need beyond monetary reward, and how TechNova could address it.",
+      answer:{
+        issue:"Ritika continues to outperform targets even without extra pay, suggesting her motivation is not primarily financial.",
+        concept:"**McClelland's Acquired Needs Theory** is useful here, specifically the **need for Achievement (nAch)** and possibly **need for Power (nPow)** in the sense of wanting influence/recognition, not necessarily authority over others.",
+        explanation:"People high in nAch seek to excel, want regular feedback on performance, and prefer moderately challenging goals with visible outcomes — recognition and a sense of accomplishment matter more to them than money alone.",
+        application:"Ritika's consistent over-performance combined with her feeling 'invisible' strongly suggests a high need for achievement that is currently unmet — she is not being given feedback or credit for her accomplishments.",
+        recommendation:"TechNova should introduce structured recognition (e.g. 'top performer of the quarter' visibility to leadership), give Ritika stretch assignments or mentoring responsibilities, and ensure Arjun gives regular individual feedback.",
+        conclusion:"Addressing Ritika's achievement need through recognition and growth opportunities is likely to be more effective than a purely monetary intervention."
+      , keyPoints:['Correctly applies McClelland\'s nAch','Explains why non-monetary factors matter for high achievers','Gives specific, actionable recommendations']}
+    },
+    { marks:8, text:"As an HR consultant, prepare a detailed action plan for TechNova combining Herzberg's Two-Factor Theory, Adams' Equity Theory, and Locke's Goal-Setting Theory to rebuild motivation and reduce attrition in the sales team.",
+      answer:{
+        issue:"TechNova's sales team is facing falling morale and rising attrition due to three compounding problems: (1) lack of recognition for top performers like Ritika, (2) an autocratic manager who takes credit for team success, and (3) vague, non-specific targets ('do your best') given to the wider team this quarter.",
+        concept:"Three motivation theories are directly relevant: **Herzberg's Two-Factor Theory** (hygiene vs motivator factors), **Adams' Equity Theory** (fairness of input-outcome comparisons), and **Locke's Goal-Setting Theory** (specific, challenging goals improve performance).",
+        explanation:"Herzberg shows that hygiene factors like salary prevent dissatisfaction but do not create motivation — only motivators like recognition and achievement do. Equity theory shows that when high performers see their effort go unrecognised relative to peers or relative to what they contribute, motivation drops even without an actual pay cut. Goal-setting theory shows that vague instructions like 'do your best' consistently produce weaker performance than specific, challenging, accepted goals with feedback.",
+        application:"At TechNova: Ritika's disengagement is a Herzberg/motivator problem (no recognition) compounded by an equity problem (Arjun takes credit for team wins, so her individual contribution is invisible relative to her input). The wider team's inconsistent performance is a goal-setting problem — 'push hard and do your best' gives no specific, measurable target.",
+        analysis:"These three issues reinforce each other: an autocratic manager who does not set specific goals AND does not recognise individual contribution creates a team where employees cannot see a fair link between their effort and any visible outcome — a textbook combination of low motivator-factor presence, perceived inequity, and poor goal clarity.",
+        recommendation:"1. **Recognition system**: Introduce a monthly/quarterly individual recognition process visible to senior leadership (addresses Herzberg's motivator gap).\n2. **Fair credit allocation**: Require Arjun to explicitly attribute results to individual contributors in leadership updates (addresses equity concerns).\n3. **Specific goal-setting**: Replace vague targets with SMART, individually assigned targets with regular feedback check-ins (addresses Locke's theory).\n4. **Leadership coaching**: Coach Arjun toward a more participative style, involving the team in setting their own stretch goals.\n5. **Retention conversation**: Have HR conduct a direct, confidential conversation with Ritika to signal that her contribution is recognised at the organizational level, independent of Arjun.",
+        conclusion:"By combining recognition (Herzberg), fairness in credit-sharing (Equity Theory), and specific goal-setting (Locke), TechNova can address the root causes of disengagement rather than just its symptoms, and is likely to see improved morale and reduced attrition within one to two quarters."
+      , keyPoints:['Integrates all three theories explicitly','Diagnoses both Ritika\'s issue and the wider team issue separately','Provides a clear, numbered action plan','Has a proper introduction, application, analysis and conclusion structure — exam-ready format']}
+    },
+  ]
+};
+
+/* ============================== STORAGE ============================== */
+const STORAGE_KEY = 'essms_progress_v1';
+function loadProgress(){
+  try{ const raw = localStorage.getItem(STORAGE_KEY); return raw? JSON.parse(raw) : {subjects:{}, demo:{}}; }
+  catch(e){ return {subjects:{}, demo:{}}; }
+}
+function saveProgress(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(PROGRESS)); }catch(e){} }
+let PROGRESS = loadProgress();
+function ensureSubj(sid){ if(!PROGRESS.subjects[sid]) PROGRESS.subjects[sid] = {chapters:{}, caselets:{}}; return PROGRESS.subjects[sid]; }
+function ensureChap(sid,cid){ const s=ensureSubj(sid); if(!s.chapters[cid]) s.chapters[cid] = {read:false, complete:false, attempts:0, best:null, last:null}; return s.chapters[cid]; }
+function ensureCaselet(sid,csid){ const s=ensureSubj(sid); if(!s.caselets[csid]) s.caselets[csid] = {answers:{}, viewedModel:false, completed:false}; return s.caselets[csid]; }
+function ensureDemoChap(){ if(!PROGRESS.demo.chapter) PROGRESS.demo.chapter = {read:false, complete:false, attempts:0, best:null, last:null}; return PROGRESS.demo.chapter; }
+function ensureDemoCaselet(){ if(!PROGRESS.demo.caselet) PROGRESS.demo.caselet = {answers:{}, viewedModel:false, completed:false}; return PROGRESS.demo.caselet; }
+
+/* ============================== UTIL ============================== */
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function md(s){ if(!s) return ''; return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function fmtTime(ms){ const s=Math.round(ms/1000); const m=Math.floor(s/60); const ss=s%60; return m+':'+String(ss).padStart(2,'0'); }
+function perfLabel(pct){
+  if(pct>=85) return {label:'Excellent', color:'var(--green)', bg:'var(--green-bg)'};
+  if(pct>=70) return {label:'Very Good', color:'var(--primary)', bg:'var(--primary-light)'};
+  if(pct>=50) return {label:'Good — Revise Weak Areas', color:'var(--moderate)', bg:'#fef3c7'};
+  return {label:'Needs Serious Revision', color:'var(--red)', bg:'var(--red-bg)'};
+}
+function diffColor(d){ return d==='easy'?'var(--easy)': d==='moderate'?'var(--moderate)':'var(--difficult)'; }
+function diffTag(d){ return '<span class="tag '+d+'">'+ (d==='easy'?'🟢 Easy':d==='moderate'?'🟡 Moderate':'🔴 Difficult') +'</span>'; }
+function letters(i){ return ['A','B','C','D'][i]; }
+
+function findSubject(sid){ return SUBJECTS.find(s=>s.id===sid); }
+function findChapter(sid,cid){ const s=findSubject(sid); return s? s.chapters.find(c=>c.id===cid): null; }
+function findCaselet(sid,csid){ const s=findSubject(sid); return s? s.caselets.find(c=>c.id===csid): null; }
+
+function subjectStats(s){
+  const total = s.chapters.length;
+  let done = 0;
+  s.chapters.forEach(c=>{ const st = PROGRESS.subjects[s.id] && PROGRESS.subjects[s.id].chapters[c.id]; if(st && st.complete) done++; });
+  const csTotal = s.caselets.length;
+  let csDone = 0;
+  s.caselets.forEach(cs=>{ const st = PROGRESS.subjects[s.id] && PROGRESS.subjects[s.id].caselets[cs.id]; if(st && st.completed) csDone++; });
+  const hasContent = s.chapters.some(c=>c.mcqs.length>0);
+  const overallUnits = total + csTotal;
+  const overallDone = done + csDone;
+  const pct = overallUnits? Math.round((overallDone/overallUnits)*100) : 0;
+  return {total, done, csTotal, csDone, pct, hasContent};
+}
+function overallStats(){
+  let unitsAll=0, doneAll=0;
+  SUBJECTS.forEach(s=>{ const st=subjectStats(s); unitsAll += st.total+st.csTotal; doneAll += st.done+st.csDone; });
+  return unitsAll? Math.round((doneAll/unitsAll)*100) : 0;
+}
+
+/* ============================== ROUTER ============================== */
+const app = {};
+let ROUTE = {view:'home'};
+function parseHash(){
+  const h = location.hash.replace(/^#\/?/, '');
+  const parts = h.split('/').filter(Boolean);
+  if(parts.length===0) return {view:'home'};
+  const view = parts[0];
+  if(view==='subject') return {view, sid:parts[1]};
+  if(view==='chapter') return {view, sid:parts[1], cid:parts[2]};
+  if(view==='mcq') return {view, sid:parts[1], cid:parts[2]};
+  if(view==='caselets') return {view, sid:parts[1]};
+  if(view==='caselet') return {view, sid:parts[1], csid:parts[2]};
+  if(view==='demo-chapter') return {view};
+  if(view==='demo-mcq') return {view};
+  if(view==='demo-caselet') return {view};
+  return {view:'home'};
+}
+app.go = function(view, params){
+  params = params || {};
+  let hash = '#/'+view;
+  if(params.sid) hash += '/'+params.sid;
+  if(params.cid) hash += '/'+params.cid;
+  if(params.csid) hash += '/'+params.csid;
+  location.hash = hash;
+};
+window.addEventListener('hashchange', render);
+
+/* live MCQ test session (in-memory) */
+let TEST = null; // {sid,cid,isDemo,questions,idx,answers[],startTime,locked,selected}
+let CASELET_DRAFT = {}; // temp textarea buffer keyed by qi during editing (also saved to PROGRESS on blur)
+
+/* ============================== RENDER: SHELL ============================== */
+function render(){
+  ROUTE = parseHash();
+  document.getElementById('headerChip').textContent = 'Overall: '+overallStats()+'%';
+  const el = document.getElementById('app');
+  const crumbs = document.getElementById('crumbs');
+  let crumbHtml = '<a onclick="app.go(\'home\')">🏠 Home</a>';
+  let bodyHtml = '';
+  try{
+    if(ROUTE.view==='home'){ bodyHtml = renderHome(); }
+    else if(ROUTE.view==='subject'){ const s=findSubject(ROUTE.sid); if(!s) return app.go('home');
+      crumbHtml += ' <span>›</span> <a onclick="app.go(\'subject\',{sid:\''+s.id+'\'})">'+esc(s.name)+'</a>';
+      bodyHtml = renderSubject(s);
+    }
+    else if(ROUTE.view==='chapter'){ const s=findSubject(ROUTE.sid); const c=s&&findChapter(s.id,ROUTE.cid); if(!s||!c) return app.go('home');
+      crumbHtml += ' <span>›</span> <a onclick="app.go(\'subject\',{sid:\''+s.id+'\'})">'+esc(s.name)+'</a> <span>›</span> '+esc(c.title);
+      bodyHtml = renderChapter(s,c);
+    }
+    else if(ROUTE.view==='mcq'){ const s=findSubject(ROUTE.sid); const c=s&&findChapter(s.id,ROUTE.cid); if(!s||!c) return app.go('home');
+      crumbHtml += ' <span>›</span> <a onclick="app.go(\'chapter\',{sid:\''+s.id+'\',cid:\''+c.id+'\'})">'+esc(c.title)+'</a> <span>›</span> MCQ Test';
+      bodyHtml = renderMcqScreen(s,c,false);
+    }
+    else if(ROUTE.view==='caselets'){ const s=findSubject(ROUTE.sid); if(!s) return app.go('home');
+      crumbHtml += ' <span>›</span> <a onclick="app.go(\'subject\',{sid:\''+s.id+'\'})">'+esc(s.name)+'</a> <span>›</span> Caselets';
+      bodyHtml = renderCaseletList(s);
+    }
+    else if(ROUTE.view==='caselet'){ const s=findSubject(ROUTE.sid); const cs=s&&findCaselet(s.id,ROUTE.csid); if(!s||!cs) return app.go('home');
+      crumbHtml += ' <span>›</span> <a onclick="app.go(\'caselets\',{sid:\''+s.id+'\'})">Caselets</a> <span>›</span> '+esc(cs.title);
+      bodyHtml = renderCaseletDetail(s,cs,false);
+    }
+    else if(ROUTE.view==='demo-chapter'){ crumbHtml += ' <span>›</span> Sample Chapter'; bodyHtml = renderChapter(null, DEMO_CHAPTER, true); }
+    else if(ROUTE.view==='demo-mcq'){ crumbHtml += ' <span>›</span> Sample Chapter <span>›</span> MCQ Test'; bodyHtml = renderMcqScreen(null, DEMO_CHAPTER, true); }
+    else if(ROUTE.view==='demo-caselet'){ crumbHtml += ' <span>›</span> Sample Caselet'; bodyHtml = renderCaseletDetail(null, DEMO_CASELET, true); }
+    else { bodyHtml = renderHome(); }
+  }catch(err){
+    bodyHtml = '<div class="card"><p><strong>Something went wrong rendering this page.</strong></p><p class="muted">'+esc(err.message)+'</p><button class="btn" onclick="app.go(\'home\')">Back to Home</button></div>';
+  }
+  crumbs.innerHTML = crumbHtml;
+  el.innerHTML = bodyHtml;
+  window.scrollTo(0,0);
+}
+
+/* ============================== RENDER: HOME ============================== */
+function renderHome(){
+  let html = '';
+  html += '<h1>🎓 End-Sem Master Study System</h1>';
+  html += '<p class="muted">MBA / PGPM Semester I — Class of 2028. Your personal offline study, test and caselet-practice companion.</p>';
+
+  html += '<div class="card banner demo">';
+  html += '<strong>🧪 New here? Try the interactive system first.</strong><br>';
+  html += 'Before we build your real subjects, try a fully working <strong>sample chapter</strong> (topic: Motivation) so you can see exactly how the MCQ tests, instant feedback, explanations and caselet model-answers work.';
+  html += '<div class="btn-row"><button class="btn" onclick="app.go(\'demo-chapter\')">Open Sample Chapter →</button></div>';
+  html += '</div>';
+
+  const pct = overallStats();
+  html += '<div class="card">';
+  html += '<div class="row"><h2 style="margin:0">Overall Progress</h2><strong>'+pct+'%</strong></div>';
+  html += '<div class="progress-bar" style="margin-top:8px"><div style="width:'+pct+'%"></div></div>';
+  html += '<p class="muted" style="margin-top:10px">7 subjects · Chapters + End-Sem Caselets, tracked automatically as you complete them.</p>';
+  html += '</div>';
+
+  html += '<div class="section-title">Your Subjects</div>';
+  html += '<div class="grid">';
+  SUBJECTS.forEach(s=>{
+    const st = subjectStats(s);
+    let statusClass='notstarted', statusText='Notes needed';
+    if(!st.hasContent){ statusClass='pending'; statusText='Awaiting your notes'; }
+    else if(st.pct===0){ statusClass='notstarted'; statusText='Not started'; }
+    else if(st.pct===100){ statusClass='done'; statusText='Completed ✅'; }
+    else { statusClass='inprogress'; statusText='In progress'; }
+    html += '<div class="subject-card" onclick="app.go(\'subject\',{sid:\''+s.id+'\'})">';
+    html += '<div class="icon">'+s.icon+'</div>';
+    html += '<h3 style="margin:8px 0 4px">'+esc(s.name)+'</h3>';
+    html += '<div class="muted" style="font-size:.85rem">'+s.chapters.length+' chapters</div>';
+    html += '<div class="progress-bar thin" style="margin:10px 0 4px"><div style="width:'+st.pct+'%"></div></div>';
+    html += '<div class="row"><span class="muted" style="font-size:.8rem">'+st.pct+'% complete</span><span class="status '+statusClass+'">'+statusText+'</span></div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  html += '<div class="section-title">How This System Works</div>';
+  html += '<div class="card"><ol class="clean" style="padding-left:22px">';
+  ['Read the chapter study material','Attempt the chapter MCQ test with instant green/red feedback','Read every explanation, even for correct answers','Review wrong answers and mark the chapter complete','Once all chapters in a subject are done, practice the End-Sem Caselets','Compare your written answers with full exam-style model answers','Track your progress on this dashboard until every subject is 100% complete'].forEach((t,i)=>{
+    html += '<li>'+esc(t)+'</li>';
+  });
+  html += '</ol></div>';
+  return html;
+}
+
+/* ============================== RENDER: SUBJECT ============================== */
+function renderSubject(s){
+  const st = subjectStats(s);
+  let html = '<h1>'+s.icon+' '+esc(s.name)+'</h1>';
+  html += '<div class="progress-bar" style="margin:10px 0"><div style="width:'+st.pct+'%"></div></div>';
+  html += '<p class="muted">'+st.done+' / '+st.total+' chapters complete · '+st.csDone+' / '+st.csTotal+' caselets complete</p>';
+
+  if(!st.hasContent){
+    html += '<div class="card banner">📩 <strong>This subject is waiting for your notes.</strong> Once you share the material for <strong>'+esc(s.name)+'</strong>, chapters, MCQ tests and caselets will be built here. Chapter titles below come straight from your official syllabus so you know what\'s coming.</div>';
+  }
+
+  html += '<div class="section-title">Chapters</div>';
+  s.chapters.forEach((c,i)=>{
+    const cs = PROGRESS.subjects[s.id] && PROGRESS.subjects[s.id].chapters[c.id];
+    const complete = cs && cs.complete;
+    const hasMcqs = c.mcqs.length>0;
+    html += '<div class="chapter-item '+(complete?'complete':'')+'" onclick="app.go(\'chapter\',{sid:\''+s.id+'\',cid:\''+c.id+'\'})">';
+    html += '<div class="left"><div class="num">'+(complete?'✓':(i+1))+'</div><div><div style="font-weight:700">'+esc(c.title)+'</div>';
+    html += '<div class="muted" style="font-size:.8rem">'+(hasMcqs? c.mcqs.length+' MCQs available' : 'Notes not added yet')+(cs&&cs.best? ' · Best score '+cs.best.score+'/'+cs.best.total : '')+'</div></div></div>';
+    html += '<div>'+(complete?'<span class="status done">Done</span>':(hasMcqs?'<span class="status inprogress">Open</span>':'<span class="status pending">Pending</span>'))+'</div>';
+    html += '</div>';
+  });
+
+  html += '<div class="section-title">End-Sem Caselet Practice</div>';
+  if(st.csTotal===0){
+    html += '<div class="card locked-note">Caselets for this subject will be added once all chapters are built (10–12 large caselets, exam-style model answers). None yet — nothing to worry about, this comes after the chapters.</div>';
+  } else {
+    html += '<div class="card"><div class="row"><strong>Completed: '+st.csDone+' / '+st.csTotal+'</strong><span>'+Math.round((st.csDone/st.csTotal)*100)+'%</span></div>';
+    html += '<div class="progress-bar thin" style="margin-top:8px"><div style="width:'+(st.csTotal? Math.round((st.csDone/st.csTotal)*100):0)+'%"></div></div>';
+    html += '<div class="btn-row"><button class="btn" onclick="app.go(\'caselets\',{sid:\''+s.id+'\'})">Open Caselets →</button></div></div>';
+  }
+  return html;
+}
+
+/* ============================== RENDER: CHAPTER (study material) ============================== */
+function renderChapter(s, c, isDemo){
+  const sid = isDemo? null : s.id;
+  const state = isDemo? ensureDemoChap() : ensureChap(sid, c.id);
+  state.read = true; saveProgress();
+
+  let html = '';
+  if(isDemo) html += '<div class="banner demo">🧪 This is the sample chapter — safe to explore freely, it does not count toward any real subject\'s progress.</div>';
+  html += '<h1>'+esc(c.title)+'</h1>';
+  html += '<div style="margin-bottom:10px">'+c.topics.map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div>';
+
+  if(!c.material){
+    html += '<div class="card locked-note">📖 Study material for this chapter has not been added yet — it will appear here once notes for this subject are shared. Topics for this chapter are listed above so you know what to expect.</div>';
+    html += '<div class="btn-row"><button class="btn secondary" onclick="history.back()">← Back</button></div>';
+    return html;
+  }
+
+  const m = c.material;
+  html += '<div class="card"><h2>📘 Overview</h2><p>'+md(m.overview)+'</p></div>';
+  html += '<div class="card"><h2>🧩 Key Concepts</h2>';
+  m.concepts.forEach(k=>{ html += '<div style="margin-bottom:12px"><strong>'+esc(k.term)+'</strong><p style="margin:4px 0 0">'+md(k.explanation)+'</p></div>'; });
+  html += '</div>';
+  html += '<div class="card"><h2>💡 Worked Examples</h2><ul class="clean">';
+  m.examples.forEach(ex=>{ html += '<li>'+md(ex)+'</li>'; });
+  html += '</ul></div>';
+  html += '<div class="card"><h2>⚡ Quick Revision</h2><ul class="clean">';
+  m.revision.forEach(r=>{ html += '<li>'+md(r)+'</li>'; });
+  html += '</ul></div>';
+
+  const hasMcqs = c.mcqs.length>0;
+  html += '<div class="card">';
+  html += '<div class="row"><h2 style="margin:0">📝 MCQ Test</h2>'+(state.best? '<span class="muted">Best: '+state.best.score+'/'+state.best.total+' ('+state.best.percent+'%)</span>':'')+'</div>';
+  if(hasMcqs){
+    const dist = {easy:0,moderate:0,difficult:0}; c.mcqs.forEach(q=>dist[q.difficulty]++);
+    html += '<div class="difficulty-dist">';
+    html += '<div class="d-item"><span class="dot" style="background:var(--easy)"></span>Easy '+dist.easy+'</div>';
+    html += '<div class="d-item"><span class="dot" style="background:var(--moderate)"></span>Moderate '+dist.moderate+'</div>';
+    html += '<div class="d-item"><span class="dot" style="background:var(--difficult)"></span>Difficult '+dist.difficult+'</div>';
+    html += '</div>';
+    html += '<div class="btn-row">';
+    html += '<button class="btn" onclick="app.go(\''+(isDemo?'demo-mcq':'mcq')+'\',{sid:\''+(sid||'')+'\',cid:\''+c.id+'\'})">Start MCQ Test ('+c.mcqs.length+' Questions) →</button>';
+    if(state.complete){ html += '<span class="status done" style="align-self:center">Chapter Complete ✅</span>'; }
+    else if(state.attempts>0){ html += '<button class="btn green" onclick="app.markComplete(\''+(sid||'')+'\',\''+c.id+'\','+(isDemo?'true':'false')+')">Mark Chapter Complete ✅</button>'; }
+    html += '</div>';
+  } else {
+    html += '<div class="locked-note">MCQs for this chapter will appear once notes are added.</div>';
+  }
+  html += '</div>';
+
+  html += '<div class="btn-row"><button class="btn secondary" onclick="history.back()">← Back</button></div>';
+  return html;
+}
+
+app.markComplete = function(sid, cid, isDemo){
+  const state = isDemo? ensureDemoChap() : ensureChap(sid,cid);
+  state.complete = true; saveProgress(); render();
+};
+
+/* ============================== MCQ TEST ENGINE ============================== */
+function startTest(sid, c, isDemo){
+  TEST = { sid, cid:c.id, isDemo, chapterTitle:c.title,
+    questions: shuffle(c.mcqs.map((q,idx)=>({...q, _origIndex:idx}))),
+    idx:0, answers:[], startTime:Date.now(), selected:null, locked:false };
+}
+function renderMcqScreen(s,c,isDemoFlag){
+  const isDemo = isDemoFlag;
+  const sid = isDemo? null : s.id;
+  if(!TEST || TEST.cid!==c.id || TEST.isDemo!==isDemo){ startTest(sid,c,isDemo); }
+  if(TEST.idx >= TEST.questions.length){ return renderMcqResult(sid,c,isDemo); }
+  const q = TEST.questions[TEST.idx];
+  let html = '<div class="card">';
+  html += '<div class="qmeta"><span class="qcounter">QUESTION '+(TEST.idx+1)+' / '+TEST.questions.length+'</span>'+diffTag(q.difficulty)+'</div>';
+  html += '<div class="qtext">'+esc(q.question || q.q)+'</div>';
+
+  q.options.forEach((opt,i)=>{
+    let cls = 'option';
+    let marker = '';
+    const bullet = ['A','B','C','D'][i];
+    if(TEST.locked){
+      cls += ' locked';
+      if(i===q.correct){ cls+=' correct'; marker = '🟩 Correct Answer'; }
+      else if(i===TEST.selected){ cls+=' incorrect'; marker = '🟥 Your Answer'; }
+    } else {
+      cls += ' clickable';
+    }
+    html += '<div class="'+cls+'" '+(TEST.locked?'':'onclick="app.selectOption('+i+')"')+'>';
+    html += '<span class="bullet">'+bullet+'.</span><span>'+esc(opt)+'</span>';
+    if(marker) html += '<span class="marker">'+marker+'</span>';
+    html += '</div>';
+  });
+
+  if(TEST.locked){
+    const correct = TEST.selected === q.correct;
+    html += '<div class="feedback '+(correct?'ok':'bad')+'">';
+    if(correct){
+      html += '<h4>✅ CORRECT!</h4><p>Your answer: <strong>'+letters(TEST.selected)+'</strong></p>';
+    } else {
+      html += '<h4>❌ INCORRECT</h4>';
+      html += '<p>🟥 Your Answer: <strong>'+letters(TEST.selected)+'</strong> — Incorrect<br>🟩 Correct Answer: <strong>'+letters(q.correct)+'</strong></p>';
+    }
+    html += '<div class="explain"><h5>Why?</h5><p>'+md(q.why)+'</p>';
+    if(q.whyNot && Object.keys(q.whyNot).length){
+      html += '<h5 style="margin-top:12px">Why not the others?</h5>';
+      Object.keys(q.whyNot).sort().forEach(k=>{
+        html += '<div class="whynot-item"><strong>'+letters(+k)+'</strong> — '+md(q.whyNot[k])+'</div>';
+      });
+    }
+    html += '</div></div>';
+    html += '<div class="btn-row">';
+    html += '<button class="btn" onclick="app.nextQuestion()">'+(TEST.idx===TEST.questions.length-1?'Finish Test →':'Next Question →')+'</button>';
+    html += '<button class="btn ghost" onclick="app.resetTest()">↺ Restart Test</button>';
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+app.selectOption = function(i){
+  if(!TEST || TEST.locked) return;
+  TEST.selected = i;
+  TEST.locked = true;
+  const q = TEST.questions[TEST.idx];
+  TEST.answers.push({ qIndex:TEST.idx, selected:i, correct: i===q.correct });
+  render();
+};
+app.nextQuestion = function(){
+  if(!TEST) return;
+  TEST.idx++; TEST.locked=false; TEST.selected=null;
+  render();
+};
+app.resetTest = function(){
+  if(!TEST) return;
+  const sid = TEST.sid, cid = TEST.cid, isDemo = TEST.isDemo;
+  const c = isDemo? DEMO_CHAPTER : findChapter(sid,cid);
+  startTest(sid, c, isDemo);
+  render();
+};
+
+function renderMcqResult(sid,c,isDemo){
+  const total = TEST.questions.length;
+  const correctCount = TEST.answers.filter(a=>a.correct).length;
+  const wrongCount = total - correctCount;
+  const percent = Math.round((correctCount/total)*100);
+  const timeMs = Date.now() - TEST.startTime;
+  const perf = perfLabel(percent);
+
+  const state = isDemo? ensureDemoChap() : ensureChap(sid, c.id);
+  state.attempts = (state.attempts||0)+1;
+  state.last = { score:correctCount, total, percent, answers:TEST.answers, questions:TEST.questions, time:timeMs, date:Date.now() };
+  if(!state.best || percent > state.best.percent){ state.best = { score:correctCount, total, percent }; }
+  saveProgress();
+
+  let html = '<div class="card result-hero">';
+  html += '<div class="muted" style="letter-spacing:.1em;font-weight:800;font-size:.8rem">TEST COMPLETE</div>';
+  html += '<div class="score-big">'+correctCount+' / '+total+'</div>';
+  html += '<div class="muted">'+percent+'%</div>';
+  html += '<div class="perf-badge" style="background:'+perf.bg+';color:'+perf.color+'">'+perf.label+'</div>';
+  html += '<div class="stat-grid">';
+  html += '<div class="stat-box"><div class="num" style="color:var(--green)">🟩 '+correctCount+'</div><div class="lbl">Correct</div></div>';
+  html += '<div class="stat-box"><div class="num" style="color:var(--red)">🟥 '+wrongCount+'</div><div class="lbl">Wrong</div></div>';
+  html += '<div class="stat-box"><div class="num">⏱ '+fmtTime(timeMs)+'</div><div class="lbl">Time Taken</div></div>';
+  html += '</div>';
+  html += '<div class="btn-row" style="justify-content:center">';
+  html += '<button class="btn" onclick="app.go(\''+(isDemo?'demo-mcq':'mcq')+'\',{sid:\''+(sid||'')+'\',cid:\''+c.id+'\'});app.showReview=true;render();">📋 Review Answers</button>';
+  html += '<button class="btn secondary" onclick="app.resetTest()">↺ Retake Test</button>';
+  html += '<button class="btn ghost" onclick="'+(isDemo?"app.go('demo-chapter')":"app.go('chapter',{sid:'"+sid+"',cid:'"+c.id+"'})")+'">← Back to Chapter</button>';
+  html += '</div></div>';
+
+  if(app.showReview){
+    html += '<div class="section-title">Review Answers</div>';
+    TEST.questions.forEach((q,i)=>{
+      const a = TEST.answers[i];
+      html += '<div class="card"><div class="qmeta"><span class="qcounter">QUESTION '+(i+1)+'</span>'+diffTag(q.difficulty)+'</div>';
+      html += '<div class="qtext" style="font-size:1rem">'+esc(q.question||q.q)+'</div>';
+      html += '<p>'+(a.correct? '✅ Your Answer: <strong>'+letters(a.selected)+'</strong> — Correct' : '🟥 Your Answer: <strong>'+letters(a.selected)+'</strong> — Incorrect &nbsp;|&nbsp; 🟩 Correct Answer: <strong>'+letters(q.correct)+'</strong>')+'</p>';
+      html += '<div class="explain"><h5>Explanation</h5><p>'+md(q.why)+'</p></div>';
+      html += '</div>';
+    });
+    app.showReview = false;
+  }
+  return html;
+}
+
+/* ============================== CASELETS ============================== */
+function renderCaseletList(s){
+  const st = subjectStats(s);
+  let html = '<h1>🎯 End-Sem Caselets — '+esc(s.name)+'</h1>';
+  html += '<div class="card"><div class="row"><strong>Completed: '+st.csDone+' / '+st.csTotal+'</strong><span>'+(st.csTotal? Math.round((st.csDone/st.csTotal)*100):0)+'%</span></div>';
+  html += '<div class="progress-bar" style="margin-top:8px"><div style="width:'+(st.csTotal? Math.round((st.csDone/st.csTotal)*100):0)+'%"></div></div></div>';
+  s.caselets.forEach((cs,i)=>{
+    const state = PROGRESS.subjects[s.id] && PROGRESS.subjects[s.id].caselets[cs.id];
+    const done = state && state.completed;
+    html += '<div class="chapter-item '+(done?'complete':'')+'" onclick="app.go(\'caselet\',{sid:\''+s.id+'\',csid:\''+cs.id+'\'})">';
+    html += '<div class="left"><div class="num">'+(done?'✓':(i+1))+'</div><div><div style="font-weight:700">'+esc(cs.title)+'</div>';
+    html += '<div class="muted" style="font-size:.8rem">'+cs.questions.length+' questions · '+cs.topics.join(', ')+'</div></div></div>';
+    html += '<div>'+diffTag(cs.difficulty.toLowerCase())+'</div>';
+    html += '</div>';
+  });
+  return html;
+}
+
+function renderCaseletDetail(s, cs, isDemo){
+  const sid = isDemo? null : s.id;
+  const state = isDemo? ensureDemoCaselet() : ensureCaselet(sid, cs.id);
+  let html = '';
+  if(isDemo) html += '<div class="banner demo">🧪 Sample caselet — try writing an answer, then reveal the model answer to compare.</div>';
+  html += '<h1>'+esc(cs.title)+'</h1>';
+  html += '<div style="margin:6px 0 14px">'+diffTag(cs.difficulty.toLowerCase())+' '+cs.topics.map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div>';
+  html += '<div class="card"><h2>📄 Case</h2><div class="case-text">'+esc(cs.caseText)+'</div></div>';
+
+  cs.questions.forEach((q,i)=>{
+    const savedAns = state.answers['q'+i] || '';
+    html += '<div class="card"><h3>QUESTION '+(i+1)+' <span class="muted" style="font-weight:500;font-size:.85rem">('+q.marks+' marks)</span></h3>';
+    html += '<p>'+esc(q.text)+'</p>';
+    html += '<label class="muted" style="font-size:.8rem;font-weight:700">YOUR ANSWER</label>';
+    html += '<textarea class="answer-box" placeholder="Write your exam-style answer here..." onchange="app.saveCaseletAnswer(\''+(sid||'')+'\',\''+cs.id+'\','+(isDemo?'true':'false')+','+i+',this.value)">'+esc(savedAns)+'</textarea>';
+
+    if(state.viewedModel){
+      const a = q.answer;
+      html += '<div class="model-answer"><h4 style="margin-top:0">✅ MODEL ANSWER</h4>';
+      if(a.issue) html += '<h5>1. Identify the Issue</h5><p>'+md(a.issue)+'</p>';
+      if(a.concept) html += '<h5>2. Relevant Concept / Theory</h5><p>'+md(a.concept)+'</p>';
+      if(a.explanation) html += '<h5>3. Explanation</h5><p>'+md(a.explanation)+'</p>';
+      if(a.application) html += '<h5>4. Application to the Case</h5><p>'+md(a.application)+'</p>';
+      if(a.analysis) html += '<h5>5. Analysis</h5><p>'+md(a.analysis)+'</p>';
+      if(a.recommendation) html += '<h5>6. Recommendation / Solution</h5><p>'+md(a.recommendation)+'</p>';
+      if(a.conclusion) html += '<h5>7. Conclusion</h5><p>'+md(a.conclusion)+'</p>';
+      if(a.keyPoints && a.keyPoints.length){
+        html += '<div class="keypoints"><strong style="font-size:.82rem;text-transform:uppercase;color:var(--green)">Key Points You Should Have Included</strong><ul style="padding-left:4px;margin-top:8px">';
+        a.keyPoints.forEach(k=>{ html += '<li>✓ '+esc(k)+'</li>'; });
+        html += '</ul></div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+
+  html += '<div class="card">';
+  if(!state.viewedModel){
+    html += '<div class="btn-row"><button class="btn" onclick="app.showModelAnswers(\''+(sid||'')+'\',\''+cs.id+'\','+(isDemo?'true':'false')+')">🔓 Show Model Answers</button></div>';
+    html += '<p class="muted" style="margin-top:10px;font-size:.85rem">Tip: try writing your own answer first — that\'s how real exam practice works. Model answers stay hidden until you click above.</p>';
+  } else {
+    html += '<div class="status done" style="display:inline-block">Caselet marked complete ✅</div>';
+  }
+  html += '<div class="btn-row"><button class="btn secondary" onclick="'+(isDemo?"app.go('home')":"app.go('caselets',{sid:'"+sid+"'})")+'">← Back</button></div>';
+  html += '</div>';
+  return html;
+}
+app.saveCaseletAnswer = function(sid, csid, isDemo, qi, val){
+  const state = isDemo? ensureDemoCaselet() : ensureCaselet(sid,csid);
+  state.answers['q'+qi] = val;
+  saveProgress();
+};
+app.showModelAnswers = function(sid, csid, isDemo){
+  const state = isDemo? ensureDemoCaselet() : ensureCaselet(sid,csid);
+  state.viewedModel = true; state.completed = true;
+  saveProgress(); render();
+};
+
+/* Attach demo data as a caselet on a virtual subject for list rendering re-use (not shown in real subjects) */
+
+/* ============================== INIT ============================== */
+render();
+</script>
+</body>
+</html>
