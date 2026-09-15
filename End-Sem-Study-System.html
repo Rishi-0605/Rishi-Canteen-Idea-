@@ -218,6 +218,449 @@ const SUBJECTS = [
 // Each real chapter starts with no study material / MCQs / caselets until notes are supplied.
 SUBJECTS.forEach(s=>{ s.caselets = []; s.chapters.forEach(c=>{ c.material=null; c.mcqs=[]; }); });
 
+/* ---------------- OB SUBJECT CONTENT (built from official course PPT notes) ---------------- */
+(function(){
+  const ob = SUBJECTS.find(s=>s.id==='ob');
+  function setCh(id, material, mcqs){ const c = ob.chapters.find(c=>c.id===id); c.material = material; c.mcqs = mcqs; }
+
+  /* ===================== CH1: Individual Learning & Behaviour ===================== */
+  setCh('ch1', {
+    overview: "**Learning** is the acquisition of knowledge and skills through study, practice and experience. Fred Luthans defines it as *a relatively permanent change in behaviour that occurs as a result of experience or reinforced practice*; Stephen Robbins gives a near-identical definition. Three major theories explain how learning happens: **Classical Conditioning** (learning by association), **Operant Conditioning** (learning by consequences), and **Social Learning Theory** (learning by observation).",
+    concepts:[
+      {term:'Classical Conditioning (Pavlov)', explanation:"States that behaviour is learned through repetitive association between a stimulus and a response — 'learning by association'. Key elements: Unconditioned Stimulus (naturally triggers a response), Unconditioned Response (the natural reaction), Conditioned Stimulus (a neutral stimulus that becomes linked to the unconditioned stimulus), Conditioned Response (the learned reaction to the conditioned stimulus). Applications include Generalization, Discrimination, Extinction and Speedy Recovery."},
+      {term:'Operant Conditioning (Skinner)', explanation:"Says people repeat responses that are rewarded and stop responses that are not rewarded or are punished — behaviour is voluntary and is shaped by its consequences."},
+      {term:'Consequences of Reinforcement', explanation:"**Positive Reinforcement** — a reward that increases a desired behaviour. **Negative Reinforcement** — removing something unpleasant, which also increases a desired behaviour. **Punishment** — decreases undesired behaviour (Positive punishment = adding something unpleasant; Negative punishment = removing something pleasant). **Extinction** — a behaviour decreases because no consequence follows it at all."},
+      {term:'Schedules of Reinforcement', explanation:"Continuous (reward every time — fast learning), Fixed Interval (average, regular performance), Variable Interval (moderately high, stable performance), Fixed Ratio (high, stable performance), Variable Ratio (very high performance — e.g. commission-based sales)."},
+      {term:'Social Learning Theory (Bandura)', explanation:"People learn by observing others: they form a mental image of the behaviour, then reproduce it. Models can be Actual, Verbal or Symbolic. The 4 steps of modelling behaviour are: Attention → Retention → Reproduction → Motivation."},
+    ],
+    examples:[
+      "A manager compliments an employee every time work is completed on schedule → **Positive Reinforcement** (increases the desired behaviour).",
+      "Unpaid overtime continues until work is completed on schedule, then stops → **Negative Reinforcement** (removing something unpleasant increases the desired behaviour).",
+      "A company suspends an employee for repeated policy violations → **Punishment** (decreases the undesired behaviour).",
+      "A manager stops reacting to an employee's habitual complaining, and the complaining gradually disappears → **Extinction**.",
+      "A new employee watches a senior colleague calmly handle an angry customer, and later copies the same approach successfully → **Social Learning Theory**.",
+    ],
+    revision:[
+      'Learning = relatively permanent change in behaviour due to experience/practice (Luthans, Robbins).',
+      'Classical Conditioning = learning by ASSOCIATION (Pavlov).',
+      'Operant Conditioning = learning by CONSEQUENCES (Skinner) — behaviour is voluntary.',
+      'Positive reinforcement = ADD something pleasant to increase behaviour.',
+      'Negative reinforcement = REMOVE something unpleasant to increase behaviour.',
+      'Punishment = decreases behaviour; Extinction = behaviour fades from lack of any consequence.',
+      'Variable ratio schedule → very high, most stable performance.',
+      'Social Learning (Bandura) = learning by OBSERVATION. Steps: Attention → Retention → Reproduction → Motivation.',
+    ]
+  }, [
+    {difficulty:'easy', q:"According to Stephen Robbins, learning is best defined as:", options:["A temporary change in behaviour due to mood","A relatively permanent change in behaviour that occurs as a result of experience","Any change in personality over time","A one-time reaction to a single stimulus"], correct:1,
+      why:"Both Robbins and Luthans define learning as a relatively permanent change in behaviour resulting from experience or reinforced practice — the change has to be lasting, not momentary.",
+      whyNot:{0:"A mood-based change is temporary, not the relatively permanent change that defines learning.",2:"Personality is a broader, more stable set of traits — learning refers specifically to behaviour change from experience.",3:"A single reaction to one stimulus, without any lasting change, is not learning."}},
+    {difficulty:'easy', q:"Classical Conditioning theory, associated with Ivan Pavlov, is also known as:", options:["Learning by consequence","Learning by observation","Learning by association","Learning by trial and error"], correct:2,
+      why:"Classical conditioning explains behaviour learned through repetitive association between a stimulus and a response — hence 'learning by association'.",
+      whyNot:{0:"Learning by consequence describes Operant Conditioning (Skinner), not Classical Conditioning.",1:"Learning by observation describes Social Learning Theory (Bandura).",3:"Trial and error is not the mechanism Pavlov's theory describes."}},
+    {difficulty:'moderate', q:"A manager compliments an employee every time their work is completed on schedule, and the employee's punctuality improves. This is an example of:", options:["Positive Reinforcement","Negative Reinforcement","Punishment","Extinction"], correct:0,
+      why:"A reward (the compliment) is added, and it increases the desired behaviour (punctuality) — this is exactly Positive Reinforcement.",
+      whyNot:{1:"Negative reinforcement involves removing something unpleasant, not adding a reward like a compliment.",2:"Punishment is meant to decrease undesired behaviour, not increase a desired one.",3:"Extinction means a behaviour fades due to no consequence at all — here a consequence (praise) is clearly given."}},
+    {difficulty:'moderate', q:"An employee's unpaid overtime requirement is removed only once they start completing work on schedule. This is an example of:", options:["Positive Reinforcement","Negative Reinforcement","Extinction","Positive Punishment"], correct:1,
+      why:"Something unpleasant (the unpaid overtime) is removed as a consequence of the desired behaviour, which increases that desired behaviour — this is Negative Reinforcement.",
+      whyNot:{0:"Positive reinforcement adds a reward; here, something unpleasant is being taken away instead.",2:"Extinction would mean no consequence follows at all — here removing overtime is a clear consequence.",3:"Punishment aims to decrease behaviour; here the desired behaviour is being increased, and nothing unpleasant is being added."}},
+    {difficulty:'moderate', q:"A manager completely stops reacting to an employee's habitual complaining, and the complaining gradually disappears. This illustrates:", options:["Positive Reinforcement","Punishment","Extinction","Negative Reinforcement"], correct:2,
+      why:"Extinction occurs when a behaviour decreases because no consequence — reward or punishment — follows it anymore. Here the manager's silence removes any consequence for complaining.",
+      whyNot:{0:"No reward is being given at all in this scenario.",1:"No unpleasant consequence is introduced — the manager is simply not reacting.",3:"Negative reinforcement requires removing something unpleasant to increase a desired behaviour; here a behaviour is decreasing, not increasing."}},
+    {difficulty:'moderate', q:"Which reinforcement schedule is associated with the HIGHEST and most stable performance, typically seen in commission-based sales roles?", options:["Fixed interval","Continuous reinforcement","Variable ratio","Fixed ratio"], correct:2,
+      why:"A Variable Ratio schedule (rewards given after a varying, unpredictable amount of output — like commissions after unpredictable numbers of sales) produces very high and highly stable performance, because people keep trying not knowing exactly when the next reward will come.",
+      whyNot:{0:"Fixed interval schedules typically produce only average, regular performance.",1:"Continuous reinforcement is best for quickly teaching a NEW behaviour, but is not the highest-performance schedule for sustained effort.",3:"Fixed ratio produces high and stable performance, but variable ratio produces even higher performance since the reward timing is unpredictable."}},
+    {difficulty:'difficult', q:"According to Bandura's Social Learning Theory, which is the correct order of steps in modelling behaviour?", options:["Motivation → Attention → Retention → Reproduction","Attention → Retention → Reproduction → Motivation","Retention → Attention → Motivation → Reproduction","Reproduction → Attention → Retention → Motivation"], correct:1,
+      why:"Bandura's model requires a person to first pay Attention to the model's behaviour, Retain a mental image of it, be physically/mentally able to Reproduce it, and finally be Motivated to actually perform it.",
+      whyNot:{0:"Motivation cannot come before Attention — you must first notice the behaviour before wanting to copy it.",2:"You cannot retain something before paying attention to it first.",3:"Reproduction must come after attention and retention, not before them."}},
+    {difficulty:'difficult', q:"A new employee watches a senior colleague handle an angry customer calmly, and later applies the same approach successfully herself. This is best explained by:", options:["Classical Conditioning","Operant Conditioning","Social Learning Theory","Positive Reinforcement alone"], correct:2,
+      why:"The employee learned an entirely new behaviour purely by observing someone else and later reproducing it — this is the essence of Bandura's Social Learning Theory.",
+      whyNot:{0:"Classical conditioning requires an association built through repeated pairing of stimuli, not observation of another person.",1:"Operant conditioning requires the employee's OWN behaviour to be directly rewarded or punished, which isn't described here.",3:"No reward is mentioned as the cause of the new employee's behaviour — she learned by watching, not by being reinforced."}},
+  ]);
+
+  /* ===================== CH2: Attitudes, Values and Job Satisfaction ===================== */
+  setCh('ch2', {
+    overview: "**Attitudes** are the feelings and beliefs that largely determine how employees perceive their environment, commit to actions, and ultimately behave (Newstrom & Davis). Every attitude has three components — the **ABC model**: Cognitive (beliefs), Affective (feelings) and Behavioural (intended action). Three important work-related attitudes are **Job Satisfaction**, **Job Involvement** and **Organizational Commitment**. **Values** (Robbins) are basic, stable convictions about what conduct or end-states are preferable — they guide behaviour and rarely change. When beliefs and behaviour contradict each other, people experience **Cognitive Dissonance** — mental discomfort that they try to reduce.",
+    concepts:[
+      {term:'ABC Model of Attitude', explanation:"Cognitive = rational beliefs/opinions/knowledge about the job. Affective = the emotional feeling — liking or disliking. Behavioural = the person's intention to act in a certain way (though they may or may not actually act on it)."},
+      {term:'Job Satisfaction vs Job Involvement vs Organizational Commitment', explanation:"Job Satisfaction (Locke) = a pleasurable emotional state from appraising one's job. Job Involvement = the degree to which an employee invests time/energy in the job and sees it as central to their self-image. Organizational Commitment = the degree of identification with, and loyalty to, the organization as a whole."},
+      {term:'Factors affecting Job Satisfaction', explanation:"Organizational factors: pay, nature of work, supervision, working conditions, promotion, policies, equitable rewards. Individual factors: age, status, marital status, education, occupation level, interest, general life satisfaction. Measured via Likert scale, summation score, interviews, critical incidents."},
+      {term:"Rokeach's Values — Terminal vs Instrumental", explanation:"Terminal values = desired END-STATES of existence (e.g. happiness, self-respect, inner harmony). Instrumental values = preferred MODES OF CONDUCT / means to reach them (e.g. honesty, courage, self-control)."},
+      {term:'Cognitive Dissonance', explanation:"Experienced when a person holds two or more contradictory beliefs, ideas or values, or when behaviour is inconsistent with belief — creating uncomfortable tension. Reduced by: changing the behaviour, changing the conflicting cognition, adding a new justifying cognition, or ignoring the conflicting information."},
+      {term:"Hofstede's Cultural Dimensions", explanation:"Individualism vs Collectivism (loose ties vs strong group identity); Power Distance (acceptability of unequal power); Uncertainty Avoidance (comfort with ambiguity); Masculinity vs Femininity (competition/achievement vs relationships/quality of life); Long-term vs Short-term Orientation (future-oriented thrift vs tradition); Restraint vs Indulgence (controlled vs free gratification of desires)."},
+    ],
+    examples:[
+      "Statement: 'My job is lacking responsibility.' → Cognitive: the job is important to the person; Affective: the person dislikes the job; Behavioural: the person may or may not quit.",
+      "A manager values honesty but hides information from employees → **Cognitive Dissonance** between belief and behaviour.",
+      "A sustainability officer personally values the environment but works for a highly polluting company → another classic case of cognitive dissonance.",
+      "India shows Higher Power Distance and Moderate Individualism compared to the USA (Lower Power Distance, High Individualism) — explaining why Indian workplaces are often more hierarchical.",
+    ],
+    revision:[
+      'Attitude = feelings & beliefs that shape perception, commitment and behaviour (Newstrom & Davis).',
+      'ABC model: Cognitive (belief) — Affective (feeling) — Behavioural (intended action).',
+      'Job Satisfaction = feeling about the job; Job Involvement = psychological investment in the job; Organizational Commitment = loyalty to the organization.',
+      'Terminal values = END-STATES (e.g. happiness); Instrumental values = MEANS/conduct (e.g. honesty).',
+      'Cognitive Dissonance = mental discomfort from contradictory beliefs/behaviour — reduced by changing behaviour, changing cognition, adding cognition, or ignoring conflicting info.',
+      'Hofstede: Individualism/Collectivism, Power Distance, Uncertainty Avoidance, Masculinity/Femininity, Long/Short-term Orientation, Restraint/Indulgence.',
+    ]
+  }, [
+    {difficulty:'easy', q:"In the ABC model of attitude, the Affective component refers to:", options:["A person's beliefs and knowledge about the job","The emotional feeling — liking or disliking — a person has","The person's intended behaviour","The organization's official policy"], correct:1,
+      why:"The Affective component is the emotional aspect of an attitude — whether the feelings involved are positive, negative or neutral, i.e. liking or disliking.",
+      whyNot:{0:"Beliefs and knowledge describe the Cognitive component, not the Affective one.",2:"Intended behaviour describes the Behavioural component.",3:"Organizational policy isn't part of the individual's attitude components at all."}},
+    {difficulty:'easy', q:"Which of these is NOT one of the three components of attitude in the ABC model?", options:["Cognitive","Affective","Behavioural","Conditional"], correct:3,
+      why:"The ABC model consists of exactly three components: Cognitive, Affective and Behavioural. 'Conditional' is not one of them.",
+      whyNot:{0:"Cognitive IS one of the three ABC components.",1:"Affective IS one of the three ABC components.",2:"Behavioural IS one of the three ABC components."}},
+    {difficulty:'moderate', q:"An employee says, 'My job is lacking responsibility, so I don't like it, and I might quit.' The phrase 'I don't like it' represents which component of attitude?", options:["Cognitive","Affective","Behavioural","Instrumental"], correct:1,
+      why:"'I don't like it' expresses an emotional/feeling reaction — this is the Affective component of the attitude.",
+      whyNot:{0:"'My job is lacking responsibility' (the belief) is the Cognitive component, not this phrase.",2:"'I might quit' (the intended action) is the Behavioural component, not this phrase.",3:"'Instrumental' is a type of value, not a component of the ABC attitude model."}},
+    {difficulty:'moderate', q:"Which type of work attitude is defined as 'the degree to which an employee identifies with the organization and would continue actively participating in it'?", options:["Job Satisfaction","Job Involvement","Organizational Commitment","Cognitive Dissonance"], correct:2,
+      why:"This is the definition of Organizational Commitment — it reflects loyalty to, and identification with, the organization as a whole.",
+      whyNot:{0:"Job Satisfaction is a feeling about the job itself, not identification with the organization.",1:"Job Involvement is about psychological investment in the job/work itself, not organizational loyalty.",3:"Cognitive Dissonance is mental discomfort from contradictory beliefs, unrelated to this definition."}},
+    {difficulty:'moderate', q:"According to Rokeach's Value Survey, 'Self-respect' and 'Happiness' are examples of:", options:["Instrumental values","Terminal values","Moral values","Traditional values"], correct:1,
+      why:"Terminal values represent desired END-STATES of existence that a person wants to achieve in their lifetime — happiness and self-respect are classic examples.",
+      whyNot:{0:"Instrumental values are preferred MODES OF CONDUCT (means), like honesty or courage — not end-states.",2:"'Moral and Social values' is a separate value classification, and happiness/self-respect are specifically Rokeach's terminal values.",3:"'Traditional vs Modern values' is a different classification altogether."}},
+    {difficulty:'moderate', q:"A sustainability officer who personally values environmental protection continues to work for a highly polluting company. This is best described as:", options:["Job Involvement","Cognitive Dissonance","Organizational Commitment","Positive affectivity"], correct:1,
+      why:"There is a direct contradiction between the officer's personal belief (protecting the environment) and their behaviour (working for a polluter), which creates uncomfortable mental tension — this is Cognitive Dissonance.",
+      whyNot:{0:"Job Involvement is about psychological investment in one's job tasks, not a belief-behaviour conflict.",2:"Organizational Commitment is about loyalty to the organization, which this scenario doesn't directly test.",3:"Positive affectivity refers to a generally positive disposition, not a contradiction between belief and action."}},
+    {difficulty:'moderate', q:"Which of the following is NOT one of the four ways to reduce cognitive dissonance covered in class?", options:["Change the conflicting behaviour","Justify the behaviour by adding new cognition","Ignore information that conflicts with existing beliefs","Report the conflict to senior management"], correct:3,
+      why:"The four recognised ways to reduce dissonance are: change the behaviour, change the conflicting cognition, add a new justifying cognition, or ignore the conflicting information. 'Reporting to senior management' is not one of these psychological coping mechanisms.",
+      whyNot:{0:"Changing the behaviour IS one of the four recognised ways.",1:"Adding a new cognition to justify the behaviour IS one of the four recognised ways.",2:"Ignoring conflicting information IS one of the four recognised ways."}},
+    {difficulty:'difficult', q:"A country where employees are comfortable calling their CEO by their first name, and hierarchy is seen as relatively unimportant, best reflects which Hofstede dimension?", options:["High Power Distance","Low Power Distance","High Uncertainty Avoidance","Collectivism"], correct:1,
+      why:"Low Power Distance describes a society that views unequal distribution of power as relatively unacceptable — employees feel comfortable treating superiors informally, such as using first names.",
+      whyNot:{0:"High Power Distance societies accept unequal power and hierarchy strongly — the opposite of this scenario.",2:"Uncertainty Avoidance concerns comfort with ambiguity and unpredictability, not power hierarchy.",3:"Collectivism concerns group identity and loose vs strong bonds, not hierarchy and power distance."}},
+    {difficulty:'difficult', q:"A company operating in a culture with High Uncertainty Avoidance is best advised to:", options:["Give employees loosely defined roles and encourage improvisation","Provide clear rules, structured processes and predictable procedures","Avoid any documentation or formal policy","Rotate job roles frequently without notice"], correct:1,
+      why:"High Uncertainty Avoidance cultures prefer predictable situations and have low tolerance for ambiguity, so clear rules and structured, predictable processes fit them best.",
+      whyNot:{0:"Loosely defined roles and improvisation suit LOW uncertainty avoidance cultures, which tolerate ambiguity well — the opposite of this culture.",2:"Avoiding documentation would increase ambiguity, which a high uncertainty-avoidance culture specifically dislikes.",3:"Frequent, unannounced role changes would create exactly the unpredictability this culture tries to avoid."}},
+    {difficulty:'difficult', q:"Which pair correctly matches a Hofstede dimension with its accurate description?", options:["Masculinity – valuing relationships and quality of life over competition","Individualism – stronger bonds to groups, with group membership forming self-identity","Long-term Orientation – future-oriented, values thrift and persistence","Restraint – free gratification of desires and enjoying life"], correct:2,
+      why:"Long-term Orientation describes cultures that are future-oriented and value thrift and persistence (e.g. China, Japan) — this pairing is accurate.",
+      whyNot:{0:"This description actually belongs to Femininity, not Masculinity — Masculinity values achievement, competition and material success.",1:"This description actually belongs to Collectivism, not Individualism — Individualism means looser ties and self-defined identity.",3:"This description actually belongs to Indulgence, not Restraint — Restraint means desires are controlled by strict social norms."}},
+  ]);
+
+  /* ===================== CH3: Perception ===================== */
+  setCh('ch3', {
+    overview: "**Perception** refers to the view or impression an individual has about objects, events and people's behaviour. Stephen Robbins defines it as *the process by which individuals organize and interpret their sensory impressions in order to give meaning to their environment*. Perception is shaped by Internal factors (needs, personality, experience) and External factors (size, intensity, repetition, contrast, movement). **Attribution Theory** explains how we decide whether someone's behaviour is caused by internal or external factors, and this feeds directly into how managers make decisions — either through the idealised **Rational Model** or the more realistic **Bounded Rationality (Herbert Simon)**. Good decisions should also be filtered through an **ethical lens**.",
+    concepts:[
+      {term:'Attribution Theory', explanation:"Explains the process of deciding whether an observed behaviour is caused by internal factors (the person) or external factors (the situation), guided by three rules: **Distinctiveness** (High → External, Low → Internal), **Consensus** (High → External, Low → Internal), and **Consistency** (High → Internal, Low → External)."},
+      {term:'Fundamental Attribution Error & Self-Serving Bias', explanation:"Fundamental Attribution Error = underestimating external factors and overestimating internal factors when judging OTHERS. Self-Serving Bias = attributing our OWN success to internal factors and our own failures to external factors."},
+      {term:'Errors in Perception', explanation:"Stereotyping, Halo Effect, Attribution errors, Selective Perception, Impression Management, and the Pygmalion & Golem Effect (people rise or fall to others' expectations of them) are common distortions in how we perceive people."},
+      {term:'Rational Decision-Making Model', explanation:"Assumes the decision-maker is systematic, objective, has complete information, clear goals, can evaluate all alternatives, and chooses the optimum solution. In reality this is rarely fully achievable."},
+      {term:'Bounded Rationality (Herbert Simon)', explanation:"Recognises that managers cannot be fully rational due to limits of time, information and money. Simon called this **'Satisficing'** — choosing a course of action that is 'good enough', not the theoretically best one."},
+      {term:'Ethical Decision-Making Lenses', explanation:"Utilitarian Lens (produces the most good, least harm for the most stakeholders), Rights Lens (respects the rights of all stakeholders), Justice Lens (treats people fairly, giving each what they are due)."},
+    ],
+    examples:[
+      "Ms. Radha completes a project successfully mainly due to her own hard work and sincerity → Internal attribution.",
+      "Mr. Ramesh underperforms mainly due to lack of resources and no guidance from his superior → External attribution.",
+      "A manager with limited time and information picks the first 'good enough' vendor instead of the theoretically best one → Bounded Rationality / Satisficing.",
+      "Deciding a layoff plan by choosing the option that helps the largest number of stakeholders with least harm → Utilitarian ethical lens.",
+    ],
+    revision:[
+      'Perception = process of organizing & interpreting sensory impressions to give meaning to environment (Robbins).',
+      'Attribution rules: High Distinctiveness/Consensus → External; Low → Internal. High Consistency → Internal; Low → External.',
+      'Fundamental Attribution Error = about judging OTHERS; Self-Serving Bias = about judging YOURSELF.',
+      'Perception errors: stereotyping, halo effect, selective perception, impression management, Pygmalion/Golem effect.',
+      'Rational model = full information, full logic, best choice (rarely realistic).',
+      "Bounded Rationality (Simon) = 'satisficing' — good enough choice, given limited time/info.",
+      'Ethics lenses: Utilitarian (most good), Rights (respects rights), Justice (fairness).',
+    ]
+  }, [
+    {difficulty:'easy', q:"According to Stephen Robbins, perception is:", options:["An objective recording of events exactly as they occur","A process by which individuals organize and interpret their sensory impressions to give meaning to their environment","A permanent change in behaviour due to experience","A person's set of stable personality traits"], correct:1,
+      why:"Robbins defines perception as the process by which individuals organize and interpret sensory impressions to give meaning to their environment — it is inherently subjective, not an objective recording.",
+      whyNot:{0:"Perception is subjective and interpretive, not an exact, objective recording of reality.",2:"A permanent behaviour change from experience describes Learning, not Perception.",3:"A stable set of traits describes Personality, not Perception."}},
+    {difficulty:'easy', q:"Which of the following is an INTERNAL factor influencing perception?", options:["Size of the object","Repetition of the stimulus","The perceiver's own needs and personality","Contrast against the background"], correct:2,
+      why:"Internal factors come from within the perceiver themselves — needs, personality and past experience all shape how something is perceived.",
+      whyNot:{0:"Size is an external, stimulus-related factor.",1:"Repetition is an external, stimulus-related factor.",3:"Contrast is an external, stimulus-related factor."}},
+    {difficulty:'moderate', q:"Ms. Radha completed her project successfully mainly due to her own hard work and sincerity. This is an example of attributing behaviour to:", options:["External causes","Internal causes","Situational causes","Random causes"], correct:1,
+      why:"Hard work and sincerity are qualities of the person herself, so this is an Internal attribution — the cause is located within the individual.",
+      whyNot:{0:"External causes would be things like a dedicated team or adequate resources — factors outside Radha herself.",2:"'Situational' causes are essentially external causes, which is not what's described here.",3:"The scenario clearly attributes the outcome to a specific personal quality, not to random chance."}},
+    {difficulty:'moderate', q:"An employee performs well on one specific task, but this good performance is unique to that task alone (i.e. distinctiveness is HIGH). According to Attribution Theory, this behaviour is most likely attributed to:", options:["Internal factors (the person's own ability)","External factors (the situation/task itself)","Random chance","Both equally, with no clear rule"], correct:1,
+      why:"According to the attribution rules, HIGH distinctiveness (behaviour is specific/unique to one situation, not a general pattern) leads to an External attribution — something about that particular task or situation, not the person overall.",
+      whyNot:{0:"Internal attribution would apply if distinctiveness were LOW (i.e. the person performs the same way across many tasks).",2:"Attribution theory provides a specific rule for this case — it isn't treated as random.",3:"The theory does give a clear directional rule for high distinctiveness — it points specifically to external attribution."}},
+    {difficulty:'moderate', q:"A manager assumes that a normally hardworking employee's occasional lateness must be due to laziness, without considering possible traffic or a family emergency. This is an example of:", options:["Self-serving bias","Fundamental Attribution Error","Halo effect","Stereotyping"], correct:1,
+      why:"The manager is underestimating external/situational factors (traffic, emergencies) and overestimating an internal factor (laziness) while judging someone else's behaviour — this is exactly the Fundamental Attribution Error.",
+      whyNot:{0:"Self-serving bias is about judging ONE'S OWN success/failure, not someone else's behaviour.",2:"The halo effect is letting one positive/negative trait colour our overall impression of a person, not specifically an internal-vs-external judgment error.",3:"Stereotyping is judging someone based on a group they belong to, not based on a single behavioural incident."}},
+    {difficulty:'moderate', q:"A student attributes their exam success to their own intelligence, but blames their exam failure on an unfair paper. This illustrates:", options:["Fundamental Attribution Error","Self-serving bias","Halo effect","Pygmalion effect"], correct:1,
+      why:"Self-serving bias means attributing our OWN favourable outcomes to internal factors (our intelligence) and our own failures to external factors (an unfair paper).",
+      whyNot:{0:"Fundamental Attribution Error is about judging OTHER people's behaviour, not our own outcomes.",2:"The halo effect is about forming an overall impression of someone from one trait, unrelated to this self-attribution pattern.",3:"The Pygmalion effect is about living up (or down) to others' expectations of you, not about attributing your own outcomes."}},
+    {difficulty:'moderate', q:"Herbert Simon's concept of 'satisficing' is most closely associated with:", options:["The Rational Decision-Making Model","Bounded Rationality","Attribution Theory","The Halo Effect"], correct:1,
+      why:"Simon introduced Bounded Rationality to explain that managers cannot be fully rational due to limits of time, information and money, so they 'satisfice' — pick a good-enough option.",
+      whyNot:{0:"The Rational Model assumes complete information and the BEST possible choice — the opposite of satisficing.",2:"Attribution Theory is about explaining causes of behaviour, unrelated to decision-making models.",3:"The Halo Effect is a perception error about people, not a decision-making concept."}},
+    {difficulty:'difficult', q:"A manager has limited time, incomplete information and moderate analytical ability, so instead of finding the 'best' possible vendor, they choose the first vendor that meets an acceptable minimum standard. This is an example of:", options:["Rational decision-making","Bounded rationality / satisficing","The halo effect","Distributive negotiation"], correct:1,
+      why:"Choosing a 'good enough' option under real-world limits of time, information and analytical ability is the definition of Bounded Rationality / satisficing.",
+      whyNot:{0:"Rational decision-making would require complete information and choosing the objectively BEST vendor, which this manager explicitly does not do.",2:"The halo effect concerns judging a person based on one trait, unrelated to this vendor-selection scenario.",3:"Distributive negotiation is a conflict/negotiation concept, unrelated to this decision-making scenario."}},
+    {difficulty:'difficult', q:"An HR manager, while framing a layoff decision, chooses the option that produces the most good and the least harm for the largest number of stakeholders. Which ethical decision-making lens is being applied?", options:["Rights lens","Justice lens","Utilitarian lens","Self-serving lens"], correct:2,
+      why:"The Utilitarian Lens specifically asks which option produces the most good and does the least harm for as many stakeholders as possible — exactly what the HR manager is doing.",
+      whyNot:{0:"The Rights lens asks which option best respects the rights of all stakeholders, not which produces the most net good.",1:"The Justice lens asks which option treats people fairly, giving each what they're due — a different question from 'most good, least harm'.",3:"'Self-serving lens' is not a real ethical decision-making framework covered in class — it was invented as a distractor."}},
+  ]);
+
+  /* ===================== CH4: Personality ===================== */
+  setCh('ch4', {
+    overview: "Stephen Robbins defines **Personality** as *the sum total of ways in which an individual reacts and interacts with others*. It is shaped by Biological factors, Home Environment and the External/Situational environment. The most widely used framework of personality traits is the **Big Five Model**. Other important individual-difference concepts covered are **Locus of Control**, **Risk-Taking Propensity**, **Self-Efficacy**, the **Dark Triad**, **MBTI**, **Emotional Labour/Dissonance**, and Holland's **Personality-Job Fit Theory**.",
+    concepts:[
+      {term:'The Big Five Model', explanation:"The standard framework of five broad personality traits: Extraversion, Agreeableness, Conscientiousness, Emotional Stability (Neuroticism), and Openness to Experience."},
+      {term:'Locus of Control & Risk-Taking Propensity', explanation:"Locus of Control: Internal (a person believes they control their own outcomes) vs External (a person believes outcomes are due to luck or outside forces). Risk-Taking Propensity: an individual's willingness to take chances and make bold decisions, which affects the speed and quality of their decision-making."},
+      {term:'Self-Efficacy', explanation:"A person's belief in their own ability to successfully perform a task. High self-efficacy = active, courageous, competent, optimistic, higher motivation and higher goals. Low self-efficacy = inactive, fearful, inefficient, pessimistic, lower motivation and lower goals. Developed through Mastery experiences, Social modelling, Social/verbal persuasion, and Psychological/emotional arousal."},
+      {term:'The Dark Triad', explanation:"Narcissism (charismatic, loves admiration, takes credit), Machiavellianism (manipulative, politically strategic, uses relationships for gain), Psychopathy (no empathy, ruthless, feels no guilt)."},
+      {term:'MBTI (Myers-Briggs Type Indicator)', explanation:"Based on Carl Jung's theory of psychological types. Four preference pairs: Extraversion/Introversion (E/I — focus on outer vs inner world), Sensing/Intuition (S/N — how information is taken in), Thinking/Feeling (T/F — logic vs people/values in decisions), Judging/Perceiving (J/P — need to decide vs stay open). Combining these gives 16 personality types."},
+      {term:'Emotional Labour vs Emotional Dissonance', explanation:"Emotional Labour = managing feelings/expressions to meet a job's emotional requirements (Surface acting = faking the emotion; Deep acting = genuinely trying to feel it). Emotional Dissonance = the TENSION between felt and displayed emotions, which can hurt job performance if not managed."},
+      {term:"Holland's Personality-Job Fit Theory", explanation:"Matches 6 personality types to congruent occupations: Realistic (mechanic, farmer), Investigative (economist, biologist), Social (teacher, counsellor), Conventional (accountant, clerk), Enterprising (lawyer, PR specialist), Artistic (painter, writer)."},
+    ],
+    examples:[
+      "Student A has an excellent CGPA but constantly doubts their own ability; Student B has an average CGPA but strongly believes they can learn anything → Student B shows higher Self-Efficacy.",
+      "A manager who is charismatic, seeks constant admiration and takes credit for others' work → Narcissism (Dark Triad).",
+      "A flight attendant stays polite with an abusive passenger despite feeling angry inside, because the job requires it → Emotional Labour (surface acting).",
+      "An analytical, curious, independent person who enjoys organizing information fits Holland's 'Investigative' type, suited to roles like economist or biologist.",
+    ],
+    revision:[
+      'Personality = sum total of ways a person reacts and interacts with others (Robbins).',
+      'Big Five: Extraversion, Agreeableness, Conscientiousness, Emotional Stability, Openness.',
+      'Locus of Control: Internal (I control my outcomes) vs External (luck/outside forces control them).',
+      'Self-Efficacy = belief in own ability to succeed at a task; built via mastery, modelling, persuasion, arousal.',
+      'Dark Triad: Narcissism, Machiavellianism, Psychopathy.',
+      'MBTI 4 pairs: E/I, S/N, T/F, J/P → 16 types.',
+      'Emotional labour = the ACT of managing displayed emotion for the job; Emotional dissonance = the TENSION this can create.',
+      "Holland's theory: match personality type to congruent occupation (RIASEC).",
+    ]
+  }, [
+    {difficulty:'easy', q:"According to Stephen Robbins, personality is:", options:["A fixed set of physical traits","The sum total of ways in which an individual reacts and interacts with others","Only the emotional aspect of a person","A person's job title and role"], correct:1,
+      why:"Robbins defines personality as the sum total of the ways an individual reacts and interacts with others — it covers the whole pattern of behaviour, not just one aspect.",
+      whyNot:{0:"Personality is about behavioural and psychological patterns, not merely physical traits.",2:"Emotions are only one part of personality (linked more closely to Emotional Intelligence), not the whole definition.",3:"A job title or role is an external label, not a person's personality."}},
+    {difficulty:'easy', q:"The Big Five personality model includes all of the following EXCEPT:", options:["Extraversion","Conscientiousness","Openness to Experience","Locus of Control"], correct:3,
+      why:"The Big Five are: Extraversion, Agreeableness, Conscientiousness, Emotional Stability, and Openness to Experience. Locus of Control is a separate, distinct personality concept, not one of the five.",
+      whyNot:{0:"Extraversion IS one of the Big Five traits.",1:"Conscientiousness IS one of the Big Five traits.",2:"Openness to Experience IS one of the Big Five traits."}},
+    {difficulty:'moderate', q:"An employee who believes that their promotion depends mainly on their own effort and ability, rather than luck or their boss's mood, has a(n):", options:["External locus of control","Internal locus of control","High risk-taking propensity","High self-efficacy alone"], correct:1,
+      why:"Internal locus of control means a person believes they themselves — through their own effort and ability — control outcomes in their life, rather than external forces like luck.",
+      whyNot:{0:"External locus of control is the opposite — believing outcomes are controlled by luck or outside forces.",2:"Risk-taking propensity is about willingness to take chances, not about who controls outcomes.",3:"While related, this scenario is specifically describing locus of control, not self-efficacy (belief in ability to perform a specific task)."}},
+    {difficulty:'moderate', q:"Student A has an excellent CGPA but constantly doubts their own ability, while Student B has an average CGPA but strongly believes they can learn anything. Student B is displaying higher:", options:["Emotional dissonance","Self-efficacy","Machiavellianism","External locus of control"], correct:1,
+      why:"Self-efficacy is the belief in one's own ability to successfully perform tasks — Student B's strong belief that they 'can learn anything' is a clear sign of high self-efficacy, regardless of current CGPA.",
+      whyNot:{0:"Emotional dissonance is about a mismatch between felt and displayed emotions, not about self-belief in ability.",2:"Machiavellianism is about manipulating others for personal gain, unrelated to this scenario.",3:"External locus of control would mean believing outcomes are due to luck — Student B's confidence actually suggests the opposite (an internal locus)."}},
+    {difficulty:'moderate', q:"Which of the following is a way to DEVELOP self-efficacy, as covered in class?", options:["Avoiding all challenging tasks","Mastery experiences and social modelling","Ignoring negative feedback entirely","Reducing goal difficulty permanently"], correct:1,
+      why:"Self-efficacy is built through Mastery experiences (succeeding at tasks), Social modelling (seeing others succeed), Verbal/social persuasion, and managing psychological arousal.",
+      whyNot:{0:"Avoiding challenges prevents the mastery experiences needed to build self-efficacy.",2:"Constructively using feedback — not ignoring it — is part of building genuine confidence and skill.",3:"Permanently easy goals don't build real mastery or confidence in handling harder tasks."}},
+    {difficulty:'moderate', q:"A manager who is charismatic, constantly seeks admiration, and takes credit for others' work is displaying traits of:", options:["Machiavellianism","Psychopathy","Narcissism","High self-efficacy"], correct:2,
+      why:"Narcissism in the Dark Triad is specifically characterised by charisma, a love of admiration, and taking credit for others' achievements.",
+      whyNot:{0:"Machiavellianism is about strategic manipulation and political game-playing, not primarily about seeking admiration.",1:"Psychopathy is characterised by a lack of empathy and guilt, which is not the focus of this description.",3:"High self-efficacy is about belief in one's own ability, unrelated to seeking admiration or taking others' credit."}},
+    {difficulty:'moderate', q:"A colleague who manipulates people strategically and uses relationships purely for political gain, while remaining outwardly 'politically smart', best fits which Dark Triad trait?", options:["Narcissism","Machiavellianism","Psychopathy","Extraversion"], correct:1,
+      why:"Machiavellianism specifically describes manipulating people, being politically smart, and using relationships strategically for personal gain.",
+      whyNot:{0:"Narcissism is centred on love of admiration and taking credit, not strategic manipulation for gain.",2:"Psychopathy is defined by a lack of empathy and guilt, not primarily strategic political manipulation.",3:"Extraversion is a Big Five trait about sociability and outgoingness, not manipulation."}},
+    {difficulty:'moderate', q:"In MBTI, the preference pair 'Thinking (T) vs Feeling (F)' relates to:", options:["Where a person focuses their energy (outer vs inner world)","How a person takes in information","How a person makes decisions — using logic vs people/values","How a person structures their outside world"], correct:2,
+      why:"The Thinking/Feeling pair in MBTI is about decision-making style — whether a person leans on logic and consistency (Thinking) or on people and special circumstances (Feeling).",
+      whyNot:{0:"Focus of energy (outer vs inner world) is the Extraversion/Introversion pair, not Thinking/Feeling.",1:"How information is taken in is the Sensing/Intuition pair, not Thinking/Feeling.",3:"Structuring the outside world is the Judging/Perceiving pair, not Thinking/Feeling."}},
+    {difficulty:'difficult', q:"A flight attendant smiles and stays polite with an abusive passenger even though she feels angry inside, purely because her job requires it. The ACT of maintaining this polite display is best described as:", options:["Emotional dissonance","Emotional labour (surface acting)","Self-efficacy","Fundamental attribution error"], correct:1,
+      why:"Emotional labour is the act of managing and displaying job-required emotions; specifically, faking a required emotion on the surface without genuinely feeling it is called 'surface acting'.",
+      whyNot:{0:"Emotional dissonance is the resulting internal TENSION between what she feels (anger) and what she displays (politeness) — it describes the discomfort, not the act of displaying the emotion itself.",2:"Self-efficacy is about belief in one's ability to perform a task, unrelated to managing displayed emotions.",3:"Fundamental attribution error is a perception concept about judging others' behaviour, unrelated to this scenario."}},
+    {difficulty:'difficult', q:"According to Holland's Personality-Job Fit Theory, a person who is analytical, curious and independent, and enjoys activities involving thinking and organizing, would best fit which type — and which occupation?", options:["Realistic – Mechanic or farmer","Investigative – Economist or biologist","Enterprising – Real estate agent","Artistic – Painter or musician"], correct:1,
+      why:"Holland's 'Investigative' type describes people who are analytical, curious and independent, enjoying activities that involve thinking, organizing and understanding — congruent occupations include economist, biologist and mathematician.",
+      whyNot:{0:"The Realistic type suits people who prefer physical, hands-on activities requiring skill and coordination, not analytical thinking.",2:"The Enterprising type suits confident, ambitious people who like influencing others, not analytical/independent thinkers.",3:"The Artistic type suits imaginative, creative people in unstructured fields, not analytical, organizing-focused thinkers."}},
+  ]);
+
+  /* ===================== CH5: Emotional Intelligence ===================== */
+  setCh('ch5', {
+    overview: "**Emotional Intelligence (EI)** is the ability to adaptively recognize, express, regulate and harness emotions. Salovey & Mayer define it as *an ability to monitor one's own and others' feelings and emotions, to discriminate among them, and to use this information to guide one's thinking and actions*. EI is built from four components: **Self-Awareness**, **Self-Regulation**, **Social Awareness**, and **Social Skills**.",
+    concepts:[
+      {term:'Self-Awareness', explanation:"Emotional Self-Awareness (knowing your own feelings), Accurate Self-Assessment (understanding your strengths/weaknesses and their effects), Self-Confidence (having faith in yourself)."},
+      {term:'Social Awareness', explanation:"Empathy (forming connections, understanding others' emotions), Service Orientation (being helpful, a good listener), Organizational Awareness (sensing how well you're understood by others)."},
+      {term:'Self-Regulation', explanation:"Emotional Self-Control, Achievement orientation, Initiative, Transparency (honesty/integrity), Adaptability (resilience), Optimism."},
+      {term:'Social Skills', explanation:"Inspirational Leadership, Influence, Conflict Management, Change Catalyst, Developing Others, Teamwork & Collaboration."},
+      {term:'EI and Organizational Behaviour', explanation:"High EI helps employees perform difficult/stressful tasks, self-regulate emotions, experience less job burnout, build team spirit through social awareness, maintain better superior-subordinate relationships, and reduce group conflict."},
+    ],
+    examples:[
+      "A manager who understands their own strengths and weaknesses and how these affect others → Accurate Self-Assessment (Self-Awareness).",
+      "A team leader notices a stressed colleague, listens patiently, and adjusts their workload → Empathy / Service Orientation (Social Awareness).",
+      "An employee stays calm and composed during a stressful client escalation, channelling the situation constructively → Emotional Self-Control (Self-Regulation).",
+    ],
+    revision:[
+      "EI = ability to recognize, express, regulate and harness emotions (Salovey & Mayer).",
+      '4 components: Self-Awareness, Self-Regulation, Social Awareness, Social Skills.',
+      'Self-Awareness = knowing yourself; Social Awareness = understanding OTHERS (empathy).',
+      'Self-Regulation = controlling your own emotional reactions; Social Skills = managing relationships/influence.',
+      'High EI → less burnout, better team spirit, better superior-subordinate relations, fewer group conflicts.',
+    ]
+  }, [
+    {difficulty:'easy', q:"According to Salovey & Mayer, Emotional Intelligence is the ability to:", options:["Maximize profit through rational analysis","Monitor one's own and others' feelings/emotions and use this to guide thinking and action","Memorize facts quickly","Avoid all workplace emotions entirely"], correct:1,
+      why:"Salovey & Mayer's definition centres on monitoring one's own and others' feelings, discriminating among them, and using that information to guide thinking and action.",
+      whyNot:{0:"Profit maximization is a finance/economics concept, unrelated to EI.",2:"Memorization relates to cognitive ability/IQ, not emotional intelligence.",3:"EI is about skilfully recognizing and managing emotions, not avoiding or suppressing them."}},
+    {difficulty:'easy', q:"Which of the following is NOT one of the four components of Emotional Intelligence covered in class?", options:["Self-awareness","Self-regulation","Social skills","Financial awareness"], correct:3,
+      why:"The four components covered are Self-awareness, Self-regulation, Social awareness, and Social skills. 'Financial awareness' is not part of the EI framework.",
+      whyNot:{0:"Self-awareness IS one of the four EI components.",1:"Self-regulation IS one of the four EI components.",2:"Social skills IS one of the four EI components."}},
+    {difficulty:'moderate', q:"A manager who understands their own strengths and weaknesses and their effect on others is demonstrating:", options:["Empathy","Accurate Self-Assessment (Self-awareness)","Conflict Management","Change Catalyst"], correct:1,
+      why:"Accurate Self-Assessment, a part of Self-Awareness, is specifically defined as understanding your own strengths and weaknesses and their effects on others.",
+      whyNot:{0:"Empathy is about understanding OTHERS' emotions, which falls under Social Awareness, not this scenario about self-understanding.",2:"Conflict Management is a Social Skill involving resolving disputes, unrelated to self-understanding.",3:"Change Catalyst is a Social Skill about driving change, unrelated to this scenario."}},
+    {difficulty:'moderate', q:"The ability to form connections with others and understand their emotions is called:", options:["Self-regulation","Empathy (Social awareness)","Self-efficacy","Transparency"], correct:1,
+      why:"Empathy — the ability to form connections with others and understand/acknowledge their emotions — is a core part of Social Awareness.",
+      whyNot:{0:"Self-regulation is about controlling one's OWN emotional reactions, not understanding others.",2:"Self-efficacy is a personality/motivation concept about belief in one's own ability, unrelated to understanding others' emotions.",3:"Transparency (honesty/integrity) is part of Self-Regulation, not about understanding others' feelings."}},
+    {difficulty:'moderate', q:"A team leader notices a colleague is stressed, listens patiently, and adjusts the workload accordingly. This primarily reflects which EI component?", options:["Self-awareness","Social awareness (empathy/service orientation)","Self-regulation","None of these"], correct:1,
+      why:"Noticing another person's stress and responding to their needs is a direct demonstration of Social Awareness — specifically empathy and service orientation.",
+      whyNot:{0:"Self-awareness concerns understanding one's OWN feelings, not noticing a colleague's stress.",2:"Self-regulation concerns controlling one's own emotional reactions, not responding to someone else's needs.",3:"This scenario clearly maps to Social Awareness, so 'none of these' is incorrect."}},
+    {difficulty:'difficult', q:"An employee remains calm and composed under a stressful client escalation, does not lash out, and channels the situation constructively. This is best explained by:", options:["Self-regulation (emotional self-control)","Social skills","Locus of control","Cognitive dissonance"], correct:0,
+      why:"Staying calm and controlling one's own emotional reaction under stress is the definition of Emotional Self-Control, a key part of Self-Regulation.",
+      whyNot:{1:"Social skills concern managing relationships and influencing others, not controlling one's own internal emotional reaction.",2:"Locus of control is a personality concept about believing you control outcomes, unrelated to managing emotional reactions in the moment.",3:"Cognitive dissonance is about mental discomfort from contradictory beliefs, not emotional self-control under stress."}},
+  ]);
+
+  /* ===================== CH6: Motivation ===================== */
+  setCh('ch6', {
+    overview: "Michael Jucious defines **Motivation** as *the act of stimulating someone or oneself to get a desired course of action*. Motivation theories fall into two types: **Content theories** — what motivates people (Maslow's Hierarchy, McGregor's Theory X & Y, Herzberg's Two-Factor Theory) — and **Process theories** — how motivation happens (Skinner's Reinforcement Theory, Self-Efficacy, Adams' Equity Theory, Locke's Goal-Setting Theory). Organizations apply these through **techniques of motivation** such as Job Redesign and MBO.",
+    concepts:[
+      {term:"Maslow's Hierarchy of Needs", explanation:"A pyramid of five need levels, from basic Physiological needs at the bottom, through Safety, Social/Belonging, Esteem, up to Self-Actualization at the top. Lower needs generally must be reasonably satisfied before higher ones motivate behaviour."},
+      {term:"McGregor's Theory X & Theory Y", explanation:"Theory X assumes people are inherently lazy, avoid responsibility, and need close control (favouring centralization). Theory Y assumes people are self-motivated, seek responsibility and are creative (favouring decentralization and flexible leadership)."},
+      {term:"Herzberg's Two-Factor Theory", explanation:"Hygiene factors (salary, company policy, working conditions) prevent dissatisfaction but don't by themselves motivate. Motivator factors (recognition, achievement, growth) are what actually create satisfaction and drive motivation."},
+      {term:'Monetary vs Non-Monetary Motivation Factors', explanation:"Monetary: salaries, bonus, incentives, special incentives. Non-monetary: status & security, appreciation, delegation, working conditions, job enrichment."},
+      {term:"Adams' Equity Theory", explanation:"People compare their own input-outcome ratio to that of others (referents). Under OVER-equity they may work harder or discount the reward (internal responses) or encourage others to seek more / change their referent (external responses). Under UNDER-equity they may lower productivity, inflate the reward's value in their mind, bargain for more/quit, or change their referent."},
+      {term:"Locke's Goal-Setting Theory", explanation:"Motivation and performance improve when goals have: Acceptance & Commitment, Specificity, Result-orientation, appropriate Challenge, and ongoing Performance Monitoring & Feedback."},
+      {term:'Techniques of Motivation', explanation:"Job Redesign — Job Enlargement (adding more tasks of the same level/difficulty — horizontal) and Job Enrichment (adding responsibility, autonomy and depth — vertical). MBO (Management By Objectives) — collectively formulating goals and action plans, evaluating and selecting the best plan, implementing it, and collectively monitoring performance."},
+    ],
+    examples:[
+      "If salary doubled, ranking spending priorities from food/house (basic needs) to recognition/luxury (higher needs) mirrors Maslow's Hierarchy.",
+      "A manager who believes employees are lazy and need constant supervision is applying Theory X; one who trusts employees to take initiative is applying Theory Y.",
+      "An employee feels under-rewarded versus a colleague and quietly reduces effort → Under-equity, Internal-Physical response (Adams' Equity Theory).",
+      "A sales team given a specific, challenging, mutually accepted target with regular feedback outperforms a team told to just 'do their best' → Locke's Goal-Setting Theory.",
+    ],
+    revision:[
+      'Motivation = act of stimulating someone to get a desired course of action (Jucious).',
+      'Content theories = WHAT motivates (Maslow, Theory X & Y, Herzberg). Process theories = HOW motivation happens (Equity, Goal-Setting, Self-Efficacy).',
+      'Maslow: Physiological → Safety → Social → Esteem → Self-Actualization.',
+      'Theory X = people are lazy, need control; Theory Y = people are self-motivated, seek responsibility.',
+      'Herzberg: Hygiene factors prevent dissatisfaction; Motivator factors create real motivation.',
+      "Equity Theory = comparing own input/outcome ratio to others'.",
+      'Goal-Setting: specific + challenging + accepted + feedback > vague goals.',
+      'Job Enlargement = MORE tasks, same level; Job Enrichment = MORE responsibility/depth.',
+      'MBO = collective goal-setting, planning, implementation and monitoring.',
+    ]
+  }, [
+    {difficulty:'easy', q:"Michael Jucious defines motivation as:", options:["A fixed personality trait","The act of stimulating someone (or oneself) to get a desired course of action","A method of measuring job performance","A type of organizational structure"], correct:1,
+      why:"Jucious's definition specifically frames motivation as the act of stimulating a person to produce a desired course of action — 'pushing the right button' to get the desired reaction.",
+      whyNot:{0:"Motivation is described as an active process/act, not a fixed trait.",2:"Performance measurement is a separate management activity, not the definition of motivation.",3:"Organizational structure is unrelated to this definition of motivation."}},
+    {difficulty:'easy', q:"Maslow's Hierarchy of Needs is generally represented as a pyramid moving from:", options:["Self-actualization down to physiological needs, in reverse order of importance","Basic physiological needs at the bottom to self-actualization at the top","A random, unordered list of needs","Only monetary needs to non-monetary needs"], correct:1,
+      why:"Maslow's pyramid starts with basic physiological needs at the bottom and rises through safety, social, esteem, up to self-actualization at the top.",
+      whyNot:{0:"The order runs bottom-to-top starting with physiological needs, not top-to-bottom from self-actualization.",2:"The needs are arranged in a specific hierarchical order, not randomly.",3:"Maslow's needs include social, esteem and self-actualization needs, not just a monetary/non-monetary split."}},
+    {difficulty:'moderate', q:"According to McGregor, a manager who believes employees are inherently lazy, dislike responsibility, and must be closely controlled is operating under:", options:["Theory Y","Theory X","Herzberg's hygiene theory","Equity Theory"], correct:1,
+      why:"Theory X specifically assumes employees are inherently lazy, avoid responsibility, and require close control and direction.",
+      whyNot:{0:"Theory Y assumes the opposite — that employees are self-motivated and seek responsibility.",2:"Herzberg's theory concerns hygiene vs motivator factors in the job, not assumptions about human nature.",3:"Equity Theory concerns fairness comparisons, not assumptions about whether employees are lazy or responsible."}},
+    {difficulty:'moderate', q:"According to Herzberg's Two-Factor Theory, which of the following is a MOTIVATOR factor (not a hygiene factor)?", options:["Salary","Company policy","Recognition and achievement","Working conditions"], correct:2,
+      why:"Recognition and achievement are Motivator factors — they create real satisfaction and drive motivation, unlike hygiene factors which merely prevent dissatisfaction.",
+      whyNot:{0:"Salary is a Hygiene factor — it prevents dissatisfaction but doesn't itself drive strong motivation.",1:"Company policy is a Hygiene factor.",3:"Working conditions are a Hygiene factor."}},
+    {difficulty:'moderate', q:"An employee who feels under-rewarded compared to a colleague quietly lowers their own work effort in response. This is an 'Internal-Physical' response under:", options:["Herzberg's Two-Factor Theory","Adams' Equity Theory","Locke's Goal-Setting Theory","Maslow's Hierarchy"], correct:1,
+      why:"Adams' Equity Theory describes how people respond to perceived under-equity, including lowering their own productivity (an internal, physical/behavioural response) to restore a sense of fairness.",
+      whyNot:{0:"Herzberg's theory concerns hygiene/motivator job factors, not fairness comparisons with others.",2:"Locke's theory concerns how goals are set, not fairness/equity comparisons.",3:"Maslow's theory concerns a hierarchy of needs, not comparisons between people's input-outcome ratios."}},
+    {difficulty:'moderate', q:"Which of the following is NOT one of the five elements of Locke's Goal-Setting Theory covered in class?", options:["Specificity","Acceptance and commitment","Performance monitoring and feedback","Group cohesiveness"], correct:3,
+      why:"Locke's five elements are: Acceptance & Commitment, Specificity, Result-orientation, Challenge, and Performance Monitoring & Feedback. Group cohesiveness is a team-effectiveness concept, not part of this theory.",
+      whyNot:{0:"Specificity IS one of Locke's five elements.",1:"Acceptance and commitment IS one of Locke's five elements.",2:"Performance monitoring and feedback IS one of Locke's five elements."}},
+    {difficulty:'moderate', q:"'Job Enrichment', as a technique of motivation, primarily refers to:", options:["Adding more tasks of the same level and difficulty to a job","Adding greater responsibility, autonomy and depth to a job","Reducing the number of tasks in a job","Rotating employees between identical jobs"], correct:1,
+      why:"Job Enrichment is a vertical expansion of a job — adding more responsibility, autonomy and depth, not just more of the same-level work.",
+      whyNot:{0:"Adding more same-level tasks describes Job Enlargement, a horizontal expansion, not enrichment.",2:"Reducing tasks would shrink the job, which is the opposite of enrichment.",3:"Rotating between identical jobs doesn't add depth or responsibility, so it isn't enrichment."}},
+    {difficulty:'difficult', q:"A company gives its sales team a specific, challenging, mutually accepted target with regular feedback check-ins, instead of a vague 'do your best' instruction, and performance improves. This best illustrates:", options:["Herzberg's hygiene factors","Locke's Goal-Setting Theory","Theory X","Adams' Equity Theory (over-equity)"], correct:1,
+      why:"Locke's Goal-Setting Theory shows that specific, challenging, accepted goals with feedback lead to significantly higher performance than vague instructions.",
+      whyNot:{0:"Hygiene factors relate to job context like pay and conditions, not to how targets/goals are framed.",2:"Theory X is about assumptions of laziness needing control, unrelated to goal specificity.",3:"Equity Theory concerns fairness comparisons between people, not the specificity of a given target."}},
+    {difficulty:'difficult', q:"An organization forms teams to collectively set goals, jointly create action plans, evaluate alternatives together, and collectively monitor performance against objectives. This describes:", options:["Job enlargement","MBO (Management by Objectives)","The Halo Effect","Bounded rationality"], correct:1,
+      why:"MBO (Management By Objectives) is exactly this process: collectively formulating goals and action plans, evaluating alternatives, selecting the best plan, implementing it, and collectively monitoring performance.",
+      whyNot:{0:"Job enlargement is about adding more same-level tasks to an individual's job, unrelated to collective goal-setting.",2:"The Halo Effect is a perception error about judging people, unrelated to this management technique.",3:"Bounded rationality is a decision-making concept about limited information, not a goal-setting technique."}},
+  ]);
+
+  /* ===================== CH7: Groups and Teams ===================== */
+  setCh('ch7', {
+    overview: "According to Bartol and Martin, a **Group** is *two or more independent individuals who interact and influence each other in collective pursuit of a common goal*. Groups can be Formal (Command groups, Task groups) or Informal (Friendship groups, Interest groups). A **Team**, per Katzenbach and Smith, is *a small number of people with complementary skills who are committed to a common purpose, set of performance goals, and approach for which they hold themselves mutually accountable*. Team effectiveness depends on Work Design, Composition, Context and Process. Groups typically develop through the **Five-Stage Model** (Forming → Storming → Norming → Performing → Adjourning) or, for deadline-driven groups, the **Punctuated Equilibrium Model**.",
+    concepts:[
+      {term:'Types of Groups', explanation:"Small & Large, Primary & Secondary, Formal & Informal, Temporary & Permanent. Formal groups = Command group & Task group. Informal groups = Friendship group & Interest group."},
+      {term:'Groups vs Teams', explanation:"Groups: a strong individual leader, individual accountability, individual work products, efficient meetings. Teams: shared leadership, individual AND mutual accountability, collective work products, open-ended discussion & active problem-solving."},
+      {term:'Team Effectiveness Factors', explanation:"Work Design (skill variety, task identity, task significance, autonomy); Composition (abilities, personality, roles/diversity, flexibility, preferences); Context (adequate resources, leadership, climate of trust, rewards); Process (common purpose, specific goals, team efficacy, conflict levels, social loafing)."},
+      {term:'Stages of Group Development', explanation:"Five-Stage Model: Forming (getting acquainted) → Storming (conflict over roles/leadership) → Norming (norms established, cohesion builds) → Performing (fully functional, task-focused) → Adjourning (group disbands). Punctuated Equilibrium Model: deadline-driven groups show a period of relative inertia, then a sharp 'midpoint transition' where approach changes significantly, followed by a final burst of activity."},
+      {term:'Group Decision-Making', explanation:"Advantages: new ideas, cooperation, commitment, shared responsibility, fewer costly errors, higher productivity. Disadvantages: slower decisions, domination by a few, costly, compromised decisions, diffused responsibility. Techniques: Committee meetings, Brainstorming, Delphi Technique, Nominal Group Technique, Decision Tree, Quality Circles, Game Theory."},
+    ],
+    examples:[
+      "A task force set up specifically to complete one project → a Formal (Task) group.",
+      "A group of employees who informally have lunch together every day → an Informal (Friendship) group.",
+      "A project team that works slowly at first, then dramatically shifts its approach at the halfway point before finishing with a burst of activity → Punctuated Equilibrium Model.",
+      "A company collects anonymous written ideas from all members, then has them silently vote to rank the ideas → Nominal Group Technique.",
+    ],
+    revision:[
+      'Group (Bartol & Martin) = 2+ interdependent individuals pursuing a common goal.',
+      'Team (Katzenbach & Smith) = complementary skills + common purpose + mutual accountability.',
+      'Groups = individual accountability & leader; Teams = mutual accountability & shared leadership.',
+      'Team effectiveness = Work Design + Composition + Context + Process.',
+      'Five-Stage Model: Forming → Storming → Norming → Performing → Adjourning.',
+      'Punctuated Equilibrium = deadline-driven groups shift approach sharply at the midpoint.',
+      'Group decision techniques: Brainstorming, Delphi, Nominal Group Technique, Quality Circles.',
+    ]
+  }, [
+    {difficulty:'easy', q:"According to Bartol and Martin, a group is defined as:", options:["Any number of people working in the same building","Two or more independent individuals who interact and influence each other in collective pursuit of a common goal","A single department in an organization","A formally appointed committee only"], correct:1,
+      why:"Bartol and Martin's definition requires interaction, mutual influence, and a shared common goal — simply being in the same building or department isn't enough.",
+      whyNot:{0:"Merely sharing a building doesn't involve interaction or a shared goal.",2:"A department is one possible example of a formal group, but the definition itself is broader than just departments.",3:"Committees are only one type of formal group — the definition covers groups generally, not only committees."}},
+    {difficulty:'easy', q:"Which of the following is an example of a FORMAL group?", options:["A friendship group formed over lunch","A task group set up to complete a specific project","An interest group that meets informally after work","A group of employees who happen to travel together"], correct:1,
+      why:"A task group, formally created by the organization to complete a specific project, is a classic example of a Formal group.",
+      whyNot:{0:"A friendship group is an Informal group, formed voluntarily and not by organizational design.",2:"An interest group is also an Informal group.",3:"Employees who casually travel together form an informal, unplanned association, not a formal group."}},
+    {difficulty:'moderate', q:"According to Katzenbach and Smith, what distinguishes a TEAM from a simple group?", options:["Teams always have more members than groups","Teams have complementary skills, a common purpose, and mutual accountability","Teams never have a leader","Teams meet only once"], correct:1,
+      why:"Katzenbach and Smith's definition of a team centres on complementary skills, a shared purpose and performance goals, and mutual accountability among members.",
+      whyNot:{0:"Team size isn't part of this definition — teams aren't defined by having more members than groups.",2:"Teams have shared leadership, not necessarily NO leader at all.",3:"Nothing in the definition limits teams to meeting only once."}},
+    {difficulty:'moderate', q:"Which of the following is a key difference between groups and teams as covered in class?", options:["Groups produce collective work products; teams produce individual work products","Groups rely on individual accountability; teams have both individual AND mutual accountability","Teams have a single strong leader; groups have shared leadership","There is no meaningful difference between groups and teams"], correct:1,
+      why:"Groups are characterised by individual accountability alone, while teams add mutual accountability on top of individual accountability — this is a key distinguishing factor.",
+      whyNot:{0:"This is reversed — groups produce individual work products, while teams produce collective work products.",2:"This is also reversed — groups tend to have one strong leader, while teams have shared leadership.",3:"The material explicitly draws several clear distinctions between groups and teams."}},
+    {difficulty:'moderate', q:"In the Five-Stage Model of group development, the stage where members experience conflict over leadership and roles, before norms are established, is called:", options:["Forming","Storming","Norming","Performing"], correct:1,
+      why:"Storming is the stage where conflict emerges over roles, leadership and direction, before the group settles into agreed norms.",
+      whyNot:{0:"Forming is the initial stage where members simply get acquainted, before conflict emerges.",2:"Norming comes AFTER storming, once norms and cohesion are established.",3:"Performing is the mature stage where the group is fully functional and task-focused, well after conflicts are resolved."}},
+    {difficulty:'moderate', q:"'Social loafing' — where individual members exert less effort in a group than they would individually — is a concern under which team-effectiveness factor?", options:["Work Design","Composition","Context","Process"], correct:3,
+      why:"Social loafing is listed under the Process factor of team effectiveness, alongside common purpose, specific goals, team efficacy and conflict levels.",
+      whyNot:{0:"Work Design concerns skill variety, task identity, significance and autonomy — not member effort levels.",1:"Composition concerns the abilities, personalities and roles of members, not their effort levels within the group.",2:"Context concerns resources, leadership, trust and rewards — the surrounding conditions, not member effort itself."}},
+    {difficulty:'difficult', q:"A company wants structured, anonymous idea generation from a group without the dominance of vocal members, followed by silent voting to rank ideas. Which technique of group decision-making is most appropriate?", options:["Committee meeting","Nominal Group Technique","Game theory","Decision tree"], correct:1,
+      why:"The Nominal Group Technique is specifically designed for structured, often anonymous idea generation followed by individual/silent ranking or voting, minimizing the influence of dominant members.",
+      whyNot:{0:"A standard committee meeting is open discussion, which allows vocal members to dominate — the opposite of what's needed here.",2:"Game theory analyses strategic interactions between rational decision-makers, not group idea generation.",3:"A decision tree is a visual tool for evaluating sequential choices/outcomes, not a group idea-generation technique."}},
+    {difficulty:'difficult', q:"A project team with a hard deadline works slowly for the first half of the project, then suddenly changes its approach dramatically at the midpoint before finishing with a final burst of activity. This pattern is best explained by:", options:["The Five-Stage Model","The Punctuated Equilibrium Model","Bounded Rationality","Job Enrichment"], correct:1,
+      why:"The Punctuated Equilibrium Model specifically describes deadline-driven groups that show a sharp shift in approach at the midpoint of their timeline, followed by a final push to completion.",
+      whyNot:{0:"The Five-Stage Model describes a linear progression (Forming to Adjourning), not a deadline-triggered midpoint shift.",2:"Bounded Rationality is a decision-making concept about information limits, unrelated to group development patterns over time.",3:"Job Enrichment is a motivation technique about adding job responsibility, unrelated to team development stages."}},
+  ]);
+
+  /* ===================== CH10: Conflict & Collaboration ===================== */
+  setCh('ch10', {
+    overview: "Stephen Robbins defines **Conflict** as *a process that begins when one party perceives that another party has negatively affected, or is about to negatively affect, something the first party cares about*. Conflict is inevitable in organizations and arises from many sources. It occurs at different levels — Intrapersonal, Interpersonal, Intergroup and Inter-organizational — and can have both functional (positive) and dysfunctional (negative) consequences. Organizations use various approaches to stimulate healthy conflict and resolve dysfunctional conflict, often through **Negotiation**.",
+    concepts:[
+      {term:'Sources of Organizational Conflict', explanation:"Lack of trust, different values, personality clashes, multiple roles, threat to status, different perceptions, goal-setting issues, and organizational changes."},
+      {term:'Types/Levels of Conflict', explanation:"Intrapersonal (within one person — including Approach-Approach, Avoidance-Avoidance, and Approach-Avoidance conflicts, plus role and goal conflict), Interpersonal (between two people), Intergroup (Hierarchical, Functional, Line-Staff, Formal-Informal), and Inter-organizational."},
+      {term:'Consequences of Conflict', explanation:"Advantages (functional): facilitates change, sparks innovation, builds group cohesiveness, releases tension, provides training, increases commitment and satisfaction. Disadvantages (dysfunctional): damages interpersonal relations, distorts communication, causes loss of trust, diverts energy, increases stress, reduces motivation."},
+      {term:'Approaches to Conflict', explanation:"Stimulating positive/functional conflict: healthy relations, innovative ideas, high performance targets with rewards, open communication. Resolving dysfunctional conflict: MBO, Ombudsman, Workers' Participation in Management, Quality Circles, and resolution styles — Avoiding, Smoothing, Forcing, Compromising, Confronting."},
+      {term:'Negotiation', explanation:"Robbins: a process where two or more parties, with both common and conflicting goals, discuss proposals for an agreement. Distributive strategy: fixed resources, 'I win, you lose', short-term focus. Integrative strategy: variable/expandable resources, 'I win, you win', long-term focus. Third-party negotiation roles: Mediator, Arbitrator, Conciliator, Consultant."},
+    ],
+    examples:[
+      "The Sales department and Production department clash over priorities → Intergroup (functional) conflict.",
+      "An employee must choose between two equally unattractive options, e.g. accept a pay cut or relocate to an undesirable city → Avoidance-Avoidance conflict.",
+      "Two parties simply split a fixed bonus pool where one side's gain is the other's loss → Distributive negotiation.",
+      "A manager finds a solution that grows the available resources so both departments get more than they expected → Integrative negotiation.",
+    ],
+    revision:[
+      'Conflict (Robbins) = starts when one party perceives another has negatively affected something it cares about.',
+      'Levels: Intrapersonal, Interpersonal, Intergroup, Inter-organizational.',
+      'Functional (positive) consequences: change, innovation, cohesiveness. Dysfunctional (negative): distorted communication, stress, lost trust.',
+      'Resolution styles: Avoiding, Smoothing, Forcing, Compromising, Confronting.',
+      "Distributive negotiation = fixed resources, 'I win you lose', short-term.",
+      "Integrative negotiation = variable resources, 'I win you win', long-term.",
+      'Third-party roles: Mediator, Arbitrator, Conciliator, Consultant.',
+    ]
+  }, [
+    {difficulty:'easy', q:"According to Stephen Robbins, conflict is best defined as a process that begins when:", options:["Two people simply disagree about facts","One party perceives that another party has negatively affected, or is about to negatively affect, something it cares about","An organization changes its structure","A group reaches consensus"], correct:1,
+      why:"Robbins' definition centres on PERCEPTION — conflict begins the moment one party perceives a negative effect (real or expected) on something it cares about, from another party.",
+      whyNot:{0:"A simple factual disagreement, without any perceived negative effect on something valued, does not by itself meet this definition.",2:"Organizational restructuring is a separate topic (Organizational Change), not the definition of conflict.",3:"Reaching consensus is the resolution of disagreement, the opposite of the start of conflict."}},
+    {difficulty:'easy', q:"Which of the following is a source of organizational conflict covered in class?", options:["Lack of trust","High job satisfaction","Strong organizational culture","Effective communication"], correct:0,
+      why:"Lack of trust is explicitly listed as a source of organizational conflict, along with different values, personality clashes, and threats to status.",
+      whyNot:{1:"High job satisfaction would generally reduce friction, not cause conflict.",2:"A strong, shared culture typically reduces conflict rather than causing it.",3:"Effective communication is generally a way to PREVENT or reduce conflict, not a source of it."}},
+    {difficulty:'moderate', q:"A conflict where an individual must choose between two equally unattractive options is called:", options:["Approach-approach conflict","Avoidance-avoidance conflict","Approach-avoidance conflict","Intergroup conflict"], correct:1,
+      why:"Avoidance-avoidance conflict occurs when a person must choose between two options they both want to avoid — both are unattractive.",
+      whyNot:{0:"Approach-approach conflict is choosing between two equally ATTRACTIVE options, the opposite situation.",2:"Approach-avoidance conflict involves a single option that has both attractive and unattractive aspects, not two separate unattractive options.",3:"Intergroup conflict occurs between groups/departments, not within one individual's decision-making."}},
+    {difficulty:'moderate', q:"Conflict between the Sales department and the Production department over priorities is best classified as:", options:["Intrapersonal conflict","Interpersonal conflict","Intergroup conflict","Approach-avoidance conflict"], correct:2,
+      why:"A conflict between two departments is a conflict between groups within the organization — this is Intergroup conflict, specifically a form of Functional (departmental) conflict.",
+      whyNot:{0:"Intrapersonal conflict occurs within a single individual, not between two departments.",1:"Interpersonal conflict occurs between two individuals, not between two entire departments.",3:"Approach-avoidance conflict is a type of intrapersonal conflict about one option with mixed appeal, not a department-vs-department dispute."}},
+    {difficulty:'moderate', q:"Which of the following is listed as an ADVANTAGE (functional consequence) of organizational conflict?", options:["Distorted communication","Loss of trust","Facilitates change and innovation","Increased stress"], correct:2,
+      why:"Facilitating change and sparking innovation are listed as advantages (functional consequences) of conflict, alongside group cohesiveness and release of tension.",
+      whyNot:{0:"Distorted communication is listed as a disadvantage (dysfunctional consequence) of conflict.",1:"Loss of trust is listed as a disadvantage of conflict.",3:"Increased stress is listed as a disadvantage of conflict."}},
+    {difficulty:'moderate', q:"In negotiation, a 'Distributive' strategy is best described as:", options:["A variable amount of resources with an 'I win, you win' motivation and long-term focus","A fixed amount of resources with an 'I win, you lose' motivation and short-term focus","A strategy used only by third-party mediators","A conflict resolution style focused on avoiding the issue entirely"], correct:1,
+      why:"Distributive negotiation involves a fixed amount of resources to be divided, with an 'I win, you lose' mindset and a short-term focus on the relationship.",
+      whyNot:{0:"This description — variable resources, 'I win you win', long-term — actually describes the Integrative strategy, the opposite of Distributive.",2:"Distributive strategy can be used by any negotiating party, not only third-party mediators.",3:"'Avoiding' is a separate conflict RESOLUTION style, not a negotiation strategy."}},
+    {difficulty:'difficult', q:"A manager resolves a conflict between two employees by finding a solution that fully satisfies both parties' underlying interests, effectively growing the available resources rather than simply splitting them. This reflects:", options:["A Distributive negotiation strategy","An Integrative negotiation strategy","The Avoiding conflict-resolution style","The Forcing conflict-resolution style"], correct:1,
+      why:"Integrative negotiation focuses on a variable/expandable amount of resources with an 'I win, you win' approach and a long-term view — exactly matching a solution that grows the pie for both parties.",
+      whyNot:{0:"Distributive negotiation assumes a FIXED amount of resources split between winner and loser, not a solution that grows the total.",2:"The Avoiding style means sidestepping the conflict entirely, not actively finding a mutually satisfying solution.",3:"The Forcing style means one party imposes their own solution on the other, not a mutually satisfying outcome."}},
+    {difficulty:'difficult', q:"An HR head sets high performance targets with rewards, encourages open communication, and introduces innovative ideas even though the team was already functioning smoothly. This is an example of:", options:["Resolving dysfunctional conflict","Stimulating positive/functional conflict","Avoiding conflict","Distributive negotiation"], correct:1,
+      why:"Deliberately introducing high targets, rewards, open communication and new ideas — even without an existing problem — is exactly how organizations stimulate positive/functional conflict to drive innovation and performance.",
+      whyNot:{0:"Resolving dysfunctional conflict (via tools like MBO, Ombudsman, or Quality Circles) addresses EXISTING harmful conflict, but here the team was already functioning smoothly.",2:"Avoiding conflict means sidestepping issues, the opposite of actively introducing challenge and change.",3:"Distributive negotiation is a specific fixed-resource negotiation tactic, unrelated to proactively stimulating team performance."}},
+  ]);
+
+})();
+
+
 /* ---------------- DEMO MODULE (sample content to try the system) ---------------- */
 const DEMO_CHAPTER = {
   id:'demo', title:'Sample Chapter: Motivation', topics:['Meaning of motivation','Content theories (Maslow, Herzberg, McClelland)','Process theories (Vroom, Adams, Locke)'],
@@ -379,7 +822,7 @@ function ensureDemoCaselet(){ if(!PROGRESS.demo.caselet) PROGRESS.demo.caselet =
 
 /* ============================== UTIL ============================== */
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function md(s){ if(!s) return ''; return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
+function md(s){ if(!s) return ''; return esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>'); }
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function fmtTime(ms){ const s=Math.round(ms/1000); const m=Math.floor(s/60); const ss=s%60; return m+':'+String(ss).padStart(2,'0'); }
 function perfLabel(pct){
