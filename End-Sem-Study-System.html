@@ -3449,6 +3449,360 @@ setCh('ch8', {
 
 })();
 
+/* ---------------- BUSINESS ANALYTICS - I: END-SEM CASELETS ---------------- */
+(function(){
+  const ba = SUBJECTS.find(s=>s.id==='ba');
+  ba.caselets = [
+
+  { id:'cs1', title:'Sunrise Bakery — Understanding Sales Data', difficulty:'Moderate',
+    topics:['Arithmetic Mean','Weighted Arithmetic Mean','Standard Deviation','Coefficient of Variation'],
+    caseText:`Sunrise Bakery operates 5 outlets. Management is reviewing daily revenue figures to understand overall performance and decide where to focus an upcoming incentive scheme.
+
+Outlet daily revenue and daily transaction counts:
+Outlet A: ₹8,000 revenue, 40 transactions
+Outlet B: ₹12,000 revenue, 60 transactions
+Outlet C: ₹6,000 revenue, 30 transactions
+Outlet D: ₹15,000 revenue, 50 transactions
+Outlet E: ₹9,000 revenue, 20 transactions
+
+Separately, the flagship outlet's daily sales over one week were: ₹9,800, ₹10,200, ₹11,500, ₹9,500, ₹10,800, ₹12,000, ₹9,200. Management wants to know how consistent this outlet's sales really are, to help plan staffing.`,
+    questions:[
+      { marks:2, text:"Calculate the simple arithmetic mean of the 5 outlets' daily revenue.",
+        answer:{ explanation:"Simple Mean = (8000+12000+6000+15000+9000) ÷ 5 = 50,000 ÷ 5 = **₹10,000**.", keyPoints:['Correctly sums all 5 revenue figures','Divides by 5 to get ₹10,000']}},
+      { marks:5, text:"Calculate the weighted arithmetic mean of daily revenue (weighted by transaction count), and explain why it differs from the simple mean.",
+        answer:{
+          concept:"Weighted Mean = Σ(w·x) ÷ Σw, where the weight (w) is each outlet's transaction count.",
+          explanation:"Weighted Mean = [(8000×40)+(12000×60)+(6000×30)+(15000×50)+(9000×20)] ÷ (40+60+30+50+20) = (3,20,000+7,20,000+1,80,000+7,50,000+1,80,000) ÷ 200 = 21,50,000 ÷ 200 = **₹10,750**.",
+          application:"The weighted mean (₹10,750) is HIGHER than the simple mean (₹10,000) because Outlets B and D — which have the highest revenue — also happen to have above-average transaction volumes (60 and 50 respectively). Weighting by actual transaction volume gives more 'voting power' to these high-activity outlets, pulling the average up.",
+          conclusion:"The weighted mean is the more realistic measure of the bakery's typical revenue per transaction pattern, since it reflects actual business volume rather than treating all 5 outlets as equally important."
+        , keyPoints:['Correctly calculates weighted mean as ₹10,750','Explains why it exceeds the simple mean using the transaction-volume weighting logic']}},
+      { marks:5, text:"Calculate the mean and sample standard deviation of the flagship outlet's weekly daily sales, and comment on consistency using the Coefficient of Variation.",
+        answer:{
+          explanation:"Mean = (9800+10200+11500+9500+10800+12000+9200) ÷ 7 = 73,000 ÷ 7 ≈ **₹10,428.57**. Summing the squared deviations from this mean and dividing by (n−1)=6 gives a Sample Variance ≈ 10,95,715, so Sample Standard Deviation ≈ **₹1,046.76**.",
+          application:"Coefficient of Variation = (SD ÷ Mean) × 100 = (1046.76 ÷ 10428.57) × 100 ≈ **10.0%**.",
+          conclusion:"A CV of around 10% indicates the flagship outlet's daily sales are reasonably CONSISTENT — day-to-day sales don't swing wildly, which is a good sign for predictable staffing and inventory planning."
+        , keyPoints:['Calculates mean ≈₹10,428.57','Calculates sample SD ≈₹1,046.76','Calculates CV ≈10% and interprets it as reasonably consistent']}},
+      { marks:8, text:"As a business analyst, write a recommendation to Sunrise Bakery's management on (a) which outlet(s) should be prioritized for the incentive scheme, using both the simple and weighted mean insights, and (b) whether the flagship outlet's sales pattern supports a stable staffing schedule.",
+        answer:{
+          issue:"Sunrise Bakery needs to decide how to allocate an incentive scheme fairly across 5 outlets with very different scales of activity, and separately wants to know if its flagship outlet's sales are predictable enough to support a fixed staffing plan.",
+          concept:"This requires combining Weighted Mean (to fairly account for outlet scale) with Standard Deviation and Coefficient of Variation (to assess consistency).",
+          explanation:"The simple mean (₹10,000) treats all 5 outlets as equally important, but the weighted mean (₹10,750) shows that when actual transaction volume is accounted for, the TRUE average revenue per transaction pattern is higher — driven by Outlets B and D.",
+          application:"Outlets B (₹12,000, 60 transactions) and D (₹15,000, 50 transactions) are both high-revenue AND high-volume — they are the outlets actually driving the weighted average upward, making them the strongest, most reliable performers. Outlet C, with both the lowest revenue (₹6,000) and lowest-but-one transaction count (30), is the weakest performer and should be examined for underlying causes (location, staffing, local demand) before any incentive is extended there. The flagship outlet's sales show a CV of only ~10%, which is quite low — meaning daily sales are fairly stable and predictable.",
+          analysis:"Rewarding outlets purely on raw revenue (simple ranking) could overweight outlets that simply have LOWER transaction counts but happen to charge more per transaction, missing genuinely high-volume, high-revenue performers like B and D. The low CV at the flagship outlet suggests its sales pattern is NOT random or volatile — supporting a stable, predictable staffing roster rather than a highly flexible one.",
+          recommendation:"1. Prioritize the incentive scheme for Outlets B and D, the two outlets driving above-average weighted performance.\n2. Investigate Outlet C's underperformance (both low revenue and low transaction volume) before extending incentives there.\n3. For the flagship outlet, maintain a STABLE staffing schedule based on the consistent ~₹10,400 average daily sales, since the low CV (~10%) does not indicate a need for highly flexible, day-to-day staffing changes.",
+          conclusion:"Combining weighted-mean analysis with variability measures gives Sunrise Bakery a fairer, more complete basis for both incentive allocation and staffing decisions than looking at simple averages alone."
+        , keyPoints:['Uses weighted mean to correctly identify B and D as top performers','Flags Outlet C as an underperformer needing investigation','Uses CV to support a stable staffing recommendation for the flagship outlet','Full exam-style structure with clear numbered recommendations']}},
+    ]
+  },
+
+  { id:'cs2', title:'TechHub Electronics — Growth Analysis', difficulty:'Moderate',
+    topics:['Geometric Mean','CAGR'],
+    caseText:`TechHub Electronics' annual revenue over 5 years was: 2019: ₹40 crore, 2020: ₹45 crore, 2021: ₹58 crore, 2022: ₹70 crore, 2023: ₹90 crore.
+
+A key competitor started at the same ₹40 crore base in 2019 but grew far more erratically: +50% in Year 1, −10% in Year 2, +60% in Year 3, and +5% in Year 4, ending at approximately ₹90.72 crore by 2023 — almost the exact same ending revenue as TechHub.
+
+TechHub's board is preparing an investor presentation and wants to understand its own growth story clearly, and how it compares to the competitor's.`,
+    questions:[
+      { marks:2, text:"Calculate the year-on-year percentage growth for each year from 2019 to 2023, and their simple arithmetic average.",
+        answer:{ explanation:"YoY growth: 2020: 45/40−1=12.5%; 2021: 58/45−1≈28.89%; 2022: 70/58−1≈20.69%; 2023: 90/70−1≈28.57%. Simple average = (12.5+28.89+20.69+28.57)/4 ≈ **22.66%**.", keyPoints:['Correctly calculates all 4 YoY growth rates','Correctly averages them to ≈22.66%']}},
+      { marks:5, text:"Calculate TechHub's CAGR from 2019 to 2023, and compare it to the simple average growth rate calculated above.",
+        answer:{
+          concept:"CAGR = (Ending Value ÷ Beginning Value)^(1/n) − 1, where n = number of years (4, from 2019 to 2023).",
+          explanation:"CAGR = (90/40)^(1/4) − 1 = 2.25^0.25 − 1 ≈ 1.2247 − 1 = **≈22.47%**.",
+          application:"This is slightly LOWER than the simple arithmetic average growth rate (22.66%) calculated earlier — this is expected and mathematically consistent, since the Geometric Mean (which underlies CAGR) is always less than or equal to the Arithmetic Mean for a set of positive, non-identical values.",
+          conclusion:"CAGR (≈22.47%) is the more appropriate, industry-standard figure to present to investors, since it correctly reflects compounded growth rather than a simple, uncompounded average."
+        , keyPoints:['Correctly calculates CAGR ≈22.47%','Correctly notes CAGR is slightly lower than the simple average, and explains why (GM ≤ AM)']}},
+      { marks:5, text:"Calculate the competitor's CAGR and simple average growth rate over the same period, and compare both figures to TechHub's.",
+        answer:{
+          explanation:"Competitor's growth factors: 1.50, 0.90, 1.60, 1.05. Product = 1.50×0.90×1.60×1.05 ≈ 2.268. CAGR = (2.268)^(1/4) − 1 ≈ 1.2272 − 1 = **≈22.72%**. Simple average growth rate = (50−10+60+5)/4 = 105/4 = **26.25%**.",
+          application:"The competitor's CAGR (≈22.72%) is almost IDENTICAL to TechHub's CAGR (≈22.47%) — both companies ended up at nearly the same revenue level via nearly the same compounded growth rate. However, the competitor's SIMPLE average (26.25%) is noticeably higher and further apart from its own CAGR than TechHub's simple average (22.66%) was from its CAGR (22.47%).",
+          conclusion:"This gap between CAGR and simple average widens with volatility — the competitor's far more erratic year-to-year swings (+50%, −10%, +60%, +5%) cause a bigger divergence between the two measures than TechHub's comparatively steadier growth path."
+        , keyPoints:['Correctly calculates competitor CAGR ≈22.72% and simple average 26.25%','Notices CAGRs are almost identical between the two companies','Explains that a wider AM-GM gap signals more volatility']}},
+      { marks:8, text:"As TechHub's strategy advisor, prepare a board briefing comparing TechHub's growth story to its competitor's, using both CAGR and the underlying year-to-year pattern, and recommend how TechHub should position itself to investors.",
+        answer:{
+          issue:"TechHub and its main competitor have arrived at almost identical revenue levels (₹90 crore vs ₹90.72 crore) via almost identical CAGRs (≈22.47% vs ≈22.72%) over the same 4-year period — but a purely CAGR-based comparison would make the two companies look nearly indistinguishable, which may be misleading.",
+          concept:"This requires combining CAGR (Geometric Mean-based growth) with an understanding of its key limitation: CAGR smooths out and HIDES year-to-year volatility, since it only looks at the beginning and ending values.",
+          explanation:"TechHub's actual year-to-year growth (12.5%, 28.89%, 20.69%, 28.57%) is relatively steady and always positive. The competitor's year-to-year growth (+50%, −10%, +60%, +5%) is far more erratic, including an actual revenue DECLINE in Year 2 — a very different, riskier underlying path to reach almost the same CAGR.",
+          application:"An investor relying on CAGR alone would conclude the two companies performed almost identically. But TechHub's steadier growth pattern suggests lower business risk, more predictable execution, and likely a more resilient underlying operating model — while the competitor's volatility (including a down year) suggests it may be more exposed to external shocks, seasonality, or execution risk.",
+          analysis:"This is a textbook illustration of CAGR's core limitation: two companies can have nearly identical CAGRs while having very different risk profiles. Reporting CAGR alone, without the underlying year-to-year path, would understate TechHub's real competitive advantage — consistency.",
+          recommendation:"1. Present CAGR (≈22.47%) as the headline growth figure, since it is the industry-standard comparable metric.\n2. ALSO present the year-on-year growth trend explicitly, to visually contrast TechHub's steady climb against the competitor's volatile, down-and-up pattern.\n3. Frame TechHub's investment narrative around 'consistent, lower-risk compounded growth' rather than just the raw growth number, since this is where TechHub has a genuine story CAGR alone doesn't capture.\n4. Recommend the board request the competitor's data be similarly presented (not just its CAGR) in any competitive benchmarking, to avoid the same limitation misleading other stakeholders.",
+          conclusion:"While TechHub and its competitor show nearly identical CAGRs, TechHub's steadier underlying growth path represents a genuine, defensible point of difference that should be highlighted separately from the headline CAGR figure."
+        , keyPoints:['Correctly identifies that similar CAGR can mask very different volatility','Explains the business risk implication of the competitor\'s down year','Gives a clear, actionable investor-communication recommendation','Full exam-style structure with numbered recommendations']}},
+    ]
+  },
+
+  { id:'cs3', title:'MetroBank Loan Approvals — Reading the Data', difficulty:'Moderate',
+    topics:['Contingency Table','Marginal Probability','Joint & Conditional Probability','Test for Independence'],
+    caseText:`MetroBank reviewed 500 recent loan applications, classified by the applicant's employment type and the approval decision:
+
+Salaried: 180 Approved, 20 Rejected (200 total)
+Self-employed: 90 Approved, 60 Rejected (150 total)
+Business owner: 70 Approved, 80 Rejected (150 total)
+
+Column totals: 340 Approved, 160 Rejected. Grand total: 500 applications.
+
+The bank's fair-lending compliance team wants to understand the approval patterns across employment types before its next internal audit.`,
+    questions:[
+      { marks:2, text:"What is the marginal probability that a randomly selected applicant is Salaried?",
+        answer:{ explanation:"P(Salaried) = Row total for Salaried ÷ Grand total = 200 ÷ 500 = **0.40 (40%)**.", keyPoints:['Correctly uses the row total (200) over the grand total (500)']}},
+      { marks:5, text:"Calculate the joint probability that an applicant is a Business owner AND was rejected, and the conditional probability of rejection GIVEN the applicant is a Business owner. Explain why these two answers differ.",
+        answer:{
+          explanation:"Joint probability: P(Business owner AND Rejected) = 80 ÷ 500 = **0.16 (16%)**. Conditional probability: P(Rejected | Business owner) = 80 ÷ 150 = **≈0.533 (53.3%)**.",
+          concept:"The joint probability uses the GRAND TOTAL (500) as its denominator, since it asks about this combination occurring out of ALL applicants. The conditional probability instead uses the ROW TOTAL for Business owners (150) as its denominator, since it asks specifically about rejection risk WITHIN the business-owner group alone.",
+          conclusion:"This is why the two numbers differ so much: only 16% of ALL applicants are rejected business owners, but AMONG business owners specifically, the rejection rate is a much higher 53.3%."
+        , keyPoints:['Correctly calculates joint probability as 0.16','Correctly calculates conditional probability as ≈0.533','Explains the different denominators clearly']}},
+      { marks:5, text:"What is the probability that a randomly selected applicant is Salaried OR was Approved?",
+        answer:{
+          concept:"This uses the Addition Rule (Union Probability): P(A∪B) = P(A) + P(B) − P(A∩B).",
+          explanation:"P(Salaried) = 200/500 = 0.40. P(Approved) = 340/500 = 0.68. P(Salaried AND Approved) = 180/500 = 0.36. P(Salaried OR Approved) = 0.40 + 0.68 − 0.36 = **0.72 (72%)**.",
+          conclusion:"72% of all applicants are either Salaried, Approved, or both — the overlap (Salaried AND Approved) is correctly subtracted once to avoid double-counting."
+        , keyPoints:['Correctly applies the Addition Rule','Correctly subtracts the overlap once to avoid double-counting','Arrives at 0.72']}},
+      { marks:8, text:"MetroBank's compliance team wants to know if employment type and approval decision appear to be statistically independent, focused specifically on the Salaried group. Test this using the independence formula, interpret the result, and recommend next steps for the compliance audit.",
+        answer:{
+          issue:"MetroBank's compliance team needs to determine whether Salaried applicants are being approved at a rate that differs from what would be expected if employment type had NO relationship to approval decisions — a potential fair-lending concern if it does.",
+          concept:"Two events A and B are independent only if P(A∩B) = P(A) × P(B). If the actual joint probability differs meaningfully from this product, the events are likely dependent (associated).",
+          explanation:"If employment type and approval were truly independent, we would expect P(Salaried AND Approved) = P(Salaried) × P(Approved) = 0.40 × 0.68 = **0.272 (27.2%)**. However, the ACTUAL observed joint probability is P(Salaried AND Approved) = 180/500 = **0.36 (36%)**.",
+          application:"Since the actual joint probability (36%) is noticeably HIGHER than what independence would predict (27.2%), this suggests Salaried applicants are being approved at a rate meaningfully higher than would be expected under pure independence — a real, non-random pattern in the data.",
+          analysis:"This finding does not, by itself, prove discrimination or improper practice — but it is a strong enough signal to formally investigate. A full statistical significance test (a Chi-Square Test of Independence, covered later in this course) would be needed to confirm whether this gap is large enough to be statistically significant, rather than just due to normal sample variation.",
+          recommendation:"1. Flag this finding for the compliance team as a pattern warranting formal Chi-Square testing.\n2. Investigate the bank's underwriting criteria to understand WHY salaried applicants may be approved at a higher rate — e.g. income verification ease, perceived stability of salaried income — and whether these criteria are fair and properly justified.\n3. Cross-check whether Self-employed and Business owner applicants who are otherwise equally qualified are being treated consistently.",
+          conclusion:"The data shows employment type and approval decision are likely NOT independent, with Salaried applicants over-represented among approvals relative to what chance alone would predict — a pattern that merits formal statistical testing and a fair-lending review."
+        , keyPoints:['Correctly applies the independence test formula (P(A)×P(B) vs actual P(A∩B))','Correctly identifies Salaried applicants are approved more than chance would predict','Recommends formal Chi-Square testing as the appropriate next step','Frames a responsible, compliance-oriented recommendation, not an overreaching conclusion']}},
+    ]
+  },
+
+  { id:'cs4', title:"QuickCheck Diagnostics — A Bayes' Theorem Dilemma", difficulty:'Moderate to Difficult',
+    topics:["Bayes' Theorem",'Prior/Likelihood/Posterior','Base Rate'],
+    caseText:`QuickCheck Diagnostics offers employers a rapid workplace stress-risk screening test. Historical data shows that 8% of screened employees are truly "high risk" for burnout (the prior probability). The test correctly flags 85% of genuinely high-risk employees (the true positive rate), but it also incorrectly flags 12% of low-risk employees as high-risk (the false positive rate).
+
+QuickCheck's HR clients want to understand exactly what a "flagged" result actually means before deciding how to act on it.`,
+    questions:[
+      { marks:2, text:'Identify the prior probability, the true positive rate, and the false positive rate, in probability notation.',
+        answer:{ explanation:'P(High Risk) = 0.08 (prior). P(Flagged | High Risk) = 0.85 (true positive rate / likelihood). P(Flagged | Low Risk) = 0.12 (false positive rate).', keyPoints:['Correctly identifies all three quantities in the correct notation']}},
+      { marks:5, text:'Calculate the total probability that a randomly selected employee is flagged by the test.',
+        answer:{
+          concept:'This uses the Total Probability Rule: P(Flagged) = P(Flagged|High)×P(High) + P(Flagged|Low)×P(Low).',
+          explanation:'P(Low Risk) = 1 − 0.08 = 0.92. P(Flagged) = (0.85 × 0.08) + (0.12 × 0.92) = 0.068 + 0.1104 = **0.1784 (17.84%)**.',
+          conclusion:'About 17.8% of ALL screened employees will be flagged, whether or not they are truly high risk.'
+        , keyPoints:['Correctly calculates P(Low Risk) = 0.92','Correctly applies the Total Probability Rule to get 0.1784']}},
+      { marks:5, text:"Using Bayes' Theorem, calculate the probability that an employee is genuinely high-risk, GIVEN that they were flagged by the test.",
+        answer:{
+          concept:"Bayes' Theorem: P(High | Flagged) = [P(Flagged|High) × P(High)] ÷ P(Flagged).",
+          explanation:'P(High | Flagged) = (0.85 × 0.08) ÷ 0.1784 = 0.068 ÷ 0.1784 ≈ **0.3812 (38.1%)**.',
+          conclusion:'Even though the test flagged this employee, there is only about a 38% chance they are genuinely high-risk — the majority of flags are actually false positives.'
+        , keyPoints:['Correctly applies Bayes\' formula','Arrives at ≈38.1%']}},
+      { marks:8, text:"As QuickCheck's data science lead, explain to HR clients why a 'flagged' result should NOT be treated as a confirmed high-risk diagnosis, and recommend how the tool should actually be used, including how improving the test's false-positive rate would change the outcome.",
+        answer:{
+          issue:"HR clients may be tempted to treat a 'flagged' result from QuickCheck's screening test as strong, near-certain evidence that an employee is genuinely high-risk for burnout — but the Bayesian calculation shows this is a significant misreading of what the test result actually means.",
+          concept:"This is a classic application of Bayes' Theorem and the 'base rate fallacy' — because the true condition (high risk) is relatively RARE (only 8% prior probability), even a fairly accurate test produces more false positives (from the large low-risk population) than true positives (from the small high-risk population).",
+          explanation:"Only ≈38.1% of flagged employees are genuinely high-risk — meaning nearly 62% of all flagged employees are FALSE positives, who are not actually high-risk at all.",
+          application:"If HR clients used a 'flagged' result as the sole basis for a punitive or high-stakes action (e.g. involuntary reassignment, a formal risk designation on file), they would be wrong roughly 6 times out of 10 — a serious fairness and legal-risk concern, not just a statistical curiosity.",
+          analysis:"Sensitivity check: if QuickCheck could improve the test's false positive rate from 12% down to 5% (through better calibration), the total flagged probability would drop to P(Flagged) = 0.068 + (0.05×0.92) = 0.068+0.046 = 0.114, and the posterior would rise to P(High|Flagged) = 0.068/0.114 ≈ 59.6% — a substantial improvement, though still not near-certain.",
+          recommendation:"1. QuickCheck should clearly communicate to HR clients that a 'flagged' result means 'warrants a further, confidential, supportive conversation or assessment' — NOT 'confirmed high risk'.\n2. A flagged result should trigger a SECOND-STAGE, more thorough (and more accurate) assessment before any consequential action is taken, rather than being acted on directly.\n3. QuickCheck should invest in reducing the test's false-positive rate, since the sensitivity analysis shows this meaningfully improves the reliability of a flagged result.\n4. HR clients should be educated on the base-rate concept so they don't over-trust a single screening flag.",
+          conclusion:"A statistically accurate-sounding test can still produce misleading individual results when the underlying condition is rare — QuickCheck's clients must use the tool as a first-stage screening trigger, not a standalone diagnosis, and QuickCheck should work to improve its false-positive rate over time."
+        , keyPoints:['Correctly explains the base rate fallacy in plain terms','Quantifies the false-positive proportion (~62%) clearly','Includes the sensitivity analysis showing improved specificity raises the posterior','Gives responsible, actionable recommendations for both QuickCheck and its HR clients']}},
+    ]
+  },
+
+  { id:'cs5', title:'CallPro Support Centre — Modelling Ticket Volume', difficulty:'Difficult',
+    topics:['Discrete Probability Distribution','E(X) and V(X)','Binomial Distribution'],
+    caseText:`CallPro, a call centre operator, tracks the number of calls DROPPED per hour on its network. Based on months of data, the probability distribution is: 0 drops (P=0.40), 1 drop (P=0.35), 2 drops (P=0.20), 3 drops (P=0.05).
+
+Separately, CallPro's SLA requires agents to achieve a 90% First-Call Resolution (FCR) rate. A QA team plans to sample 12 calls from one agent to check compliance, assuming each call independently has a 90% chance of being resolved on first contact.`,
+    questions:[
+      { marks:2, text:'Verify that the dropped-calls distribution is a valid discrete probability distribution.',
+        answer:{ explanation:'Sum of all probabilities = 0.40+0.35+0.20+0.05 = **1.00**. Since all probabilities are between 0 and 1, and they sum to exactly 1, this IS a valid discrete probability distribution.', keyPoints:['Correctly sums to 1.00 and confirms validity']}},
+      { marks:5, text:'Calculate the Expected Value E(X) and Variance V(X) of the number of dropped calls per hour.',
+        answer:{
+          explanation:"E(X) = (0×0.40)+(1×0.35)+(2×0.20)+(3×0.05) = 0+0.35+0.40+0.15 = **0.90 dropped calls/hour**. E(X²) = (0×0.40)+(1×0.35)+(4×0.20)+(9×0.05) = 0+0.35+0.80+0.45 = 1.60. V(X) = E(X²) − [E(X)]² = 1.60 − 0.81 = **0.79** (Standard Deviation ≈ 0.89).",
+          keyPoints:['Correctly calculates E(X)=0.90','Correctly calculates V(X)=0.79']}},
+      { marks:5, text:"Using the Binomial Distribution (n=12, p=0.90), calculate the probability that ALL 12 sampled calls are resolved on the first attempt, and the expected number resolved with its variance.",
+        answer:{
+          concept:'Binomial formula: P(X=x) = C(n,x)·pˣ·(1−p)ⁿ⁻ˣ; E(X)=np; V(X)=np(1−p).',
+          explanation:"P(X=12) = C(12,12) × 0.9¹² × 0.1⁰ = 0.9¹² ≈ **0.282 (28.2%)**. E(X) = 12×0.9 = **10.8 calls resolved**. V(X) = 12×0.9×0.1 = **1.08**.",
+          conclusion:'On average, this agent is expected to resolve 10.8 out of 12 calls on the first attempt — consistent with (though not exactly at) the 90% SLA target — with relatively low variance, suggesting fairly consistent performance.'
+        , keyPoints:['Correctly calculates P(all 12 resolved) ≈0.282','Correctly calculates E(X)=10.8 and V(X)=1.08']}},
+      { marks:8, text:"As CallPro's operations analyst, use BOTH distributions to advise management on (a) whether the dropped-call process needs intervention, and (b) whether the sampled agent is meeting FCR expectations.",
+        answer:{
+          issue:"CallPro's operations team needs an integrated, quantified view of two separate but related quality metrics: the dropped-call rate (a discrete distribution) and first-call resolution performance (a binomial process) for one agent.",
+          concept:"This combines the Discrete Probability Distribution (E(X), V(X)) framework with the Binomial Distribution framework, both covered in this chapter.",
+          explanation:"For dropped calls: E(X) = 0.90 drops/hour with a Standard Deviation of ≈0.89 — meaning on a typical hour, CallPro should expect close to 1 dropped call, but with meaningful hour-to-hour variability. Additionally, P(X≥2 drops) = 0.20+0.05 = 0.25 — meaning a full 25% of hours see 2 or more drops, which is a non-trivial risk worth monitoring. For FCR: the sampled agent's expected resolutions (10.8 out of 12, ≈90%) closely matches the SLA target, and the relatively low variance (1.08) suggests this agent's performance is fairly stable and reliable, not a fluke.",
+          application:"The 25% chance of 2+ drops per hour suggests CallPro should NOT treat the dropped-call issue as rare or negligible — during roughly 1 in 4 hours, network/process issues cause a materially worse customer experience than average, which may warrant a technical investigation (e.g. network capacity, peak-hour staffing).",
+          analysis:"On FCR, the agent's binomial-modeled performance (E(X)=10.8/12 ≈ 90%) does not, by itself, prove the agent reliably meets the 90% SLA on every batch of 12 calls — since binomial outcomes vary randomly, CallPro should look at performance over MANY samples of 12 calls (not just one) before drawing a firm conclusion about this individual agent.",
+          recommendation:"1. Investigate network/process causes behind hours with 2+ dropped calls (25% of all hours), since this is a real, quantifiable, non-negligible operational risk.\n2. Track the agent's FCR performance across multiple weeks (not a single 12-call sample) to build a more reliable picture, given binomial outcomes naturally vary sample to sample.\n3. Use the E(X) and V(X) figures for dropped calls as a baseline to set alert thresholds (e.g. flag any hour where drops exceed 2, since this happens only 25% of the time under normal conditions).",
+          conclusion:"Both distributions together give CallPro a statistically grounded basis for prioritizing the dropped-call investigation and for fairly evaluating individual agent FCR performance over time, rather than reacting to single data points."
+        , keyPoints:['Uses both E(X)/V(X) and Binomial results together','Correctly computes and uses P(X≥2 drops)=0.25 as an operational risk signal','Cautions against over-interpreting a single 12-call binomial sample for the agent','Gives concrete, prioritized recommendations']}},
+    ]
+  },
+
+  { id:'cs6', title:'Horizon Airlines — Normal Distribution in Operations', difficulty:'Difficult',
+    topics:['Normal Distribution','Z-Score','Probability Estimation'],
+    caseText:`Horizon Airlines' passenger check-in processing time is approximately normally distributed, with a mean of 3.2 minutes and a standard deviation of 0.6 minutes. Airport operations wants to use this to set service standards and staffing triggers.`,
+    questions:[
+      { marks:2, text:'Calculate the Z-score for a processing time of 4.4 minutes, and interpret it in plain language.',
+        answer:{ explanation:'Z = (4.4 − 3.2) / 0.6 = 1.2 / 0.6 = **2.0**. This means a processing time of 4.4 minutes is exactly 2 standard deviations ABOVE the average processing time.', keyPoints:['Correctly calculates Z=2.0 and interprets it correctly']}},
+      { marks:5, text:'What is the probability that a randomly selected passenger takes LESS than 2.5 minutes to check in?',
+        answer:{
+          explanation:'Z = (2.5 − 3.2) / 0.6 ≈ −1.167. Looking up P(Z < −1.167) in the standard normal table gives approximately **0.122 (≈12.2%)**.',
+          conclusion:'About 12.2% of passengers are processed in under 2.5 minutes — a relatively fast subset of check-ins.'
+        , keyPoints:['Correctly calculates Z≈-1.167','Correctly reads/estimates the probability as ≈12.2%']}},
+      { marks:5, text:'What is the probability that a randomly selected passenger takes BETWEEN 3.0 and 4.0 minutes?',
+        answer:{
+          explanation:'Z₁ = (3.0−3.2)/0.6 ≈ −0.333; Z₂ = (4.0−3.2)/0.6 ≈ 1.333. P(Z<1.333) ≈ 0.9088; P(Z<−0.333) ≈ 0.3694. P(3.0<X<4.0) = 0.9088 − 0.3694 = **≈0.5394 (≈53.9%)**.',
+          conclusion:'Just over half of all passengers (≈53.9%) are processed within this 3.0-to-4.0-minute window, which management can treat as the "typical" check-in experience.'
+        , keyPoints:['Correctly calculates both Z-values','Correctly takes the difference of the two table probabilities to get ≈53.9%']}},
+      { marks:8, text:"Horizon Airlines wants a data-driven rule for when to open an additional check-in counter: it wants to identify the processing time beyond which only the SLOWEST 5% of normal check-ins would fall. Calculate this time, and give a full staffing-policy recommendation.",
+        answer:{
+          issue:"Horizon Airlines needs an objective, statistically grounded threshold for triggering additional check-in staffing, rather than relying on subjective judgment about when queues 'feel' too slow.",
+          concept:"This requires working BACKWARD from a desired percentile of the Normal Distribution — finding the value of X that corresponds to the 95th percentile (since the slowest 5% lie above it).",
+          explanation:"The Z-value corresponding to the 95th percentile is Z ≈ 1.645. Using X = μ + Z·σ: X = 3.2 + (1.645 × 0.6) = 3.2 + 0.987 = **≈4.19 minutes**.",
+          application:"This means that under NORMAL operating conditions, only about 5% of passengers should take longer than ≈4.19 minutes to check in. If operations staff observe check-in times trending noticeably above this ≈4.19-minute mark for a sustained period, this is a statistically meaningful signal that something beyond normal random variation is happening (e.g. a genuine bottleneck), not just ordinary variability.",
+          analysis:"Using a data-driven threshold like this avoids two common staffing mistakes: reacting to every single slow transaction (which would trigger unnecessary and costly re-staffing constantly, since ~5% of transactions are ALWAYS expected to be this slow even in a well-functioning system), and under-reacting to a genuine, sustained bottleneck by not having any objective trigger at all.",
+          recommendation:"1. Set ≈4.19 minutes as the internal 'slow check-in' benchmark for monitoring purposes.\n2. Trigger an additional check-in counter opening specifically when the PROPORTION of transactions exceeding ≈4.19 minutes rises meaningfully above the expected 5% baseline over a rolling window (e.g. the last 30 minutes) — not on any single slow transaction.\n3. Periodically re-validate the mean (3.2 min) and SD (0.6 min) assumptions using fresh operational data, since process changes (new kiosks, staff training) could shift these baseline figures over time.",
+          conclusion:"A percentile-based, Normal Distribution-driven threshold gives Horizon Airlines an objective, defensible staffing trigger that distinguishes genuine bottlenecks from ordinary, expected variability in check-in times."
+        , keyPoints:['Correctly finds the 95th percentile Z-value (1.645)','Correctly calculates X ≈4.19 minutes','Explains why a percentile-based threshold beats reacting to every slow transaction','Gives an operationally specific, monitoring-based recommendation']}},
+    ]
+  },
+
+  { id:'cs7', title:'FreshMart Retail — Estimating the Unknown', difficulty:'Difficult',
+    topics:['Sampling Techniques','Confidence Interval for Mean','Confidence Interval for Proportion','Sample Size Determination'],
+    caseText:`FreshMart operates 40 grocery stores across a state, with no centralized master list of individual customers. Management wants to estimate (a) the true average customer basket size, and (b) the proportion of customers using its loyalty app.
+
+A pilot study of 36 customers from one store found a mean basket size of ₹850, with a sample standard deviation of ₹180. Separately, a broader sample of 250 customers across several stores found 155 using the loyalty app.`,
+    questions:[
+      { marks:2, text:"Since FreshMart has no master customer list but does have a known list of its 40 stores, which sampling technique would be most appropriate to survey customers company-wide, and why?",
+        answer:{ explanation:"**Cluster Sampling** is most appropriate: since individual customers cannot be listed or randomly sampled directly (no master list exists), FreshMart should randomly select a subset of its 40 STORES (the clusters), then survey customers within each selected store.", keyPoints:['Correctly identifies Cluster Sampling','Justifies it based on the lack of a customer-level sampling frame']}},
+      { marks:5, text:'Using the pilot study data (n=36, mean=₹850, sample SD=₹180), calculate the 95% confidence interval for the true average basket size.',
+        answer:{
+          explanation:'Standard Error = 180/√36 = 180/6 = 30. Margin of Error = 1.96 × 30 = 58.8. 95% CI = 850 ± 58.8 = **(₹791.20, ₹908.80)**.',
+          conclusion:'FreshMart can be 95% confident that the true average basket size across all its customers lies between ₹791.20 and ₹908.80.'
+        , keyPoints:['Correctly calculates the standard error','Correctly calculates the 95% CI as approximately (₹791, ₹909)']}},
+      { marks:5, text:'FreshMart wants to repeat this estimate company-wide with a tighter margin of error of only ₹20 at 95% confidence, using σ≈₹180 from the pilot study. Calculate the minimum required sample size.',
+        answer:{
+          concept:'n = [Z(α/2) × σ / E]².',
+          explanation:'n = [(1.96 × 180) / 20]² = [352.8/20]² = [17.64]² ≈ 311.2, which rounds UP to **312 customers**.',
+          conclusion:'FreshMart needs to sample at least 312 customers company-wide to achieve a margin of error of no more than ₹20 at 95% confidence.'
+        , keyPoints:['Correctly applies the sample size formula','Correctly rounds up to 312']}},
+      { marks:8, text:"Calculate the 90% confidence interval for the proportion of customers using the loyalty app (n=250, 155 using it), and combine all your findings into one integrated data-collection recommendation for FreshMart's research team.",
+        answer:{
+          issue:"FreshMart's research team needs a complete, practical data-collection plan covering both its basket-size and loyalty-app-usage research goals, grounded in properly calculated confidence intervals and sample sizes.",
+          concept:"This combines Cluster Sampling (for practical data collection), Confidence Intervals for both a Mean and a Proportion, and Sample Size Determination.",
+          explanation:"For the proportion: p̂ = 155/250 = 0.62. Standard Error = √[0.62×0.38/250] = √0.0009424 ≈ 0.0307. At 90% confidence, Z ≈ 1.645, so Margin of Error = 1.645 × 0.0307 ≈ 0.0505. 90% CI = 0.62 ± 0.0505 = **(0.5695, 0.6705)**, i.e. FreshMart is 90% confident that between approximately 57.0% and 67.1% of all customers use the loyalty app.",
+          application:"Putting all findings together: (1) Cluster sampling across randomly selected stores is the practical way to collect data given no master customer list exists. (2) The pilot's 95% CI for basket size (₹791–₹909) is reasonably wide, and the calculated required sample size of 312 customers shows the company-wide study needs a meaningfully larger sample than the 36-customer pilot to tighten this to ±₹20. (3) The loyalty-app usage estimate (57.0%–67.1%) already comes from a larger, 250-customer sample, giving a reasonably tight range already, though FreshMart could similarly calculate the sample size needed for any desired tighter margin here too.",
+          analysis:"A single combined research design — using cluster sampling to select stores, then randomly sampling roughly 312+ customers WITHIN those selected store clusters — can serve both research goals (basket size and app usage) simultaneously, rather than running two entirely separate studies, saving cost and time.",
+          recommendation:"1. Use Cluster Sampling: randomly select a representative subset of FreshMart's 40 stores.\n2. Within selected stores, sample at least 312 customers to achieve the ±₹20 basket-size precision target at 95% confidence.\n3. Use this same larger sample to also re-estimate loyalty-app usage with a tighter, more precise confidence interval than the current pilot-level range.\n4. Report both final estimates as confidence intervals (not single point figures) in the final research report, to properly communicate the precision achieved.",
+          conclusion:"A single, well-designed cluster-sampling study with an adequately calculated sample size can efficiently deliver both of FreshMart's research goals with statistically defensible precision."
+        , keyPoints:['Correctly calculates the 90% CI for proportion as ≈(0.570, 0.671)','Integrates sampling technique, CI for mean, CI for proportion, and sample size into one coherent plan','Gives a specific, combined, resource-efficient recommendation','Full exam-style structure with clear reasoning']}},
+    ]
+  },
+
+  { id:'cs8', title:'Café Aroma — Testing a New Initiative', difficulty:'Difficult',
+    topics:['Hypothesis Testing','One-Sample Z-Test for Mean','Type I and Type II Errors'],
+    caseText:`Café Aroma's average ticket size has historically been ₹320, with a known population standard deviation of ₹45 (based on years of POS data). After launching a new "combo meal" menu, a sample of 40 transactions shows an average ticket size of ₹338.
+
+The owner wants rigorous statistical evidence before deciding whether to roll the combo menu out across all outlets.`,
+    questions:[
+      { marks:2, text:'State the null and alternative hypotheses for testing whether the combo menu increased average ticket size.',
+        answer:{ explanation:'H0: μ = ₹320 (the combo menu has NOT increased average ticket size). H1: μ > ₹320 (the combo menu HAS increased average ticket size) — a directional (one-tailed) hypothesis.', keyPoints:['States H0 correctly','States a directional H1 correctly']}},
+      { marks:5, text:'Calculate the test statistic and determine, at α = 5%, whether there is significant evidence the combo menu increased ticket size.',
+        answer:{
+          concept:'One-sample Z-test: Z = (x̄ − μ0) / (σ/√n).',
+          explanation:'Z = (338 − 320) / (45/√40) = 18 / 7.115 ≈ **2.53**. The one-tailed critical value at α=5% is 1.645.',
+          conclusion:'Since 2.53 > 1.645, we **REJECT H0** — there is statistically significant evidence at the 5% level that the combo menu increased average ticket size.'
+        , keyPoints:['Correctly calculates Z≈2.53','Correctly compares to the critical value and rejects H0']}},
+      { marks:5, text:'Does the conclusion change at the stricter α = 1% significance level?',
+        answer:{
+          explanation:'The one-tailed critical value at α=1% is approximately 2.326. Since the calculated Z (2.53) still exceeds 2.326, we **STILL REJECT H0** at the 1% level.',
+          conclusion:'Unlike some borderline cases, this result is strong enough that the conclusion does NOT change even at the stricter 1% significance level — the evidence for an increase is quite robust.'
+        , keyPoints:['Correctly identifies the 1% critical value (~2.326)','Correctly concludes the decision does not flip at the stricter level']}},
+      { marks:8, text:"Prepare a full write-up for Café Aroma's owner: explain what a Type I and a Type II error would mean in this specific context, give your final business recommendation, and highlight one important caution about what this test does and does NOT prove.",
+        answer:{
+          issue:"Café Aroma's owner wants to decide, based on rigorous evidence, whether to roll out the new combo menu chain-wide — a decision with real cost and operational implications if the wrong call is made.",
+          concept:"This requires interpreting the hypothesis test result in the context of Type I/II errors and the important distinction between statistical significance and proven causation.",
+          explanation:"A Type I Error here would mean concluding the combo menu increased sales (rejecting H0) when in reality it did NOT — the owner would then invest in a chain-wide rollout of a menu that doesn't actually help, wasting resources. A Type II Error would mean concluding there was no real increase (failing to reject H0) when the combo menu actually DID work — the owner would then miss out on a genuinely valuable initiative. Given the strong result here (significant even at the stricter 1% level), the risk of this being a Type I error is low, but not zero.",
+          application:"Statistically, the evidence strongly supports that average ticket size genuinely increased after the combo menu launch, at both the 5% and 1% significance levels.",
+          analysis:"An important caution: this test shows the average ticket size increased AFTER the combo menu was introduced, but it does NOT, by itself, PROVE the combo menu was the CAUSE of that increase. Other factors — a concurrent price increase, a seasonal effect, a promotional campaign running at the same time, or even random timing — could also explain part or all of the observed increase. This connects to the broader principle that correlation (or an observed before/after difference) does not automatically imply causation.",
+          recommendation:"1. Proceed with a WIDER ROLLOUT of the combo menu, given the strong, robust statistical evidence of an increase (significant even at 1%).\n2. However, before a FULL chain-wide commitment, run a proper controlled trial — e.g. introduce the combo menu at some outlets while keeping others as a control group over the same period — to more confidently isolate the combo menu's own causal effect from other possible influences (seasonality, concurrent promotions).\n3. Continue monitoring ticket size data post-rollout to confirm the effect persists over time, not just in the initial sample.",
+          conclusion:"While the statistical evidence for an increase in ticket size is strong and robust, the owner should treat this as strong supporting evidence for a wider trial — not definitive proof that the combo menu itself caused the change — and should validate with a more rigorously controlled comparison before finalizing a full chain-wide rollout."
+        , keyPoints:['Correctly explains Type I and Type II errors in the specific café context','Gives a clear, evidence-based recommendation','Explicitly cautions that statistical significance does not prove causation, suggesting a controlled trial','Full exam-style structure with proper reasoning']}},
+    ]
+  },
+
+  { id:'cs9', title:'Prime Manufacturing — Quality & Regional Performance', difficulty:'Difficult (End-Sem Level)',
+    topics:['Chi-Square Test of Independence','ANOVA','F-value Interpretation'],
+    caseText:`Prime Manufacturing operates 3 plants and runs 3 shifts (Morning, Evening, Night) at each. Quality control classified 150 recent defects by shift and severity:
+
+Morning: 40 Minor, 10 Major (50 total)
+Evening: 35 Minor, 15 Major (50 total)
+Night: 20 Minor, 30 Major (50 total)
+Column totals: 95 Minor, 55 Major. Grand total: 150.
+
+Separately, management ran an ANOVA comparing average daily output (units) across its 3 plants, obtaining: F = 6.85, Sig. = 0.004 (tested at α = 0.05).
+
+Management suspects these two findings might be connected and wants an integrated analysis before deciding on any operational changes.`,
+    questions:[
+      { marks:3, text:'State the hypotheses for testing whether defect severity is associated with shift, and calculate the expected frequency for the (Night, Major) cell.',
+        answer:{ explanation:'H0: Defect severity is independent of shift (not associated). H1: Defect severity IS associated with shift. Expected frequency for (Night, Major) = (Row total × Column total) ÷ Grand total = (50 × 55) ÷ 150 = **≈18.33**.', keyPoints:['States hypotheses correctly','Correctly calculates the expected frequency as ≈18.33']}},
+      { marks:5, text:'Calculate the full Chi-Square statistic for this table, and state the conclusion at 5% significance (df = 2, critical χ² = 5.991).',
+        answer:{
+          explanation:"Calculating expected frequencies for all 6 cells (each Minor cell expects ≈31.67, each Major cell expects ≈18.33) and summing [(O−E)²/E] across all cells gives a calculated **χ² ≈ 18.66**.",
+          conclusion:'Since 18.66 far exceeds the critical value of 5.991, we **REJECT H0** — defect severity IS significantly associated with shift. In particular, the Night shift shows a disproportionately high share of Major defects (30 out of 50, compared to an expected ≈18.33).'
+        , keyPoints:['Correctly calculates χ² ≈18.66 (or shows correct methodology even if minor rounding varies)','Correctly rejects H0 and identifies the Night shift as the driver of the association']}},
+      { marks:5, text:'Interpret the ANOVA result (F=6.85, Sig.=0.004) comparing average output across the 3 plants, and state the appropriate next step.',
+        answer:{
+          explanation:'H0: mean daily output is equal across all 3 plants. H1: at least one plant\'s mean output differs. Since Sig. (0.004) is less than α (0.05), we **REJECT H0** — there is a statistically significant difference in average output among at least one pair of the 3 plants.',
+          conclusion:'Since ANOVA alone does not identify WHICH plant(s) differ, a post-hoc test (e.g. Tukey\'s test) should be run next to pinpoint the specific plant(s) responsible for the difference.'
+        , keyPoints:['Correctly states H0/H1 for ANOVA','Correctly rejects H0 based on Sig.<α','Correctly recommends a post-hoc test as the next step']}},
+      { marks:8, text:"As Prime Manufacturing's quality and operations analyst, write an integrated management summary connecting the Chi-Square finding (Night shift and Major defects) with the ANOVA finding (output differs by plant), and recommend a follow-up investigation.",
+        answer:{
+          issue:"Prime Manufacturing has two separate but potentially related statistical findings: defect severity is significantly associated with shift (driven by the Night shift's disproportionate share of Major defects), and average output significantly differs across its 3 plants — but the company doesn't yet know if these two patterns are connected.",
+          concept:"This requires combining the Chi-Square Test of Independence (categorical association between shift and defect severity) with ANOVA (comparing continuous output across plants), and recognising that neither test alone reveals the full operational picture.",
+          explanation:"The Chi-Square result shows the Night shift, specifically, is where Major defects concentrate — 30 out of 50 Night-shift defects are Major, versus an expected ≈18.33 under independence. The ANOVA result shows plants differ significantly in output, but does not by itself explain WHY, or which specific plant(s) differ.",
+          application:"A plausible connecting hypothesis is that the plant(s) showing lower average output in the ANOVA result may also be the plant(s) that rely more heavily on Night-shift production — if Night shifts are less efficient AND more defect-prone (as the Chi-Square result suggests), this could explain both patterns through a common root cause: Night-shift conditions (fatigue, reduced supervision, lower staffing).",
+          analysis:"Neither test alone can confirm this connecting hypothesis — the Chi-Square test only examined shift vs defect severity, and the ANOVA only examined plant vs output; the two tests haven't yet been cross-referenced against each other with a common variable.",
+          recommendation:"1. Run the Tukey post-hoc test on the ANOVA result to identify exactly which plant(s) have significantly lower output.\n2. Cross-reference each plant's SHARE of Night-shift production against both its output ranking and its Major-defect rate, to test whether the lower-output plant(s) are also the ones with greater Night-shift reliance.\n3. If a Correlation analysis (covered in the next chapter) between 'proportion of Night-shift production' and 'output' or 'defect rate' across the plants shows a strong relationship, this would support the connecting hypothesis and justify a targeted Night-shift intervention (additional supervision, staffing, or training) rather than a plant-wide change.\n4. Avoid concluding causation prematurely — confirm the pattern holds with further targeted data before committing to a costly shift-restructuring decision.",
+          conclusion:"By connecting the Chi-Square finding (Night shift drives Major defects) with the ANOVA finding (plants differ significantly in output), Prime Manufacturing has a strong, testable hypothesis that Night-shift conditions may be a common root cause — but this requires a follow-up post-hoc and correlation analysis before any operational change is finalized."
+        , keyPoints:['Explicitly connects the two separate statistical findings into one coherent hypothesis','Proposes a specific, testable follow-up analysis (post-hoc + correlation)','Cautions against premature causal conclusions','Full exam-style structure integrating two chapters\' worth of techniques']}},
+    ]
+  },
+
+  { id:'cs10', title:'Apex Investments — Portfolio Relationships', difficulty:'Difficult',
+    topics:['Correlation','Covariance','Portfolio Diversification'],
+    caseText:`Apex Investments is evaluating two stocks, P and Q, for a client portfolio, using 6 months of percentage returns:
+
+Month 1-6, Stock P: 2, 4, 1, 5, 3, 6
+Month 1-6, Stock Q: 8, 5, 9, 4, 7, 3
+
+The portfolio manager notices that in months when P performs well, Q often seems to perform poorly, and wants this relationship quantified before making an allocation decision.`,
+    questions:[
+      { marks:2, text:'Based on a visual read of the data, what sign of correlation (positive, negative, or near zero) would you expect between Stock P and Stock Q, and why?',
+        answer:{ explanation:"A **negative** correlation would be expected: in months where P is relatively high (e.g. Month 6: P=6), Q tends to be relatively low (Month 6: Q=3), and vice versa (Month 1: P=2 is low while Q=8 is high) — the two stocks appear to move in largely opposite directions.", keyPoints:['Correctly predicts negative correlation with reasoning from the data pattern']}},
+      { marks:5, text:'Calculate the covariance between Stock P and Stock Q.',
+        answer:{
+          explanation:"Mean P = 21/6 = 3.5. Mean Q = 36/6 = 6.0. Calculating each month's (P−3.5)×(Q−6) and summing gives a total of **−22**. Covariance = −22 ÷ 6 = **≈−3.67**.",
+          conclusion:'The negative covariance confirms the two stocks tend to move in opposite directions, consistent with the initial visual observation.'
+        , keyPoints:['Correctly calculates the means','Correctly calculates covariance ≈ −3.67']}},
+      { marks:5, text:'Calculate the Pearson correlation coefficient between Stock P and Stock Q, and interpret its strength.',
+        answer:{
+          concept:'r = Cov(X,Y) ÷ (σₓ × σᵧ).',
+          explanation:"Population SD of P ≈ 1.708; Population SD of Q ≈ 2.160. r = −3.67 ÷ (1.708 × 2.160) = −3.67 ÷ 3.689 ≈ **−0.99**.",
+          conclusion:'This is a VERY STRONG negative correlation (close to the theoretical minimum of −1) — Stock P and Stock Q move almost perfectly in opposite directions over this period.'
+        , keyPoints:['Correctly calculates both standard deviations','Correctly calculates r ≈ −0.99 and interprets it as very strong negative']}},
+      { marks:8, text:"As Apex's portfolio advisor, recommend whether the client should hold both Stock P and Stock Q together, explain the diversification logic, contrast it with a hypothetical Stock R that is strongly POSITIVELY correlated with P, and note any cautions about relying on this analysis.",
+        answer:{
+          issue:"Apex's portfolio manager needs to decide whether combining Stock P and Stock Q would help or hurt the client's overall portfolio risk, based on the very strong negative correlation found between them.",
+          concept:"This requires applying the principle that combining assets with NEGATIVE correlation reduces overall portfolio risk (volatility), since their price/return movements tend to offset each other.",
+          explanation:"With r ≈ −0.99, Stock P and Stock Q move almost perfectly opposite to each other — when one under-performs in a given month, the other tends to over-perform, and vice versa.",
+          application:"If the client held ONLY Stock P (or only Stock Q), their portfolio would experience the full swings of that single stock's returns. But by holding BOTH P and Q together, the strong negative correlation means their combined swings will substantially CANCEL OUT, producing a smoother, less volatile combined return path than either stock alone — this is the core mechanic of diversification. By contrast, a hypothetical Stock R that is strongly POSITIVELY correlated with P would move in the SAME direction as P — combining P and R would NOT provide this offsetting benefit, and could even amplify the portfolio's overall volatility, since both would tend to rise and fall together.",
+          analysis:"This is a valuable diversification opportunity, but the analysis is based on only 6 months of data — a small sample. Correlation coefficients calculated from small samples can be unstable and may not hold up over a longer period or under different market conditions; correlation also only measures the LINEAR relationship, and past correlation is not guaranteed to persist into the future (correlations between assets can shift over time, especially during market stress).",
+          recommendation:"1. Recommend combining Stock P and Stock Q in the client's portfolio specifically FOR their strong negative correlation, to reduce overall portfolio volatility.\n2. Avoid combining P with a strongly positively-correlated asset like the hypothetical Stock R, unless the goal is deliberately to concentrate (not diversify) exposure.\n3. Expand the analysis to a longer historical data window (well beyond 6 months) before finalizing any allocation, to confirm the negative correlation is a stable, persistent pattern rather than a short-term coincidence.\n4. Periodically re-monitor the correlation over time, since asset relationships can and do change.",
+          conclusion:"The very strong negative correlation between Stock P and Stock Q makes them attractive diversification partners for the client's portfolio, but Apex should validate this relationship over a longer time horizon before making a final allocation decision, and should avoid assuming the correlation will remain fixed indefinitely."
+        , keyPoints:['Correctly applies negative correlation to the diversification principle','Correctly contrasts with a hypothetical positively-correlated asset','Explicitly cautions about small sample size and correlation instability over time','Full exam-style structure with concrete portfolio recommendations']}},
+    ]
+  },
+
+  ];
+})();
+
 /* ---------------- DEMO MODULE (sample content to try the system) ---------------- */
 const DEMO_CHAPTER = {
   id:'demo', title:'Sample Chapter: Motivation', topics:['Meaning of motivation','Content theories (Maslow, Herzberg, McClelland)','Process theories (Vroom, Adams, Locke)'],
