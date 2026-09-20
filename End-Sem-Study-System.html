@@ -3739,7 +3739,7 @@ Separately, management ran an ANOVA comparing average daily output (units) acros
 
 Management suspects these two findings might be connected and wants an integrated analysis before deciding on any operational changes.`,
     questions:[
-      { marks:3, text:'State the hypotheses for testing whether defect severity is associated with shift, and calculate the expected frequency for the (Night, Major) cell.',
+      { marks:2, text:'State the hypotheses for testing whether defect severity is associated with shift, and calculate the expected frequency for the (Night, Major) cell.',
         answer:{ explanation:'H0: Defect severity is independent of shift (not associated). H1: Defect severity IS associated with shift. Expected frequency for (Night, Major) = (Row total × Column total) ÷ Grand total = (50 × 55) ÷ 150 = **≈18.33**.', keyPoints:['States hypotheses correctly','Correctly calculates the expected frequency as ≈18.33']}},
       { marks:5, text:'Calculate the full Chi-Square statistic for this table, and state the conclusion at 5% significance (df = 2, critical χ² = 5.991).',
         answer:{
@@ -3796,6 +3796,79 @@ The portfolio manager notices that in months when P performs well, Q often seems
           recommendation:"1. Recommend combining Stock P and Stock Q in the client's portfolio specifically FOR their strong negative correlation, to reduce overall portfolio volatility.\n2. Avoid combining P with a strongly positively-correlated asset like the hypothetical Stock R, unless the goal is deliberately to concentrate (not diversify) exposure.\n3. Expand the analysis to a longer historical data window (well beyond 6 months) before finalizing any allocation, to confirm the negative correlation is a stable, persistent pattern rather than a short-term coincidence.\n4. Periodically re-monitor the correlation over time, since asset relationships can and do change.",
           conclusion:"The very strong negative correlation between Stock P and Stock Q makes them attractive diversification partners for the client's portfolio, but Apex should validate this relationship over a longer time horizon before making a final allocation decision, and should avoid assuming the correlation will remain fixed indefinitely."
         , keyPoints:['Correctly applies negative correlation to the diversification principle','Correctly contrasts with a hypothetical positively-correlated asset','Explicitly cautions about small sample size and correlation instability over time','Full exam-style structure with concrete portfolio recommendations']}},
+    ]
+  },
+
+  { id:'cs11', title:'Metro Soap Co — Reading a Multi-City Market Survey', difficulty:'Moderate',
+    topics:['Contingency Table','Marginal & Joint Probability','Conditional & Union Probability','Mutually Exclusive Events'],
+    caseText:`A consumer research agency surveyed soap users across four metro cities on their preferred brand — LUX, DOVE, or PEARS (each respondent could pick only ONE brand). The results:
+
+City | LUX | DOVE | PEARS | Total
+Mumbai | 30 | 20 | 10 | 60
+Delhi | 25 | 15 | 20 | 60
+Chennai | 20 | 25 | 15 | 60
+Kolkata | 15 | 20 | 25 | 60
+Total | 90 | 80 | 70 | 240
+
+Multiple FMCG companies commissioned this survey to understand regional brand popularity before deciding where to focus their advertising budgets.`,
+    questions:[
+      { marks:2, text:"What is the marginal probability that a randomly selected respondent preferred DOVE?",
+        answer:{ explanation:"P(DOVE) = Column total for DOVE ÷ Grand total = 80 ÷ 240 = **≈0.333 (33.3%)**.", keyPoints:['Correctly uses the DOVE column total (80) over the grand total (240)']}},
+      { marks:5, text:"Calculate (a) the joint probability that a respondent was from Chennai AND preferred DOVE, and (b) the conditional probability that a respondent preferred PEARS GIVEN that they were from Delhi.",
+        answer:{
+          explanation:"(a) Joint probability: P(Chennai AND DOVE) = 25 ÷ 240 = **≈0.104 (10.4%)**, using the specific Chennai-DOVE cell over the grand total. (b) Conditional probability: P(PEARS | Delhi) = 20 ÷ 60 = **≈0.333 (33.3%)**, using the Delhi row total (60), not the grand total, since we already know the respondent is from Delhi.",
+          concept:"Joint probability always divides by the GRAND TOTAL; conditional probability divides by the total for the GIVEN condition only.",
+          conclusion:"About 10.4% of ALL respondents are Chennai residents who prefer DOVE, while AMONG Delhi respondents specifically, 33.3% prefer PEARS — these are different questions with different correct denominators."
+        , keyPoints:['Correctly computes joint probability ≈0.104','Correctly computes conditional probability ≈0.333','Uses the correct denominator (grand total vs row total) for each']}},
+      { marks:5, text:"Calculate the probability that a respondent either preferred PEARS OR was from Kolkata (or both), and separately, calculate the probability that a respondent preferred BOTH LUX and DOVE. Explain the second answer.",
+        answer:{
+          concept:"Union uses the Addition Rule: P(A∪B) = P(A) + P(B) − P(A∩B). The second question tests whether you recognize a logically impossible joint event.",
+          explanation:"P(PEARS) = 70/240 ≈ 0.2917. P(Kolkata) = 60/240 = 0.25. P(PEARS AND Kolkata) = 25/240 ≈ 0.1042. P(PEARS OR Kolkata) = 0.2917+0.25−0.1042 = **≈0.4375 (43.75%)**. For the second part: since each respondent could choose only ONE brand, P(LUX AND DOVE) = **0 (impossible)** — no respondent can simultaneously prefer two different single-choice brands.",
+          conclusion:"The union probability is 43.75%, while preferring both LUX and DOVE is a logical impossibility given the survey's single-choice design, so its probability is exactly zero — not a very small number, but genuinely zero."
+        , keyPoints:['Correctly applies the Addition Rule to get ≈0.4375','Correctly identifies P(LUX AND DOVE)=0 and explains WHY (mutually exclusive, single-choice survey)']}},
+      { marks:8, text:"As the lead analyst presenting to the FMCG companies, calculate the probability that a respondent preferred DOVE GIVEN that they were NOT from Chennai, compare it to DOVE's overall marginal probability, and recommend how an FMCG company selling DOVE should interpret and act on this city-level pattern.",
+        answer:{
+          issue:"An FMCG company selling DOVE wants to know whether Chennai is unusually important to DOVE's popularity, and how to prioritize its city-level marketing spend based on the survey data.",
+          concept:"This requires computing a conditional probability that excludes a specific city, and comparing it against the (unconditioned) marginal probability to detect a city-specific skew.",
+          explanation:"DOVE total = 80; DOVE in Chennai = 25, so DOVE outside Chennai = 80−25 = 55. Total respondents outside Chennai = 240−60 = 180. P(DOVE | NOT Chennai) = 55/180 ≈ **0.306 (30.6%)**.",
+          application:"Comparing this to DOVE's overall marginal probability of 33.3% (computed in Part 1), DOVE's popularity OUTSIDE Chennai (30.6%) is somewhat LOWER than its overall average (33.3%) — meaning Chennai is pulling DOVE's overall average UP, i.e., Chennai has a relatively stronger DOVE preference (25/60 ≈ 41.7% within Chennai alone) than the other three cities combined.",
+          analysis:"This is a classic city-level skew that a purely national-average view would completely miss — a company only looking at the 33.3% national DOVE figure would not realize that Chennai is disproportionately driving that number, while Mumbai (20/60≈33.3%), Delhi (15/60=25%) and Kolkata (20/60≈33.3%) each contribute more modestly and somewhat differently.",
+          recommendation:"1. Recognize Chennai as DOVE's strongest market among the four cities surveyed (≈41.7% local preference) and consider protecting/reinforcing this lead with continued local marketing investment.\n2. Investigate WHY Delhi shows DOVE's weakest preference (25%, the lowest of the four cities) — possibly a distribution, pricing, or competitive intensity issue specific to Delhi.\n3. Avoid basing national strategy purely on the 33.3% national average, since it masks meaningful city-to-city variation revealed only by breaking the data down by city.\n4. Recommend a similarly city-disaggregated approach for future brand-tracking surveys, since single national averages can hide actionable regional patterns like this one.",
+          conclusion:"DOVE's popularity is not uniform across cities — Chennai over-indexes for DOVE while Delhi under-indexes — and an FMCG company should tailor its city-level marketing spend accordingly rather than relying on the single national marginal probability alone."
+        , keyPoints:['Correctly computes P(DOVE|NOT Chennai) ≈0.306','Correctly compares it to the marginal 33.3% to reveal the Chennai skew','Identifies Delhi as DOVE\'s weakest city and Chennai as its strongest','Gives concrete, city-specific marketing recommendations','Full exam-style structure with numbered recommendations']}},
+    ]
+  },
+
+  { id:'cs12', title:'ClearTap SaaS — Performance Ratings and the Normal Curve', difficulty:'Difficult',
+    topics:['Normal Distribution','Z-scores','Probability Estimation','Percentile/Cut-off Calculation'],
+    caseText:`ClearTap, a B2B SaaS company with over 1,000 employees, rates each employee's annual performance on a scale from 1 (lowest) to 5 (highest). HR assumes these ratings are approximately normally distributed. For the March 2024 review cycle, the mean rating was 3.5 with a standard deviation of 0.75.
+
+HR wants to use this distribution to answer several planning questions — including where to set the cut-off for employees needing a Performance Improvement Plan (PIP), targeted at the lowest 10% of ratings.`,
+    questions:[
+      { marks:2, text:"Calculate the Z-score for a performance rating of 4.5, and explain what this Z-score means in plain terms.",
+        answer:{ explanation:"Z = (X−μ)/σ = (4.5−3.5)/0.75 = 1.0/0.75 ≈ **1.33**. This means a rating of 4.5 is approximately 1.33 standard deviations ABOVE the average rating of 3.5.", keyPoints:['Correctly computes Z ≈1.33','Explains it as "1.33 SDs above the mean" in plain terms']}},
+      { marks:5, text:"Calculate the probability that a randomly selected employee's rating is (a) 4 or less, and (b) between 3 and 4.",
+        answer:{
+          concept:"Use Z = (X−μ)/σ, then read the corresponding cumulative probability from the standard normal table.",
+          explanation:"(a) Z = (4−3.5)/0.75 ≈ 0.667. P(Z<0.667) ≈ **0.7475 (74.75%)**, so P(rating ≤ 4) ≈ 74.75%. (b) For 3 to 4: Z(3) = (3−3.5)/0.75 ≈ −0.667, giving P(Z<−0.667) ≈ 0.2525. P(3<rating<4) = P(Z<0.667) − P(Z<−0.667) = 0.7475 − 0.2525 = **0.495 (49.5%)**.",
+          conclusion:"About 74.75% of employees rate 4 or below, and about 49.5% of employees fall in the 3-to-4 rating band, which is expected since this band straddles the mean symmetrically."
+        , keyPoints:['Correctly computes P(rating≤4) ≈74.75%','Correctly computes P(3<rating<4) ≈49.5% using both tail probabilities']}},
+      { marks:5, text:"Calculate the probability that a randomly selected employee's rating is more than 4.5, and separately, explain why the probability of an employee scoring EXACTLY 3.5 is essentially zero under this model.",
+        answer:{
+          concept:"P(X>a) = 1 − P(Z<z). Under a CONTINUOUS distribution, the probability of any single exact point value is zero — only RANGES have non-zero probability.",
+          explanation:"Z = (4.5−3.5)/0.75 ≈ 1.333. P(Z<1.333) ≈ 0.9087. P(rating>4.5) = 1 − 0.9087 = **≈0.0913 (9.13%)**. For the exact-value question: the Normal distribution is CONTINUOUS, meaning it assigns probability to RANGES of values (areas under the curve), not to any single infinitely-precise point — mathematically, P(X=3.5) corresponds to a line with zero width under the curve, so its area (and thus its probability) is exactly 0.",
+          conclusion:"About 9.13% of employees score above 4.5, while the 'probability' of landing on exactly 3.5 is a conceptual zero — a key distinction between continuous and discrete distributions."
+        , keyPoints:['Correctly computes P(rating>4.5) ≈9.13%','Correctly explains why P(X=3.5)=0 for a continuous distribution']}},
+      { marks:8, text:"HR wants to set a Performance Improvement Plan (PIP) cut-off at the lowest 10% of ratings. Calculate this cut-off rating, and advise HR on how to use it responsibly, including any statistical cautions.",
+        answer:{
+          issue:"HR needs to convert a percentile target (lowest 10%) into an actual rating cut-off value, and wants guidance on using this cut-off fairly and appropriately.",
+          concept:"This requires working the Z-score formula BACKWARDS: given a target cumulative probability (10%), find the corresponding Z-score, then convert it back into an actual rating value using X = μ + Z×σ.",
+          explanation:"For the lowest 10% (P(Z<z) = 0.10), the corresponding Z-score is approximately **−1.28** (from the standard normal table). Converting back to a rating: X = μ + Z×σ = 3.5 + (−1.28×0.75) = 3.5 − 0.96 = **≈2.54**.",
+          application:"This means employees rated approximately 2.54 or below fall into the bottom 10% of the distribution, and would be the pool HR considers for a PIP under this cut-off rule.",
+          analysis:"Relying purely on a statistical cut-off carries real risks: (1) it assumes ratings are GENUINELY normally distributed, which should be checked, not just assumed, since manager rating biases or a compressed rating scale (1-5) can distort the true shape; (2) a 'bottom 10%' rule is RELATIVE, not absolute — it guarantees flagging 10% of employees every single cycle even if overall performance across the company has genuinely improved, which can feel unfair to employees near the cut-off in a strong year; (3) a single rating source is a thin basis for a consequential HR decision like a PIP, and should ideally be combined with qualitative review.",
+          recommendation:"1. Use ≈2.54 as an initial statistical screening cut-off, but treat it as a FLAG for review, not an automatic PIP trigger.\n2. Validate the normality assumption periodically (e.g., checking the actual shape of the rating distribution) rather than assuming it holds every cycle.\n3. Combine the statistical cut-off with a qualitative manager review before finalizing any PIP decision, especially for employees close to the 2.54 boundary.\n4. Communicate clearly to employees that the cut-off is relative (bottom 10% of THIS cycle), not an absolute quality bar, to manage expectations fairly.",
+          conclusion:"The bottom-10% PIP cut-off works out to approximately a 2.54 rating, but HR should treat this as a starting screening tool — supplemented with qualitative judgment and periodic validation of the underlying normality assumption — rather than a fully automatic decision rule."
+        , keyPoints:['Correctly identifies Z≈−1.28 for the 10th percentile','Correctly converts back to a rating cut-off ≈2.54','Raises genuine statistical/fairness cautions about relative cut-offs and the normality assumption','Full exam-style structure with numbered, responsible recommendations']}},
     ]
   },
 
