@@ -9357,6 +9357,463 @@ TMC's CEO, Akio Toyoda, believes TMC's IS capabilities will let it process and a
   ];
 })();
 
+/* ---------------- INFORMATION SYSTEMS FOR MANAGERS: CHAPTERS 6,7 (Excel Essentials) ---------------- */
+(function(){
+  const ism = SUBJECTS.find(s=>s.id==='ism');
+  function setCh(id, material, mcqs){ const c = ism.chapters.find(c=>c.id===id); c.material = material; c.mcqs = mcqs; }
+setCh('ch6', {topics:[
+  {
+    name: 'Spreadsheet Basics, Data Entry & Editing',
+    whatIsIt: {
+      definition: 'A spreadsheet is a grid of rows and columns used to organize, analyse, and store data. In Excel, rows are numbered (1, 2, 3…) and columns are labelled (A, B, C…); the intersection of a row and column is called a cell (e.g. B5). A workbook contains multiple worksheets (sheets).',
+      meaning: 'Every Excel task — from a simple list to a complex financial model — is built on this same grid structure, so fluency with cells, data entry, and editing shortcuts is the foundation every other Excel topic (functions, formatting, pivot tables) is built on top of.'
+    },
+    components: [
+      {name: 'Data Entry', explanation: 'Data can be numbers, text, dates, or formulas entered directly into a cell or via the formula bar. Key shortcuts: Tab moves to the next cell in the row; Enter moves down one cell; Ctrl+; inserts today\'s date.'},
+      {name: 'Data Editing', explanation: 'Edit existing data by double-clicking a cell or pressing F2. Delete data with the Delete key. Undo an action with Ctrl+Z, Redo with Ctrl+Y. Copy (Ctrl+C), Cut (Ctrl+X), and Paste (Ctrl+V) move or duplicate data between cells.'},
+      {name: 'Number Formatting', explanation: 'Controls how a number APPEARS without changing its actual underlying value. Common formats: General (default, shown as entered), Number (adds decimal places), Currency (adds a symbol like ₹, $, €), Percentage (multiplies by 100 and adds %), and Date/Time (formats a number as a date or time).'}
+    ],
+    example: 'A student enters marks for 30 classmates into column B (numbers), their names into column A (text), and the test date into cell D1 using Ctrl+; to auto-insert today\'s date. After noticing a typo in one mark, the student double-clicks that cell (or presses F2) to fix it, uses Ctrl+Z if the fix is wrong, and finally applies the Percentage number format to a column showing each student\'s score as a percentage of total marks — without changing the actual stored numeric value underneath.',
+    advantages: [
+      {point: 'Formatting is non-destructive', explanation: 'Because Number Formatting only changes how a value LOOKS (e.g. showing 0.85 as "85%"), the underlying value stays exact and usable in further calculations — nothing is lost by reformatting.'}
+    ],
+    limitations: [
+      {point: 'Keyboard-shortcut dependent efficiency', explanation: 'Users unfamiliar with shortcuts like Tab/Enter for navigation or Ctrl+Z/Ctrl+Y for undo/redo tend to work much slower and are more likely to make uncorrected errors.'}
+    ],
+    application: 'These basics — the cell grid, data entry, editing, and number formatting — are the prerequisite for every function and tool covered later (cell referencing, aggregate functions, pivot tables), since all of them operate on cells entered and formatted exactly as described here.',
+    examPoints: [
+      'Spreadsheet = grid of rows (numbered) and columns (lettered); a cell is their intersection (e.g. B5); a workbook holds multiple worksheets.',
+      'Key shortcuts: Tab (next cell), Enter (down one cell), Ctrl+; (today\'s date), F2 (edit cell), Ctrl+Z (undo), Ctrl+Y (redo), Ctrl+C/X/V (copy/cut/paste).',
+      'Number formatting changes DISPLAY only, not the underlying stored value — formats include General, Number, Currency, Percentage, Date/Time.'
+    ],
+    examQuestions: [
+      'Explain the basic structure of an Excel spreadsheet (rows, columns, cells, workbook, worksheet).',
+      'List and explain five common Excel keyboard shortcuts for data entry and editing.',
+      'Why does changing a cell\'s number format not affect its stored value? Explain with an example.'
+    ]
+  },
+  {
+    name: 'Cell Referencing: Relative, Absolute & Mixed',
+    whatIsIt: {
+      definition: 'Cell referencing refers to using cell addresses in formulas rather than typing raw values directly, so a formula automatically uses whatever value is currently in the referenced cell.',
+      meaning: 'The TYPE of reference used determines what happens to that reference when the formula is copied to other cells — this is one of the most practically important Excel concepts, since choosing the wrong reference type is one of the most common sources of copy-paste formula errors.'
+    },
+    types: [
+      {name: 'Relative Reference (e.g. A1)', explanation: 'The DEFAULT reference type. It changes automatically when the formula is copied to a new cell — e.g. a formula "=A1+B1" in cell C1, when copied down to C2, automatically becomes "=A2+B2".'},
+      {name: 'Absolute Reference (e.g. $A$1)', explanation: 'Both the row and column are FIXED using dollar signs. When the formula is copied anywhere, the reference to $A$1 never changes — useful when a formula must always refer to one fixed cell, such as a tax rate stored in a single cell.'},
+      {name: 'Mixed Reference (e.g. A$1 or $A1)', explanation: 'PART of the reference is fixed and part is relative. In A$1, the row (1) is fixed but the column (A) can change when copied sideways. In $A1, the column (A) is fixed but the row (1) can change when copied downward.'}
+    ],
+    example: 'A shop calculates GST-inclusive prices for 10 products. Column A has the base price of each product (A2:A11), and cell D1 holds a single GST rate of 18% (as 0.18). The formula in B2 is "=A2*(1+$D$1)" — using a RELATIVE reference for A2 (so it correctly shifts to A3, A4… as the formula is copied down for each product) and an ABSOLUTE reference for $D$1 (so every product\'s formula keeps pointing to the SAME GST rate cell, not a shifted one). If $D$1 had been left as a relative reference D1, copying the formula down to B3 would have wrongly shifted it to D2 (an empty cell), breaking the calculation.',
+    advantages: [
+      {point: 'Absolute references prevent copy-paste errors on shared constants', explanation: 'Locking a shared value like a tax rate or exchange rate with $ signs guarantees every copied formula uses the SAME source cell, rather than silently drifting to a wrong, unintended cell.'}
+    ],
+    limitations: [
+      {point: 'Easy to forget to lock a reference that should be absolute', explanation: 'If a formula meant to reference one fixed cell is left as a plain relative reference and then copied, it will silently point to the wrong (usually empty) cell in each new row/column — producing wrong results without any error message.'}
+    ],
+    application: 'Cell referencing choice directly affects every function covered later in this chapter and the next: a SUMIF/VLOOKUP formula copied across many rows needs its lookup range locked with absolute references (e.g. $A$2:$C$10), exactly as in the GST example above, or the range will incorrectly shift with each copy.',
+    examPoints: [
+      'Relative reference (A1): changes when copied — the DEFAULT.',
+      'Absolute reference ($A$1): fully fixed row and column, never changes when copied.',
+      'Mixed reference (A$1 or $A1): only row OR only column fixed.',
+      'Use absolute references for constants/shared values (tax rate, GST rate) that every copied formula must point to identically.'
+    ],
+    examQuestions: [
+      'Differentiate between relative, absolute, and mixed cell references with examples.',
+      'A formula "=A2*$B$1" in cell C2 is copied down to C3 and across to D2. What does each copied formula look like, and why?',
+      'Why would a formula referencing a shared tax rate use an absolute reference instead of a relative one?'
+    ]
+  },
+  {
+    name: 'Conditional Formatting',
+    whatIsIt: {
+      definition: 'Conditional Formatting automatically changes a cell\'s visual appearance (fill color, font color, icons, data bars) based on whether its value meets a specified rule or condition — without changing the underlying data.',
+      meaning: 'Unlike static Number Formatting (which always displays a value the same way), Conditional Formatting is DYNAMIC — the formatting itself updates automatically whenever the cell\'s value changes, making patterns and outliers visually obvious at a glance across large datasets.'
+    },
+    types: [
+      {name: 'Highlight Cells Rules', explanation: 'Applies formatting (e.g. a colored fill) to cells that meet a simple condition, such as "Greater Than," "Less Than," "Between," "Equal To," or contain specific text/duplicate values.'},
+      {name: 'Top/Bottom Rules', explanation: 'Highlights the top or bottom N items or percentage of values in a range (e.g. highlight the Top 10 sales figures, or the Bottom 20% of scores).'},
+      {name: 'Data Bars', explanation: 'Fills each cell with a colored bar whose length is proportional to that cell\'s value relative to others in the range — giving an at-a-glance visual comparison, like an in-cell bar chart.'},
+      {name: 'Color Scales', explanation: 'Applies a color gradient across a range of cells based on each value\'s relative magnitude (e.g. red for low values, green for high values), useful for spotting overall patterns like a heat map.'},
+      {name: 'Icon Sets', explanation: 'Places a small icon (e.g. arrows, traffic-light circles, stars) in each cell based on its value\'s range, commonly used for at-a-glance status indicators (e.g. red/yellow/green for performance targets).'},
+      {name: 'Custom Formula Rule', explanation: 'Uses a formula (starting with "=") that must evaluate to TRUE or FALSE to determine whether formatting is applied — allowing conditions more complex than the built-in rule types, such as comparing one cell to another.'}
+    ],
+    example: 'An HR manager maintains a spreadsheet of 50 employees\' attendance percentages in column C. Using Conditional Formatting → Highlight Cells Rules → "Less Than," any cell in C2:C51 with a value below 75% is automatically shaded red, instantly flagging employees with poor attendance without the manager manually scanning every row. If an employee\'s attendance later improves above 75%, the red shading disappears automatically — because Conditional Formatting is dynamic, unlike a one-time manual highlight.',
+    advantages: [
+      {point: 'Surfaces patterns and outliers instantly in large datasets', explanation: 'Scanning hundreds of rows manually to spot values above/below a threshold is slow and error-prone; conditional formatting makes such values visually obvious in a single glance.'},
+      {point: 'Stays accurate automatically as data changes', explanation: 'Because the rule re-evaluates live, formatting never goes stale the way a manual, one-time highlight would after the underlying data is updated.'}
+    ],
+    limitations: [
+      {point: 'Can become visually cluttered with too many overlapping rules', explanation: 'Applying multiple conditional formatting rules to the same range can make a sheet hard to read if the rules are not carefully prioritized or scoped.'},
+      {point: 'Only affects appearance, not the value itself', explanation: 'Conditional formatting flags a value visually but does not correct, filter, or remove it — it must still be combined with other tools (like Data Validation, or Sorting/Filtering) to actually act on flagged data.'}
+    ],
+    application: 'Conditional Formatting is commonly combined with the aggregate/lookup functions covered in this and the next chapter — for example, using Data Bars on a column of SUM totals, or a Custom Formula Rule that compares a VLOOKUP result against a target value.',
+    examPoints: [
+      'Conditional Formatting = dynamic, rule-based visual formatting that updates automatically as data changes (unlike static Number Formatting).',
+      'Six common types: Highlight Cells Rules, Top/Bottom Rules, Data Bars, Color Scales, Icon Sets, Custom Formula Rule.',
+      'Only changes appearance — never changes the underlying stored value.'
+    ],
+    examQuestions: [
+      'What is Conditional Formatting? How does it differ from standard Number Formatting?',
+      'Explain any four types of Conditional Formatting rules with an example use-case for each.',
+      'How would you use Conditional Formatting to flag employees with attendance below a certain threshold?'
+    ]
+  },
+  {
+    name: 'Text Functions: LEFT, RIGHT, MID, LEN, TRIM, CONCAT, TEXTJOIN, TODAY, NOW',
+    whatIsIt: {
+      definition: 'Text functions extract, clean, combine, or generate text and date/time values from cell contents — used heavily to clean up messy real-world data (extra spaces, combined fields) and to build formatted labels or timestamps.',
+      meaning: 'Real-world data entered by different people is rarely perfectly clean or split the way you need it (e.g. a full name in one cell when you need first and last name separately) — these functions are the standard toolkit for reshaping such raw text into a usable form.'
+    },
+    types: [
+      {name: 'LEFT(text, num_chars)', explanation: 'Extracts a specified number of characters from the START (left side) of a text string. Example: =LEFT("ACCOUNTING",4) returns "ACCO".'},
+      {name: 'RIGHT(text, num_chars)', explanation: 'Extracts a specified number of characters from the END (right side) of a text string. Example: =RIGHT("ACCOUNTING",3) returns "ING".'},
+      {name: 'MID(text, start_num, num_chars)', explanation: 'Extracts a specified number of characters starting from a given position in the middle of a text string. Example: =MID("ACCOUNTING",3,5) starts at the 3rd character and takes 5 characters, returning "COUNT".'},
+      {name: 'LEN(text)', explanation: 'Returns the number of characters (length) in a text string, including spaces. Example: =LEN("ACCOUNTING") returns 10.'},
+      {name: 'TRIM(text)', explanation: 'Removes all extra spaces from text, leaving only single spaces between words (and none at the start/end) — essential for cleaning data pasted from other sources. Example: =TRIM("  Rahul   Sharma  ") returns "Rahul Sharma".'},
+      {name: 'CONCAT(text1, text2, …)', explanation: 'Joins two or more text values into one, with no automatic separator added. Example: =CONCAT("Rahul"," ","Sharma") returns "Rahul Sharma" (the space must be supplied manually as one of the arguments).'},
+      {name: 'TEXTJOIN(delimiter, ignore_empty, text1, text2, …)', explanation: 'Joins multiple text values using a SPECIFIED delimiter (separator) placed automatically between each one, and can optionally skip empty cells. Example: =TEXTJOIN(", ", TRUE, "Delhi", "Mumbai", "Chennai") returns "Delhi, Mumbai, Chennai" — automatically inserting ", " between each city without needing to type it manually each time.'},
+      {name: 'TODAY()', explanation: 'Returns the current date (no time component), and updates automatically every time the sheet is opened or recalculated. Takes no arguments: =TODAY().'},
+      {name: 'NOW()', explanation: 'Returns the current date AND time, updating automatically on every recalculation. Takes no arguments: =NOW().'}
+    ],
+    example: 'An admissions office receives student data with a "Full Name" column like "  Priya   Verma  " (with irregular extra spaces) and a "Student Code" column like "MBA2028015" (where the first 3 letters are the program, the next 4 digits are the batch year, and the last 3 digits are the roll number). Using =TRIM(A2) cleans the name to "Priya Verma". Using =LEFT(B2,3) extracts "MBA" (the program), =MID(B2,4,4) extracts "2028" (the batch year), and =RIGHT(B2,3) extracts "015" (the roll number). Finally, =TEXTJOIN(" - ", TRUE, LEFT(B2,3), MID(B2,4,4), RIGHT(B2,3)) recombines them as "MBA - 2028 - 015" in a cleanly formatted display column, while =TODAY() in a separate cell stamps the date the record was last reviewed.',
+    advantages: [
+      {point: 'Automates otherwise tedious manual text cleanup', explanation: 'TRIM alone can fix hundreds of inconsistently-spaced entries in seconds, work that would otherwise require manually editing every cell.'},
+      {point: 'TEXTJOIN is more efficient than CONCAT for multi-part joins', explanation: 'Since TEXTJOIN inserts the delimiter automatically between every value, it avoids the repetitive, error-prone task of manually typing the same separator between every single CONCAT argument.'}
+    ],
+    limitations: [
+      {point: 'LEFT/RIGHT/MID assume a FIXED, known text structure', explanation: 'These functions extract characters by POSITION, not by meaning — if the "Student Code" format were inconsistent in length (e.g. sometimes 9 characters, sometimes 10), a fixed =MID(B2,4,4) would extract the wrong substring for those rows.'},
+      {point: 'TODAY() and NOW() are volatile (always change)', explanation: 'Because these functions recalculate to the CURRENT date/time every time the sheet opens, they are unsuitable for recording a FIXED historical date (like "date this record was originally created") — a fixed date must instead be entered as a static value, not a formula.'}
+    ],
+    application: 'These text functions are the standard preprocessing step before applying the aggregate and lookup functions covered next — e.g. TRIM is routinely applied to lookup keys before a VLOOKUP, since even a single invisible extra space in the search value would cause VLOOKUP to fail to find an otherwise-matching row.',
+    examPoints: [
+      'LEFT/RIGHT extract characters from the start/end of text; MID extracts from a middle position given a start point and length.',
+      'LEN returns character count; TRIM removes extra/leading/trailing spaces.',
+      'CONCAT joins text with no automatic separator; TEXTJOIN joins text WITH a specified delimiter and can skip empty cells.',
+      'TODAY() returns current date only; NOW() returns current date AND time — both update automatically (volatile), so neither should be used to record a fixed historical date.'
+    ],
+    examQuestions: [
+      'Explain LEFT, RIGHT, and MID with an example each, extracting parts of a student code like "MBA2028015".',
+      'Differentiate between CONCAT and TEXTJOIN.',
+      'Why would TRIM be applied to data before using it as a VLOOKUP search key?',
+      'Why is TODAY() unsuitable for recording a fixed historical date, such as a record\'s original creation date?'
+    ]
+  },
+  {
+    name: 'Basic Aggregate Functions: SUM, AVERAGE, COUNT, COUNTA, MAX, MIN, ROUND',
+    whatIsIt: {
+      definition: 'Aggregate functions are pre-defined formulas that summarize a range of values into a single result — e.g. a total, an average, a count, or an extreme value — instead of requiring the user to compute the summary manually.',
+      meaning: 'These are the most frequently used functions in Excel because nearly every real-world spreadsheet task (totaling a sales column, finding the highest score, counting how many records exist) reduces to one of these basic aggregate operations.'
+    },
+    types: [
+      {name: 'SUM(range)', explanation: 'Adds all numeric values in a range. Example: =SUM(A1:A5) adds values from A1 to A5.'},
+      {name: 'AVERAGE(range)', explanation: 'Calculates the arithmetic mean of numeric values in a range. Example: =AVERAGE(A1:A5) finds the average of the numbers in A1:A5.'},
+      {name: 'COUNT(range)', explanation: 'Counts only the NUMERIC values in a range — text and blank cells are ignored. Example: =COUNT(A1:A10) counts only numeric entries.'},
+      {name: 'COUNTA(range)', explanation: 'Counts ALL non-empty cells in a range, whether they contain numbers or text. Example: =COUNTA(A1:A10) counts every filled cell, numeric or text.'},
+      {name: 'MAX(range)', explanation: 'Returns the LARGEST numeric value in a range. Example: =MAX(A1:A10) returns the highest value among A1 to A10.'},
+      {name: 'MIN(range)', explanation: 'Returns the SMALLEST numeric value in a range. Example: =MIN(A1:A10) returns the lowest value among A1 to A10.'},
+      {name: 'ROUND(number, num_digits)', explanation: 'Rounds a number to a specified number of decimal places. A POSITIVE num_digits rounds after the decimal point; a NEGATIVE num_digits rounds to the left of the decimal point (tens, hundreds, etc.). Example: =ROUND(48.7563, 2) returns 48.76; =ROUND(48.7563, 0) returns 49; =ROUND(1284, -2) returns 1300.'}
+    ],
+    example: 'A class of 25 students has marks recorded in B2:B26, but 2 students were absent and left blank, and one cell (B10) mistakenly has the text "Absent" typed in instead of being left blank. =SUM(B2:B26) totals all the numeric marks (ignoring blanks and the "Absent" text automatically). =AVERAGE(B2:B26) computes the average mark, again ignoring blanks/text. =COUNT(B2:B26) returns 22 (only the numeric mark entries — NOT counting the 2 truly blank cells or the "Absent" text cell). =COUNTA(B2:B26) returns 23 (every NON-EMPTY cell, which includes the 22 numeric marks PLUS the "Absent" text cell, but still excludes the 2 truly blank cells). =MAX(B2:B26) and =MIN(B2:B26) find the topper\'s and lowest scorer\'s marks. Finally, =ROUND(AVERAGE(B2:B26), 1) rounds the class average to one decimal place for a clean report, e.g. turning 72.847 into 72.8.',
+    advantages: [
+      {point: 'COUNT vs COUNTA distinction prevents miscounting mixed data', explanation: 'Using COUNT when COUNTA is needed (or vice versa) is a common, easily-avoided error — correctly choosing between them (as in the example above: 22 vs 23) directly affects report accuracy.'},
+      {point: 'ROUND controls DISPLAY-DRIVEN accuracy without altering underlying precision elsewhere', explanation: 'Wrapping a calculation like AVERAGE inside ROUND, e.g. =ROUND(AVERAGE(B2:B26),1), gives a clean, presentation-ready figure while the ROUND function itself genuinely changes the stored result of that specific cell to the rounded value (unlike Number Formatting, which only changes display).'}
+    ],
+    limitations: [
+      {point: 'COUNT silently ignores text, which can mask data-entry errors', explanation: 'In the class example, if a student\'s mark was accidentally typed as "85" with a stray space causing it to be treated as text, COUNT would silently exclude it from the count and SUM, potentially understating the total without any visible warning.'}
+    ],
+    application: 'These aggregate functions are the direct, unconditional counterparts to the CONDITIONAL aggregate functions (SUMIF, COUNTIF, AVERAGEIF) covered in the next chapter — SUM/AVERAGE/COUNT/COUNTA/MAX/MIN summarize an ENTIRE range, while their "IF" counterparts summarize only the cells meeting a specific condition.',
+    examPoints: [
+      'SUM = total; AVERAGE = mean; MAX/MIN = largest/smallest value in a range.',
+      'COUNT counts only NUMERIC cells; COUNTA counts ALL non-empty cells (numeric + text) — this is a frequently tested distinction.',
+      'ROUND(number, num_digits): positive digits round after the decimal point, negative digits round to the left of the decimal point (tens/hundreds).',
+      'ROUND genuinely changes the stored calculated value in that cell, unlike Number Formatting which only changes how a value is displayed.'
+    ],
+    examQuestions: [
+      'Differentiate between COUNT and COUNTA with an example where their results would differ.',
+      'Explain the ROUND function with examples using both positive and negative num_digits.',
+      'A column has 25 cells, of which 22 contain numeric marks, 1 contains the text "Absent," and 2 are blank. What would =COUNT() and =COUNTA() each return for this range?'
+    ]
+  }
+]}, [
+  {difficulty:'easy', q:'What is the correct term for the intersection of a row and a column in an Excel spreadsheet?', options:["A workbook","A worksheet","A cell","A range"], correct:2,
+    why:"The intersection of a row and column is called a cell (e.g. B5) — this is the basic addressable unit of an Excel spreadsheet.",
+    whyNot:{0:"A workbook is the overall FILE that contains multiple worksheets — much larger in scope than a single cell.",1:"A worksheet (sheet) is one full grid of rows and columns within a workbook — not a single intersection point.",3:"A range is a group of MULTIPLE cells (e.g. A1:A5) — not the single intersection of one row and one column."}},
+  {difficulty:'moderate', q:'A formula "=A2*$B$1" is written in cell C2 and then copied down to cell C3. What does the copied formula in C3 become?', options:["=A2*$B$1 (completely unchanged)","=A3*$B$1 (A2 shifts to A3, but $B$1 stays fixed)","=A3*$B$2 (both references shift)","=A2*$B$2 (only the absolute reference shifts)"], correct:1,
+    why:"A2 is a RELATIVE reference, so it shifts to A3 when copied down one row. $B$1 is an ABSOLUTE reference (both row and column locked with $), so it remains $B$1 unchanged no matter where the formula is copied.",
+    whyNot:{0:"The relative part (A2) MUST shift when copied — leaving the whole formula unchanged would defeat the purpose of a relative reference.",2:"The absolute reference $B$1 is specifically locked with $ signs precisely so it does NOT shift — only the relative reference A2 shifts.",3:"This reverses the rule — it is the RELATIVE reference (A2) that shifts, not the absolute one ($B$1), which by definition stays fixed."}},
+  {difficulty:'easy', q:'Which Excel feature automatically changes a cell\'s fill color, font color, or icon based on its value, and updates automatically whenever the underlying data changes?', options:["Number Formatting","Conditional Formatting","Data Validation","Cell Referencing"], correct:1,
+    why:"Conditional Formatting automatically changes a cell's visual appearance based on whether its value meets a specified rule, and is DYNAMIC — it re-evaluates and updates automatically as the underlying data changes.",
+    whyNot:{0:"Number Formatting is STATIC — it always displays a value the same way (e.g. always as currency) regardless of the value, and does not respond to conditions.",2:"Data Validation restricts what can be ENTERED into a cell (e.g. only numbers between 1-100) — it doesn't change a cell's appearance based on its value.",3:"Cell Referencing is about how formulas refer to other cells (relative/absolute/mixed) — unrelated to visual formatting."}},
+  {difficulty:'moderate', q:'A cell contains the text "  Rahul   Sharma  " with irregular extra spaces. Which function would correctly clean this to "Rahul Sharma" with single spaces and no leading/trailing spaces?', options:["=LEN(A1)", "=TRIM(A1)", "=CONCAT(A1)", "=LEFT(A1,5)"], correct:1,
+    why:"TRIM removes all extra spaces from text, leaving only single spaces between words and none at the start/end — exactly what is needed to clean '  Rahul   Sharma  ' into 'Rahul Sharma'.",
+    whyNot:{0:"LEN only returns the character COUNT of the text (a number) — it does not clean or modify the text itself.",2:"CONCAT joins multiple text values together — with only one argument (A1), it would just return A1's messy text unchanged, not cleaned.",3:"LEFT extracts a fixed number of characters from the start of the text — it would just return '  Rah' (5 characters including spaces), not a cleaned full name."}},
+  {difficulty:'difficult', q:'A "Student Code" cell contains "MBA2028015", where the first 3 characters are the program code, the next 4 are the batch year, and the last 3 are the roll number. Which formula correctly extracts just the batch year, "2028"?', options:["=LEFT(A1,4)", "=RIGHT(A1,4)", "=MID(A1,4,4)", "=MID(A1,3,4)"], correct:2,
+    why:"MID(text, start_num, num_chars) extracts characters starting from a given position. The batch year '2028' starts at the 4th character (after the 3-character program code 'MBA') and is 4 characters long, so =MID(A1,4,4) correctly returns '2028'.",
+    whyNot:{0:"LEFT(A1,4) would extract the first 4 characters, 'MBA2' — mixing the last letter of the program code with only the first digit of the batch year, not the clean batch year.",1:"RIGHT(A1,4) would extract the last 4 characters, '8015' — mixing the last digit of the batch year with the roll number, not the clean batch year.",3:"MID(A1,3,4) starts one character too early (at position 3, the last letter 'A' of 'MBA'), returning 'A202' instead of the correct '2028'."}},
+  {difficulty:'moderate', q:'Which function should be used to join "Delhi", "Mumbai", and "Chennai" into a single text string "Delhi, Mumbai, Chennai", automatically inserting ", " between each city without typing the separator manually for each join?', options:["=CONCAT(\"Delhi\",\"Mumbai\",\"Chennai\")", "=SUM(\"Delhi\",\"Mumbai\",\"Chennai\")", "=TEXTJOIN(\", \", TRUE, \"Delhi\",\"Mumbai\",\"Chennai\")", "=LEN(\"Delhi\",\"Mumbai\",\"Chennai\")"], correct:2,
+    why:"TEXTJOIN(delimiter, ignore_empty, text1, text2, …) joins multiple text values using a SPECIFIED delimiter placed automatically between each one — exactly matching the requirement to insert ', ' automatically without typing it manually between each city.",
+    whyNot:{0:"CONCAT joins text with NO automatic separator — it would produce 'DelhiMumbaiChennai' with no commas/spaces unless each separator is manually added as a SEPARATE argument each time.",1:"SUM is for adding NUMERIC values, not joining text — it is not designed for and cannot correctly join text strings.",3:"LEN returns the character count of a SINGLE text string, and doesn't even accept multiple text arguments the way described — it cannot join text at all."}},
+  {difficulty:'easy', q:'Which function returns the CURRENT date AND time, updating automatically every time the sheet recalculates?', options:["=TODAY()", "=NOW()", "=DATE()", "=TIME()"], correct:1,
+    why:"NOW() returns the current date AND time, updating automatically on every recalculation — this is explicitly what distinguishes it from TODAY(), which returns the date only (no time component).",
+    whyNot:{0:"TODAY() returns only the current DATE, with no time component — the question specifically asks for date AND time.",2:"DATE() is not a no-argument current-date function in this context — it is typically used to construct a specific date FROM given year/month/day values, not to fetch the current date/time.",3:"TIME() similarly constructs a specific time value from given hour/minute/second arguments — it does not fetch the current date and time."}},
+  {difficulty:'moderate', q:'A column B2:B26 has 22 numeric marks, 1 cell containing the text "Absent," and 2 truly blank cells (25 cells total). What would =COUNT(B2:B26) and =COUNTA(B2:B26) each return respectively?', options:["COUNT=25, COUNTA=25","COUNT=22, COUNTA=23","COUNT=23, COUNTA=22","COUNT=22, COUNTA=25"], correct:1,
+    why:"COUNT counts ONLY numeric values, so it returns 22 (the numeric marks only — it ignores both the 'Absent' text and the 2 blanks). COUNTA counts ALL non-empty cells regardless of type, so it returns 23 (the 22 numeric marks PLUS the 1 'Absent' text cell — but still excluding the 2 truly blank cells).",
+    whyNot:{0:"25 would only be correct if EVERY cell (including the 2 blanks) were counted — but neither COUNT nor COUNTA counts truly blank cells.",2:"This reverses the correct values — COUNT (numeric-only) must be the SMALLER number (22), and COUNTA (all non-empty) must be the LARGER number (23), not the other way around.",3:"COUNTA counts ALL non-empty cells including the 'Absent' text cell, so it must be 23, not 25 — 25 would require counting the 2 blank cells too, which COUNTA does not do."}},
+  {difficulty:'difficult', q:'Which formula correctly rounds the number 1,284 to the nearest hundred, giving 1,300?', options:["=ROUND(1284, 2)", "=ROUND(1284, 0)", "=ROUND(1284, -2)", "=ROUND(1284, -1)"], correct:2,
+    why:"In ROUND(number, num_digits), a NEGATIVE num_digits rounds to the LEFT of the decimal point. -2 rounds to the nearest HUNDRED, correctly turning 1284 into 1300.",
+    whyNot:{0:"A POSITIVE num_digits (2) rounds AFTER the decimal point (to 2 decimal places) — since 1284 has no decimal portion, =ROUND(1284,2) would just return 1284, not 1300.",1:"num_digits=0 rounds to the nearest WHOLE number — again, since 1284 is already a whole number, this would just return 1284 unchanged, not 1300.",3:"num_digits=-1 rounds to the nearest TEN, not hundred — this would give 1280, not 1300."}},
+  {difficulty:'difficult', q:'Why is =TODAY() generally UNSUITABLE for recording a fixed historical date, such as "the date this student record was originally created"?', options:["TODAY() only works with dates before the year 2000","TODAY() is volatile — it recalculates to the CURRENT date every time the sheet is opened or recalculated, so it can never store a fixed past date","TODAY() requires manual input of the date every time","TODAY() cannot be used in any other formula"], correct:1,
+    why:"TODAY() is a volatile function — it automatically updates to whatever the CURRENT date is every time the sheet recalculates. This means a cell using =TODAY() to record a 'creation date' would silently change to today's date every time the file is reopened, rather than preserving the actual original date — a fixed date must instead be entered as a static, typed-in value, not a live formula.",
+    whyNot:{0:"TODAY() has no such year-2000 limitation — it works correctly for the current date regardless of year, this is not the reason it's unsuitable for historical dates.",2:"TODAY() takes NO arguments and requires no manual input at all — that is actually part of its problem here: it can't be manually 'set' to a fixed past date, it always auto-updates.",3:"TODAY() CAN be used inside other formulas (e.g. calculating how many days have passed since a given date) — this is not the reason it's unsuitable for storing a fixed historical date."}}
+]);
+
+setCh('ch7', {topics:[
+  {
+    name: 'Conditional Aggregate Functions: SUMIF/S, COUNTIF/S, AVERAGEIF/S',
+    whatIsIt: {
+      definition: 'Conditional aggregate functions summarize (sum, count, or average) only the cells that meet one or more specified conditions, rather than summarizing an entire range unconditionally.',
+      meaning: 'These are the direct extension of the basic SUM/COUNT/AVERAGE functions from the previous chapter — instead of always summarizing every cell in a range, the "IF"/"IFS" suffix lets the summary be restricted to exactly the subset of data that matters for a given question (e.g. "total sales, but ONLY for Mumbai").'
+    },
+    types: [
+      {name: 'SUMIF(range, criteria, [sum_range])', explanation: 'Adds values that meet ONE condition. Example: =SUMIF(A2:A5,"Laptop",B2:B5) sums the values in B2:B5 wherever the corresponding cell in A2:A5 equals "Laptop", giving 95000.'},
+      {name: 'SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, …)', explanation: 'Adds values that meet MULTIPLE conditions simultaneously. Example: =SUMIFS(C2:C5,A2:A5,"Laptop",B2:B5,"Mumbai") sums C2:C5 only where A2:A5="Laptop" AND B2:B5="Mumbai", giving 110000. Note the sum_range comes FIRST in SUMIFS, unlike SUMIF where it comes last.'},
+      {name: 'COUNTIF(range, criteria)', explanation: 'Counts cells that satisfy ONE condition. Example: =COUNTIF(A2:A6,"Mumbai") returns 3. A numeric condition also works, e.g. =COUNTIF(B2:B20,">50") counts cells greater than 50.'},
+      {name: 'COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2, …)', explanation: 'Counts records satisfying MULTIPLE conditions. Example: =COUNTIFS(B2:B5,"Mumbai",C2:C5,">50") returns 2 — counting only rows where B2:B5="Mumbai" AND C2:C5>50.'},
+      {name: 'AVERAGEIF(range, criteria, [average_range])', explanation: 'Calculates the average of values satisfying ONE condition. Example: =AVERAGEIF(A2:A5,"IT",B2:B5) returns 55000 — the average of B2:B5 wherever A2:A5="IT".'},
+      {name: 'AVERAGEIFS(average_range, criteria_range1, criteria1, criteria_range2, criteria2, …)', explanation: 'Calculates the average based on MULTIPLE conditions. Example: =AVERAGEIFS(D2:D5,B2:B5,"IT",C2:C5,"Female") returns 65000 — the average of D2:D5 wherever B2:B5="IT" AND C2:C5="Female".'}
+    ],
+    comparison: {
+      headers: ['Function', 'Main Purpose', 'Example'],
+      rows: [
+        ['SUMIF', 'Sum using one condition', '=SUMIF(A2:A10,"IT",B2:B10)'],
+        ['SUMIFS', 'Sum using multiple conditions', '=SUMIFS(C2:C10,A2:A10,"IT",B2:B10,">50")'],
+        ['COUNTIF', 'Count using one condition', '=COUNTIF(A2:A10,"Mumbai")'],
+        ['COUNTIFS', 'Count using multiple conditions', '=COUNTIFS(A2:A10,"Mumbai",B2:B10,">50")'],
+        ['AVERAGEIF', 'Average using one condition', '=AVERAGEIF(A2:A10,"IT",B2:B10)'],
+        ['AVERAGEIFS', 'Average using multiple conditions', '=AVERAGEIFS(C2:C10,A2:A10,"IT",B2:B10,"Male")']
+      ]
+    },
+    example: 'A retail chain\'s sales sheet has Product (column A), City (column B), and Revenue (column C) for each transaction. To find total Laptop revenue across all cities: =SUMIF(A2:A5,"Laptop",B2:B5) → 95000. To narrow this to Laptop revenue specifically in Mumbai: =SUMIFS(C2:C5,A2:A5,"Laptop",B2:B5,"Mumbai") → 110000 (using a different, larger dataset than the single-condition example). To count how many transactions came from Mumbai: =COUNTIF(A2:A6,"Mumbai") → 3. To find average revenue specifically for IT-department purchases: =AVERAGEIF(A2:A5,"IT",B2:B5) → 55000.',
+    advantages: [
+      {point: 'Answers business questions directly without manual filtering first', explanation: 'Instead of manually filtering a sheet to isolate "Mumbai + Laptop" rows and then summing, SUMIFS computes the conditional total in a single formula, staying accurate even as new rows are added.'}
+    ],
+    limitations: [
+      {point: 'Criteria text must match exactly (unless wildcards are used)', explanation: 'A criteria value like "Mumbai" will not match a cell containing "mumbai " with a trailing space or different capitalization handling issues in some contexts — inconsistent data entry (see TRIM from the previous chapter) can silently cause a SUMIF/COUNTIF to undercount.'},
+      {point: 'Argument order differs between the single-condition and multi-condition versions', explanation: 'SUMIF places sum_range LAST, while SUMIFS places sum_range FIRST — a common source of formula errors when switching between the two.'}
+    ],
+    application: 'These conditional aggregate functions are the natural next step after mastering plain SUM/COUNT/AVERAGE, and are typically combined with IF-family logical functions (next topic) to build more complex conditional reports.',
+    examPoints: [
+      'SUMIF/COUNTIF/AVERAGEIF = ONE condition; SUMIFS/COUNTIFS/AVERAGEIFS = MULTIPLE conditions (AND logic across all conditions).',
+      'SUMIF syntax: range, criteria, [sum_range] — sum_range is LAST. SUMIFS syntax: sum_range, criteria_range1, criteria1, … — sum_range is FIRST.',
+      'COUNTIF/COUNTIFS take NO separate sum/average range since they only count matching cells.'
+    ],
+    examQuestions: [
+      'Differentiate between SUMIF and SUMIFS, including their argument order, with an example each.',
+      'Write a formula to count how many sales in range A2:A20 are both from "Delhi" (column A) and exceed ₹5000 (column B).',
+      'Why might a SUMIF formula undercount matching rows even when the criteria appears correct? Explain using a data-entry example.'
+    ]
+  },
+  {
+    name: 'Logical Functions: IF, Nested IF, IFS, AND, OR, IFERROR',
+    whatIsIt: {
+      definition: 'Logical functions evaluate a condition (or combination of conditions) and return different results depending on whether that condition is TRUE or FALSE, enabling formulas to make decisions rather than just calculate fixed values.',
+      meaning: 'These functions let a spreadsheet automatically classify, validate, or branch based on data — for example automatically labeling a student "Pass" or "Fail" — instead of a person manually reviewing and typing the label for every row.'
+    },
+    types: [
+      {name: 'IF(logical_test, value_if_true, value_if_false)', explanation: 'Checks a condition and returns one value if TRUE and another if FALSE. Example: =IF(B2>=40,"Pass","Fail").'},
+      {name: 'Nested IF', explanation: 'Uses multiple IF conditions within a single formula to handle more than two possible outcomes. Example: =IF(B2>=75,"A",IF(B2>=60,"B",IF(B2>=40,"C","F"))) — for marks 85 this returns "A"; for 65 it returns "B"; for 50 it returns "C"; for 30 it returns "F".'},
+      {name: 'IFS(condition1, result1, condition2, result2, …)', explanation: 'Tests multiple conditions without needing multiple NESTED IF statements, making the formula flatter and easier to read. Example: =IFS(B2>=75,"A",B2>=60,"B",B2>=40,"C",B2<40,"F") — evaluates the same grading logic as the Nested IF example above, but in a single flat function.'},
+      {name: 'AND(logical1, logical2, …)', explanation: 'Returns TRUE only when ALL conditions are TRUE. Example: =AND(B2>=40,C2>=40). Commonly combined with IF: =IF(AND(B2>=40,C2>=40),"Pass","Fail") — a student passes only if BOTH subjects meet the minimum.'},
+      {name: 'OR(logical1, logical2, …)', explanation: 'Returns TRUE if AT LEAST ONE condition is TRUE. Example: =OR(B2>=40,C2>=40). Combined with IF: =IF(OR(B2>=40,C2>=40),"Eligible","Not Eligible") — eligible if EITHER subject meets the minimum.'},
+      {name: 'IFERROR(value, value_if_error)', explanation: 'Returns a specified fallback value if a formula produces an error, instead of showing a raw error code like #DIV/0! or #N/A. Example: =IFERROR(A2/B2,"Cannot Divide by Zero"). Frequently used to wrap lookup formulas: =IFERROR(VLOOKUP(E2,A2:C10,3,FALSE),"Not Found").'}
+    ],
+    comparison: {
+      headers: ['Function', 'Main Purpose', 'Example'],
+      rows: [
+        ['IF', 'Test one condition', '=IF(B2>=40,"Pass","Fail")'],
+        ['Nested IF', 'Test multiple conditions', '=IF(B2>=75,"A",IF(B2>=40,"B","F"))'],
+        ['IFS', 'Multiple conditions, flat syntax', '=IFS(B2>=75,"A",B2>=40,"B",B2<40,"F")'],
+        ['AND', 'ALL conditions must be TRUE', '=AND(B2>=40,C2>=40)'],
+        ['OR', 'ANY condition can be TRUE', '=OR(B2>=40,C2>=40)'],
+        ['IFERROR', 'Handle errors gracefully', '=IFERROR(A2/B2,"Error")']
+      ]
+    },
+    example: 'A college computes final results using two subject scores (B2=Maths, C2=English). To pass, a student needs BOTH subjects ≥40: =IF(AND(B2>=40,C2>=40),"Pass","Fail"). Separately, for a scholarship, a student is eligible if EITHER subject score is ≥90: =IF(OR(B2>=90,C2>=90),"Eligible","Not Eligible"). For a letter grade based on the AVERAGE of the two: =IFS(AVERAGE(B2:C2)>=75,"A",AVERAGE(B2:C2)>=60,"B",AVERAGE(B2:C2)>=40,"C",AVERAGE(B2:C2)<40,"F") — cleanly handling four outcomes without deeply nested IFs. If a formula elsewhere tries to compute a per-subject average by dividing total marks by number of subjects, but a student has 0 subjects entered (causing #DIV/0!), wrapping it as =IFERROR(TotalMarks/NumSubjects,"No Subjects Entered") shows a clear message instead of a raw error.',
+    advantages: [
+      {point: 'IFS is more readable than deeply Nested IF for many outcomes', explanation: 'A 4-way or 5-way Nested IF becomes hard to read and debug due to deep bracket nesting; IFS expresses the same logic as a flat, easier-to-audit list of condition-result pairs.'},
+      {point: 'IFERROR prevents error codes from propagating into further calculations', explanation: 'An unresolved #N/A or #DIV/0! error in one cell can break every downstream formula that references it; IFERROR intercepts this at the source with a safe fallback value.'}
+    ],
+    limitations: [
+      {point: 'AND/OR alone return only TRUE/FALSE, not a usable label', explanation: 'AND(B2>=40,C2>=40) by itself just returns the word TRUE or FALSE — it must be wrapped inside an IF (as shown in the examples) to produce a meaningful output like "Pass"/"Fail".'},
+      {point: 'IFERROR can mask a genuine underlying problem', explanation: 'If IFERROR is used carelessly to hide EVERY possible error (including a real formula mistake, not just an expected edge case like division by zero), it can make debugging harder by silently replacing a useful error message with a generic one.'}
+    ],
+    application: 'These logical functions are frequently combined with the conditional aggregate functions from the previous topic (e.g. wrapping a SUMIF result in IFERROR) and with the lookup functions in the next topic (e.g. wrapping a VLOOKUP in IFERROR, as shown above) — logical functions are the "glue" that makes other Excel functions robust to real-world messy data.',
+    examPoints: [
+      'IF = single condition, two outcomes. Nested IF / IFS = multiple conditions, more than two outcomes (IFS is the flatter, more readable alternative to deep Nested IF).',
+      'AND = ALL conditions must be TRUE. OR = AT LEAST ONE condition must be TRUE. Both return only TRUE/FALSE and are typically wrapped inside IF for a usable label.',
+      'IFERROR(value, value_if_error) catches ANY error from its first argument and substitutes a fallback — commonly used to wrap VLOOKUP/division formulas.'
+    ],
+    examQuestions: [
+      'Write a Nested IF formula to assign grades A (≥75), B (≥60), C (≥40), F (<40) based on cell B2, then rewrite it using IFS.',
+      'Explain the difference between AND and OR with a Pass/Fail example for two subjects.',
+      'Why would a VLOOKUP formula commonly be wrapped in IFERROR? Give an example.'
+    ]
+  },
+  {
+    name: 'Lookup Functions: VLOOKUP, HLOOKUP, XLOOKUP, INDEX-MATCH',
+    whatIsIt: {
+      definition: 'Lookup functions search for a value in one part of a table and return a corresponding value from another part of the same table — automating what would otherwise require manually scanning a table to find matching data.',
+      meaning: 'These are among the most powerful and heavily-tested Excel functions because almost every real business task involves cross-referencing one dataset against another (e.g. finding an employee\'s department given their ID) — exactly what lookup functions are built to automate.'
+    },
+    types: [
+      {name: 'VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])', explanation: 'Searches VERTICALLY in the FIRST COLUMN of a table and returns a corresponding value from a specified column in that same row. Example: =VLOOKUP(102,A2:C4,3,FALSE) returns 82 — it looks for 102 in the first column of A2:C4, then returns the value from the 3rd column of that matching row. FALSE specifies an EXACT match.'},
+      {name: 'HLOOKUP(lookup_value, table_array, row_index_num, [range_lookup])', explanation: 'Searches HORIZONTALLY in the FIRST ROW of a table and returns a value from a specified row in that same column. Example: =HLOOKUP(103,A1:D3,3,FALSE) returns 68 — it looks for 103 in the first row of A1:D3, then returns the value from the 3rd row of that matching column.'},
+      {name: 'XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found])', explanation: 'A more flexible, modern lookup that searches for a value in ONE range and returns the corresponding value from ANY OTHER range (not restricted to being to the right, as VLOOKUP requires). Example: =XLOOKUP(102,A2:A4,C2:C4) returns 82. It also has a built-in not-found message: =XLOOKUP(105,A2:A4,C2:C4,"Student Not Found") returns that custom text instead of an error if 105 isn\'t found.'},
+      {name: 'INDEX(array, row_num, [column_num])', explanation: 'Returns the value at a SPECIFIC POSITION (row/column) within a given range. Example: =INDEX(A2:C4,2,3) returns 82 — the value at the 2nd row, 3rd column of the range A2:C4.'},
+      {name: 'MATCH(lookup_value, lookup_array, [match_type])', explanation: 'Finds the POSITION (not the value itself) of a lookup value within a range. Example: =MATCH("Neha",A2:A5,0) returns 3 — meaning "Neha" is found in the 3rd position of that range. A match_type of 0 means an exact match.'},
+      {name: 'INDEX + MATCH (combined)', explanation: 'Combines INDEX and MATCH to perform flexible lookups that overcome VLOOKUP\'s "must search left-to-right" limitation — MATCH finds the ROW POSITION of the lookup value, and INDEX then retrieves the value at that position from any other column. Example: =INDEX(C2:C4,MATCH(102,A2:A4,0)) returns 82 — MATCH finds that 102 is in position 1 within A2:A4, and INDEX then returns the value at position 1 within C2:C4.'}
+    ],
+    comparison: {
+      headers: ['Function', 'Search Direction', 'Key Limitation / Strength'],
+      rows: [
+        ['VLOOKUP', 'Vertical (down first column)', 'Can only look up a value and return a column to its RIGHT'],
+        ['HLOOKUP', 'Horizontal (across first row)', 'Can only look up a value and return a row BELOW it'],
+        ['XLOOKUP', 'Either direction, flexible', 'Can return a value from ANY column/row (left or right); has a built-in not-found fallback'],
+        ['INDEX + MATCH', 'Either direction, flexible', 'Same flexibility as XLOOKUP but using two combined functions — useful in older Excel versions without XLOOKUP']
+      ]
+    },
+    example: 'An HR system stores Employee ID (column A), Name (column B), and Salary (column C) for IDs 101-103 in rows A2:C4. To find the salary for Employee ID 102: =VLOOKUP(102,A2:C4,3,FALSE) returns 82 (in thousands, say). Using the flexible alternative: =XLOOKUP(102,A2:A4,C2:C4) also returns 82, and additionally =XLOOKUP(105,A2:A4,C2:C4,"Student Not Found") would cleanly return that message if ID 105 doesn\'t exist, rather than an error. If the SAME salary needed to be found using ID as a column to the LEFT of the search range (something VLOOKUP cannot do without rearranging the table), =INDEX(C2:C4,MATCH(102,A2:A4,0)) achieves the same result: MATCH finds 102 is in position 1 of A2:A4, and INDEX returns the 1st value in C2:C4, giving 82.',
+    advantages: [
+      {point: 'XLOOKUP and INDEX+MATCH remove VLOOKUP\'s directional limitation', explanation: 'VLOOKUP requires the return column to be to the RIGHT of the lookup column — if a table is structured the other way around, VLOOKUP simply cannot retrieve the value, while XLOOKUP and INDEX+MATCH can look in any direction.'},
+      {point: 'XLOOKUP\'s built-in [if_not_found] argument avoids needing a separate IFERROR wrapper', explanation: 'Unlike VLOOKUP (which typically needs IFERROR to show a clean message on a failed match), XLOOKUP can specify its own fallback message directly as its 4th argument.'}
+    ],
+    limitations: [
+      {point: 'VLOOKUP\'s exact-match mode requires FALSE as the 4th argument', explanation: 'Omitting the 4th argument (or using TRUE) tells VLOOKUP to look for an APPROXIMATE match on a SORTED table — a common source of wrong results when a user expects an exact match by default.'},
+      {point: 'INDEX+MATCH requires writing and coordinating two functions correctly', explanation: 'It is more powerful than VLOOKUP but also more complex to write correctly, since the row/column position found by MATCH must correctly align with the array passed to INDEX.'}
+    ],
+    application: 'These lookup functions are typically combined with IFERROR (from the previous topic) for robustness in real spreadsheets, and are also the underlying mechanism a Pivot Table effectively automates behind the scenes (covered in the next topic) — a Pivot Table can be thought of as replacing many manual VLOOKUP-style cross-references with one auto-summarizing tool.',
+    examPoints: [
+      'VLOOKUP searches vertically (first column); HLOOKUP searches horizontally (first row) — both can only look up-and-return in ONE fixed direction (VLOOKUP: left-to-right only).',
+      'XLOOKUP is more flexible than VLOOKUP/HLOOKUP — works in any direction and has a built-in not-found fallback argument.',
+      'MATCH returns a POSITION, not a value; INDEX returns a value AT a given position — combining them (INDEX+MATCH) replicates and extends VLOOKUP\'s capability.',
+      'VLOOKUP\'s 4th argument FALSE = exact match; omitting it or using TRUE = approximate match on sorted data (a common source of errors).'
+    ],
+    examQuestions: [
+      'Explain VLOOKUP with its syntax and an example. What is the purpose of its 4th argument?',
+      'Why would INDEX+MATCH or XLOOKUP be preferred over VLOOKUP in some situations?',
+      'Explain how MATCH and INDEX work together to look up a value, using an example.'
+    ]
+  },
+  {
+    name: 'Sorting, Filtering & Data Validation',
+    whatIsIt: {
+      definition: 'Sorting arranges data in a specified order (ascending/descending); Filtering temporarily displays only rows meeting chosen criteria while hiding the rest; Data Validation restricts what can be TYPED into a cell in the first place, preventing invalid entries before they occur.',
+      meaning: 'These three tools work at different points in the data lifecycle: Data Validation prevents bad data from entering the sheet at all, Sorting organizes data already present for easier reading, and Filtering temporarily narrows down what is VISIBLE without altering or reordering the underlying data.'
+    },
+    types: [
+      {name: 'Sorting — Single-level', explanation: 'Arranges an entire range or table by ONE column, either Ascending (A→Z, smallest→largest) or Descending (Z→A, largest→smallest).'},
+      {name: 'Sorting — Multi-level', explanation: 'Sorts by more than one column in a specified priority order — e.g. first sort by Department (A→Z), and WITHIN each department, sort by Salary (largest→smallest) — using Excel\'s "Add Level" option in the Sort dialog.'},
+      {name: 'AutoFilter', explanation: 'Adds a dropdown arrow to each column header, letting the user tick which specific values to show (e.g. show only "Mumbai" and "Delhi" rows) or apply built-in criteria filters (e.g. "greater than," "top 10," or text-contains filters) — rows not matching are temporarily hidden, not deleted.'},
+      {name: 'Advanced Filter', explanation: 'Allows more complex, multi-condition filtering (including AND/OR logic across several columns) than AutoFilter\'s simple dropdown checkboxes, and can output the filtered results to a separate location rather than just hiding rows in place.'},
+      {name: 'Data Validation — List', explanation: 'Restricts a cell\'s entry to only values from a predefined dropdown list (e.g. only "Pass"/"Fail"/"Absent" allowed in a result column), preventing typos or invalid categories.'},
+      {name: 'Data Validation — Number/Date Range', explanation: 'Restricts a cell to only accept a number or date within a specified range (e.g. marks must be between 0 and 100) — an entry outside this range triggers a warning and is rejected.'},
+      {name: 'Data Validation — Custom Formula', explanation: 'Uses a formula that must evaluate to TRUE for an entry to be accepted, allowing validation rules more complex than a simple list or range (e.g. ensuring an End Date entered in one cell is always later than a Start Date in another cell).'}
+    ],
+    example: 'An admissions team maintains a spreadsheet of 200 applicants with columns for Name, Program, Entrance Score, and Status. They first apply Data Validation (Number Range 0-100) on the Entrance Score column so no one can accidentally type "1000" instead of "100". As applications come in, they use AutoFilter to temporarily view only "MBA" program applicants with a Score above 80, to shortlist interview candidates — without permanently altering the full dataset. Once shortlisting is done, they remove the filter and instead Sort the full list first by Program (A→Z) and then by Score (highest→lowest) within each program, to prepare a clean, organized final merit list for each program.',
+    advantages: [
+      {point: 'Data Validation prevents errors at the SOURCE, which is cheaper than fixing them later', explanation: 'Catching an invalid entry (like a score of 1000) the moment it is typed avoids all the downstream errors that entry could have caused in SUM/AVERAGE/VLOOKUP formulas built on top of that data.'},
+      {point: 'Filtering is non-destructive', explanation: 'Since filtering only HIDES non-matching rows rather than deleting them, the analyst can always clear the filter and instantly see the full original dataset again.'}
+    ],
+    limitations: [
+      {point: 'Sorting permanently reorders data, unlike filtering', explanation: 'Unless the original row order is preserved elsewhere (e.g. a serial-number column), sorting cannot always be "undone" back to the exact original order simply by re-sorting — this makes sorting a more consequential action than filtering.'},
+      {point: 'Data Validation does not retroactively fix data already entered before the rule was applied', explanation: 'Adding a Data Validation rule to a column that already contains some invalid entries will not automatically correct or flag those pre-existing invalid values — it only prevents NEW invalid entries going forward.'}
+    ],
+    application: 'These three tools are typically the FIRST step in preparing raw data before applying the aggregate/lookup functions and Pivot Tables covered elsewhere in this chapter — clean, validated, and properly sorted/filtered data produces far more reliable SUMIF, VLOOKUP, and Pivot Table results.',
+    examPoints: [
+      'Sorting = permanently reorders rows (ascending/descending, single or multi-level). Filtering = temporarily hides non-matching rows without deleting or reordering data.',
+      'Data Validation restricts what CAN be entered into a cell (List, Number/Date Range, Custom Formula) — it prevents bad data at entry time, unlike Sorting/Filtering which work on data already present.',
+      'AutoFilter = simple dropdown-based filtering; Advanced Filter = complex multi-condition (AND/OR) filtering, can output results elsewhere.'
+    ],
+    examQuestions: [
+      'Differentiate between Sorting and Filtering in Excel.',
+      'Explain the three types of Data Validation rules with an example use-case for each.',
+      'Why is it recommended to apply Data Validation BEFORE large-scale data entry begins, rather than after?'
+    ]
+  },
+  {
+    name: 'Pivot Tables, Pivot Charts, Slicers & Dashboards',
+    whatIsIt: {
+      definition: 'A Pivot Table is an interactive tool that automatically summarizes, groups, and cross-tabulates large amounts of raw data into a compact summary table, without requiring the user to write SUMIF/COUNTIF formulas manually for every combination of categories.',
+      meaning: 'A Pivot Table effectively automates what would otherwise require dozens of individual SUMIFS/COUNTIFS formulas (one for every combination of category and sub-category) — dragging fields into a few designated areas (Rows, Columns, Values, Filters) instantly builds the full cross-tabulated summary.'
+    },
+    components: [
+      {name: 'Rows Area', explanation: 'Fields placed here become the ROW headings of the summary table — e.g. placing "Product" here creates one row per product.'},
+      {name: 'Columns Area', explanation: 'Fields placed here become the COLUMN headings of the summary table — e.g. placing "City" here creates one column per city, cross-tabulating against the row field.'},
+      {name: 'Values Area', explanation: 'Fields placed here are AGGREGATED (by default summed for numeric data, or counted for text) at the intersection of each row/column combination — e.g. placing "Revenue" here shows total revenue for each Product × City combination.'},
+      {name: 'Filters Area', explanation: 'Fields placed here let the ENTIRE Pivot Table be filtered down to a subset (e.g. filtering the whole table to show only one specific "Year") without changing the Rows/Columns/Values layout.'}
+    ],
+    types: [
+      {name: 'Pivot Chart', explanation: 'A chart built directly FROM a Pivot Table, which automatically updates whenever the underlying Pivot Table\'s data or layout changes — used to visualize the same cross-tabulated summary graphically (e.g. as bars or lines) instead of as a table of numbers.'},
+      {name: 'Slicer', explanation: 'A visual, button-based filter control connected to a Pivot Table (or Pivot Chart), letting a user click buttons (e.g. one button per City) to instantly filter the view — a more visual, user-friendly alternative to the Filters Area dropdown.'},
+      {name: 'Dashboard', explanation: 'A single worksheet combining multiple Pivot Tables, Pivot Charts, and Slicers together into one consolidated, at-a-glance view of key business metrics — often designed for non-technical stakeholders to explore data interactively without needing to write any formulas themselves.'}
+    ],
+    example: 'A retail chain has 5,000 raw transaction rows with Date, Product, City, Salesperson, and Revenue columns. Instead of manually writing a SUMIFS formula for every Product-City combination, a manager builds a Pivot Table by dragging Product into Rows, City into Columns, and Revenue into Values — instantly producing a compact table showing total revenue for every product in every city. Adding Year to the Filters area lets the manager instantly switch the whole table between different years with one click. A Pivot Chart built from this table visualizes the same data as a bar chart, and a Slicer for "City" is added so a regional manager can click just their own city\'s button to instantly filter both the Pivot Table and Pivot Chart together. Finally, this Pivot Table, its Pivot Chart, and two more Pivot Tables (one for Salesperson performance, one for monthly trends) are all placed together on one Dashboard sheet for the CEO to review at a glance.',
+    advantages: [
+      {point: 'Massively reduces manual formula-writing for cross-tabulated summaries', explanation: 'What would require potentially dozens of individual SUMIFS formulas (one per Product × City combination) is replaced by simply dragging 3 fields into a Pivot Table — and the summary updates instantly if the field layout changes.'},
+      {point: 'Slicers make data exploration accessible to non-technical users', explanation: 'A manager who does not know how to write a formula can still explore the data interactively just by clicking Slicer buttons, without needing to understand SUMIF/COUNTIF syntax at all.'}
+    ],
+    limitations: [
+      {point: 'A Pivot Table does not automatically update when new raw data is added', explanation: 'If new transaction rows are added to the source data, the Pivot Table must be manually REFRESHED (or its data range extended) — it will not reflect the new rows automatically just because the source data changed.'},
+      {point: 'Can oversimplify data if fields are not chosen carefully', explanation: 'A Pivot Table only shows what it is configured to show — an important pattern in the raw data can be completely invisible in the summary if the relevant field was never dragged into Rows/Columns/Values in the first place.'}
+    ],
+    application: 'Pivot Tables/Charts/Slicers/Dashboards represent the natural endpoint of this chapter\'s progression: raw data is first cleaned with Text Functions and validated/sorted/filtered (earlier topics), then summarized either manually with SUMIF/COUNTIF-family formulas for SPECIFIC questions, or automatically and interactively with a Pivot Table when the full cross-tabulated picture is needed — with a Dashboard as the final presentation layer combining everything for decision-makers.',
+    examPoints: [
+      'Pivot Table has 4 areas: Rows, Columns, Values (aggregated — sum/count), Filters (restricts the whole table).',
+      'Pivot Chart = a chart built from and auto-linked to a Pivot Table\'s data.',
+      'Slicer = a clickable, visual filter control connected to a Pivot Table/Chart — more user-friendly than the Filters area dropdown.',
+      'Dashboard = one sheet combining multiple Pivot Tables/Charts/Slicers into a single consolidated view.',
+      'A Pivot Table must be manually REFRESHED to reflect newly added source data — it does not update automatically on its own.'
+    ],
+    examQuestions: [
+      'Explain the four areas of a Pivot Table (Rows, Columns, Values, Filters) with an example.',
+      'What is a Slicer, and how does it improve on the standard Pivot Table Filters area?',
+      'Why must a Pivot Table be manually refreshed after new data is added to its source range?'
+    ]
+  }
+]}, [
+  {difficulty:'easy', q:'Which formula correctly sums values in B2:B5 where the corresponding cell in A2:A5 equals "Laptop"?', options:["=SUM(A2:A5,\"Laptop\",B2:B5)", "=SUMIF(A2:A5,\"Laptop\",B2:B5)", "=SUMIFS(A2:A5,\"Laptop\",B2:B5)", "=COUNTIF(A2:A5,\"Laptop\",B2:B5)"], correct:1,
+    why:"SUMIF(range, criteria, [sum_range]) sums values that meet ONE condition — here, =SUMIF(A2:A5,\"Laptop\",B2:B5) checks A2:A5 for \"Laptop\" and sums the corresponding values in B2:B5.",
+    whyNot:{0:"SUM does not accept a criteria argument at all — it simply adds every number in a range, it cannot filter by a condition like \"Laptop\".",2:"SUMIFS expects sum_range FIRST, followed by criteria_range/criteria PAIRS — this option's argument order and structure don't match the correct SUMIFS syntax either.",3:"COUNTIF only COUNTS matching cells, it does not SUM a separate column of values — and it also does not take a third argument the way shown here."}},
+  {difficulty:'moderate', q:'What is the key structural difference between SUMIF and SUMIFS syntax?', options:["SUMIF can only be used with text criteria, SUMIFS only with numbers","In SUMIF the sum_range comes LAST; in SUMIFS the sum_range comes FIRST","SUMIF and SUMIFS have identical syntax with no differences","SUMIFS can only check exactly 2 conditions, never more or fewer"], correct:1,
+    why:"SUMIF's syntax is (range, criteria, [sum_range]) — sum_range is the LAST argument. SUMIFS' syntax is (sum_range, criteria_range1, criteria1, criteria_range2, criteria2, …) — sum_range is the FIRST argument. This reversed argument order is a common source of formula errors when switching between the two.",
+    whyNot:{0:"Both SUMIF and SUMIFS can use either text or numeric criteria (e.g. \">50\") — this is not a real restriction between them.",2:"Their syntax is NOT identical — critically, the position of sum_range differs, plus SUMIFS supports multiple criteria_range/criteria pairs which SUMIF does not.",3:"SUMIFS can check TWO OR MORE conditions (not limited to exactly 2) — additional criteria_range/criteria pairs can be added as needed."}},
+  {difficulty:'difficult', q:'A grading formula needs to assign grades based on marks in B2: A (≥75), B (≥60), C (≥40), F (<40). Which of these correctly replicates the SAME logic as Nested IF, but using a flatter, more readable IFS structure?', options:["=IFS(B2>=75,\"A\",B2>=60,\"B\",B2>=40,\"C\",B2<40,\"F\")", "=IF(B2>=75,\"A\",\"B\",\"C\",\"F\")", "=IFS(B2,\"A\",\"B\",\"C\",\"F\")", "=AND(B2>=75,\"A\",B2>=60,\"B\")"], correct:0,
+    why:"IFS(condition1,result1,condition2,result2,…) tests multiple conditions in a flat structure. =IFS(B2>=75,\"A\",B2>=60,\"B\",B2>=40,\"C\",B2<40,\"F\") correctly pairs each condition with its result, replicating the same 4-way grading logic as a Nested IF but without deep bracket nesting.",
+    whyNot:{1:"A plain IF only accepts ONE condition and exactly two outcomes (true/false) — it cannot take four separate result arguments like this; this is not valid IF syntax for a 4-way split.",2:"This omits the actual CONDITIONS entirely (just listing B2 once, then four results) — IFS requires a condition paired with EACH result, not one shared condition for all four.",3:"AND only returns TRUE or FALSE based on whether ALL conditions are true — it cannot return different text labels like \"A\"/\"B\" for different conditions the way this option implies."}},
+  {difficulty:'moderate', q:'A student needs BOTH Maths (B2) and English (C2) scores to be at least 40 to pass. Which formula correctly implements this?', options:["=IF(OR(B2>=40,C2>=40),\"Pass\",\"Fail\")", "=IF(AND(B2>=40,C2>=40),\"Pass\",\"Fail\")", "=AND(B2>=40,C2>=40)", "=IF(B2>=40,C2>=40,\"Pass\",\"Fail\")"], correct:1,
+    why:"AND(logical1,logical2,…) returns TRUE only when ALL conditions are true. Since the student needs BOTH subjects to be ≥40, =IF(AND(B2>=40,C2>=40),\"Pass\",\"Fail\") correctly returns \"Pass\" only when both conditions hold.",
+    whyNot:{0:"OR would return \"Pass\" if EITHER subject is ≥40 (i.e. even if only ONE subject passes) — this does not match the requirement that BOTH subjects must be ≥40.",2:"=AND(B2>=40,C2>=40) alone only returns the raw word TRUE or FALSE, not a meaningful \"Pass\"/\"Fail\" label — it must be wrapped inside an IF to produce readable output.",3:"This is not valid IF syntax — IF only takes exactly 3 arguments (logical_test, value_if_true, value_if_false); this option incorrectly supplies 4 separate arguments."}},
+  {difficulty:'easy', q:'What does the formula =IFERROR(A2/B2,"Cannot Divide by Zero") do if B2 contains 0?', options:["It returns a #DIV/0! error as normal, ignoring IFERROR", "It returns the text \"Cannot Divide by Zero\" instead of showing the raw error", "It automatically changes B2's value to 1 to avoid the error", "It returns a blank cell with no value or message"], correct:1,
+    why:"IFERROR(value, value_if_error) returns the specified fallback value if its first argument produces an error. Since A2/B2 with B2=0 produces a #DIV/0! error, IFERROR intercepts this and returns the fallback text \"Cannot Divide by Zero\" instead of the raw error code.",
+    whyNot:{0:"This is exactly what IFERROR is designed to PREVENT — its entire purpose is to catch the error and substitute the fallback value instead of showing the raw #DIV/0!.",2:"IFERROR never modifies the actual data in other cells like B2 — it only controls what is DISPLAYED as the result of the formula it wraps.",3:"IFERROR returns the SPECIFIED fallback value/text (here, the message \"Cannot Divide by Zero\"), not a blank cell — a blank result would require explicitly specifying \"\" as the fallback instead."}},
+  {difficulty:'moderate', q:'Which lookup function can ONLY search for a value in the FIRST COLUMN of a table and return a value from a column to its RIGHT — meaning it cannot look up a value and return something from a column to its LEFT?', options:["XLOOKUP", "INDEX+MATCH", "VLOOKUP", "All of these have the same limitation"], correct:2,
+    why:"VLOOKUP searches vertically in the FIRST COLUMN of a table and can only return a value from a column index number counted to the RIGHT of that first column — it cannot retrieve a value from a column positioned to the LEFT of the lookup column.",
+    whyNot:{0:"XLOOKUP is specifically more flexible than VLOOKUP — its lookup_array and return_array can be any two ranges in any position/direction relative to each other, including the return array being to the LEFT.",1:"INDEX+MATCH is also NOT restricted this way — MATCH finds a position in any range, and INDEX can retrieve a value from any OTHER range regardless of its position relative to the lookup range.",3:"This is incorrect — VLOOKUP alone has this specific left-to-right-only limitation; XLOOKUP and INDEX+MATCH were specifically explained as flexible alternatives that overcome it."}},
+  {difficulty:'difficult', q:'Given =MATCH("Neha",A2:A5,0) returns 3, what does this tell us, and what would =INDEX(C2:C5,3) then return if used together as INDEX+MATCH?', options:["MATCH returns Neha's actual data value; INDEX would return a position number", "MATCH returns the POSITION (3rd) of \"Neha\" within A2:A5; INDEX(C2:C5,3) would return the value in the 3rd position of C2:C5, i.e. whatever is in C4", "MATCH and INDEX both return the same thing: the value \"Neha\"", "This combination is invalid and would cause a formula error"], correct:1,
+    why:"MATCH returns a POSITION, not a value — here, 3 means \"Neha\" is the 3rd item found within the range A2:A5 (which is cell A4). INDEX then uses that position to retrieve a VALUE — INDEX(C2:C5,3) returns whatever value is in the 3rd position of range C2:C5, which is cell C4 — i.e., the value in column C on the SAME ROW where \"Neha\" was found in column A.",
+    whyNot:{0:"This reverses their roles — MATCH returns a POSITION NUMBER (not Neha's data), while INDEX is the one that returns an actual VALUE (not a position).",2:"MATCH returns the number 3 (a position), not the text \"Neha\" itself — and INDEX(C2:C5,3) returns whatever value is stored in C4, not the word \"Neha\".",3:"This is a perfectly valid and standard combination — INDEX+MATCH together is explicitly the standard flexible alternative to VLOOKUP described in this chapter, not an error."}},
+  {difficulty:'easy', q:'What is the key difference between Sorting and Filtering a dataset in Excel?', options:["Sorting and Filtering are two names for the exact same operation", "Sorting permanently reorders the rows; Filtering only temporarily hides non-matching rows without deleting or reordering the data", "Filtering permanently deletes non-matching rows; Sorting only hides them temporarily", "Sorting only works on text data; Filtering only works on numeric data"], correct:1,
+    why:"Sorting arranges data in a specified order (ascending/descending), permanently changing the ROW ORDER. Filtering temporarily displays only rows meeting chosen criteria while HIDING (not deleting or reordering) the rest — clearing the filter instantly restores the full view.",
+    whyNot:{0:"They are clearly different operations with different effects — Sorting reorders rows, Filtering only shows/hides rows without changing their order or content.",2:"This reverses their actual effects — Filtering does NOT delete rows (it only hides them, reversibly), and Sorting is the one that permanently reorders rows, not hides them.",3:"Both Sorting and Filtering work on either text OR numeric data — there is no such text-only/numeric-only restriction between them."}},
+  {difficulty:'moderate', q:'A spreadsheet uses Data Validation to restrict an "Entrance Score" column to only accept numbers between 0 and 100. What happens to 50 rows of Entrance Scores that were already entered (including some invalid values like 150) BEFORE this validation rule was added?', options:["All 50 existing rows, including the invalid value 150, are automatically corrected to fall within 0-100", "The existing invalid value (150) is automatically deleted from the sheet", "The existing rows, including the invalid 150 value, remain unchanged — Data Validation only prevents NEW invalid entries going forward, it does not retroactively fix pre-existing data", "Data Validation cannot be added to a column that already contains data"], correct:2,
+    why:"Data Validation only controls what CAN be typed into a cell going forward — it does not retroactively scan, correct, or flag data that was already entered before the rule was applied. The pre-existing invalid value of 150 would remain in the sheet unchanged unless someone manually edits it (or explicitly circles/highlights existing invalid data using Excel's separate 'Circle Invalid Data' feature).",
+    whyNot:{0:"Data Validation does not go back and correct existing values — it has no such automatic-correction behavior for previously entered data.",1:"Data Validation does not delete any existing data either — it purely restricts NEW entries; it takes no action on data already present.",3:"Data Validation CAN be added to a column that already contains data — there is no such restriction; it simply won't retroactively enforce the rule on what's already there."}},
+  {difficulty:'difficult', q:'A manager builds a Pivot Table with Product in Rows, City in Columns, and Revenue in Values, from a dataset of 5,000 transactions. The following week, 500 NEW transaction rows are added to the source data. What must the manager do for the Pivot Table to reflect these new rows?', options:["Nothing — the Pivot Table updates automatically the instant new source rows are added", "The Pivot Table must be manually refreshed (or its source range extended) — it does not update automatically just because the source data changed", "The entire Pivot Table must be deleted and rebuilt from scratch every time new data is added", "New data can never be incorporated into an existing Pivot Table under any circumstances"], correct:1,
+    why:"A Pivot Table does NOT automatically detect and reflect changes to its source data — even though new rows were added to the underlying dataset, the Pivot Table summary will still show only the OLD 5,000-row totals until it is manually refreshed (via the Refresh command), or its source data range is explicitly extended to include the new rows.",
+    whyNot:{0:"This is the opposite of how Pivot Tables actually behave — they are explicitly described as needing to be manually refreshed, not as auto-updating.",2:"A full rebuild is unnecessary and wasteful — a simple Refresh (or extending the source range) is sufficient to incorporate new rows into the existing Pivot Table.",3:"New data CAN absolutely be incorporated — that is exactly what the Refresh action (or extending the source range) is designed to accomplish."}}
+]);
+})();
+
 /* ---------------- DEMO MODULE (sample content to try the system) ---------------- */
 const DEMO_CHAPTER = {
   id:'demo', title:'Sample Chapter: Motivation', topics:['Meaning of motivation','Content theories (Maslow, Herzberg, McClelland)','Process theories (Vroom, Adams, Locke)'],
