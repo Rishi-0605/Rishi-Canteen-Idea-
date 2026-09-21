@@ -7552,6 +7552,254 @@ setCh('ch5', {
 })();
 
 
+/* ---------------- ACCOUNTING FOR MANAGERS: CH7 (Ratio Analysis) ---------------- */
+(function(){
+  const afm = SUBJECTS.find(s=>s.id==='afm');
+  function setCh(id, material, mcqs){ const c = afm.chapters.find(c=>c.id===id); c.material = material; c.mcqs = mcqs; }
+
+/* ===================== AFM CH7: Ratio Analysis ===================== */
+setCh('ch7', {
+  topics: [
+    {
+      name: 'Meaning, Objectives and Classification of Ratio Analysis',
+      whatIsIt: {
+        definition: "Ratio Analysis is the technique of expressing the relationship between two related figures from a company's financial statements (Balance Sheet and/or Statement of Profit and Loss) as a single number (a ratio, percentage, or number of times), to help interpret the company's financial performance and position more meaningfully than the raw figures alone.",
+        meaning: "A single figure — say, Rs 7,40,000 of Current Assets — tells you very little on its own. But expressed as a RATIO against Current Liabilities (say, 2.24:1), it immediately becomes meaningful and comparable — across time periods, against other companies, and against general benchmarks."
+      },
+      explanation: [
+        "Ratio Analysis converts the raw numbers in a company's Balance Sheet and P&L into standardized, comparable measures. Its core objectives are: to assess a company's short-term LIQUIDITY (ability to meet immediate obligations), its long-term SOLVENCY (ability to meet long-term debt), its PROFITABILITY (how efficiently it converts sales/investment into profit), and its OPERATING EFFICIENCY (how well it uses its assets, like stock and debtors, to generate sales)."
+      ],
+      types: [
+        {name:'Liquidity Ratios', explanation:'Measure a company\'s ability to meet its SHORT-TERM obligations as they fall due — e.g., Current Ratio, Quick (Liquid) Ratio.'},
+        {name:'Solvency / Capital Structure Ratios', explanation:'Measure a company\'s LONG-TERM financial stability and the mix/safety of its financing — e.g., Debt-Equity Ratio, Capital Gearing Ratio, Proprietary Ratio.'},
+        {name:'Profitability Ratios', explanation:'Measure how efficiently a company converts SALES or INVESTED CAPITAL into profit — e.g., Gross Profit Ratio, Net Profit Ratio, Return on Capital Employed, Return on Equity, Earnings Per Share.'},
+        {name:'Activity / Turnover Ratios', explanation:'Measure how EFFICIENTLY a company uses its assets (stock, debtors, fixed assets) to generate sales — e.g., Stock Turnover Ratio, Debtors Turnover Ratio, Fixed Assets Turnover Ratio.'},
+      ],
+      example: "A bank loan officer evaluating a company's short-term loan application would focus heavily on Liquidity Ratios (Current Ratio, Quick Ratio) to judge repayment capacity; an equity investor considering a long-term stake would focus more on Profitability Ratios (ROE, EPS) and Solvency Ratios (Debt-Equity) to judge sustainable returns and financial risk — demonstrating how DIFFERENT ratio categories serve different analytical purposes, much like the different users of accounting information covered in the Introduction to Accounting chapter.",
+      advantages: [
+        {point:'Simplifies complex financial data', explanation:'A ratio condenses two (or more) raw figures into one easily interpretable number, making trends and comparisons far more accessible than scanning full financial statements.'},
+        {point:'Enables comparison across time and companies', explanation:'Ratios (being relative measures) can be meaningfully compared across different-sized companies and across different years, unlike absolute rupee figures.'},
+      ],
+      limitations: [
+        {point:'Based on historical, accounting data', explanation:'Ratios are calculated from PAST financial statements and may not reflect current or future conditions, especially in a fast-changing business environment.'},
+        {point:'Affected by the accounting policies used', explanation:'Different inventory valuation methods (FIFO vs WAC, from the Inventory Valuation chapter) or depreciation methods (from the Depreciation chapter) can produce different ratio values for otherwise identical companies, making cross-company comparison tricky without adjustment.'},
+        {point:'Ignores qualitative factors', explanation:'Ratios cannot capture non-financial factors like management quality, brand strength, or employee morale, which genuinely affect a company\'s prospects.'},
+      ],
+      application: "A comprehensive financial analysis (whether by a bank, an investor, or internal management) typically calculates ratios from ALL FOUR categories together, since each category answers a different question, and a company can look strong on one dimension (e.g., high profitability) while being weak on another (e.g., poor liquidity) — the full worked example later in this chapter demonstrates exactly this kind of multi-dimensional analysis.",
+      examPoints: [
+        '4 categories: Liquidity, Solvency/Capital Structure, Profitability, Activity/Turnover.',
+        'Ratio Analysis converts raw financial figures into comparable, interpretable measures.',
+        '3 key limitations: based on historical data, affected by accounting policy choices, ignores qualitative factors.',
+      ],
+      examQuestions: [
+        'Explain the meaning and objectives of Ratio Analysis.',
+        'Classify the following ratios into their correct category: Current Ratio, Debt-Equity Ratio, Net Profit Ratio, Stock Turnover Ratio.',
+        'Discuss the limitations of Ratio Analysis as a tool for financial evaluation.',
+      ]
+    },
+    {
+      name: 'Liquidity Ratios: Current Ratio and Quick (Liquid) Ratio',
+      whatIsIt: {
+        definition: "Liquidity Ratios measure a company's ability to pay off its SHORT-TERM (current) liabilities using its short-term (current) assets. The Current Ratio uses ALL current assets; the Quick (Liquid/Acid-Test) Ratio uses only the MOST liquid current assets, excluding Stock and Prepaid Expenses.",
+        meaning: "These ratios answer: 'If all short-term bills came due right now, could the company pay them using what it can quickly turn into cash?' The Quick Ratio is a STRICTER version of this test, since it excludes Stock (which takes time to sell) and Prepaid Expenses (which can't be turned into cash at all)."
+      },
+      explanation: [
+        "Current Ratio = Current Assets ÷ Current Liabilities. A ratio around 2:1 is traditionally considered healthy (though this benchmark varies by industry). Quick Ratio = (Current Assets − Stock − Prepaid Expenses) ÷ Current Liabilities, also called the Acid-Test Ratio; a ratio around 1:1 is traditionally considered healthy, since it implies the company could meet its current liabilities even without selling any inventory."
+      ],
+      example: "Worked example (Sample Ltd.): Current Assets = Stock Rs 2,80,000 + Bills Receivable Rs 20,000 + Debtors Rs 2,00,000 + Prepaid Expenses Rs 50,000 + Marketable Securities Rs 1,50,000 + Cash Rs 40,000 = **Rs 7,40,000**. Current Liabilities = Creditors Rs 1,20,000 + Bills Payable Rs 40,000 + Accrued Expenses Rs 40,000 + Provision for Tax Rs 80,000 + Bank Overdraft Rs 10,000 + Proposed Dividend Rs 40,000 = **Rs 3,30,000**. Current Ratio = 7,40,000 ÷ 3,30,000 ≈ **2.24 : 1** (healthy, above the traditional 2:1 benchmark). Quick Assets = 7,40,000 − 2,80,000 (Stock) − 50,000 (Prepaid Expenses) = Rs 4,10,000. Quick Ratio = 4,10,000 ÷ 3,30,000 ≈ **1.24 : 1** (also healthy, above the traditional 1:1 benchmark) — confirming Sample Ltd. has strong short-term liquidity even without relying on selling its stock.",
+      comparison: {
+        headers: ['Ratio','Formula','Traditional Healthy Benchmark','What it Excludes'],
+        rows: [
+          ['Current Ratio','Current Assets ÷ Current Liabilities','≈ 2 : 1','Nothing — uses ALL current assets'],
+          ['Quick Ratio','(Current Assets − Stock − Prepaid Expenses) ÷ Current Liabilities','≈ 1 : 1','Stock (slow to convert to cash) and Prepaid Expenses (never converts to cash)'],
+        ]
+      },
+      advantages: [
+        {point:'Quick, direct liquidity signal', explanation:'Both ratios give an immediate, easily-benchmarked read on short-term financial safety, useful for lenders assessing short-term credit risk.'},
+      ],
+      limitations: [
+        {point:'A "good" ratio isn\'t always genuinely good', explanation:'An EXCESSIVELY high Current Ratio can actually indicate inefficiently idle cash or excess unsold stock, not necessarily strong financial health — ratio benchmarks should be interpreted with business context, not blindly.'},
+      ],
+      application: "Banks routinely use the Current Ratio and Quick Ratio as key screening criteria before extending short-term working capital loans or credit lines, since these ratios directly answer the lender's core concern: will this company be able to repay a short-term loan on time?",
+      examPoints: [
+        'Current Ratio = Current Assets / Current Liabilities. Benchmark ≈2:1.',
+        'Quick Ratio = (Current Assets − Stock − Prepaid Expenses) / Current Liabilities. Benchmark ≈1:1.',
+        'Quick Ratio is the STRICTER test, since Stock and Prepaid Expenses are excluded (not quickly convertible to cash).',
+      ],
+      examQuestions: [
+        'Calculate the Current Ratio and Quick Ratio from a given set of Current Assets and Current Liabilities.',
+        'Why does the Quick Ratio exclude Stock and Prepaid Expenses from Current Assets?',
+        'Why might an EXCESSIVELY high Current Ratio not necessarily indicate strong financial health?',
+      ]
+    },
+    {
+      name: 'Solvency / Capital Structure Ratios',
+      whatIsIt: {
+        definition: "Solvency (Capital Structure) Ratios measure a company's LONG-TERM financial stability — specifically, how much of its financing comes from fixed-obligation sources (debt, preference capital) versus owners' own funds (equity), and how well its assets are backed by owners' funds.",
+        meaning: "These ratios answer: 'How financially risky is this company's long-term funding structure?' A company financed mostly by debt is generally considered RISKIER (fixed interest/repayment obligations regardless of how business performs) than one financed mostly by equity."
+      },
+      explanation: [
+        "Debt-Equity Ratio = Long-Term Debt ÷ Shareholders' Funds (Equity). A LOWER ratio generally indicates lower financial risk. Capital Gearing Ratio = Fixed-Return-Bearing Funds (Preference Capital + Debentures + Long-Term Loans) ÷ Equity Funds (Equity Share Capital + Reserves & Surplus) — a company is 'highly geared' if fixed-return funds exceed equity funds, and 'low geared' otherwise; high gearing amplifies both potential returns to equity AND financial risk. Proprietary Ratio = Shareholders' Funds ÷ Total Assets — shows what PROPORTION of total assets is financed by the owners themselves (a higher ratio indicates a more conservative, owner-funded capital structure)."
+      ],
+      example: "Worked example (Sample Ltd.): Long-Term Debt = Term Loan from Bank Rs 1,00,000 + 10% Debentures Rs 4,00,000 + Public Deposit Rs 2,00,000 = Rs 7,00,000. Shareholders' Funds = Equity Share Capital Rs 7,00,000 + 10% Preference Share Capital Rs 4,00,000 + P&L A/c Rs 1,00,000 + General Reserve Rs 50,000 + Securities Premium Rs 1,20,000 + Capital Reserve Rs 1,30,000 = **Rs 15,00,000**. Debt-Equity Ratio = 7,00,000 ÷ 15,00,000 ≈ **0.47 : 1** (a conservative, low-risk capital structure — debt is less than half of shareholders' funds). Capital Gearing Ratio: Fixed-Return Funds = Preference Capital Rs 4,00,000 + Term Loan Rs 1,00,000 + Debentures Rs 4,00,000 + Public Deposit Rs 2,00,000 = Rs 11,00,000. Equity Funds = Equity Share Capital Rs 7,00,000 + P&L Rs 1,00,000 + General Reserve Rs 50,000 + Securities Premium Rs 1,20,000 + Capital Reserve Rs 1,30,000 = Rs 11,00,000. Capital Gearing Ratio = 11,00,000 ÷ 11,00,000 = **1 : 1** (exactly neutral gearing — fixed-return funds and pure equity funds are perfectly balanced). Proprietary Ratio = Shareholders' Funds (Rs 15,00,000) ÷ Total Assets (Rs 25,30,000) ≈ **0.59 : 1 (59.3%)** — meaning almost 60% of Sample Ltd.'s total assets are financed by its owners, a reasonably conservative position.",
+      advantages: [
+        {point:'Reveals long-term financial risk clearly', explanation:'These ratios let lenders and long-term investors gauge how much "cushion" (equity) exists to absorb losses before fixed-obligation lenders (debt holders) are at risk.'},
+      ],
+      limitations: [
+        {point:'"Ideal" debt levels vary widely by industry', explanation:'Capital-intensive industries (like utilities or real estate) typically and sustainably carry much higher debt levels than others (like IT services) — comparing Debt-Equity ratios ACROSS very different industries without adjustment can be misleading.'},
+      ],
+      application: "Debenture/bond investors and long-term lenders specifically examine the Debt-Equity Ratio and Capital Gearing Ratio before extending long-term credit, since a highly-geared company (heavily debt-financed) presents more risk of default if business performance weakens, even if it looks fine on short-term Liquidity Ratios.",
+      examPoints: [
+        'Debt-Equity Ratio = Long-Term Debt / Shareholders\' Funds. LOWER = less risky.',
+        'Capital Gearing Ratio = Fixed-Return Funds (Preference Capital + Debt) / Equity Funds. "High geared" if Fixed-Return Funds > Equity Funds.',
+        'Proprietary Ratio = Shareholders\' Funds / Total Assets. HIGHER = more conservative, owner-funded structure.',
+      ],
+      examQuestions: [
+        'Calculate the Debt-Equity Ratio, Capital Gearing Ratio, and Proprietary Ratio from a given Balance Sheet.',
+        'What does it mean for a company to be "highly geared", and why does this increase financial risk?',
+        'Why might comparing Debt-Equity Ratios across two companies in very different industries be misleading?',
+      ]
+    },
+    {
+      name: 'Profitability Ratios Based on Sales (Revenue Ratios)',
+      whatIsIt: {
+        definition: "Profitability Ratios based on Sales measure how much of each rupee of Sales a company retains as profit at different stages of its income statement — Gross Profit Ratio, Cost of Goods Sold (COGS) Ratio, Operating Expenses Ratio, Operating Ratio, Operating Profit Ratio, and Net Profit Ratio.",
+        meaning: "These ratios answer: 'Out of every rupee of sales, how much survives as profit after (a) just the direct cost of the goods sold, (b) all normal operating costs, and (c) everything, including tax and non-operating items?' — moving progressively down the P&L."
+      },
+      explanation: [
+        "Gross Profit Ratio = (Gross Profit ÷ Net Sales) × 100 — margin after only direct production/purchase costs. COGS Ratio = (Cost of Goods Sold ÷ Net Sales) × 100 — the complementary figure (Gross Profit % + COGS % = 100%). Operating Expenses Ratio = (Operating Expenses ÷ Net Sales) × 100 — indirect, day-to-day running costs (salaries, rent, admin) as a % of sales. Operating Ratio = [(COGS + Operating Expenses) ÷ Net Sales] × 100 — the combined direct + operating cost burden. Operating Profit Ratio = 100% − Operating Ratio (or Operating Profit ÷ Net Sales × 100) — the margin remaining from CORE operations alone, before non-operating items. Net Profit Ratio = (Net Profit ÷ Net Sales) × 100 — the FINAL bottom-line margin, after every item including tax and non-operating income/expense."
+      ],
+      example: "Worked example (Sample Ltd.): Net Sales = Rs 30,00,000 (Cash Sales Rs 6,00,000 + Credit Sales Rs 24,50,000, less Returns Rs 50,000). Gross Profit = Rs 8,00,000 (Trading Account). Gross Profit Ratio = 8,00,000/30,00,000 × 100 = **26.67%**. COGS = Opening Stock Rs 3,50,000 + Purchases Rs 16,50,000 + Wages Rs 3,00,000 + Carriage Inward Rs 2,00,000 − Closing Stock Rs 3,00,000 = Rs 22,00,000. COGS Ratio = 22,00,000/30,00,000 × 100 = **73.33%** (note: 26.67% + 73.33% = 100%, confirming consistency). Operating Expenses (Salaries Rs 75,000 + Rent Rs 80,000 + Office Travelling Rs 12,000 + Printing & Stationery Rs 25,000 + Advertisement Rs 40,000 + Commission Rs 8,000 + Delivery Expenses Rs 2,000 + Depreciation Rs 1,00,000 — EXCLUDING non-operating items like Interest, Loss on Sale of Furniture, and Income Tax) = Rs 3,42,000. Operating Expenses Ratio = 3,42,000/30,00,000 × 100 = **11.4%**. Operating Ratio = (22,00,000 + 3,42,000)/30,00,000 × 100 = **84.73%**. Operating Profit = Net Sales − COGS − Operating Expenses = 30,00,000 − 22,00,000 − 3,42,000 = Rs 4,58,000. Operating Profit Ratio = 4,58,000/30,00,000 × 100 = **15.27%** (= 100% − 84.73%, confirming consistency). Net Profit (after ALL expenses, including Interest Rs 90,000, Loss on Sale of Furniture Rs 4,000, and Income Tax Rs 1,30,000, but including non-operating income like Dividend Received Rs 10,000 and Interest Received Rs 8,000) = Rs 2,52,000. Net Profit Ratio = 2,52,000/30,00,000 × 100 = **8.4%**.",
+      comparison: {
+        headers: ['Ratio','Formula','Sample Ltd. Result'],
+        rows: [
+          ['Gross Profit Ratio','Gross Profit / Net Sales × 100','26.67%'],
+          ['COGS Ratio','COGS / Net Sales × 100','73.33%'],
+          ['Operating Expenses Ratio','Operating Expenses / Net Sales × 100','11.4%'],
+          ['Operating Ratio','(COGS + Operating Expenses) / Net Sales × 100','84.73%'],
+          ['Operating Profit Ratio','100% − Operating Ratio','15.27%'],
+          ['Net Profit Ratio','Net Profit / Net Sales × 100','8.4%'],
+        ]
+      },
+      advantages: [
+        {point:'Pinpoints exactly WHERE profit is being eroded', explanation:'By calculating margins at each successive stage, a manager can see precisely whether a profitability problem originates from production/purchase costs (Gross Profit), day-to-day operating costs (Operating Profit), or non-operating items like interest and tax (the gap to Net Profit).'},
+      ],
+      application: "Sample Ltd.'s figures show a healthy Gross Profit Ratio (26.67%) but the margin narrows substantially by the time it reaches Net Profit Ratio (8.4%) — a manager reviewing this would specifically investigate the roughly 18-percentage-point gap, checking how much is due to Operating Expenses (11.4% of sales) versus non-operating items like Interest (90,000, ≈3% of sales) and Income Tax (1,30,000, ≈4.3% of sales).",
+      examPoints: [
+        'Gross Profit % + COGS % = 100% (always, since GP = Sales − COGS).',
+        'Operating Profit % = 100% − Operating Ratio %.',
+        'Operating Expenses EXCLUDE non-operating items (interest, loss on asset sale, tax) — only day-to-day running costs count.',
+        'Net Profit Ratio is the FINAL, bottom-line margin, capturing everything.',
+      ],
+      examQuestions: [
+        'Calculate the Gross Profit Ratio, Operating Ratio, and Net Profit Ratio from a given Trading and P&L Account.',
+        'Explain why Gross Profit Ratio and COGS Ratio must always sum to 100%.',
+        'A company has a healthy Gross Profit Ratio but a much lower Net Profit Ratio. What could explain this gap?',
+      ]
+    },
+    {
+      name: 'Profitability Ratios Based on Investment',
+      whatIsIt: {
+        definition: "Profitability Ratios based on Investment measure how efficiently a company converts CAPITAL INVESTED (by all providers of long-term funds, or specifically by equity shareholders) into profit — Return on Capital Employed (ROCE), Return on Equity/Shareholders' Funds (ROE), Earnings Per Share (EPS), Dividend Per Share (DPS), Dividend Payout Ratio, and Price-Earnings (P/E) Ratio.",
+        meaning: "While Sales-based ratios ask 'how much profit per rupee of SALES', these ratios ask 'how much profit per rupee INVESTED' — a fundamentally different, and for investors often more important, question."
+      },
+      explanation: [
+        "ROCE = (EBIT ÷ Capital Employed) × 100, where Capital Employed = Shareholders' Funds + Long-Term Debt, and EBIT (Earnings Before Interest and Tax) measures the return generated for ALL long-term capital providers (both lenders and owners) combined. ROE (Return on Shareholders' Funds) = (Net Profit after Tax and Preference Dividend ÷ Equity Shareholders' Funds) × 100 — measures the return specifically for EQUITY shareholders. EPS = (Net Profit available to Equity Shareholders) ÷ (Number of Equity Shares) — profit attributable to EACH equity share. DPS = (Total Dividend paid to Equity Shareholders) ÷ (Number of Equity Shares) — actual cash dividend per share. Dividend Payout Ratio = (DPS ÷ EPS) × 100 — what PROPORTION of earnings is actually distributed as dividend (the remainder is retained/reinvested). P/E Ratio = Market Price per Share ÷ EPS — how many times current earnings investors are willing to pay for the share (a market-based valuation multiple)."
+      ],
+      example: "Worked example (Sample Ltd.): Capital Employed = Shareholders' Funds (Rs 15,00,000) + Long-Term Debt (Rs 7,00,000) = Rs 22,00,000. EBIT = Profit Before Tax (Rs 2,52,000 Net Profit + Rs 1,30,000 Income Tax = Rs 3,82,000) + Interest (Rs 90,000) = Rs 4,72,000. ROCE = 4,72,000/22,00,000 × 100 ≈ **21.45%** — a strong return on the total long-term capital employed in the business. For ROE: Preference Dividend (10% of Rs 4,00,000) = Rs 40,000. Net Profit available to Equity Shareholders = Rs 2,52,000 − Rs 40,000 = Rs 2,12,000. Equity Shareholders' Funds = Total Shareholders' Funds (Rs 15,00,000) − Preference Share Capital (Rs 4,00,000) = Rs 11,00,000. ROE = 2,12,000/11,00,000 × 100 ≈ **19.27%**. EPS: Number of Equity Shares = Rs 7,00,000 ÷ Rs 10 (face value) = 70,000 shares. EPS = 2,12,000 ÷ 70,000 ≈ **Rs 3.03 per share**. Note on DPS in this example: the Balance Sheet shows a single 'Proposed Dividend' of Rs 40,000, which exactly equals the Preference Dividend obligation (10% of Rs 4,00,000) — implying NO separate dividend was proposed for equity shareholders this year (a good reminder to read Balance Sheet disclosures carefully rather than assuming a single dividend figure automatically belongs to equity shareholders).",
+      comparison: {
+        headers: ['Ratio','Formula','What it Tells You'],
+        rows: [
+          ['ROCE','EBIT / Capital Employed × 100','Return generated for ALL long-term capital providers (debt + equity)'],
+          ['ROE','Net Profit (after Pref. Div) / Equity Shareholders\' Funds × 100','Return specifically for EQUITY shareholders'],
+          ['EPS','Net Profit for Equity / No. of Equity Shares','Profit attributable to EACH equity share'],
+          ['DPS','Dividend paid to Equity / No. of Equity Shares','Actual cash return per share'],
+          ['Dividend Payout Ratio','DPS / EPS × 100','% of earnings actually distributed (rest is retained)'],
+          ['P/E Ratio','Market Price / EPS','How many years of current earnings the market price represents'],
+        ]
+      },
+      advantages: [
+        {point:'Directly relevant to equity investment decisions', explanation:'ROE, EPS, and P/E Ratio are among the most-watched figures by equity investors and analysts, since they translate company performance directly into per-share, investor-relevant terms.'},
+      ],
+      limitations: [
+        {point:'EPS can be manipulated by share count changes', explanation:'A share buyback (reducing the number of shares outstanding) can artificially boost EPS even with NO improvement in actual total profit — EPS trends should be checked against total profit trends too.'},
+      ],
+      application: "Equity research analysts build stock recommendations heavily around ROE (capital efficiency), EPS growth (earnings momentum), and P/E Ratio (relative valuation) — comparing a company's own ratios over time, and against industry peers, to judge whether a stock is attractively priced relative to its actual earnings power.",
+      examPoints: [
+        'ROCE uses EBIT (pre-interest, pre-tax) over TOTAL capital employed (debt + equity) — a return for ALL capital providers.',
+        'ROE uses Net Profit AFTER preference dividend, over EQUITY Shareholders\' Funds only.',
+        'EPS = Net Profit for Equity / No. of Equity Shares. DPS = actual dividend / No. of Equity Shares. Dividend Payout = DPS/EPS.',
+        'Always deduct Preference Dividend BEFORE computing figures attributable to equity shareholders (ROE, EPS).',
+      ],
+      examQuestions: [
+        'Calculate ROCE, ROE, and EPS from a given Balance Sheet and P&L Account.',
+        'Explain the difference between ROCE and ROE, and why Preference Dividend must be deducted before computing ROE.',
+        'What does the Dividend Payout Ratio measure, and what does the "retained" portion (100% minus payout ratio) represent for the company?',
+      ]
+    },
+    {
+      name: 'Activity (Turnover) Ratios',
+      whatIsIt: {
+        definition: "Activity (Turnover) Ratios measure how EFFICIENTLY a company uses its assets — Stock, Debtors, Creditors, and Fixed Assets — to generate sales, expressed either as a number of TIMES per year (Turnover Ratio) or as a number of DAYS (the corresponding Period/Days ratio).",
+        meaning: "These ratios answer: 'How quickly does this company turn its stock into sales, collect cash from its customers, and pay its own suppliers?' — a direct measure of operational, working-capital efficiency."
+      },
+      explanation: [
+        "Stock Turnover Ratio = COGS ÷ Average Stock — how many times inventory is sold and replaced during the year. Stock Holding Period = 365 ÷ Stock Turnover Ratio — average number of days stock is held before being sold. Debtors Turnover Ratio = Credit Sales ÷ Average Debtors — how many times receivables are collected during the year. Debtors Collection Period = 365 ÷ Debtors Turnover Ratio — average number of days taken to collect from customers. Creditors Turnover Ratio = Credit Purchases ÷ Average Creditors — how many times payables are settled during the year. Creditors Payment Period = 365 ÷ Creditors Turnover Ratio — average number of days taken to pay suppliers. Fixed Assets Turnover Ratio = Net Sales ÷ Net Fixed Assets — how efficiently fixed assets (like plant, machinery, buildings) are used to generate sales."
+      ],
+      example: "Worked example (Sample Ltd., using closing balances where opening figures for Debtors/Creditors are not separately given, as is standard practice in such cases): Average Stock = (Opening Stock Rs 3,50,000 + Closing Stock Rs 3,00,000) ÷ 2 = Rs 3,25,000. Stock Turnover Ratio = COGS (Rs 22,00,000) ÷ Rs 3,25,000 ≈ **6.77 times**. Stock Holding Period = 365 ÷ 6.77 ≈ **54 days**. Debtors Turnover Ratio = Credit Sales (Rs 24,50,000) ÷ Debtors (Rs 2,00,000) = **12.25 times**. Debtors Collection Period = 365 ÷ 12.25 ≈ **30 days**. Creditors Turnover Ratio = Credit Purchases (Rs 13,00,000) ÷ Creditors (Rs 1,20,000) ≈ **10.83 times**. Creditors Payment Period = 365 ÷ 10.83 ≈ **34 days**. Fixed Assets Turnover Ratio = Net Sales (Rs 30,00,000) ÷ Net Tangible Fixed Assets (Plant & Machinery Rs 4,00,000 + Land & Building Rs 5,00,000 + Furniture & Fixtures Rs 3,00,000 = Rs 12,00,000) = **2.5 times**.",
+      advantages: [
+        {point:'Reveals working capital efficiency directly', explanation:'Combining the Stock Holding Period (54 days) + Debtors Collection Period (30 days) − Creditors Payment Period (34 days) gives Sample Ltd.\'s approximate Operating/Cash Conversion Cycle of about 50 days — the number of days cash is tied up in the operating cycle before being recovered.'},
+      ],
+      limitations: [
+        {point:'Using closing balances (instead of true averages) can distort the ratio', explanation:'When opening Debtors/Creditors figures are not available and only closing balances are used, the resulting turnover ratio is an approximation — a company with unusually high or low balances specifically at year-end could show a misleading ratio.'},
+      ],
+      application: "A rising Debtors Collection Period over successive years is a classic early-warning sign for management — it can signal deteriorating credit control, customers facing financial difficulty, or overly aggressive sales tactics (offering easy credit terms to boost sales) — prompting a closer review of the company's credit policy before it becomes a genuine cash-flow or bad-debt problem.",
+      examPoints: [
+        'Stock Turnover = COGS / Average Stock. Debtors Turnover = Credit Sales / Average Debtors. Creditors Turnover = Credit Purchases / Average Creditors.',
+        'Corresponding "Period" ratios = 365 / the Turnover Ratio, expressed in days.',
+        'Fixed Assets Turnover = Net Sales / Net (Tangible) Fixed Assets — measures asset utilization efficiency.',
+        'Operating Cycle ≈ Stock Holding Period + Debtors Collection Period − Creditors Payment Period.',
+      ],
+      examQuestions: [
+        'Calculate the Stock Turnover Ratio, Debtors Turnover Ratio, and their corresponding "Period" ratios from given financial data.',
+        'What does a rising Debtors Collection Period over successive years typically signal to management?',
+        'Explain how the Stock Holding Period, Debtors Collection Period, and Creditors Payment Period combine to estimate a company\'s Operating Cycle.',
+      ]
+    },
+  ],
+}, [
+  {difficulty:'easy', q:"The Current Ratio is calculated as:", options:["Current Liabilities / Current Assets","Current Assets / Current Liabilities","Quick Assets / Current Liabilities","Net Profit / Current Assets"], correct:1,
+    why:"Current Ratio = Current Assets ÷ Current Liabilities, measuring the company's ability to cover short-term liabilities using all its short-term assets.",
+    whyNot:{0:"This inverts the correct formula.",2:"Quick Assets over Current Liabilities is the QUICK Ratio, not the Current Ratio.",3:"Net Profit over Current Assets is not a standard liquidity ratio formula."}},
+  {difficulty:'easy', q:"The Quick (Acid-Test) Ratio differs from the Current Ratio in that it excludes:", options:["Cash and Bank balances","Stock and Prepaid Expenses","Bills Payable","Long-term investments"], correct:1,
+    why:"Quick Ratio excludes Stock (slow to convert to cash) and Prepaid Expenses (never converts to cash) from Current Assets, giving a stricter liquidity test.",
+    whyNot:{0:"Cash and Bank balances are among the MOST liquid assets and are fully included in Quick Assets.",2:"Bills Payable is a Current LIABILITY, not an asset excluded from the numerator.",3:"Long-term investments are Non-Current Assets and are not part of Current Assets in either ratio to begin with."}},
+  {difficulty:'easy', q:"Gross Profit Ratio and COGS Ratio, when both expressed as a percentage of Net Sales, will always:", options:["Sum to exactly 100%","Sum to exactly 50%","Be identical to each other","Have no fixed relationship"], correct:0,
+    why:"Since Gross Profit = Net Sales − COGS, Gross Profit Ratio (%) and COGS Ratio (%) must always sum to exactly 100% of Net Sales.",
+    whyNot:{1:"There is no reason for them to sum to 50% — this depends entirely on the specific figures, but their SUM is always 100%, not 50%.",2:"They are complementary, not identical — Gross Profit % and COGS % are typically quite different from each other in value.",3:"There IS a fixed, guaranteed relationship: they must always sum to 100%, by definition."}},
+  {difficulty:'moderate', q:"A company has Current Assets of Rs 7,40,000, Stock of Rs 2,80,000, Prepaid Expenses of Rs 50,000, and Current Liabilities of Rs 3,30,000. What is its Quick Ratio?", options:["2.24 : 1","1.24 : 1","0.74 : 1","4.10 : 1"], correct:1,
+    why:"Quick Assets = 7,40,000 − 2,80,000 (Stock) − 50,000 (Prepaid) = 4,10,000. Quick Ratio = 4,10,000 / 3,30,000 ≈ 1.24 : 1.",
+    whyNot:{0:"2.24:1 is the CURRENT Ratio (7,40,000/3,30,000), not the Quick Ratio.",2:"0.74:1 does not correctly apply the Quick Ratio formula to these figures.",3:"4.10:1 incorrectly uses the Quick Assets figure (Rs 4,10,000) as a ratio numerator against 1, rather than dividing it by Current Liabilities."}},
+  {difficulty:'moderate', q:"A company's Capital Gearing Ratio (Fixed-Return Funds ÷ Equity Funds) is exactly 1:1. What does this indicate?", options:["The company has no debt at all","Fixed-return-bearing funds (like debt and preference capital) exactly equal pure equity funds — a neutral, balanced gearing position","The company is dangerously over-leveraged","The ratio is impossible to calculate meaningfully"], correct:1,
+    why:"A Capital Gearing Ratio of 1:1 means fixed-return funds (debt + preference capital) exactly equal equity funds — neither 'high geared' (fixed-return funds exceeding equity) nor 'low geared' (the reverse), a balanced position.",
+    whyNot:{0:"A 1:1 ratio confirms substantial fixed-return funds EXIST (equal to equity funds), not an absence of debt.",2:"A 1:1 ratio represents a BALANCED, neutral position, not an extreme, dangerous level of gearing.",3:"The ratio is perfectly calculable and meaningful — 1:1 is simply one specific, interpretable value it can take."}},
+  {difficulty:'moderate', q:"To calculate Return on Equity (ROE) correctly, which adjustment must be made to Net Profit before dividing by Equity Shareholders' Funds?", options:["Add back Income Tax","Deduct Preference Dividend","Add back Depreciation","Deduct Interest expense"], correct:1,
+    why:"ROE specifically measures the return for EQUITY shareholders, so Preference Dividend (which belongs to preference shareholders, not equity shareholders) must first be deducted from Net Profit.",
+    whyNot:{0:"Adding back Income Tax would convert this into a pre-tax profit figure, which is not the standard ROE calculation (which uses profit AFTER tax).",2:"Adding back Depreciation is not part of the standard ROE adjustment — Depreciation has already been correctly charged in arriving at Net Profit.",3:"Deducting Interest is relevant to EBIT-based calculations (like ROCE), not to the ROE adjustment specifically."}},
+  {difficulty:'moderate', q:"A company's Credit Sales are Rs 24,50,000 and its Debtors balance is Rs 2,00,000. What is its Debtors Turnover Ratio and Debtors Collection Period (approximately)?", options:["6.77 times and 54 days","12.25 times and approximately 30 days","10.83 times and approximately 34 days","2.5 times and 146 days"], correct:1,
+    why:"Debtors Turnover Ratio = Credit Sales / Debtors = 24,50,000/2,00,000 = 12.25 times. Debtors Collection Period = 365/12.25 ≈ 30 days.",
+    whyNot:{0:"6.77 times and 54 days corresponds to the STOCK Turnover Ratio and Stock Holding Period in this example, not Debtors.",2:"10.83 times and 34 days corresponds to the CREDITORS Turnover Ratio and Creditors Payment Period, not Debtors.",3:"2.5 times and 146 days corresponds to the Fixed Assets Turnover-style magnitude, not the correct Debtors Turnover calculation for these figures."}},
+  {difficulty:'difficult', q:"A company has a strong Gross Profit Ratio of 26.67% but a much lower Net Profit Ratio of 8.4%. Which of the following is the MOST likely explanation, based on the ratio framework in this chapter?", options:["The company's accounting records must contain an error, since this gap is impossible", "A combination of Operating Expenses, and non-operating items like Interest and Income Tax, is consuming a significant portion of the Gross Profit before it reaches the Net Profit line", "Net Profit Ratio and Gross Profit Ratio measure identical things and should always be equal", "The company has no Current Liabilities"], correct:1,
+    why:"The gap between Gross Profit Ratio and Net Profit Ratio is explained by Operating Expenses (administrative, selling costs) and non-operating items (Interest, Income Tax, losses on asset sales) — each additional layer of cost, moving down the P&L, narrows the margin further, exactly as shown in the Sample Ltd. worked example (Operating Profit Ratio 15.27%, further reduced to Net Profit Ratio 8.4% after interest, tax, and other non-operating items).",
+    whyNot:{0:"This gap is completely normal and expected — it reflects the layered structure of the P&L (Gross Profit → Operating Profit → Net Profit), not an error.",2:"They measure DIFFERENT stages of profitability (gross margin vs final bottom-line margin) and are expected to differ, often substantially.",3:"Current Liabilities are unrelated to the gap between Gross Profit Ratio and Net Profit Ratio, which is a P&L (income statement) phenomenon, not a Balance Sheet one."}},
+  {difficulty:'difficult', q:"Two companies, A and B, have identical Net Profit and identical Equity Shareholders' Funds. Company A has 50,000 equity shares outstanding; Company B has 1,00,000 equity shares outstanding (twice as many, at half the face value each). How will their EPS and ROE compare?", options:["Both EPS and ROE will be identical for A and B", "ROE will be identical for both (since it depends only on Net Profit and Shareholders' Funds), but EPS will be HIGHER for Company A (fewer shares dividing the same profit)", "EPS will be identical, but ROE will differ", "Both EPS and ROE will be impossible to calculate without market price data"], correct:1,
+    why:"ROE = Net Profit / Equity Shareholders' Funds — since both figures are IDENTICAL for A and B, ROE is identical. EPS = Net Profit / Number of Shares — since Company A has FEWER shares (50,000 vs 1,00,000) dividing the SAME profit, Company A's EPS will be HIGHER (twice as high, in fact).",
+    whyNot:{0:"EPS specifically depends on the NUMBER OF SHARES, which differs between A and B — so EPS cannot be identical.",2:"This reverses the correct relationship — EPS is what differs (due to differing share counts) while ROE stays the same (since it doesn't depend on share count at all).",3:"Neither EPS nor ROE requires market price data — EPS uses Net Profit and share count; ROE uses Net Profit and Shareholders' Funds. (P/E Ratio is the one that specifically needs market price.)"}},
+]);
+
+})();
+
+
 /* ---------------- DEMO MODULE (sample content to try the system) ---------------- */
 const DEMO_CHAPTER = {
   id:'demo', title:'Sample Chapter: Motivation', topics:['Meaning of motivation','Content theories (Maslow, Herzberg, McClelland)','Process theories (Vroom, Adams, Locke)'],
