@@ -6591,6 +6591,967 @@ The CFO is also aware that if the Rupee depreciates against the foreign currency
 })();
 
 
+/* ---------------- ACCOUNTING FOR MANAGERS: CHAPTERS (deep, textbook-depth topics) ---------------- */
+(function(){
+  const afm = SUBJECTS.find(s=>s.id==='afm');
+  function setCh(id, material, mcqs){ const c = afm.chapters.find(c=>c.id===id); c.material = material; c.mcqs = mcqs; }
+
+/* ===================== AFM CH1: Introduction to Accounting ===================== */
+setCh('ch1', {
+  topics: [
+    {
+      name: 'The Need for Accounting and Users of Financial Statements',
+      whatIsIt: {
+        definition: "Accounting is the systematic process of recording, classifying, summarizing and communicating financial information about a business, so that different users can understand how well the business performed and where it currently stands.",
+        meaning: "In simple English: accounting exists to answer two fundamental questions that managers, investors, and other stakeholders always want answered — 'How well did the organization perform?' and 'Where does the organization stand?' Accountants answer these using two major financial statements: the Income Statement (Profit & Loss Account) and the Balance Sheet."
+      },
+      explanation: [
+        "The Income Statement answers the PERFORMANCE question — it shows the revenue earned and expenses incurred over a period (e.g., a year), and the resulting profit or loss. The Balance Sheet answers the POSITION question — it shows what the business owns (assets) and owes (liabilities), and what belongs to the owners (capital/equity), as of a specific date.",
+        "Accounting information is used by a wide range of internal and external users, each with a different purpose. Understanding WHO uses accounting information, and WHY, is fundamental to understanding why accounting rules exist at all — they exist to make financial statements reliable and comparable for these different users."
+      ],
+      types: [
+        {name:'Banker / Loan Officer', explanation:'Example: XYZ Ltd. applies for a Rs 10 crore loan from ABC Bank. The loan officer must assess XYZ Ltd.\'s financial health and repayment capacity using its financial statements before deciding whether to grant the loan, and at what interest rate/terms.'},
+        {name:'Employee / Labour Union', explanation:'Example: The labour union at ABC Ltd. wants to negotiate a new wage contract, and needs the company\'s financial statements to judge whether the company\'s financial position genuinely justifies demands for higher wages and better benefits.'},
+        {name:'Production Manager', explanation:'Example: A production manager evaluates current production costs (drawn from cost/management accounting records) to identify areas for cost reduction, ahead of increasing production capacity.'},
+        {name:'Equity Shareholder', explanation:'Example: A shareholder reviews a company\'s profitability over the past 3 years and its growth prospects using its financial statements, to decide whether to hold or sell their shares.'},
+        {name:'Sales Manager', explanation:'Example: A sales manager uses historical revenue trend data from the accounting records to prepare a sales forecast for the next quarter.'},
+        {name:'CEO / Top Management', explanation:'Example: A CEO presents the company\'s overall financial health (drawn directly from its financial statements) and future plans to the Board of Directors at a strategic planning meeting.'},
+        {name:'Tax Department', explanation:'Example: The tax department audits a company\'s financial records and tax filings to verify compliance with applicable tax laws and regulations.'},
+      ],
+      example: "A bank loan officer reviewing XYZ Ltd.'s loan application will specifically study its Balance Sheet (to assess existing debt and asset backing) and Income Statement (to assess profitability and cash-generating capacity) before approving or rejecting the Rs 10 crore loan — demonstrating how the SAME two financial statements serve very different, specific decision needs for different users.",
+      application: "Because financial statements serve so many different users with different (and sometimes conflicting) needs, accounting has developed a common set of concepts, conventions and standards (covered in the next topic) to ensure the information is prepared consistently and can be relied upon by all these users.",
+      examPoints: [
+        'Two core questions accounting answers: "How well did we perform?" (Income Statement) and "Where do we stand?" (Balance Sheet).',
+        'Users are both internal (managers, employees) and external (bankers, shareholders, tax authorities) — each uses accounting information for a distinct decision.',
+      ],
+      examQuestions: [
+        'Explain the need for accounting, and identify the two major financial statements that answer this need.',
+        'Identify at least four different users of accounting information and explain what each one uses it for, with an example.',
+      ]
+    },
+    {
+      name: 'Accounting Concepts and Conventions',
+      whatIsIt: {
+        definition: "Accounting Concepts and Conventions are the fundamental rules and guidelines that accountants follow when preparing, presenting, and preserving financial statements, ensuring consistency and comparability across companies and time periods.",
+        meaning: "Think of these as the 'grammar rules' of accounting — just as grammar rules let different people write sentences that everyone can understand the same way, accounting concepts let different companies prepare financial statements that mean the same thing to every reader."
+      },
+      explanation: [
+        "All formal accounting statements should be created, preserved, and presented according to these concepts and conventions. Each concept solves a specific problem that would otherwise make financial statements unreliable or incomparable."
+      ],
+      types: [
+        {name:'Going Concern Concept', explanation:'Assumes the business will remain in existence for the foreseeable future (i.e., it is not about to be liquidated). Without this concept, accounts would have to be drawn up on a \'winding up\' basis — valuing everything at forced-sale/liquidation prices rather than normal cost, which would give a very different (and less useful) picture.'},
+        {name:'Accounting Entity Concept', explanation:'Each economic entity must be separately identified and accounted for, distinct from its owner(s). Example: your personal bank account must be kept completely separate from your company\'s bank account, even if you own the company — the business is treated as a separate "person" for accounting purposes.'},
+        {name:'Time Period Concept', explanation:'A business\'s indefinite lifetime is artificially divided into distinct time periods for reporting purposes — most commonly Annual and Quarterly periods — so that performance can be measured and reported at regular intervals rather than only once, at the business\'s eventual end.'},
+        {name:'Cost Principle (Historical Cost Concept)', explanation:'Assets are recorded at their COST — the amount actually paid to acquire them — rather than their current market value. This is considered the best measure since it can be objectively VERIFIED (e.g., via an invoice), and is less subjective than an estimated market value. For example, fixed assets are shown on the Balance Sheet at their historic cost, LESS depreciation written off to date — not at what they could currently be sold for.'},
+        {name:'Money Measurement Concept', explanation:'Only transactions that can be expressed in money values (in whatever currency) are recorded in the accounts. Non-financial facts — however important — that cannot be objectively expressed in money (like employee skill, brand reputation, or morale) are NOT recorded as such in the core financial statements.'},
+        {name:'Accrual Concept (Matching Principle)', explanation:'Also known as the Matching Principle. Its purpose is to ensure all revenues and their related costs are recorded in the appropriate period — matched to when they are EARNED/INCURRED, not necessarily when cash actually changes hands. The cost of goods sold relevant to a period\'s sales must be recorded accurately and in full in that period\'s statement; costs relating to a FUTURE period must be carried forward as a prepayment, not charged to the current period\'s profit statement.'},
+      ],
+      example: "Prepayment example (Accrual Concept in action): If a business pays 12 months of rent in advance in March, but its financial year ends in March, only the portion of rent relating to the CURRENT year should be charged to this year's P&L — the remaining months' rent is carried forward as a 'Prepaid Expense' asset, to be charged to the FUTURE period it actually relates to. Similarly, an expense incurred in March but paid in April must still be charged to March's P&L (the period it relates to) via an 'accruals' adjustment — recorded as an Outstanding Expense liability.",
+      advantages: [
+        {point:'Ensures comparability', explanation:'Since every company follows the same concepts, their financial statements can be meaningfully compared with each other and across different time periods.'},
+        {point:'Ensures objectivity and verifiability', explanation:'Concepts like the Cost Principle anchor financial statements to objectively verifiable amounts (like an actual purchase invoice), rather than subjective estimates.'},
+      ],
+      limitations: [
+        {point:'Historical cost can become outdated', explanation:'The Cost Principle means a Balance Sheet may show an asset at a value far below (or above) its actual current market worth, especially for long-held assets like land.'},
+        {point:'Ignores important non-financial information', explanation:'The Money Measurement Concept means valuable, non-monetary information (like employee skill or brand strength) is excluded from formal financial statements, even though it genuinely affects the business\'s worth.'},
+      ],
+      application: "Auditors and accountants explicitly check that a company's financial statements have been prepared consistent with these concepts before certifying them as a 'true and fair view' of the company's financial position — deviation from these concepts (without disclosure) is treated as a serious red flag.",
+      examPoints: [
+        '6 key concepts: Going Concern, Accounting Entity, Time Period, Cost Principle, Money Measurement, Accrual/Matching.',
+        'Going Concern = business assumed to continue indefinitely (not winding-up basis).',
+        'Cost Principle = assets recorded at historical cost (verifiable), not market value.',
+        'Accrual/Matching = revenue and its related costs recorded in the SAME period, regardless of when cash moves — this is the basis for prepaid expenses and outstanding expenses adjustments (covered in the Company Accounts chapter).',
+      ],
+      examQuestions: [
+        'Explain the Going Concern concept and why it matters for how a Balance Sheet is prepared.',
+        'Identify the accounting concept illustrated: "A company continues to depreciate its fixed assets every year, even though it has suffered a major loss in the current year." (Going Concern — the business is still assumed to continue operating normally.)',
+        'A business records revenue when a product is sold, not when cash is received. Which accounting concept does this follow? (Accrual Concept.)',
+        'Why are assets recorded at historical cost rather than current market value under the Cost Principle?',
+      ]
+    },
+    {
+      name: 'The Accounting Equation',
+      whatIsIt: {
+        definition: "The Accounting Equation is the fundamental mathematical relationship underlying every accounting transaction: Total Assets = Total Liabilities + Capital (Owner's Equity), or equivalently, Assets = External Liabilities + Owner's Equity.",
+        meaning: "This equation says: everything a business OWNS (assets) was paid for using money from one of only two sources — money owed to outsiders (liabilities) or money belonging to the owner (capital). Every single transaction a business makes must keep this equation in balance — this is the mathematical foundation of double-entry bookkeeping."
+      },
+      explanation: [
+        "Every transaction affects at least two elements of this equation (this is WHY accounting uses double-entry — 'debit and credit' — for every transaction, covered in the next topic), but the equation always stays balanced after each transaction, no matter how many transactions occur."
+      ],
+      process: [
+        {step:'Started business with cash (e.g., Rs 15,000)', explanation:'Assets (Cash) increase by Rs 15,000; Capital increases by Rs 15,000. Equation: Assets 15,000 = Liabilities 0 + Capital 15,000.'},
+        {step:'Purchased an asset for cash (e.g., securities for Rs 7,500)', explanation:'One asset (Cash) decreases while another asset (Securities) increases by the same amount — total Assets, Liabilities and Capital are all UNCHANGED. Equation stays: Assets 15,000 = Liabilities 0 + Capital 15,000.'},
+        {step:'Purchased an asset partly on credit (e.g., building for Rs 15,000: Rs 5,000 cash + Rs 10,000 loan)', explanation:'Assets increase by the building\'s value (Rs 15,000) but Cash decreases by only Rs 5,000 (net Assets +10,000); Liabilities (Loan) increase by Rs 10,000. Equation: Assets 25,000 = Liabilities 10,000 + Capital 15,000.'},
+        {step:'Sold an asset at a profit (e.g., securities costing Rs 1,000 sold for Rs 1,500)', explanation:'Assets increase by the profit amount (Rs 500 net, since Rs 1,500 cash in vs Rs 1,000 securities out); Capital increases by the Rs 500 profit (profit belongs to the owner). Equation: Assets 25,500 = Liabilities 10,000 + Capital 15,500.'},
+        {step:'Received income (e.g., Rs 3,600 as dividend/salary received in cash)', explanation:'Assets (Cash) increase by Rs 3,600; Capital increases by Rs 3,600 (income increases the owner\'s wealth). Equation: Assets 29,100 = Liabilities 10,000 + Capital 19,100.'},
+        {step:'Paid off a liability plus interest (e.g., Rs 500 loan repayment + Rs 300 interest, paid in cash)', explanation:'Assets (Cash) decrease by Rs 800 total; Liabilities decrease by Rs 500 (the loan repayment); Capital decreases by Rs 300 (interest is an expense, reducing the owner\'s wealth). Equation: Assets 28,300 = Liabilities 9,500 + Capital 18,800.'},
+        {step:'Withdrew for personal use / household expenses (Drawings)', explanation:'Assets (Cash) decrease; Capital decreases by the same amount (drawings reduce the owner\'s stake in the business, since it is money taken OUT for personal use, not a business expense).'},
+      ],
+      example: "Arvind starts a business with Rs 15,000 cash (Assets 15,000 = Liabilities 0 + Capital 15,000). He then buys a Rs 15,000 building, paying Rs 5,000 cash and taking a Rs 10,000 loan for the rest (Assets 25,000 = Liabilities 10,000 + Capital 15,000 — note the equation still balances: Assets increased by 10,000 net, matched exactly by the 10,000 increase in Liabilities). After several more transactions — selling securities at a Rs 500 profit, receiving Rs 3,600 salary, repaying part of the loan with interest, buying a car, and paying household expenses — his final position becomes Assets 28,200 = Liabilities 9,500 + Capital 18,700, with every single intermediate transaction keeping the equation exactly balanced.",
+      advantages: [
+        {point:'Provides a built-in error check', explanation:'If, after recording a transaction, Assets does NOT equal Liabilities plus Capital, this immediately signals a recording error — the equation is a powerful, simple self-check.'},
+        {point:'Forms the basis of the Balance Sheet', explanation:'The Balance Sheet is, at its core, simply a formally presented snapshot of the Accounting Equation at a specific date.'},
+      ],
+      application: "Every journal entry, ledger posting, and financial statement in accounting is ultimately just a detailed, formalized expression of the Accounting Equation staying in balance — this is why understanding it deeply is the foundation for everything that follows in this subject, including Journal entries, Ledgers, the Trial Balance, and Final Accounts (covered next and in the Company Accounts chapter).",
+      examPoints: [
+        'Accounting Equation: Assets = Liabilities + Capital (or Assets = External Liabilities + Owner\'s Equity).',
+        'Every transaction affects at least two elements, but the equation ALWAYS remains balanced.',
+        'Profit/Income increases Capital; Loss/Expenses/Drawings decrease Capital.',
+      ],
+      examQuestions: [
+        'State the Accounting Equation and explain why it always remains balanced.',
+        'A business purchases a building for Rs 15,000, paying Rs 5,000 in cash and the rest through a loan. Show the effect of this transaction on the Accounting Equation.',
+        'Fill in the missing figure: If Assets = Rs 56,000 and Liabilities = Rs 9,800, what is Capital? (Capital = Assets − Liabilities = Rs 46,200.)',
+      ]
+    },
+    {
+      name: 'Rules of Debit and Credit (Personal, Real and Nominal Accounts)',
+      whatIsIt: {
+        definition: "The Rules of Debit and Credit are the specific conventions that determine whether a given account should be DEBITED or CREDITED for a transaction, based on the TYPE of account involved — Personal, Real, or Nominal.",
+        meaning: "Since Assets = Liabilities + Capital must always balance, every transaction needs a consistent rule for which side (debit or credit) of which account(s) to record it on. These rules, applied consistently, are what keeps the whole double-entry system in balance."
+      },
+      explanation: [
+        "From the Accounting Equation (Assets = External Liabilities + Owner's Equity): an INCREASE in an asset is always a DEBIT, and a DECREASE in an asset is always a CREDIT. Conversely, an INCREASE in Owner's Equity (Capital) or External Liability is always a CREDIT, and a DECREASE in Owner's Equity or External Liability is always a DEBIT. To apply this practically to every account a business keeps, accounts are classified into three types, each with its own debit/credit rule."
+      ],
+      types: [
+        {name:'Personal Accounts', explanation:'Accounts relating to persons, firms, companies, or organizations — e.g., a specific debtor (customer) or creditor (supplier), Capital Account, Bank Account, Drawings Account. Rule: DEBIT the RECEIVER, CREDIT the GIVER. Examples classified as Personal: Capital, Bank, Cash-related-party accounts, Insurance Premium (paid to an insurer), Preliminary Expenses account context, individual debtor/creditor accounts (e.g., "Ram", specific companies).'},
+        {name:'Real Accounts', explanation:'Accounts relating to tangible or intangible ASSETS of the business — e.g., Machinery, Furniture, Goodwill, Cash. Rule: DEBIT what COMES IN, CREDIT what GOES OUT. Examples: Cash Account, Goodwill, Interest on Loan (as an asset-context item in some classifications).'},
+        {name:'Nominal Accounts', explanation:'Accounts relating to EXPENSES, LOSSES, INCOMES and GAINS — e.g., Rent, Salaries, Commission Received, Loss by Fire. Rule: DEBIT all EXPENSES and LOSSES, CREDIT all INCOMES and GAINS. Examples: Wages, Accrued Income, Outstanding Wages, Advance Premium, Charity Account, Loss by Fire Account.'},
+      ],
+      comparison: {
+        headers: ['Account Type','What it Represents','Debit Rule','Credit Rule'],
+        rows: [
+          ['Personal','A person, firm, company, or organization','Debit the RECEIVER','Credit the GIVER'],
+          ['Real','A tangible or intangible ASSET','Debit what COMES IN','Credit what GOES OUT'],
+          ['Nominal','An EXPENSE/LOSS or INCOME/GAIN','Debit all EXPENSES and LOSSES','Credit all INCOMES and GAINS'],
+        ]
+      },
+      example: "When a business pays Rs 8,000 rent by cheque: Rent Account (Nominal — an expense) is DEBITED (debit all expenses), and Bank Account (Personal, treated via the banker relationship) is CREDITED (the giver of the funds). When a business purchases Machinery for cash: Machinery Account (Real — an asset) is DEBITED (debit what comes in), and Cash Account (Real) is CREDITED (credit what goes out).",
+      advantages: [
+        {point:'Provides a consistent, learnable rule for every transaction', explanation:'Once an account is correctly classified as Personal, Real, or Nominal, the debit/credit treatment follows mechanically and consistently, removing ambiguity.'},
+      ],
+      limitations: [
+        {point:'Requires correctly classifying the account first', explanation:'The most common student error is misclassifying an account (e.g., confusing a Real account with a Nominal one) — since the whole rule depends on getting this classification right first.'},
+      ],
+      application: "Every journal entry recorded in a business (covered in the next topic) is built directly on correctly identifying each account's type (Personal/Real/Nominal) and applying its corresponding debit/credit rule — this classification skill is tested constantly through the Class 9-style exercises like 'classify this account and state if it is debited or credited.'",
+      examPoints: [
+        'From the Accounting Equation: Asset increase = Debit, Asset decrease = Credit. Liability/Capital increase = Credit, decrease = Debit.',
+        'Personal: Debit the Receiver, Credit the Giver.',
+        'Real: Debit what Comes In, Credit what Goes Out.',
+        'Nominal: Debit all Expenses/Losses, Credit all Incomes/Gains.',
+      ],
+      examQuestions: [
+        'Classify the following accounts as Personal, Real, or Nominal: Machinery, Interest Received, Wages, Bank, Loss by Fire.',
+        'State the rule of debit and credit for each of the three account types, with an example transaction for each.',
+        'A business purchases furniture for cash. Identify which accounts are debited and credited, and state the applicable rule for each.',
+      ]
+    },
+    {
+      name: 'Journal, Ledger and Trial Balance',
+      whatIsIt: {
+        definition: "The Journal is the book of original/first entry where every transaction is FIRST recorded in chronological order (as a debit and credit, with a narration); the Ledger groups these entries by ACCOUNT (all transactions affecting, say, 'Cash' collected in one place); the Trial Balance is a summary list of all ledger account balances, used to check that total debits equal total credits.",
+        meaning: "Think of it as three sequential steps: (1) Journal — write down every transaction as it happens, in the order it happens; (2) Ledger — sort those transactions by account, so you can see the full history and current balance of, say, just the Cash account; (3) Trial Balance — add up all the ending balances to make a final arithmetic check that the books actually balance."
+      },
+      explanation: [
+        "A Journal Entry follows the format: [Account Name] Dr. [Amount] ... To [Account Name] [Amount], followed by a narration (a brief explanation of the transaction, typically starting with 'Being...'). The account being DEBITED is written first with 'Dr.'; the account being CREDITED is written on the next line, prefixed with 'To'.",
+        "A Ledger Account is presented in a 'T-format' with two sides: the DEBIT side (left, headed 'To...' for each entry) and the CREDIT side (right, headed 'By...' for each entry). At the end of the period, the account is BALANCED — the difference between the two sides is carried down (c/d) as the account's closing balance, which becomes the opening balance (b/d) for the next period.",
+        "A Trial Balance lists every ledger account's final balance, with Debit balances in one column and Credit balances in another. If the books have been correctly recorded (every debit has a matching, equal credit), the TOTAL of the Debit column must exactly equal the TOTAL of the Credit column — this is the key arithmetic check that catches many (though not all) types of recording errors."
+      ],
+      process: [
+        {step:'Identify the transaction and the two (or more) accounts affected', explanation:'Every transaction affects at least two accounts (double-entry) — e.g., a cash purchase affects both a Purchases/Asset account and the Cash account.'},
+        {step:'Classify each account (Personal/Real/Nominal) and apply the debit/credit rule', explanation:'Determine which account is debited and which is credited, using the rules from the previous topic.'},
+        {step:'Record the Journal Entry with a narration', explanation:'Write the debit account first (with "Dr."), the credit account below it (with "To"), and a brief narration explaining the transaction.'},
+        {step:'Post each entry to the relevant Ledger Accounts', explanation:'Transfer the debit side of the entry to the debit side of that account\'s ledger, and the credit side to the credit side of the other account\'s ledger.'},
+        {step:'Balance each Ledger Account at period-end', explanation:'Total both sides of each ledger account and carry down (c/d) the difference as the closing balance.'},
+        {step:'Prepare the Trial Balance', explanation:'List every account\'s closing balance in the Debit or Credit column as appropriate, and confirm both column totals are EQUAL.'},
+      ],
+      example: "A business is started with Rs 5,00,000 cash as capital, followed by transactions including purchasing furniture (Rs 50,000 cash), a credit purchase of inventory (Rs 1,20,000), a credit sale (Rs 80,000), paying rent (Rs 15,000 by bank), receiving Rs 50,000 from the debtor, more cash purchases and sales, and paying salaries (Rs 20,000). After journalizing all these transactions and posting them to ledgers (Cash, Bank, Capital, Furniture, Purchases, Sales, Rent, Salaries, and the specific debtor/creditor accounts), a Trial Balance is prepared: Cash Rs 4,50,000 (Dr.), Bank Rs 15,000 (Cr., i.e., overdrawn), Furniture Rs 50,000 (Dr.), Purchases Rs 1,90,000 (Dr.), Rent Rs 15,000 (Dr.), Salaries Rs 20,000 (Dr.), Sales Rs 1,80,000 (Cr.), Capital Rs 5,00,000 (Cr.), Creditor Rs 60,000 (Cr.), Debtor Rs 30,000 (Dr.) — with both the Debit and Credit column totals correctly matching at Rs 7,55,000 each, confirming the books balance.",
+      advantages: [
+        {point:'Provides a complete, traceable transaction history', explanation:'The Journal preserves a chronological record of every transaction; the Ledger lets anyone quickly see any single account\'s complete history and current balance.'},
+        {point:'Trial Balance catches many recording errors', explanation:'If debit and credit totals do not match, it immediately signals that a posting or balancing error has occurred somewhere, which can then be investigated before finalizing accounts.'},
+      ],
+      limitations: [
+        {point:'Trial Balance does not catch every type of error', explanation:'Certain errors — like completely omitting a transaction, or debiting/crediting the WRONG account (but for the correct, matching amount) — will NOT cause the Trial Balance to be out of balance, so a matching Trial Balance does not guarantee the books are fully error-free.'},
+      ],
+      application: "The Trial Balance is the direct starting point for preparing a business's Final Accounts (Trading Account, Profit & Loss Account, and Balance Sheet) — covered in depth for companies in the Company Accounts chapter — making accurate journalizing, ledger posting, and trial balancing the essential foundation for all later financial reporting.",
+      examPoints: [
+        'Sequence: Journal (chronological, by transaction) → Ledger (grouped by account) → Trial Balance (summary check that Dr total = Cr total).',
+        'Journal entry format: [Account] Dr. ... To [Account], with a narration.',
+        'Ledger account format: T-shape, Debit side ("To...") and Credit side ("By..."), balanced via c/d and b/d.',
+        'A matching Trial Balance does NOT guarantee zero errors — some errors (like a fully omitted transaction) don\'t unbalance it.',
+      ],
+      examQuestions: [
+        'Explain the sequence: Journal → Ledger → Trial Balance, and the purpose of each step.',
+        'Prepare a Trial Balance from given ledger balances and confirm whether it is arithmetically correct.',
+        'Why might a Trial Balance still balance even though the books contain an error? Give an example of such an error.',
+      ]
+    },
+    {
+      name: 'Journal Entries for Common Business Transactions',
+      whatIsIt: {
+        definition: "A practical reference of the standard journal entries used for the most common categories of business transactions — capital introduction, loans, purchases/sales, discounts, bad debts, expenses, losses, bank transactions, fixed assets, drawings, and GST — each with its accounts debited/credited and a typical narration.",
+        meaning: "While the underlying debit/credit RULES stay the same (Personal/Real/Nominal), in practice accountants recognize certain transaction PATTERNS so often that memorizing their standard journal entry format saves time and reduces errors — this is the practical, applied version of the rules covered earlier."
+      },
+      explanation: [
+        "Below are the most exam-relevant transaction categories, each showing the standard journal entry pattern. In every case, the underlying logic is still the Personal/Real/Nominal classification and the debit/credit rules already covered — these are simply the most common, recurring applications of those rules."
+      ],
+      types: [
+        {name:'Capital and Loans', explanation:'Business started with cash: Cash A/c Dr. To Capital A/c. Loan received from bank: Bank A/c Dr. To Bank Loan A/c. Interest on loan paid: Interest on Loan A/c Dr. To Cash A/c. Interest accrued but not paid: Interest on Loan A/c Dr. To Outstanding Interest A/c.'},
+        {name:'Purchases and Sales (Cash & Credit)', explanation:'Cash purchase: Purchases A/c Dr. To Cash A/c. Credit purchase: Purchases A/c Dr. To Creditor A/c. Purchase return: Creditor A/c Dr. To Purchase Returns A/c. Cash sale: Cash A/c Dr. To Sales A/c. Credit sale: Debtor A/c Dr. To Sales A/c. Sales return: Sales Returns A/c Dr. To Debtor A/c.'},
+        {name:'Discounts', explanation:'Discount Allowed (to a debtor, on receiving payment): Cash A/c Dr., Discount Allowed A/c Dr. To Debtor A/c (the debtor account is credited for the FULL original amount, split between cash actually received and the discount expense). Discount Received (from a creditor, on making payment): Creditor A/c Dr. To Cash/Bank A/c, To Discount Received A/c. Trade Discount is NEVER recorded in the books separately — only the NET amount (after trade discount) is entered directly.'},
+        {name:'Bad Debts', explanation:'Bad debts written off: Bad Debts A/c Dr. To Debtor A/c (an irrecoverable amount is removed from the books as a loss). Provision for Doubtful Debts created: Profit & Loss A/c Dr. To Provision for Doubtful Debts A/c. Bad debts recovered (a previously written-off amount is later received): Cash A/c Dr. To Bad Debts Recovered A/c (treated as a fresh GAIN/income, NOT simply reversed against the original Debtor account).'},
+        {name:'Expenses: Outstanding and Prepaid', explanation:'Normal expense paid: [Expense] A/c Dr. To Cash/Bank A/c. Outstanding expense (incurred but not yet paid): [Expense] A/c Dr. To Outstanding Expense A/c. Prepaid expense (paid in advance, not yet incurred): Prepaid Expense A/c Dr. To [Expense] A/c (this REDUCES the expense charged this period, carrying the prepaid portion forward as an asset).'},
+        {name:'Losses (Fire, Theft)', explanation:'Goods destroyed by fire (no insurance claim assumed): Loss by Fire A/c Dr. To Stock/Purchases A/c. Goods stolen: Loss by Theft A/c Dr. To Stock/Purchases A/c. In both cases, the loss reduces the value of stock/purchases and is charged as a loss to the P&L.'},
+        {name:'Bank-Related Entries', explanation:'Cash deposited into bank: Bank A/c Dr. To Cash A/c. Cash withdrawn from bank: Cash A/c Dr. To Bank A/c. Bank charges debited by the bank: Bank Charges A/c Dr. To Bank A/c. Interest credited by the bank: Bank A/c Dr. To Interest Received A/c.'},
+        {name:'Fixed Assets: Purchase and Sale', explanation:'Fixed asset purchased for cash: [Asset] A/c Dr. To Cash/Bank A/c. Purchased on credit: [Asset] A/c Dr. To Supplier A/c. Installation charges are CAPITALIZED (added to the asset\'s cost), not expensed. Asset sold at book value: Cash/Bank A/c Dr. To Asset A/c. Asset sold at a LOSS: Cash A/c Dr., Loss on Sale of Asset A/c Dr. To Asset A/c. Asset sold at a PROFIT: Cash/Bank A/c Dr. To Asset A/c, To Profit on Sale of Asset A/c.'},
+        {name:'Drawings and Other Adjustments', explanation:'Cash withdrawn for personal use (Drawings): Drawings A/c Dr. To Cash/Bank A/c. Goods withdrawn for personal use: Drawings A/c Dr. To Purchases A/c. Goods given as charity: Charity A/c Dr. To Purchases A/c. Goods given as free samples: Advertisement A/c Dr. To Purchases A/c. Depreciation charged: Depreciation A/c Dr. To Asset A/c. Accrued income: Accrued Income A/c Dr. To Income A/c. Income received in advance: Income A/c Dr. To Unearned Income A/c.'},
+        {name:'GST-Related Transactions', explanation:'Intra-state purchase (CGST + SGST): Purchases A/c Dr., Input CGST A/c Dr., Input SGST A/c Dr. To Creditor A/c. Inter-state purchase (IGST): Purchases A/c Dr., Input IGST A/c Dr. To Creditor A/c. Intra-state sale: Customer A/c Dr. To Sales A/c, To Output CGST A/c, To Output SGST A/c. Set-off of Input against Output GST: Output CGST/SGST/IGST A/c Dr. To Input CGST/SGST/IGST A/c respectively. IMPORTANT RULE: Input IGST may be utilized to set off, in strict order — first IGST, then CGST, and last SGST liability.'},
+      ],
+      example: "A retail business makes a credit sale of Rs 1,00,000 to a customer, and later receives Rs 95,000 in full settlement, allowing a Rs 5,000 discount. Journal entries: (1) At the time of sale — Debtor A/c Dr. Rs 1,00,000 To Sales A/c Rs 1,00,000. (2) At the time of receipt — Cash A/c Dr. Rs 95,000, Discount Allowed A/c Dr. Rs 5,000 To Debtor A/c Rs 1,00,000 (the Debtor account is fully cleared, split between the cash actually received and the discount expense recognized).",
+      advantages: [
+        {point:'Speeds up and standardizes routine journalizing', explanation:'Recognizing these common transaction patterns lets an accountant journalize routine transactions quickly and consistently, without re-deriving the debit/credit logic from scratch every time.'},
+      ],
+      limitations: [
+        {point:'Memorizing patterns without understanding the underlying rule is risky', explanation:'A student who memorizes these formats WITHOUT understanding the Personal/Real/Nominal logic behind them will struggle with any transaction that doesn\'t exactly match a memorized pattern.'},
+      ],
+      application: "These standard journal entry formats are used daily by accountants and are the direct basis of what accounting software (like Tally or SAP) automates internally — the software still applies the same debit/credit logic, just automatically based on the transaction type selected by the user.",
+      examPoints: [
+        'Trade Discount is NEVER journalized separately — only the net (post-discount) amount is recorded.',
+        'Bad Debts Recovered is treated as fresh INCOME (credited to a Bad Debts Recovered account), not a reversal of the original write-off.',
+        'Installation charges on a fixed asset are CAPITALIZED (added to asset cost), not expensed.',
+        'GST set-off order for Input IGST: first IGST, then CGST, then SGST.',
+        'Outstanding expense = expense incurred but not paid (creates a liability). Prepaid expense = expense paid but not yet incurred (creates an asset, reduces current period charge).',
+      ],
+      examQuestions: [
+        'Pass journal entries for: cash purchase of goods, credit sale of goods, payment received from a debtor with discount allowed.',
+        'Journalize: salary outstanding Rs 3,000, interest accrued but not received Rs 5,000, rent paid in advance Rs 6,000 for the next six months.',
+        'Explain the treatment of Bad Debts Recovered, and why it is not simply reversed against the original Debtor account.',
+        'A company sells machinery with a book value of Rs 25,000 for Rs 20,000 cash. Pass the necessary journal entry.',
+      ]
+    },
+  ],
+}, [
+  {difficulty:'easy', q:"Which two financial statements primarily answer the questions 'How well did the organization perform?' and 'Where does the organization stand?'", options:["Cash Flow Statement and Trial Balance","Income Statement and Balance Sheet","Journal and Ledger","Notes to Accounts and Auditor's Report"], correct:1,
+    why:"The Income Statement (performance, over a period) and the Balance Sheet (position, at a date) are the two major financial statements that directly answer these two fundamental questions.",
+    whyNot:{0:"The Cash Flow Statement and Trial Balance serve other specific purposes (liquidity tracking and an arithmetic check respectively), not these two core questions directly.",2:"The Journal and Ledger are books of original entry and account-grouping, not the final reporting statements that directly answer these questions.",3:"Notes to Accounts and the Auditor's Report support and validate the financial statements, but are not themselves the two primary statements answering these two questions."}},
+  {difficulty:'easy', q:"Under the Cost Principle (Historical Cost Concept), fixed assets are recorded on the Balance Sheet at:", options:["Their current market value","Their original purchase cost, less depreciation to date","Their estimated resale/liquidation value","Whatever value management prefers to report"], correct:1,
+    why:"The Cost Principle records assets at their historical cost (the amount actually paid), less depreciation written off to date, since this is objectively verifiable.",
+    whyNot:{0:"Current market value is a subjective estimate and specifically NOT what the Cost Principle uses.",2:"Liquidation value is used only under a winding-up basis, which contradicts the Going Concern assumption used for a normally operating business.",3:"Financial statements must follow consistent accounting concepts, not arbitrary management preference — that would defeat the purpose of standardized accounting."}},
+  {difficulty:'easy', q:"The Accounting Entity concept requires that:", options:["A business's transactions be mixed with the owner's personal transactions for simplicity","A business be treated as a separate entity from its owner, with its transactions recorded separately from the owner's personal transactions","Only cash transactions be recorded","Financial statements be prepared only once, at the end of the business's life"], correct:1,
+    why:"The Accounting Entity concept requires each economic entity — including a business separate from its owner — to be separately identified and accounted for.",
+    whyNot:{0:"Mixing personal and business transactions is exactly what this concept PROHIBITS.",2:"Recording only cash transactions is unrelated to entity separation; it would actually violate the Accrual concept for non-cash transactions.",3:"Preparing statements only once, at the business's end, contradicts the Time Period concept, which divides the business's life into regular reporting periods."}},
+  {difficulty:'moderate', q:"According to the Accounting Equation, if a business has Assets of Rs 56,000 and Liabilities of Rs 9,800, what is its Capital?", options:["Rs 65,800","Rs 46,200","Rs 9,800","Rs 56,000"], correct:1,
+    why:"Capital = Assets − Liabilities = 56,000 − 9,800 = Rs 46,200.",
+    whyNot:{0:"Rs 65,800 incorrectly ADDS Assets and Liabilities instead of subtracting.",2:"Rs 9,800 is simply the Liabilities figure, not the computed Capital.",3:"Rs 56,000 is simply the Assets figure; it ignores the Liabilities that must be subtracted to find Capital."}},
+  {difficulty:'moderate', q:"A business purchases a building for Rs 15,000, paying Rs 5,000 in cash and financing the remaining Rs 10,000 through a loan. What is the effect on the Accounting Equation?", options:["Assets increase by Rs 15,000 with no change to Liabilities","Net Assets increase by Rs 10,000, and Liabilities increase by Rs 10,000, keeping the equation balanced","Capital increases by Rs 15,000","There is no effect on the Accounting Equation"], correct:1,
+    why:"Cash (an asset) decreases by Rs 5,000 while the Building (an asset) increases by Rs 15,000 — a NET asset increase of Rs 10,000 — exactly matched by a Rs 10,000 increase in Liabilities (the loan), keeping Assets = Liabilities + Capital balanced.",
+    whyNot:{0:"Assets do not increase by the full Rs 15,000 net, since Cash simultaneously decreases by Rs 5,000 as part of the same transaction.",2:"Capital is unaffected by this transaction — no owner's equity is contributed or withdrawn; the funding comes from cash and a loan.",3:"This transaction clearly affects the equation — assets, and the split between liabilities and capital financing them, all change as shown."}},
+  {difficulty:'moderate', q:"According to the Rules of Debit and Credit for a Real Account, which of the following is correct?", options:["Debit the Receiver, Credit the Giver","Debit what Comes In, Credit what Goes Out","Debit all Expenses and Losses, Credit all Incomes and Gains","Debit all Liabilities, Credit all Assets"], correct:1,
+    why:"For Real Accounts (assets), the rule is: Debit what Comes In, Credit what Goes Out.",
+    whyNot:{0:"'Debit the Receiver, Credit the Giver' is the rule for PERSONAL accounts, not Real accounts.",2:"'Debit all Expenses and Losses, Credit all Incomes and Gains' is the rule for NOMINAL accounts, not Real accounts.",3:"This is not a standard rule for any of the three account types as taught — it inverts the actual logic."}},
+  {difficulty:'moderate', q:"When a business pays rent by cheque, which accounts are debited and credited, and why?", options:["Rent A/c is credited (an income) and Bank A/c is debited (an asset increases)","Rent A/c is debited (an expense, Nominal account rule) and Bank A/c is credited (the giver, Personal account rule)","Both Rent A/c and Bank A/c are debited","Neither account is affected since rent is not a recordable transaction"], correct:1,
+    why:"Rent is a Nominal account (an expense) and is debited under the rule 'debit all expenses and losses'; Bank is treated as the giver of funds (Personal account context) and is credited under 'credit the giver'.",
+    whyNot:{0:"Rent paid is an EXPENSE, not income — it must be debited, not credited, and this option also incorrectly reverses the Bank treatment.",2:"A valid double-entry transaction cannot have both accounts debited — one side must be a credit to keep the equation balanced.",3:"Rent payment is very much a recordable transaction — it is a standard, common nominal (expense) transaction requiring a journal entry."}},
+  {difficulty:'moderate', q:"A business receives Rs 8,000 as full settlement of a Rs 10,000 debt from a debtor, allowing Rs 2,000 as discount. Which journal entry correctly records this?", options:["Cash A/c Dr. 8,000 To Debtor A/c 8,000 (discount ignored)", "Cash A/c Dr. 8,000, Discount Allowed A/c Dr. 2,000 To Debtor A/c 10,000", "Debtor A/c Dr. 10,000 To Cash A/c 8,000, To Discount Allowed A/c 2,000", "Cash A/c Dr. 10,000 To Debtor A/c 10,000"], correct:1,
+    why:"The Debtor account must be cleared for the FULL original amount (Rs 10,000), split between the actual Cash received (Rs 8,000) and the Discount Allowed expense (Rs 2,000) — both debited, with the Debtor account credited for the full amount.",
+    whyNot:{0:"Ignoring the discount would incorrectly leave Rs 2,000 still showing as owed by the debtor, when the debt has actually been fully settled.",2:"This entry reverses the debit and credit sides entirely — Debtor should be CREDITED (money coming in, clearing what they owe), not debited.",3:"This incorrectly records Rs 10,000 in cash received, when only Rs 8,000 cash was actually received — the Rs 2,000 discount portion must be separately recognized as an expense."}},
+  {difficulty:'difficult', q:"A company writes off Rs 10,000 as bad debts in Year 1, and unexpectedly recovers this exact amount in Year 3. How should this recovery be recorded in Year 3?", options:["Reverse the original bad debts entry by debiting Debtor A/c and crediting Bad Debts A/c", "Cash A/c Dr. To Bad Debts Recovered A/c, treating it as a fresh income/gain in Year 3", "No entry is needed since the amount was already written off", "Debit Bad Debts A/c and credit Cash A/c"], correct:1,
+    why:"Bad Debts Recovered is treated as a FRESH gain/income in the period it is actually recovered (Cash A/c Dr. To Bad Debts Recovered A/c), not as a reversal of the original write-off entry from a prior period.",
+    whyNot:{0:"Reversing the original entry would incorrectly reinstate a Debtor balance for an amount that was properly written off in a PRIOR, already-closed accounting period.",2:"Money has genuinely been received in Year 3 — this is a real cash inflow and gain that MUST be recorded in the current period's books.",3:"This reverses the correct debit/credit treatment — Cash should be debited (asset increasing) and Bad Debts Recovered credited (a gain), not the other way around."}},
+  {difficulty:'difficult', q:"A Trial Balance's Debit and Credit column totals match exactly. Which of the following statements is most accurate?", options:["This proves the books contain absolutely no errors","This proves only that certain TYPES of errors are absent; some errors (like a fully omitted transaction, or a correct amount posted to the wrong account) would NOT be caught by this check","A matching Trial Balance is impossible unless the books are error-free","The Trial Balance is only useful after the Balance Sheet has already been prepared"], correct:1,
+    why:"A matching Trial Balance confirms that total debits equal total credits (catching errors like a one-sided posting or an arithmetic mistake in balancing), but it does NOT catch errors like a completely omitted transaction, or a transaction posted with an equal, matching but WRONG debit/credit account pair — both of which would still leave the totals in balance.",
+    whyNot:{0:"This overstates what a matching Trial Balance proves — several distinct error types exist that a balanced Trial Balance simply cannot detect.",2:"A Trial Balance can absolutely balance even with certain errors present, as explained — it is not proof of a fully error-free set of books.",3:"The Trial Balance is prepared and checked BEFORE the Final Accounts (Trading A/c, P&L, Balance Sheet) are drawn up — it is a precursor step, not something used only afterward."}},
+]);
+/* ===================== AFM CH2: Inventory Valuation ===================== */
+setCh('ch2', {
+  topics: [
+    {
+      name: 'What is Inventory, and Why Does its Valuation Matter?',
+      whatIsIt: {
+        definition: "Inventory (also called Stock) consists of assets: (a) held for sale in the ordinary course of business (Finished Goods), (b) in the process of production for such sale (Work-in-Progress), or (c) in the form of materials or supplies to be consumed in the production process or rendering of services (Raw Material).",
+        meaning: "Inventory is simply everything a business has on hand that it either sells directly, is in the middle of making, or will use to make what it sells. How this inventory is VALUED (priced) directly affects both the Balance Sheet (as a current asset) and the P&L (through Cost of Goods Sold), making it a critically important accounting judgment, not just an operational detail."
+      },
+      explanation: [
+        "The importance of inventory valuation comes from a simple but powerful fact: Closing Stock appears in BOTH the Trading Account (reducing the cost of goods sold, thereby affecting Gross Profit) AND the Balance Sheet (as a current asset). Since businesses continuously buy raw material/goods at DIFFERENT prices at different times, when goods are issued/sold, an accountant must decide WHICH cost to assign to the goods leaving — the earliest purchase price, an average price, or some other method. This decision can meaningfully change both the reported profit for the period and the value of assets shown on the Balance Sheet, especially when prices are rising or falling significantly."
+      ],
+      components: [
+        {name:'Stores Ledger', explanation:'A continuous record of stores (materials) received and issued, disclosing the balance in hand at any time, both in QUANTITY and VALUE. It maintains an account of each class of material, facilitates ascertaining all details relating to that material quickly, and provides management with a PERPETUAL inventory (i.e., a running, always-updated stock record, rather than one that must be physically counted to know the balance).'},
+      ],
+      example: "A company that started October with 1,00,000 units of raw material at Rs 0.10/unit then makes three separate purchases during the month at three DIFFERENT prices (Rs 0.7, Rs 0.8, and Rs 0.9 per unit, as prices rose). When the company issues material to production, it must decide: does the issued material get costed at the OLDEST price (Rs 0.10 or Rs 0.7), the NEWEST price, or some blended AVERAGE price? Each choice gives a different Cost of Goods Sold and a different closing stock value — this exact scenario is the FIFO worked example covered in the next topic.",
+      advantages: [
+        {point:'Directly affects reported profit', explanation:'Since Closing Stock reduces Cost of Goods Sold in the Trading Account, a HIGHER closing stock valuation means a HIGHER reported Gross Profit (and vice versa) — making the valuation method a genuine driver of reported performance, not a mere technicality.'},
+        {point:'Directly affects the Balance Sheet', explanation:'Inventory valuation determines the Current Asset figure shown on the Balance Sheet, affecting metrics like the Current Ratio and overall reported financial position.'},
+      ],
+      application: "Because inventory valuation genuinely affects reported profit and asset values, accounting standards require a business to consistently apply ONE chosen method (e.g., FIFO or Weighted Average) across periods, and to clearly disclose which method is used, so that financial statement users can make fair comparisons over time and across companies.",
+      examPoints: [
+        '3 categories of inventory: Raw Material, Work-in-Progress, Finished Goods.',
+        'Inventory valuation affects BOTH the Trading Account (via COGS/Gross Profit) and the Balance Sheet (as a Current Asset).',
+        'A Stores Ledger is a perpetual (continuously updated) record of quantity AND value.',
+      ],
+      examQuestions: [
+        'Define inventory and explain its three categories.',
+        'Why does the choice of inventory valuation method matter for a company\'s reported profit and Balance Sheet?',
+        'What is a Stores Ledger, and why is it described as providing a "perpetual inventory"?',
+      ]
+    },
+    {
+      name: 'FIFO (First-In-First-Out) Method',
+      whatIsIt: {
+        definition: "The FIFO (First-In-First-Out) method prices material issues on the assumption that materials received FIRST are issued FIRST, so the cost flow follows the same order as the physical receipt order — issues are priced using the earliest (oldest) unused batch's cost until it is fully used up, after which the price of the NEXT batch received becomes the issue price.",
+        meaning: "Imagine a queue: the material that arrived first is assumed to leave first (even if, physically, the warehouse doesn't literally work this way) — so when you cost an issue, you 'use up' the oldest-priced stock first, then move to the next-oldest, and so on."
+      },
+      explanation: [
+        "Under FIFO, the Closing Stock therefore consists of the MOST RECENTLY purchased batches (since the oldest ones are assumed to have been used up first) — meaning the closing stock value tends to be closer to CURRENT (recent) market prices, which is a key characteristic of this method."
+      ],
+      advantages: [
+        {point:'Realistic assumption', explanation:'This method is realistic since it assumes material is issued to production in the order it was actually received — a natural, common-sense flow assumption for most physical goods.'},
+        {point:'Closing stock nearer to current market price', explanation:'Since closing stock consists of the most recently purchased batches, its valuation tends to be closer to the current market price, more useful for Balance Sheet purposes.'},
+        {point:'No unrealized profit enters financial results', explanation:'Because each issue is costed at its ACTUAL historical purchase price (not an estimate or blend), no artificial or unrealized profit distorts the P&L.'},
+        {point:'Easy to operate when prices are stable', explanation:'The method is easy to operate when prices do not fluctuate very frequently, since there are fewer distinct price batches to track at any time.'},
+      ],
+      limitations: [
+        {point:'Issue price may lag current market price in rising markets', explanation:'In times of RISING prices, since issues are costed using OLDER (cheaper) batches first, the charge to production is unduly LOW compared to the current replacement cost — potentially overstating profit in real terms.'},
+        {point:'Complex calculations when prices change frequently', explanation:'If purchase prices change often, tracking which specific batch (and its price) an issue is drawing from can involve complex, multi-batch calculations.'},
+      ],
+      example: "Worked example: Stock on 1 October: 1,00,000 units @ Rs 0.10/unit. Purchases: 7 Oct — 3,00,000 units @ Rs 0.7; 10 Oct — 5,00,000 units @ Rs 0.8; 14 Oct — 6,00,000 units @ Rs 0.9. Issues: 8 Oct — 2,50,000 units; 12 Oct — 4,00,000 units; 16 Oct — 5,00,000 units. Applying FIFO step by step: Issue on 8 Oct (2,50,000 units) draws first from the 1,00,000 units @ Rs 0.10 (fully used up, cost Rs 10,000), then 1,50,000 units from the 7 Oct batch @ Rs 0.7 (cost Rs 1,05,000) — total issue cost Rs 1,15,000; remaining balance: 1,50,000 units @ Rs 0.7 (Rs 1,05,000). After the 10 Oct purchase, balance becomes 1,50,000 @ Rs 0.7 + 5,00,000 @ Rs 0.8. Issue on 12 Oct (4,00,000 units) draws the remaining 1,50,000 units @ Rs 0.7 (Rs 1,05,000) then 2,50,000 units from the 10 Oct batch @ Rs 0.8 (Rs 2,00,000) — total issue cost Rs 3,05,000; remaining balance: 2,50,000 units @ Rs 0.8 (Rs 2,00,000). After the 14 Oct purchase, balance becomes 2,50,000 @ Rs 0.8 + 6,00,000 @ Rs 0.9. Issue on 16 Oct (5,00,000 units) draws the remaining 2,50,000 units @ Rs 0.8 (Rs 2,00,000) then 2,50,000 units from the 14 Oct batch @ Rs 0.9 (Rs 2,25,000) — total issue cost Rs 4,25,000. CLOSING STOCK on 16 Oct = the remaining 3,50,000 units from the 14 Oct batch, valued @ Rs 0.9 = **Rs 3,15,000**.",
+      application: "FIFO is widely used for perishable goods, fashion/seasonal items, and any inventory where the physical flow genuinely tends to match the 'oldest first' assumption — since it also gives a closing stock value that is more relevant to users of the Balance Sheet (being closer to current replacement cost).",
+      examPoints: [
+        'FIFO: oldest batch\'s cost is used for issues first; closing stock reflects the MOST RECENT purchase prices.',
+        'In a period of RISING prices: FIFO gives a LOWER cost of goods sold (using older, cheaper costs) and thus a HIGHER reported profit, plus a closing stock value closer to current prices.',
+        'Master the step-by-step batch-tracking calculation: each issue "eats into" the oldest remaining batch(es) first.',
+      ],
+      examQuestions: [
+        'Using FIFO, calculate the value of closing stock given a series of opening stock, purchases, and issues at different prices and dates.',
+        'Explain why, in a period of rising prices, FIFO tends to show a higher reported profit than other valuation methods.',
+        'List the advantages and disadvantages of the FIFO method of inventory valuation.',
+      ]
+    },
+    {
+      name: 'Weighted Average Cost (WAC) Method',
+      whatIsIt: {
+        definition: "The Weighted Average Cost (WAC) method values inventory issues by calculating a NEW average cost per unit every time a fresh batch is received — dividing the TOTAL cost of all materials currently in stock by the TOTAL quantity in stock — and using this single blended rate for all issues until the next fresh receipt.",
+        meaning: "Rather than tracking individual batches separately (as FIFO does), WAC blends everything currently in stock into one single 'average' price per unit, which is recalculated each time new stock arrives — so all units, regardless of which batch they actually came from, are treated as identical and issued at the same current average price."
+      },
+      explanation: [
+        "As soon as a fresh lot is received, a NEW issue price is calculated (by averaging the new lot's cost into the existing stock's cost), and ALL issues are made at this new price until the next lot is received — at which point the average is recalculated again."
+      ],
+      process: [
+        {step:'Start with the opening stock quantity and value', explanation:'Note the opening balance\'s quantity and total Rupee value (which implies an average rate per unit).'},
+        {step:'On each issue, use the CURRENT average rate (no recalculation needed)', explanation:'Issues occurring before the next fresh receipt are simply costed at the last-calculated average rate — reduce both quantity and value proportionally.'},
+        {step:'On each fresh receipt, recalculate the average rate', explanation:'New Average Rate = (Value of remaining stock + Value of the new receipt) ÷ (Quantity of remaining stock + Quantity of the new receipt).'},
+        {step:'Repeat until the valuation date', explanation:'Continue issuing at the current average rate and recalculating on each new receipt, tracking the running balance of quantity and value.'},
+      ],
+      example: "Worked example (Galaxy Ltd., September 2019): 1 Sep — Opening balance: 33 units, value Rs 222.75 (rate = Rs 6.75/unit). 4 Sep — Issue 15 units @ Rs 6.75 = Rs 101.25; balance: 18 units, Rs 121.50. 6 Sep — Receipt from X & Co.: 57 units @ Rs 5.75 = Rs 327.75; new balance: 75 units, Rs 449.25 (new average rate = 449.25/75 = Rs 5.99/unit). 7 Sep — Issue 19 units @ Rs 5.99 = Rs 113.81; balance: 56 units, Rs 335.44. 12 Sep — Issue 22 units @ Rs 5.99 = Rs 131.78; balance: 34 units, Rs 203.66. 13 Sep — Receipt from Y & Co.: 32 units @ Rs 6.10 = Rs 195.20; new balance: 66 units, Rs 398.86 (new average rate = 398.86/66 ≈ Rs 6.0433/unit). 15 Sep — Issue 27 units @ Rs 6.0433 ≈ Rs 163.17; CLOSING STOCK on 15 Sep = 66 − 27 = **39 units, valued at approximately Rs 235.69** (39 × Rs 6.0433).",
+      advantages: [
+        {point:'Simpler to operate when receipts are infrequent', explanation:'Since receipts are typically much less frequent than issues, this method is not too cumbersome — a new average price calculation is needed only when a fresh lot is actually purchased, not for every single issue.'},
+        {point:'Evens out widely varying prices', explanation:'By blending different consignments into one average, this method smooths out the effect of prices that vary widely between purchase batches, avoiding sudden jumps in issue price from one transaction to the next.'},
+      ],
+      limitations: [
+        {point:'Issues may not reflect current economic values', explanation:'Since the average blends old and new prices together, an issue\'s cost may not accurately reflect the CURRENT replacement cost of that material at the time of issue.'},
+        {point:'Heavy calculation with numerous receipts', explanation:'Where receipts ARE numerous, this method requires a good deal of recalculation, since a new average must be computed after every single fresh lot.'},
+        {point:'Pricing-driven profit/loss distortion', explanation:'Since the average rate is a blended estimate rather than an actual transaction price, profit or loss can arise purely from the pricing METHOD itself, not from genuine business performance.'},
+        {point:'Issue price may run to several decimal places', explanation:'Repeated averaging can produce issue prices with many decimal points (as seen in the worked example, e.g., Rs 6.0433/unit), which can be impractical to work with precisely.'},
+      ],
+      application: "WAC is widely used for bulk, homogeneous materials (like chemicals, grains, or fuel) where individual batches cannot be meaningfully distinguished from each other once mixed in storage, making a blended average the most PRACTICAL valuation approach, even if not perfectly precise.",
+      examPoints: [
+        'WAC: Weighted Average Rate = Total value of stock ÷ Total quantity of stock — recalculated EVERY time a new lot is received, NOT on every issue.',
+        'Between two receipts, ALL issues use the SAME (most recently calculated) average rate.',
+        'WAC tends to smooth out price volatility compared to FIFO, but issue prices may not reflect the current/latest market price precisely.',
+      ],
+      examQuestions: [
+        'Using the Weighted Average Cost method, calculate the value of closing stock given a series of opening stock, receipts, and issues at different rates and dates.',
+        'Explain when the average rate is recalculated under the WAC method, and why it is not recalculated on every issue.',
+        'List the advantages and disadvantages of the Weighted Average Cost method.',
+      ]
+    },
+    {
+      name: 'Comparing FIFO and Weighted Average Cost',
+      whatIsIt: {
+        definition: "FIFO and WAC are the two principal methods for pricing inventory issues and valuing closing stock, differing in HOW they assign cost to units leaving stock — FIFO tracks distinct batches in receipt order, while WAC blends all stock into one recalculated average.",
+        meaning: "Choosing between these two methods is a genuine accounting POLICY decision (not a purely mechanical one) — a company must pick one method and apply it CONSISTENTLY, since switching between methods from period to period would make its profit and stock figures incomparable over time."
+      },
+      explanation: [
+        "The core difference in mechanics leads to a core difference in outcomes, especially when prices are changing significantly. Understanding this trade-off is exactly what exam questions on this topic most often test."
+      ],
+      comparison: {
+        headers: ['Aspect','FIFO','Weighted Average Cost (WAC)'],
+        rows: [
+          ['Cost flow assumption','Oldest batch issued first (in receipt order)','All stock blended into one average; no batch tracking'],
+          ['Closing stock valuation','Reflects the MOST RECENT purchase price(s)','Reflects a BLENDED average of recent and older prices'],
+          ['Effect in RISING prices','Lower COGS → Higher reported profit; closing stock closer to current price','COGS and closing stock both smoothed between old and new prices'],
+          ['Calculation complexity','Can be complex with frequent, varied-price purchases (multiple batches to track)','New calculation needed only on each fresh receipt, not on every issue'],
+          ['Realism of cost flow','Realistic for goods issued/sold in the order received (e.g., perishables)','More suitable for bulk, homogeneous/mixed materials'],
+        ]
+      },
+      example: "If a company's material prices are rising steadily throughout the year, FIFO will show a HIGHER Gross Profit than WAC for the same period (since FIFO charges older, cheaper costs to COGS) — but FIFO will also show a HIGHER closing stock value (since it carries forward the most recently, and therefore most expensively, purchased units). A company wanting to present the most 'up-to-date' Balance Sheet stock value might prefer FIFO, while a company wanting a more STABLE, less-volatile reported cost of goods sold from period to period might prefer WAC.",
+      advantages: [
+        {point:'Both methods are objective and rule-based', explanation:'Unlike arbitrary estimation, both FIFO and WAC follow a defined, mechanical calculation procedure once the required inputs (receipts, issues, prices) are known — reducing subjectivity in inventory valuation.'},
+      ],
+      limitations: [
+        {point:'Neither method reflects EXACT physical flow for most businesses', explanation:'In most real warehouses, the ACTUAL physical units issued are rarely traceable to the exact same batch assumed by either method — both are cost-flow ASSUMPTIONS, not literal tracking of physical units (except in specific-identification scenarios for unique, high-value items).'},
+      ],
+      application: "Once a company selects FIFO or WAC, accounting principles (specifically the Consistency convention) require it to apply that SAME method period after period, disclosing the method used in its financial statements — a change in method, if made, must be disclosed along with its financial impact.",
+      examPoints: [
+        'FIFO in rising prices: higher profit, higher (more current) closing stock value.',
+        'WAC in rising/falling prices: smoothed, blended profit and closing stock value, less sensitive to a single period\'s price swings.',
+        'Once chosen, a method must be applied CONSISTENTLY (the Consistency accounting convention) — not switched period to period.',
+      ],
+      examQuestions: [
+        'Compare FIFO and Weighted Average Cost methods of inventory valuation, and explain their effect on reported profit during a period of rising prices.',
+        'Why must a company apply its chosen inventory valuation method consistently across accounting periods?',
+      ]
+    },
+  ],
+}, [
+  {difficulty:'easy', q:"Which of the following is NOT one of the three categories of inventory?", options:["Raw Material","Work-in-Progress","Finished Goods","Fixed Assets"], correct:3,
+    why:"The three categories of inventory are Raw Material, Work-in-Progress, and Finished Goods. Fixed Assets are a completely separate Balance Sheet category (Non-Current Assets), not a type of inventory.",
+    whyNot:{0:"Raw Material is one of the three defined inventory categories.",1:"Work-in-Progress is one of the three defined inventory categories.",2:"Finished Goods is one of the three defined inventory categories."}},
+  {difficulty:'easy', q:"Under the FIFO method, material issues are priced on the assumption that:", options:["The most recently purchased material is issued first","The material received first is issued first","All material is issued at a single blended average price","Material is issued randomly, regardless of purchase order"], correct:1,
+    why:"FIFO (First-In-First-Out) assumes materials received first are issued first, so the cost flow follows the order of physical receipt.",
+    whyNot:{0:"Issuing the most recently purchased material first describes LIFO (Last-In-First-Out), not FIFO.",2:"A single blended average price describes the Weighted Average Cost method, not FIFO.",3:"FIFO follows a specific, defined order (receipt order) — it is not random."}},
+  {difficulty:'easy', q:"Under the Weighted Average Cost method, a new average issue price is calculated:", options:["Before every single issue, regardless of purchases","Only when a fresh lot of material is received","Only at the very end of the accounting year","Only when prices fall, never when they rise"], correct:1,
+    why:"Under WAC, a new average price is calculated specifically when a fresh lot is received; all issues between receipts use that same, most recently calculated average rate.",
+    whyNot:{0:"Recalculating before every issue would defeat the purpose of WAC's simplification — issues between receipts use the SAME rate.",2:"Recalculation happens at the time of each fresh receipt during the year, not only once at year-end.",3:"The average is recalculated on every fresh receipt regardless of whether prices are rising or falling."}},
+  {difficulty:'moderate', q:"A company has opening stock of 1,00,000 units @ Rs 0.10/unit, then purchases 3,00,000 units @ Rs 0.7/unit. If it issues 2,50,000 units using FIFO, what is the total cost of this issue?", options:["Rs 25,000","Rs 1,75,000","Rs 1,15,000","Rs 250,000"], correct:2,
+    why:"FIFO uses the opening 1,00,000 units @ Rs 0.10 first (cost Rs 10,000), then the remaining 1,50,000 units needed from the Rs 0.7 batch (cost Rs 1,05,000). Total issue cost = 10,000 + 1,05,000 = Rs 1,15,000.",
+    whyNot:{0:"Rs 25,000 does not correctly apply the FIFO batch-by-batch costing for this issue quantity.",1:"Rs 1,75,000 would result from costing the entire 2,50,000 units at the Rs 0.7 rate alone, ignoring that the first 1,00,000 units must be costed at the OLDER Rs 0.10 rate first.",3:"Rs 2,50,000 does not match any correct FIFO calculation for this issue."}},
+  {difficulty:'moderate', q:"In a period of RISING material prices, compared to the Weighted Average Cost method, the FIFO method will generally show:", options:["A lower reported profit and a lower closing stock value","A higher reported profit and a higher (more current) closing stock value","Identical profit and closing stock values in all cases","Profit is unaffected by valuation method; only closing stock value differs"], correct:1,
+    why:"In rising prices, FIFO charges older, cheaper costs to COGS (yielding a higher reported profit) and values closing stock using the most recent, higher purchase prices — while WAC blends old and new prices, producing more moderate figures for both.",
+    whyNot:{0:"This is the reverse of the actual effect — FIFO shows a HIGHER, not lower, profit and closing stock value when prices are rising.",2:"The two methods generally do NOT produce identical results when prices vary across purchase batches during the period — this is precisely why the choice of method matters.",3:"Profit IS affected by the valuation method, since COGS (and therefore Gross Profit) depends directly on how issues are costed."}},
+  {difficulty:'moderate', q:"A business has an opening balance of 33 units valued at Rs 222.75 (implying a rate of Rs 6.75/unit) and issues 15 units under the WAC method before any new receipt occurs. What rate is used for this issue?", options:["A newly recalculated rate based on estimated future purchases","Rs 6.75/unit — the existing average rate, since no fresh receipt has occurred yet","Rs 0/unit, since WAC only applies after a purchase","The lowest historical rate ever recorded for this material"], correct:1,
+    why:"Since no fresh receipt has occurred between the opening balance and this issue, the existing average rate (Rs 6.75/unit, from the opening balance) continues to apply — WAC recalculates only upon a NEW receipt.",
+    whyNot:{0:"WAC uses actual historical cost data, not estimated future purchases, to determine the current rate.",2:"WAC applies from the very start (using the opening balance's implied rate), not only after a purchase occurs.",3:"WAC uses the CURRENT weighted average rate, not simply the lowest rate ever recorded historically."}},
+  {difficulty:'difficult', q:"Following the Galaxy Ltd. WAC example: after several issues and a fresh receipt from Y & Co. (32 units @ Rs 6.10), the balance becomes 66 units valued at Rs 398.86. What is the new weighted average rate per unit, and how is it derived?", options:["Rs 6.10/unit — simply the rate of the most recent purchase", "≈Rs 6.0433/unit — derived by dividing the total value (Rs 398.86) by the total quantity (66 units)", "Rs 6.75/unit — the original opening rate, unchanged", "The average of only the two most recent purchase rates, ignoring quantity"], correct:1,
+    why:"The WAC formula is Total Value ÷ Total Quantity = 398.86 ÷ 66 ≈ Rs 6.0433/unit — blending the value of ALL units currently in stock (from every prior batch), not just the most recent purchase.",
+    whyNot:{0:"Using only the most recent purchase rate would ignore all previously held stock still in the balance, which is exactly what WAC is designed to blend in.",2:"The rate must be recalculated after this new receipt — it will differ from the original opening rate, since multiple receipts and issues have occurred since.",3:"WAC blends by VALUE and QUANTITY (a true weighted average), not a simple unweighted average of rates that ignores how many units each rate applies to."}},
+  {difficulty:'difficult', q:"A company switches its inventory valuation method from FIFO to Weighted Average Cost partway through the year, without disclosing the change or its financial impact. This violates which accounting principle?", options:["The Cost Principle", "The Consistency convention, which requires a chosen valuation method to be applied consistently across periods, with any change clearly disclosed", "The Going Concern concept", "The Money Measurement concept"], correct:1,
+    why:"Inventory valuation methods must be applied CONSISTENTLY period to period; an undisclosed mid-year change specifically violates the Consistency convention, which exists precisely so that profit and stock figures remain comparable over time.",
+    whyNot:{0:"The Cost Principle concerns recording assets at historical cost, not the consistency of a chosen valuation METHOD across periods.",2:"The Going Concern concept assumes the business continues operating indefinitely — unrelated to a change in inventory valuation method.",3:"The Money Measurement concept concerns only recording transactions expressible in monetary terms — unrelated to method consistency."}},
+]);
+/* ===================== AFM CH4: Company Accounts ===================== */
+setCh('ch4', {
+  topics: [
+    {
+      name: 'Legal Framework: Schedule III of the Companies Act, 2013',
+      whatIsIt: {
+        definition: "Schedule III of the Companies Act, 2013 is the legally mandated format that ALL companies registered under the Act must follow when preparing and presenting their Balance Sheet and Statement of Profit and Loss, as required by Section 129 of the Act.",
+        meaning: "Unlike a sole proprietorship or partnership (which have NO legal obligation to prepare final accounts in any particular format), a company MUST prepare its financial statements every year in this exact prescribed manner — this is a statutory (legal) requirement, not just good practice."
+      },
+      explanation: [
+        "There is no legal obligation for a sole proprietorship or a partnership firm to prepare final accounts in a specific format, but companies have a statutory obligation to keep proper books of account and prepare final accounts every year in the manner prescribed by the Companies Act. Chapter IX, Sections 128 to 138 of the Companies Act, 2013 deals with the legal provisions relating to Accounts of Companies. These sections, including Schedule II (Depreciation) and Schedule III (Financial Statement format), came into force from 1st April 2014, and apply to financial years commencing on or after that date.",
+        "Schedule III was formulated specifically to keep pace with the changes in economic philosophy arising from privatization and globalization, and the resulting need for reformed corporate financial reporting practices. It applies UNIFORMLY to all companies registered under the Companies Act, 2013, for preparing their financial statements — meaning every company, regardless of size or sector, uses the SAME prescribed structure (though the specific line items that apply will differ by company)."
+      ],
+      example: "A sole proprietorship can prepare its Trading and Profit & Loss Account and Balance Sheet in whatever reasonable format the proprietor or their accountant chooses. A private limited company with the exact same type of business, by contrast, is LEGALLY REQUIRED to present its financial statements in the specific Schedule III format — with mandated headings like 'Shareholders\\' Funds', 'Non-Current Liabilities', and 'Current Assets' — regardless of what format its own accountant might otherwise have chosen.",
+      application: "Every company final accounts problem in this subject — and every real company's published annual report in India — follows this Schedule III structure, making it essential to memorize its exact headings and sequence before attempting any Balance Sheet or P&L preparation problem.",
+      examPoints: [
+        'Sole proprietorships/partnerships have NO legal format obligation; companies DO (Schedule III), under Section 129 of the Companies Act, 2013.',
+        'Chapter IX, Sections 128-138 of the Companies Act, 2013 governs company accounts; Schedule III applies from FY starting on/after 1 April 2014.',
+        'Schedule III applies uniformly to ALL companies registered under the Act.',
+      ],
+      examQuestions: [
+        'Why are companies legally required to prepare final accounts in a specific format, while sole proprietorships are not?',
+        'Which section of the Companies Act, 2013 requires companies to present financial statements per Schedule III?',
+      ]
+    },
+    {
+      name: 'Balance Sheet Format: EQUITY AND LIABILITIES Section',
+      whatIsIt: {
+        definition: "The EQUITY AND LIABILITIES section of a Schedule III Balance Sheet is organized into four main headings — Shareholders' Funds, Share Application Money Pending Allotment, Non-Current Liabilities, and Current Liabilities — each with specific mandated sub-items.",
+        meaning: "This is the 'where did the money come from' side of the Balance Sheet — it shows exactly how the company's assets were financed: by owners (Shareholders' Funds), by long-term outside sources (Non-Current Liabilities), or by short-term outside sources (Current Liabilities)."
+      },
+      explanation: [
+        "The structure moves from the MOST PERMANENT source of funds (Shareholders' Funds) to the LEAST permanent (Current Liabilities), mirroring the general principle that a Balance Sheet is organized in order of permanence/maturity."
+      ],
+      components: [
+        {name:'(1) Shareholders\' Funds', explanation:'(a) Share Capital — see the dedicated Share Capital topic below for its detailed disclosure. (b) Reserves & Surplus — profits kept in the business rather than distributed, including General Reserve, Securities Premium, Capital Reserve, Debenture Redemption Reserve, and the Surplus (balance in the Statement of P&L). Under Schedule III, the Statement of P&L itself no longer shows appropriations (like transfers to reserves) — these appropriations are shown directly within the Reserves & Surplus note instead. A DEBIT balance in P&L (accumulated losses) is shown as a NEGATIVE figure under Surplus. (c) Money Received Against Share Warrants — amounts received from investors (mainly promoters, under SEBI guidelines) who have a right to shares in future; since shares are not yet allotted, this is shown as a separate line item, not part of Share Capital.'},
+        {name:'(2) Share Application Money Pending Allotment', explanation:'Money received for shares that have not yet been formally allotted — shown as a separate line item positioned AFTER Shareholders\' Funds and BEFORE Non-Current Liabilities, since it is not yet part of share capital but will likely become so.'},
+        {name:'(3) Non-Current Liabilities', explanation:'(a) Long-Term Borrowings — classified as Bonds/Debentures, Term Loans (from banks or other parties; note that Cash Credit/Overdraft/Call Money are NOT "Term Loans", since Term Loans specifically means repayment beyond 36 months), Deferred Payment Liabilities, Deposits, Loans & Advances from Related Parties, Long-Term Finance Lease Obligations, and Other Loans & Advances — further sub-classified as SECURED or UNSECURED. (b) Deferred Tax Liabilities (Net) — per Accounting Standard 22. (c) Other Long-Term Liabilities. (d) Long-Term Provisions — e.g., the long-term portion of Provision for Employee Benefits (like gratuity).'},
+        {name:'(4) Current Liabilities', explanation:'(a) Short-Term Borrowings — loans repayable within 12 months (from banks/other parties), further sub-classified as Secured/Unsecured; this does NOT include the current maturity of long-term debt (that goes under Other Current Liabilities instead). (b) Trade Payables — Sundry Creditors for goods/services and Acceptances, split between dues to Micro/Small enterprises (MSMED Act) and others. (c) Other Current Liabilities — includes Current Maturities of Long-Term Debt, Interest Accrued (due and not due), Income Received in Advance, Unpaid Dividends, and similar items. (d) Short-Term Provisions — e.g., Provision for Taxation, Provision for Dividend, Provision for Warranties.'},
+      ],
+      example: "For Deva Ltd. (a worked practice example), the Equity and Liabilities side is built as: Shareholders' Funds — Share Capital Rs 5,40,000 + Reserves & Surplus Rs 5,85,000 = Rs 11,25,000; Non-Current Liabilities — Long-Term Borrowings (8% Debentures) Rs 5,25,000; Current Liabilities — Trade Payables Rs 80,000 (Creditors Rs 58,500 + Bills Payable Rs 21,500) + Short-Term Provisions Rs 62,500 (Provision for Taxation). Grand Total (Equity and Liabilities) = Rs 17,92,500 — which must exactly equal the Total Assets side.",
+      advantages: [
+        {point:'Standardized, comparable presentation', explanation:'Every Indian company presents its financing structure under the same headings, letting an analyst instantly locate and compare, say, "Long-Term Borrowings" across different companies without reformatting anything.'},
+      ],
+      application: "Preparing this section correctly is the first half of every Company Final Accounts problem — practice problems consistently test whether a student can correctly classify each trial balance item (e.g., is 'Bank Overdraft' a Short-Term Borrowing? Is 'Debentures' Long-Term or should the current-maturity portion be split out?) into its correct Schedule III head.",
+      examPoints: [
+        '4 main headings, in order: Shareholders\' Funds, Share Application Money Pending Allotment, Non-Current Liabilities, Current Liabilities.',
+        'Borrowings (both long and short-term) must be sub-classified as Secured/Unsecured.',
+        'Current maturity of a Long-Term loan is shown under "Other Current Liabilities", NOT under Short-Term Borrowings.',
+        'Total Equity and Liabilities MUST equal Total Assets (this is the Accounting Equation, formally presented).',
+      ],
+      examQuestions: [
+        'List the four main headings under "Equity and Liabilities" in a Schedule III Balance Sheet, in the correct order.',
+        'Where is the current maturity of a long-term loan shown in a Schedule III Balance Sheet, and why is this distinction made?',
+        'Classify the following into their correct Schedule III heads: 8% Debentures, Bills Payable, Provision for Taxation, General Reserve.',
+      ]
+    },
+    {
+      name: 'Balance Sheet Format: ASSETS Section',
+      whatIsIt: {
+        definition: "The ASSETS section of a Schedule III Balance Sheet is organized into two main headings — Non-Current Assets and Current Assets — each with specific mandated sub-items, presented in order of decreasing permanence (long-term assets first, most-liquid assets last).",
+        meaning: "This is the 'what does the company own, and how liquid/long-term is it' side of the Balance Sheet — from land and machinery (held for years) down to cash in hand (immediately usable)."
+      },
+      explanation: [
+        "Just as the Equity and Liabilities side moves from most-permanent to least-permanent, the Assets side moves from LEAST liquid (Non-Current, long-term assets) to MOST liquid (Current Assets, ending in Cash & Cash Equivalents)."
+      ],
+      components: [
+        {name:'(1) Non-Current Assets', explanation:'(a) Fixed Assets — (i) Tangible Assets: Land, Buildings, Plant & Equipment, Furniture & Fixtures, Vehicles, Office Equipment (a reconciliation of gross/net carrying amounts, additions, disposals, and depreciation must be disclosed for each class); (ii) Intangible Assets: Goodwill, Brands/Trademarks, Computer Software, Patents & Copyrights, Licenses & Franchise; (iii) Capital Work-in-Progress (assets still being constructed, not yet ready for use); (iv) Intangible Assets under Development. (b) Non-Current Investments — Investments in Property, Equity Instruments, Preference Shares, Government/Trust Securities, Debentures/Bonds, Mutual Funds, Partnership Firms — sub-classified as Trade Investments (made to promote the investing company\'s OWN trade/business) vs Other Investments. (c) Deferred Tax Assets (Net) — per Accounting Standard 22. (d) Long-Term Loans & Advances — Capital Advances (for acquiring fixed assets — ALWAYS Long-Term, regardless of when the asset is expected), Security Deposits, Loans/Advances to Related Parties — sub-classified as Secured Good/Unsecured Good/Doubtful. (e) Other Non-Current Assets — Long-Term Trade Receivables, and items like unamortized Preliminary Expenses / Share Issue Expenses not expected to be realized within the next 12 months.'},
+        {name:'(2) Current Assets', explanation:'(a) Current Investments — short-term investments (within 12 months), similarly classified as Non-Current Investments but WITHOUT the Trade/Non-Trade split. (b) Inventories — Raw Materials, Work-in-Progress, Finished Goods, Stock-in-Trade, Stores & Spares, Loose Tools (mode of valuation, e.g., FIFO/WAC from the previous chapter, must be stated). (c) Trade Receivables — Sundry Debtors and Bills Receivable, shown net of Provision for Doubtful Debts; receivables outstanding for MORE THAN 6 MONTHS from their due date must be separately disclosed, and sub-classified as Secured Good/Unsecured Good/Doubtful. (d) Cash & Cash Equivalents — Balances with Banks, Cheques/Drafts on Hand, Cash on Hand. (e) Short-Term Loans & Advances — Loans/Advances to Related Parties, Others — sub-classified as Secured Good/Unsecured Good/Doubtful. (f) Other Current Assets — an all-inclusive head for items not fitting elsewhere, e.g., Prepaid Expenses, Accrued Income.'},
+      ],
+      example: "For Deva Ltd. (continuing the earlier worked example), the Assets side is built as: Non-Current Assets — Tangible Assets (Fixed Assets, Net Block) Rs 7,50,000 + Non-Current Investments Rs 2,50,000 = Rs 10,00,000; Current Assets — Inventories (Closing Stock) Rs 3,75,000 + Trade Receivables Rs 1,22,500 (of which Rs 22,500 relates to debts outstanding for MORE than 6 months, separately disclosed, and Rs 1,00,000 is 'Others') + Cash & Cash Equivalents Rs 1,22,500 (Cash in Hand Rs 12,500 + Bank Balance Rs 1,10,000) + Short-Term Loans & Advances Rs 1,27,500 (Staff Advance Rs 1,00,000 + Advance to Suppliers Rs 27,500) + Other Current Assets Rs 45,000 (Prepaid Expenses). Grand Total (Assets) = Rs 17,92,500 — exactly matching the Equity and Liabilities total.",
+      advantages: [
+        {point:'Highlights liquidity clearly', explanation:'By separating Non-Current from Current Assets, and further requiring disclosure of receivables overdue beyond 6 months, Schedule III gives readers a clear view of how liquid/collectible a company\'s asset base actually is.'},
+      ],
+      application: "Combined with the Equity & Liabilities section, this Assets format is what every company final accounts problem asks a student to correctly populate from a given Trial Balance and adjustments — correctly classifying each item into its Schedule III head (Tangible vs Intangible, Current vs Non-Current) is the core skill being tested.",
+      examPoints: [
+        '2 main headings: Non-Current Assets, Current Assets — in order of decreasing permanence/increasing liquidity.',
+        'Capital Advances are ALWAYS Long-Term (under Long-Term Loans & Advances), regardless of when the asset will actually be received.',
+        'Trade Receivables outstanding for MORE than 6 months (from due date) must be separately disclosed.',
+        'Cash & Cash Equivalents is the LAST line before the Assets total (mirroring the most liquid position).',
+      ],
+      examQuestions: [
+        'List the sub-heads under Non-Current Assets in a Schedule III Balance Sheet.',
+        'Why are Capital Advances always classified as Long-Term, even if the related asset is expected to be received soon?',
+        'Prepare the Assets side of a Balance Sheet from a given Trial Balance, correctly classifying each item under Schedule III.',
+      ]
+    },
+    {
+      name: 'Share Capital: Disclosure and the Share Capital Note',
+      whatIsIt: {
+        definition: "Share Capital disclosure under Schedule III requires, for EACH class of shares (Equity and each class of Preference Shares separately), a detailed breakdown distinguishing Authorized, Issued, Subscribed, and Paid-up capital, along with several other mandated disclosures.",
+        meaning: "Simply writing 'Share Capital: Rs 5,00,000' is NOT enough under Schedule III — the company must show, layer by layer, the maximum it is ALLOWED to raise, how much it actually offered, how much the public actually took up, and how much has actually been paid in cash so far."
+      },
+      explanation: [
+        "Authorized Capital is the maximum number and face value of each class of shares a company may issue, per its constitutional documents. Subscribed Share Capital is the portion of Issued Capital that the public has actually subscribed to and been allotted (including any Bonus Shares issued). Paid-up Share Capital is the part of Subscribed Capital for which consideration has ACTUALLY been received (in cash or otherwise) — if shares are not fully called, the called-up value per share must be disclosed. Other required disclosures include: Rights/Preferences/Restrictions attached to each class of shares (e.g., whether Preference Shares are cumulative, redeemable, convertible), Shares held by the Holding Company (or its subsidiaries/associates), and a list of Shareholders holding more than 5% of shares as at the Balance Sheet date."
+      ],
+      example: "Worked example (Share Capital Note): A company's Authorized Share Capital is Rs 10,00,000, divided into 8% 5,000 Preference Shares of Rs 100 each (Rs 5,00,000) and 50,000 Equity Shares of Rs 10 each (Rs 5,00,000). 50% of EACH class was issued to the public and fully called up: 2,500 Preference Shares (Rs 2,50,000) and 25,000 Equity Shares (Rs 2,50,000). However, Rs 20 per share was NOT received on 100 of the Preference shareholders' shares (Calls-in-Arrears of 100×Rs 20 = Rs 2,000), and Rs 2 per share was not received on 2,000 Equity shareholders' shares (Calls-in-Arrears of 2,000×Rs 2 = Rs 4,000). The Share Capital Note shows: Preference Shares Rs 2,50,000 less Calls-in-Arrears Rs 2,000 = Rs 2,48,000 (Paid-up); Equity Shares Rs 2,50,000 less Calls-in-Arrears Rs 4,000 = Rs 2,46,000 (Paid-up); TOTAL Paid-up Share Capital = Rs 2,48,000 + Rs 2,46,000 = **Rs 4,94,000** — this Rs 4,94,000 (NOT the full Rs 10,00,000 Authorized amount) is what actually appears as 'Share Capital' on the face of the Balance Sheet.",
+      advantages: [
+        {point:'Gives investors a complete capital-raising picture', explanation:'By showing Authorized vs Issued vs Subscribed vs Paid-up, an investor can see both the company\'s POTENTIAL to raise more capital (unissued Authorized Capital) and any collection shortfall (Calls-in-Arrears) in one place.'},
+      ],
+      limitations: [
+        {point:'Multi-layered disclosure can be complex to prepare correctly', explanation:'Getting the Authorized/Issued/Subscribed/Paid-up and Calls-in-Arrears calculations right, for potentially MULTIPLE share classes at once, is a common source of student error in practice problems.'},
+      ],
+      application: "The Share Capital Note is one of the most frequently tested individual notes in company accounts problems — examiners specifically test whether a student can correctly work through Authorized → Issued → Subscribed → Paid-up (netting off Calls-in-Arrears) for one or more classes of shares simultaneously.",
+      examPoints: [
+        'Disclosure layers, in order: Authorized → Issued, Subscribed & Called-up → (less) Calls-in-Arrears → Paid-up.',
+        'Different classes of Preference Shares must be shown SEPARATELY from each other, and from Equity Shares.',
+        'Only the PAID-UP capital (after deducting Calls-in-Arrears) appears as the "Share Capital" figure on the Balance Sheet face.',
+        'List of Shareholders holding >5% must be disclosed AS AT the Balance Sheet date specifically (not any other date during the year).',
+      ],
+      examQuestions: [
+        'A company\'s Authorized Capital is Rs 10,00,000 (8% 5,000 Preference Shares of Rs 100 each and 50,000 Equity Shares of Rs 10 each). 50% of each class was issued and fully called, but Rs 20/share on 100 Preference shares and Rs 2/share on 2,000 Equity shares was not received. Show the Share Capital Note.',
+        'Differentiate between Authorized, Issued, Subscribed, and Paid-up Share Capital.',
+      ]
+    },
+    {
+      name: 'Statement of Profit and Loss: Schedule III Format',
+      whatIsIt: {
+        definition: "The Statement of Profit and Loss under Schedule III follows a mandated vertical format, moving from Total Revenue, through a prescribed classification of Expenses, down to Profit for the Period and Earnings Per Share — replacing the traditional 'T-format' Trading and P&L Account used for non-corporate businesses.",
+        meaning: "Instead of the two-sided 'debit side / credit side' P&L account format learned for a sole proprietorship, a company's P&L is presented as a single, top-to-bottom list of Revenue minus Expenses, arriving step-by-step at the final Profit figure."
+      },
+      explanation: [
+        "The format proceeds through a fixed sequence of numbered lines: Revenue from Operations (I) + Other Income (II) = Total Revenue (III); minus Total Expenses (IV) = Profit before Exceptional & Extraordinary Items and Tax (V); minus Exceptional Items (VI) = Profit before Extraordinary Items and Tax (VII); minus Extraordinary Items (VIII) = Profit before Tax (IX); minus Tax Expense — Current Tax and Deferred Tax (X) = Profit for the period from Continuing Operations (XI); this is then adjusted for any Discontinuing Operations (XII-XIV) to arrive at the final Profit/(Loss) for the Period (XV), followed by Earnings Per Share, Basic and Diluted (XVI).",
+        "The prescribed EXPENSE classification (line IV) is: Cost of Materials Consumed; Purchases of Stock-in-Trade; Changes in Inventories of Finished Goods/WIP/Stock-in-Trade (calculated as Opening Stock minus Closing Stock — this can be a NEGATIVE figure/deduction if closing stock exceeds opening stock, representing a build-up of inventory); Employee Benefits Expense; Finance Costs (mainly interest); Depreciation and Amortization Expense; and Other Expenses."
+      ],
+      example: "Worked example: A company's Revenue from Operations is Rs 7,00,000 (no Other Income). Expenses: Purchases of Stock-in-Trade Rs 3,20,000; Changes in Inventories (Opening Stock minus Closing Stock) = −Rs 19,000 (i.e., closing stock exceeded opening stock by Rs 19,000, so this REDUCES total expenses since more was produced/bought than sold); Finance Costs Rs 20,000; Depreciation and Amortization Rs 60,800; Other Expenses Rs 1,19,500. Total Expenses = 3,20,000 + (−19,000) + 20,000 + 60,800 + 1,19,500 = Rs 5,01,300. Profit before Tax = Total Revenue (Rs 7,00,000) − Total Expenses (Rs 5,01,300) = **Rs 1,98,700**. With no Exceptional/Extraordinary items and (in this simplified example) no tax charge yet computed, Profit for the Period = **Rs 1,98,700**.",
+      advantages: [
+        {point:'Directly highlights the components of profit', explanation:'The step-by-step, numbered format makes it easy for a reader to see EXACTLY where profit came from (operations vs other income) and how much was consumed by each expense category, before arriving at the bottom-line figure.'},
+      ],
+      application: "This exact format is what every listed and unlisted Indian company publishes in its Annual Report, and is the standard format tested in company final accounts problems — a student must correctly classify each trial balance expense/income item into ONE of the prescribed expense categories (e.g., is 'Salaries' an Employee Benefits Expense? Is 'Bank Interest paid' a Finance Cost?).",
+      examPoints: [
+        'Format proceeds: Total Revenue → less Total Expenses → Profit before Tax → less Tax → Profit for the Period.',
+        '7 prescribed expense categories: Cost of Materials Consumed, Purchases of Stock-in-Trade, Changes in Inventories, Employee Benefits Expense, Finance Costs, Depreciation & Amortization, Other Expenses.',
+        '"Changes in Inventories" = Opening Stock − Closing Stock; this can be NEGATIVE (a deduction) when Closing Stock exceeds Opening Stock.',
+        'Under Schedule III, the Statement of P&L no longer shows APPROPRIATIONS (transfers to reserves, dividends) — these move to the Reserves & Surplus note instead.',
+      ],
+      examQuestions: [
+        'List the prescribed sequence of the Schedule III Statement of Profit and Loss, from Total Revenue to Profit for the Period.',
+        'Explain how "Changes in Inventories of Finished Goods and Work-in-Progress" is calculated, and when it can be a negative figure.',
+        'Prepare a Statement of Profit and Loss (Schedule III format) from a given Trial Balance and adjustments.',
+      ]
+    },
+    {
+      name: 'Adjustments in Final Accounts: The Double-Effect Rule',
+      whatIsIt: {
+        definition: "An Adjustment in Final Accounts is additional information given OUTSIDE the Trial Balance (not yet recorded in the books) that must still be incorporated into the final accounts — and the defining rule for every adjustment is that it must be given DOUBLE EFFECT: once in the Trading/Profit & Loss Account, and once in the Balance Sheet.",
+        meaning: "Since the accounting equation (Assets = Liabilities + Capital) must always balance, any new information that affects the P&L (an income or expense) must ALSO show up somewhere on the Balance Sheet — you cannot adjust just one side without the other."
+      },
+      explanation: [
+        "This double-effect rule is THE single most important technique in this topic, and applies uniformly across every type of adjustment. Item given OUTSIDE the Trial Balance is adjusted twice: (1) it is incorporated into the Trading Account or P&L Account (as an addition to or deduction from an existing figure, or as a new line item), and (2) the SAME item also appears on the Balance Sheet (typically as a new asset or liability). An item ALREADY appearing INSIDE the Trial Balance, by contrast, is normally given only ONE effect — it simply flows directly to either the P&L or the Balance Sheet (as a trial balance figure already reflects a completed double-entry), UNLESS further adjustment information is given about it."
+      ],
+      types: [
+        {name:'Closing Stock', explanation:'Given outside Trial Balance: (1) shown on the CREDIT side of the Trading Account (reducing Cost of Goods Sold, increasing Gross Profit), and (2) shown as an ASSET (Inventories) on the Balance Sheet.'},
+        {name:'Outstanding (Unpaid) Expenses', explanation:'(1) ADDED to the relevant expense in the P&L Account (since the FULL expense for the period, whether paid or not, must be charged, per the Accrual concept), and (2) shown as a CURRENT LIABILITY on the Balance Sheet.'},
+        {name:'Prepaid Expenses', explanation:'(1) DEDUCTED from the relevant expense in the P&L Account (since this portion does NOT relate to the current period), and (2) shown as a CURRENT ASSET on the Balance Sheet.'},
+        {name:'Accrued Income', explanation:'(1) ADDED to the relevant income in the P&L Account (income earned but not yet received still belongs to this period, per the Accrual concept), and (2) shown as a CURRENT ASSET on the Balance Sheet.'},
+        {name:'Income Received in Advance', explanation:'(1) DEDUCTED from the relevant income in the P&L Account (since it has not yet been EARNED, even though cash was received), and (2) shown as a CURRENT LIABILITY on the Balance Sheet.'},
+        {name:'Accidental Losses (e.g., Loss by Fire, with no insurance claim)', explanation:'(1) The value of goods lost is DEDUCTED from Purchases (or shown on the credit side of Trading A/c) and the SAME amount is shown as a LOSS in the P&L Account (a debit, reducing net profit), and (2) if NO insurance claim is admitted, there is NO corresponding Balance Sheet asset (the value is genuinely gone) — if a claim IS admitted (even partially), that admitted portion is shown as an ASSET (Claim Receivable) on the Balance Sheet.'},
+        {name:'Bad Debts (further/additional, given outside Trial Balance)', explanation:'(1) ADDED to any existing Bad Debts figure and shown as an expense in the P&L Account, and (2) DEDUCTED from Debtors/Trade Receivables on the Balance Sheet asset side (the debtor genuinely no longer owes this amount).'},
+        {name:'Provision for Doubtful Debts', explanation:'(1) Shown as an expense (or net adjustment against any existing Provision) in the P&L Account, and (2) DEDUCTED from Debtors on the Balance Sheet (Trade Receivables are shown NET of this provision), reflecting the amount management does not expect to actually collect.'},
+        {name:'Bad Debts Recovered', explanation:'(1) Shown as an INCOME/GAIN on the credit side of the P&L Account (a previously written-off amount unexpectedly received back), and (2) simply increases Cash/Bank on the Balance Sheet asset side (there is no separate new balance sheet item created, since it is already reflected via the increased cash balance).'},
+        {name:'Provision for Discount on Debtors', explanation:'(1) Shown as an expense in the P&L Account, and (2) DEDUCTED from Debtors on the Balance Sheet (anticipating that some debtors will be given a cash discount for prompt payment).'},
+        {name:'Interest on Capital', explanation:'(1) Shown as an expense (deducted) in the P&L Account (treated as a return TO the owner, reducing the business\'s own net profit), and (2) ADDED to Capital on the Balance Sheet liabilities side (increasing what the business owes back to the owner).'},
+        {name:'Interest on Drawings', explanation:'(1) Shown as an INCOME (added) in the P&L Account (a charge TO the owner for money withdrawn), and (2) ADDED to Drawings, which is then DEDUCTED from Capital on the Balance Sheet (increasing the total reduction to Capital).'},
+        {name:'Interest on Loan Due but Not Paid', explanation:'(1) ADDED to the interest expense already in the P&L Account, and (2) shown as a CURRENT LIABILITY (Outstanding Interest) on the Balance Sheet.'},
+        {name:'Goods Sent on Approval (not yet sold, wrongly included in Sales)', explanation:'(1) DEDUCTED from Sales in the Trading Account (since these goods have NOT actually been sold), and their COST is ADDED BACK to Closing Stock, and (2) the value is included as part of Closing Stock (an asset) on the Balance Sheet, and the corresponding Debtor balance is correspondingly reduced.'},
+        {name:'Depreciation', explanation:'(1) Shown as an expense in the P&L Account, and (2) DEDUCTED from the relevant Fixed Asset on the Balance Sheet (reducing its book/carrying value) — covered in full detail in the dedicated Depreciation chapter.'},
+        {name:'Goods in Transit', explanation:'(1) ADDED to Purchases in the Trading Account (goods bought but not yet physically received are still the buyer\'s legal property, per standard purchase terms, and must be recorded as a purchase), and (2) shown as a separate ASSET ("Goods in Transit" or added to Closing Stock/Creditors, depending on the exact scenario) on the Balance Sheet.'},
+      ],
+      example: "Worked example combining several adjustments: A Trial Balance shows Purchases Rs 2,50,000, Sales Rs 4,00,000, Wages Rs 50,000, Rent Rs 30,000, and Capital Rs 3,00,000, with the ADDITIONAL information (outside the Trial Balance) that Closing Stock is valued at Rs 70,000. Applying the double-effect rule: Trading Account — Sales Rs 4,00,000 + Closing Stock Rs 70,000 (credit side) vs Purchases Rs 2,50,000 + Wages Rs 50,000 (debit side), giving Gross Profit = (4,00,000+70,000) − (2,50,000+50,000) = Rs 1,70,000. Balance Sheet — Closing Stock Rs 70,000 appears as a Current Asset (Inventories). The SAME Rs 70,000 figure appears in BOTH statements — this is the double effect in action.",
+      advantages: [
+        {point:'Ensures the Balance Sheet always balances', explanation:'Because every adjustment is deliberately given a matching, offsetting effect, the Balance Sheet will always balance correctly after ALL adjustments are properly applied — this is a strong error-check.'},
+        {point:'Provides a consistent, learnable technique', explanation:'Regardless of which of the 16 (or more) types of adjustment a question presents, the SAME two-step "double effect" thinking process applies every time.'},
+      ],
+      limitations: [
+        {point:'Easy to apply only ONE effect by mistake', explanation:'The single most common student error in this topic is correctly identifying an adjustment but forgetting to apply its SECOND effect (usually the Balance Sheet side), which then makes the Balance Sheet fail to tally.'},
+      ],
+      application: "This double-effect technique is applied in EVERY company final accounts problem — whether the adjustment is given directly (Part B style: 'Closing stock is valued at Rs 70,000, not shown in the trial balance') or must be inferred from additional notes (e.g., 'Depreciate plant by 15%', 'Provide 5% RDD on debtors'), the same two-sided thinking must be applied every single time.",
+      examPoints: [
+        'THE core rule: every adjustment given OUTSIDE the trial balance gets TWO effects — one in Trading/P&L, one in the Balance Sheet.',
+        'An item already INSIDE the trial balance normally gets only ONE effect (unless further adjusted).',
+        'Memorize the specific treatment (added/deducted, P&L/Balance Sheet side) for each of the ~16 common adjustment types listed above — this is the single most heavily tested skill in Company Accounts.',
+      ],
+      examQuestions: [
+        'Explain the "double effect" rule for adjustments in final accounts, with an example.',
+        'A trial balance shows Salaries Rs 80,000. Salaries of Rs 10,000 are outstanding (not yet recorded). Show the double effect of this adjustment on the final accounts.',
+        'Explain the treatment of Interest on Capital and Interest on Drawings, and why they are treated as opposite (expense vs income) in the P&L Account.',
+      ]
+    },
+    {
+      name: 'Company Final Accounts: Complete Worked Example',
+      whatIsIt: {
+        definition: "A Company Final Accounts problem requires taking a company's Trial Balance, applying all given adjustments (with double effect), and preparing BOTH the Statement of Profit and Loss AND the Balance Sheet (with supporting Notes to Accounts), strictly per Schedule III format.",
+        meaning: "This is the CAPSTONE skill of this chapter — bringing together the Schedule III format, the Share Capital Note, and the adjustment double-effect rule into one complete, realistic exam-style problem, exactly as a real company would need to prepare its own annual financial statements."
+      },
+      explanation: [
+        "The standard approach is: (1) classify every Trial Balance item into its correct Schedule III head; (2) incorporate any given adjustments with their double effect; (3) prepare the Statement of Profit and Loss to arrive at Profit for the Period; (4) prepare the Balance Sheet, including the Profit for the Period (added to Reserves & Surplus); (5) prepare the supporting Notes to Accounts for each Balance Sheet line that requires a breakdown (Share Capital, Reserves & Surplus, Tangible Assets, Trade Receivables, etc.)."
+      ],
+      example: "Fully worked example (Deva Ltd., Trial Balance as on 31.03.2020): Debit balances — Fixed Assets (Net Block) Rs 7,50,000, Investments Rs 2,50,000, Closing Stock Rs 3,75,000, Debtors Rs 1,22,500, Staff Advance Rs 1,00,000, Prepaid Expenses Rs 45,000, Advance to Suppliers Rs 27,500, Cash in Hand Rs 12,500, Bank Balance Rs 1,10,000 (Total Rs 17,92,500). Credit balances — Equity Share Capital (Rs 10 each, fully paid) Rs 4,40,000, 9% Preference Share Capital (Rs 100 each, fully paid) Rs 1,00,000, Profit and Loss Statement (existing balance) Rs 2,80,000, Securities Premium Rs 30,000, Debenture Redemption Reserve Rs 2,00,000, General Reserve Rs 75,000, 8% Debentures Rs 5,25,000, Creditors Rs 58,500, Bills Payable Rs 21,500, Provision for Taxation Rs 62,500 (Total Rs 17,92,500). Additional information: the entire Authorized Share Capital has been issued and subscribed; of the Debtors, Rs 22,500 relates to debts due for MORE than 6 months (all debts are unsecured and considered good); ignore previous year's figures. Preparing the Balance Sheet: Note 1 (Share Capital) = Rs 5,40,000 (Rs 4,40,000 Equity + Rs 1,00,000 Preference). Note 2 (Reserves & Surplus) = Rs 2,80,000 (P&L) + Rs 75,000 (General Reserve) + Rs 30,000 (Securities Premium) + Rs 2,00,000 (Debenture Redemption Reserve) = Rs 5,85,000. Note 3 (Long-Term Borrowings) = Rs 5,25,000 (8% Debentures). Note 4 (Trade Payables) = Rs 58,500 + Rs 21,500 = Rs 80,000. Note 5 (Short-Term Provisions) = Rs 62,500 (Provision for Taxation). TOTAL Equity and Liabilities = 5,40,000 + 5,85,000 + 5,25,000 + 80,000 + 62,500 = **Rs 17,92,500**. On the Assets side: Note 6 (Tangible Assets) = Rs 7,50,000. Note 7 (Non-Current Investments) = Rs 2,50,000. Note 8 (Inventories/Closing Stock) = Rs 3,75,000. Note 9 (Trade Receivables) = Rs 1,22,500 (split as: due beyond 6 months Rs 22,500 + Others Rs 1,00,000, all Unsecured-Good). Note 10 (Cash & Cash Equivalents) = Rs 12,500 + Rs 1,10,000 = Rs 1,22,500. Note 11 (Short-Term Loans & Advances) = Rs 1,00,000 (Staff Advance) + Rs 27,500 (Advance to Suppliers) = Rs 1,27,500. Note 12 (Other Current Assets) = Rs 45,000 (Prepaid Expenses). TOTAL Assets = 7,50,000 + 2,50,000 + 3,75,000 + 1,22,500 + 1,22,500 + 1,27,500 + 45,000 = **Rs 17,92,500** — exactly matching the Equity and Liabilities total, confirming the Balance Sheet is correctly prepared and balanced.",
+      process: [
+        {step:'Classify every Trial Balance item', explanation:'Assign each debit/credit balance to its correct Schedule III head (e.g., "Bills Payable" → Trade Payables under Current Liabilities).'},
+        {step:'Apply all given adjustments with double effect', explanation:'For each adjustment (e.g., depreciation, outstanding expenses, closing stock if given separately), apply both the P&L effect and the Balance Sheet effect.'},
+        {step:'Prepare the Statement of Profit and Loss', explanation:'Arrive at Profit for the Period using the Schedule III sequence covered in the previous topic.'},
+        {step:'Carry Profit for the Period into Reserves & Surplus', explanation:'Add the current year\'s profit to the existing Surplus (P&L) balance when preparing the Reserves & Surplus note.'},
+        {step:'Prepare the Balance Sheet with supporting Notes', explanation:'Present the Equity & Liabilities and Assets sides with their totals, each line item backed by a detailed Note showing its full breakdown.'},
+        {step:'Verify both sides tally', explanation:'Confirm Total Equity and Liabilities exactly equals Total Assets — if not, re-check that every adjustment was given its full double effect.'},
+      ],
+      advantages: [
+        {point:'Mirrors real corporate financial reporting exactly', explanation:'This is not a simplified academic exercise — it is the SAME process (and format) a real company\'s finance team follows every year to prepare statutory financial statements for its Board and shareholders.'},
+      ],
+      application: "This complete worked-example approach — Trial Balance → classify → adjust → P&L → Balance Sheet with Notes → verify totals tally — is the exact method to apply to every Company Final Accounts exam question, regardless of how many additional adjustments (depreciation, RDD, outstanding expenses, etc.) are layered on top of the basic problem.",
+      examPoints: [
+        'Standard method: classify trial balance items → apply adjustments (double effect) → prepare P&L → prepare Balance Sheet with Notes → verify both sides tally.',
+        'Current year\'s Profit for the Period is ADDED to the existing Surplus/P&L balance within the Reserves & Surplus note.',
+        'ALWAYS verify Total Equity & Liabilities = Total Assets as the final check.',
+      ],
+      examQuestions: [
+        'From a given Trial Balance and additional adjustments, prepare a company\'s Balance Sheet (with Notes to Accounts) as per Schedule III.',
+        'Explain the standard step-by-step method for solving a Company Final Accounts problem.',
+      ]
+    },
+  ],
+}, [
+  {difficulty:'easy', q:"Which section of the Companies Act, 2013 requires companies to present their financial statements per Schedule III?", options:["Section 100","Section 129","Section 8","Section 149"], correct:1,
+    why:"Section 129 of the Companies Act, 2013 requires all companies registered under the Act to present their financial statements in the format prescribed by Schedule III.",
+    whyNot:{0:"Section 100 deals with a different matter (calling of Extraordinary General Meetings), not financial statement format.",2:"Section 8 deals with the formation of companies with charitable objects, not financial statement format.",3:"Section 149 deals with the Board of Directors' composition, not financial statement format."}},
+  {difficulty:'easy', q:"Under Schedule III, the EQUITY AND LIABILITIES side of the Balance Sheet is presented in which order?", options:["Current Liabilities, then Non-Current Liabilities, then Shareholders' Funds","Shareholders' Funds, then Non-Current Liabilities, then Current Liabilities","Assets first, then liabilities","Alphabetical order of account names"], correct:1,
+    why:"Schedule III presents Equity and Liabilities in order of decreasing permanence: Shareholders' Funds (most permanent) first, followed by Non-Current Liabilities, then Current Liabilities (least permanent) last.",
+    whyNot:{0:"This reverses the correct order — Schedule III moves from MOST to LEAST permanent, not the other way around.",2:"Assets are a completely separate section of the Balance Sheet, not part of the Equity and Liabilities ordering.",3:"Schedule III follows a prescribed logical/permanence order, not alphabetical ordering."}},
+  {difficulty:'easy', q:"Under the 'double effect' rule for final account adjustments, an item given OUTSIDE the trial balance (like Closing Stock) must be:", options:["Shown only once, in the Balance Sheet","Shown only once, in the Trading/P&L Account","Shown TWICE — once in the Trading/P&L Account and once in the Balance Sheet","Ignored, since it was not in the original trial balance"], correct:2,
+    why:"Every adjustment given outside the trial balance must be given double effect — once in the Trading/P&L Account (e.g., Closing Stock on the credit side of Trading A/c) and once in the Balance Sheet (e.g., Closing Stock as a Current Asset).",
+    whyNot:{0:"Showing it only in the Balance Sheet would miss its impact on Gross Profit/Cost of Goods Sold in the Trading Account.",1:"Showing it only in the Trading/P&L Account would leave the Balance Sheet unbalanced, since the corresponding asset/liability would be missing.",3:"Adjustments given outside the trial balance are specifically additional information that MUST still be incorporated — they cannot be ignored."}},
+  {difficulty:'moderate', q:"A company's Authorized Capital is Rs 10,00,000 (5,000 8% Preference Shares of Rs 100 each and 50,000 Equity Shares of Rs 10 each). 50% of each class is issued and called up, but Calls-in-Arrears of Rs 2,000 (Preference) and Rs 4,000 (Equity) exist. What is the total Paid-up Share Capital shown on the Balance Sheet?", options:["Rs 10,00,000 (the full Authorized Capital)","Rs 5,00,000 (the full issued amount before deducting arrears)","Rs 4,94,000","Rs 6,000 (only the arrears amount)"], correct:2,
+    why:"Issued & Called-up = Rs 2,50,000 (Preference) + Rs 2,50,000 (Equity) = Rs 5,00,000. Less Calls-in-Arrears (Rs 2,000 + Rs 4,000 = Rs 6,000) = Paid-up Share Capital of Rs 4,94,000.",
+    whyNot:{0:"Rs 10,00,000 is the Authorized (maximum permitted) capital, not what has actually been issued and paid up.",1:"Rs 5,00,000 is the Issued & Called-up amount BEFORE deducting Calls-in-Arrears; the Paid-up figure must net off the arrears.",3:"Rs 6,000 is just the total Calls-in-Arrears amount, not the Paid-up Share Capital figure itself."}},
+  {difficulty:'moderate', q:"Under Schedule III, 'Changes in Inventories of Finished Goods, WIP and Stock-in-Trade' in the Statement of Profit and Loss is calculated as:", options:["Closing Stock minus Opening Stock","Opening Stock minus Closing Stock","Opening Stock plus Closing Stock","Purchases minus Sales"], correct:1,
+    why:"This line is calculated as Opening Stock minus Closing Stock; it can be a NEGATIVE figure (a reduction in total expenses) when Closing Stock exceeds Opening Stock, reflecting a build-up in inventory during the period.",
+    whyNot:{0:"This inverts the correct calculation direction as prescribed by Schedule III.",2:"Adding Opening and Closing Stock is not the correct formula for this line item.",3:"Purchases minus Sales is unrelated to this specific inventory-change calculation."}},
+  {difficulty:'moderate', q:"An outstanding expense (e.g., Rs 10,000 outstanding salary) that is given as an adjustment OUTSIDE the trial balance is treated as:", options:["Deducted from the expense in P&L, and shown as a Current Asset","Added to the expense in P&L, and shown as a Current Liability","Added to the expense in P&L only, with no Balance Sheet effect","Ignored, since it has not yet been paid"], correct:1,
+    why:"Outstanding expenses are ADDED to the relevant expense in the P&L Account (the full period expense must be charged per the Accrual concept) and shown as a Current Liability on the Balance Sheet (double effect).",
+    whyNot:{0:"This describes the treatment of a PREPAID expense (deducted from P&L, shown as an asset) — the reverse of outstanding expenses.",2:"Every adjustment given outside the trial balance requires BOTH effects — the Balance Sheet liability effect cannot be skipped.",3:"Per the Accrual/Matching concept, an expense incurred (even if unpaid) belongs to the current period and must be recorded, not ignored."}},
+  {difficulty:'moderate', q:"Trade Receivables that are outstanding for MORE than 6 months from their due date must be:", options:["Excluded entirely from the Balance Sheet","Separately disclosed within the Trade Receivables note","Automatically written off as Bad Debts","Shown only in the Directors' Report, not the Balance Sheet"], correct:1,
+    why:"Schedule III specifically requires separate disclosure of the aggregate amount of Trade Receivables outstanding for more than 6 months from their due date, within the Trade Receivables note.",
+    whyNot:{0:"They remain a genuine asset (unless proven irrecoverable) and must still be shown, just with this specific ageing disclosure.",2:"Being overdue beyond 6 months does not automatically make a debt 'bad' — that requires management's specific judgment that it is irrecoverable.",3:"This is a required Balance Sheet NOTE disclosure, not something confined to the Directors' Report."}},
+  {difficulty:'difficult', q:"A company has Interest on Capital of Rs 20,000 as an adjustment. What is its correct double effect on the final accounts?", options:["Added to Capital in the P&L Account, and shown as income in the Balance Sheet", "Shown as an EXPENSE (deducted) in the P&L Account, and ADDED to Capital on the Balance Sheet liabilities side", "Shown as income in the P&L Account, and deducted from Capital on the Balance Sheet", "It has no effect on either statement since it is an internal transaction"], correct:1,
+    why:"Interest on Capital is treated as an expense to the business (reducing its net profit, since it is effectively a return paid TO the owner) in the P&L Account, and is ADDED to Capital on the Balance Sheet (increasing what the business owes back to the owner, since this interest has not actually been paid out in cash).",
+    whyNot:{0:"This reverses the correct treatment entirely — Interest on Capital is an EXPENSE to the business, not something added to Capital within the P&L Account.",2:"Interest on Capital is an EXPENSE (not income) to the business, and it is ADDED to (not deducted from) Capital on the Balance Sheet.",3:"Like every adjustment, Interest on Capital must be given full double effect — it genuinely changes both the reported profit and the Capital balance shown on the Balance Sheet."}},
+  {difficulty:'difficult', q:"A company sells goods and mistakenly records 'Goods Sent on Approval' worth Rs 50,000 (not yet actually sold or confirmed by the customer) as part of Sales. What is the correct adjustment?", options:["No adjustment needed, since the goods have left the premises", "Deduct Rs 50,000 from Sales in the Trading Account, add the cost back to Closing Stock, and reduce the corresponding Debtor balance", "Simply add Rs 50,000 to Closing Stock, with no change to Sales or Debtors", "Treat it as Bad Debts and write off Rs 50,000"], correct:1,
+    why:"Since goods sent on approval have NOT actually been sold (the customer has not yet confirmed purchase), the Rs 50,000 must be removed from Sales, its cost added back into Closing Stock (since it remains the seller's inventory), and the corresponding Debtor entry reduced — a full double-effect correction across three areas.",
+    whyNot:{0:"Physical location does not determine a sale under accrual accounting — legal transfer of ownership/risk (which has not happened here) does; an adjustment is required.",2:"Simply adding to Closing Stock without correcting Sales and Debtors would leave Sales overstated and Debtors incorrect, failing to fully correct the error.",3:"This is not a bad debt (an irrecoverable amount owed) — it is an item incorrectly recorded as sold when it has not actually been sold at all; the correction is fundamentally different."}},
+]);
+/* ===================== AFM CH5: Cash Flow Statements ===================== */
+setCh('ch5', {
+  topics: [
+    {
+      name: 'Meaning, Importance and Objectives of a Cash Flow Statement',
+      whatIsIt: {
+        definition: "A Cash Flow Statement is a financial statement that shows the flow of incoming and outgoing CASH and cash equivalents of an enterprise over a period, prepared as per Accounting Standard (AS) 3, and used to assess the enterprise's ability to generate and utilize cash.",
+        meaning: "While the P&L Account tells you whether a business was PROFITABLE, it does not tell you whether that profit actually translated into real CASH in the bank — a business can show a healthy profit on paper while genuinely running short of cash (e.g., if most sales are on credit and not yet collected). The Cash Flow Statement fills exactly this gap."
+      },
+      explanation: [
+        "The Cash Flow Statement is one of the key tools for assessing the LIQUIDITY and SOLVENCY of an enterprise. Its economic logic rests on a foundational finance idea: the economic value of an asset is derived from its ability to generate FUTURE CASH FLOWS — an asset (or a whole business) is fundamentally worth the present value of the cash it can generate, not simply the accounting profit it reports."
+      ],
+      components: [
+        {name:'Assessing ability to generate future net cash flows', explanation:'Helps investors and creditors judge whether the business can keep generating positive cash in the future, not just whether it did so historically.'},
+        {name:'Assessing ability to meet obligations and pay dividends', explanation:'Shows whether the business has (or will have) enough cash to meet its debts as they fall due, and to sustain dividend payments to shareholders.'},
+        {name:'Assessing reasons for differences between net income and cash', explanation:'Explains WHY reported profit and actual cash receipts/payments differ — e.g., large non-cash expenses like depreciation, or growing receivables tying up cash.'},
+        {name:'Assessing effects of cash and non-cash investing/financing transactions', explanation:'Reveals the impact of transactions like buying assets, raising loans, or issuing shares on the business\'s overall financial position.'},
+      ],
+      example: "A company reports a healthy Rs 50 lakh net profit for the year, but its Sundry Debtors have grown by Rs 45 lakh over the same period (customers haven't yet paid for a large share of that year's sales). A reader of only the P&L Account would see a profitable year; the Cash Flow Statement would reveal that very little of this profit has actually turned into cash — a critical insight for judging the company's real short-term liquidity.",
+      application: "Bankers evaluating a loan application, and investors judging dividend sustainability, both rely heavily on the Cash Flow Statement (alongside the Balance Sheet and P&L) precisely because reported accounting PROFIT and actual CASH position can diverge significantly, and profit alone cannot pay bills or dividends — only cash can.",
+      examPoints: [
+        'Cash Flow Statement is prepared per Accounting Standard (AS) 3.',
+        'It assesses LIQUIDITY and SOLVENCY, complementing (not replacing) the P&L Account and Balance Sheet.',
+        '7 objectives: assess liquidity/future cash generation, ability to meet obligations, comparability among firms, reliability of profit/quality of earnings, changes in assets/liabilities, project future cash streams, provide info on different cash flow types.',
+      ],
+      examQuestions: [
+        'Explain the importance of a Cash Flow Statement, given that a P&L Account already reports profit.',
+        'What are the objectives of preparing a Cash Flow Statement per AS-3?',
+      ]
+    },
+    {
+      name: 'Classification of Cash Flow Activities: Operating, Investing, Financing',
+      whatIsIt: {
+        definition: "AS-3 requires every cash inflow and outflow to be classified into exactly ONE of three categories — Operating Activities, Investing Activities, or Financing Activities — based on the NATURE of the underlying transaction.",
+        meaning: "This three-way split answers three separate questions about a business's cash: how much cash did its core, day-to-day BUSINESS generate (Operating)? How much cash did it spend/receive buying and selling long-term ASSETS (Investing)? And how much cash did it raise/repay from its OWNERS and LENDERS (Financing)?"
+      },
+      explanation: [
+        "Correctly classifying each cash flow into its right category is the single most fundamental skill in preparing a Cash Flow Statement, since every subsequent step depends on this classification being right."
+      ],
+      types: [
+        {name:'Operating Activities', explanation:'Cash flows primarily derived from the entity\'s PRINCIPAL revenue-producing activities — generally the same transactions that determine profit or loss. Examples: cash receipts from sale of goods/services; cash receipts from royalties, fees, commissions; cash payments to suppliers for goods/services; cash payments to/on behalf of employees; income tax paid/refunded (unless specifically identifiable with financing/investing activities). Note: cash flows from securities/loans held specifically for DEALING or TRADING purposes (like inventory acquired for resale) are also classified as Operating, even though they might seem investment-like.'},
+        {name:'Investing Activities', explanation:'Cash flows from the ACQUISITION and DISPOSAL of long-term assets and other investments NOT included in cash equivalents. Examples: cash payments to acquire Property, Plant & Equipment, intangibles, and other long-term assets; cash receipts from selling such assets; cash payments to acquire equity/debt instruments of OTHER entities (excluding those held for trading, which are Operating); cash receipts from selling such instruments; cash advances/loans made to other parties (other than by a financial institution, which would be Operating for them) and their repayment receipts.'},
+        {name:'Financing Activities', explanation:'Cash flows that result in CHANGES in the size and composition of the entity\'s own equity capital and borrowings. Examples: cash proceeds from issuing shares or other equity instruments; cash payments to owners to acquire or redeem the entity\'s own shares (buyback); cash proceeds from issuing debentures, loans, bonds, mortgages and other borrowings; cash repayments of amounts borrowed; dividends paid to shareholders.'},
+      ],
+      comparison: {
+        headers: ['Activity Type','What it Measures','Typical Cash Inflows','Typical Cash Outflows'],
+        rows: [
+          ['Operating','Cash generated from core, day-to-day business','Cash sales, collections from debtors','Payments to suppliers, employees, operating expenses, tax paid'],
+          ['Investing','Cash spent on/received from long-term assets and investments','Sale of fixed assets/investments','Purchase of fixed assets/investments, loans given to others'],
+          ['Financing','Cash raised from/returned to owners and lenders','Share issue proceeds, new loans/debentures raised','Loan repayment, dividend paid, share buyback'],
+        ]
+      },
+      example: "A manufacturing company's cash flows during the year: Rs 5,00,000 received from customers (Operating inflow), Rs 3,00,000 paid to suppliers and employees (Operating outflow), Rs 60,000 paid to purchase new machinery (Investing outflow), Rs 10,000 received from selling an old machine (Investing inflow), Rs 30,000 received as a fresh bank loan (Financing inflow), and Rs 50,000 paid as dividend to shareholders (Financing outflow) — each cash flow is classified into exactly one of the three categories based purely on its underlying NATURE, not simply whether it is an inflow or outflow.",
+      advantages: [
+        {point:'Separates sustainable cash generation from one-off/financing effects', explanation:'By isolating Operating cash flow from Investing and Financing flows, a reader can judge whether a business genuinely generates cash from its core operations, rather than merely from selling assets or raising fresh loans/equity (which are not sustainable, repeatable sources of cash).'},
+      ],
+      application: "Analysts specifically watch whether a company's OPERATING cash flow is consistently positive and growing — a company that only survives by continuously raising fresh Financing cash flow (new loans/equity) while its Operating cash flow is weak or negative is generally considered a red flag for long-term sustainability.",
+      examPoints: [
+        '3 categories: Operating (core business), Investing (long-term assets/investments), Financing (owners\' capital and borrowings).',
+        'Securities/loans held for TRADING/DEALING purposes are classified as Operating, not Investing, despite superficially resembling investments.',
+        'Dividend PAID is a Financing outflow; dividend/interest RECEIVED is typically Operating income (for a non-finance company, sometimes shown as Investing depending on policy) — always check the specific treatment convention being used.',
+      ],
+      examQuestions: [
+        'Classify the following cash flows into Operating, Investing, or Financing: purchase of machinery, dividend paid, cash received from debtors, loan raised from a bank.',
+        'Why are cash flows from securities held for trading/dealing purposes classified as Operating rather than Investing activities?',
+      ]
+    },
+    {
+      name: 'Cash and Cash Equivalents',
+      whatIsIt: {
+        definition: "Cash comprises cash on hand and demand deposits; Cash Equivalents are short-term, highly liquid investments that are readily convertible to known amounts of cash and subject to an insignificant risk of changes in value — normally investments with an original maturity of 3 months or less.",
+        meaning: "The Cash Flow Statement only tracks movements of this specific, narrowly-defined pool of 'cash and cash equivalents' — not just literal cash in hand, but also bank balances and very short-term, safe investments that are practically as good as cash."
+      },
+      explanation: [
+        "For an investment to qualify as a cash equivalent, it must be readily convertible to a KNOWN amount of cash and be subject to an INSIGNIFICANT risk of changes in value — which is why only investments with a short maturity (typically 3 months or less from the date of acquisition) normally qualify. Bank borrowings are generally treated as Financing Activities. However, where bank OVERDRAFTS that are repayable on demand form an integral part of an entity's cash management (i.e., the account regularly swings between positive and overdrawn as part of normal operations), such overdrafts are included as a COMPONENT of Cash and Cash Equivalents (a negative component), rather than treated separately as a financing item."
+      ],
+      process: [
+        {step:'Start with Cash Balance', explanation:'Cash on hand.'},
+        {step:'Add Bank Balance', explanation:'Demand deposits with banks.'},
+        {step:'Add Liquid Investments (maturity less than 3 months)', explanation:'Highly liquid, short-term investments meeting the cash equivalent definition.'},
+        {step:'Less Bank Overdraft', explanation:'Where the overdraft is an integral part of cash management.'},
+        {step:'Arrive at Cash & Cash Equivalents (C&CE)', explanation:'This is the figure that the Cash Flow Statement reconciles from its Opening to Closing balance.'},
+      ],
+      example: "A company's Balance Sheet shows Cash in Hand Rs 20,000, Bank Balance Rs 1,50,000, a 45-day Fixed Deposit of Rs 2,00,000 (qualifies as a cash equivalent, since its maturity is well under 3 months), and a Bank Overdraft of Rs 30,000 that fluctuates regularly as part of normal operations. Cash & Cash Equivalents = 20,000 + 1,50,000 + 2,00,000 − 30,000 = **Rs 3,40,000** — this Rs 3,40,000 figure is what the Cash Flow Statement's Opening and Closing balances must reconcile to (via Net Cash Flow = Closing C&CE − Opening C&CE).",
+      advantages: [
+        {point:'Provides a precise, consistent scope for the statement', explanation:'Clearly defining what counts as "cash" prevents ambiguity about which Balance Sheet items should be tracked through the Cash Flow Statement.'},
+      ],
+      limitations: [
+        {point:'The 3-month maturity guideline requires judgment', explanation:'Deciding whether a specific investment genuinely has "insignificant risk of change in value" and truly short maturity requires some judgment, especially for instruments close to the 3-month boundary.'},
+      ],
+      application: "Before preparing any Cash Flow Statement, the FIRST step is always to correctly identify the Opening and Closing Cash & Cash Equivalents figures (including any operating-nature bank overdraft) from the Balance Sheet — since the entire statement is ultimately a reconciliation explaining the CHANGE between these two figures.",
+      examPoints: [
+        'Cash = cash on hand + demand deposits. Cash Equivalents = short-term (≤3 months), highly liquid, low-risk investments.',
+        'An operating-nature bank overdraft (repayable on demand, integral to cash management) is DEDUCTED as part of Cash & Cash Equivalents, not treated as separate Financing debt.',
+        'C&CE = Cash + Bank + Liquid Investments (<3 months) − Bank Overdraft.',
+      ],
+      examQuestions: [
+        'What qualifies as a "Cash Equivalent" under AS-3, and why is a 3-month maturity commonly used as the cutoff?',
+        'When is a bank overdraft treated as part of Cash & Cash Equivalents, rather than as a separate financing liability?',
+      ]
+    },
+    {
+      name: 'Direct Method vs Indirect Method',
+      whatIsIt: {
+        definition: "The Direct Method presents Cash Flow from Operating Activities by showing major classes of GROSS cash receipts and gross cash payments directly (e.g., cash received from customers, cash paid to suppliers); the Indirect Method instead starts from NET PROFIT and adjusts it for non-cash items and working capital changes to arrive at the same Cash from Operations figure.",
+        meaning: "Both methods give the IDENTICAL final figure for Cash from Operating Activities — they differ only in HOW they get there. Direct Method shows the actual cash receipts/payments directly; Indirect Method works backward from accounting profit, adjusting out everything that isn't really cash."
+      },
+      explanation: [
+        "AS-3 permits EITHER method, but the Indirect Method is far more commonly used in practice (and almost universally tested in exams), because the information needed for it (Net Profit, Depreciation, changes in Balance Sheet working capital items) is typically much more readily available from a company's existing financial statements than the granular gross cash receipt/payment data the Direct Method requires."
+      ],
+      comparison: {
+        headers: ['Aspect','Direct Method','Indirect Method'],
+        rows: [
+          ['Starting point','Gross cash receipts and payments, listed directly','Net Profit (as per P&L)'],
+          ['Data required','Detailed cash receipt/payment records by category','Net Profit + Balance Sheet changes + non-cash item details'],
+          ['Investing/Financing sections','Identical in both methods','Identical in both methods'],
+          ['Practical usage','Less common (more data-intensive)','Far more common in practice and in exams'],
+        ]
+      },
+      example: "Under the Direct Method, the Operating Activities section might show: 'Cash received from customers Rs 5,00,000; Cash paid to suppliers (Rs 2,50,000); Cash paid to employees (Rs 1,00,000); Cash paid for other operating expenses (Rs 50,000) = Net Cash from Operating Activities Rs 1,00,000.' Under the Indirect Method, the SAME final figure would instead be reached by starting with Net Profit as per the P&L Account, then adding back non-cash expenses like Depreciation, and adjusting for changes in working capital items (Debtors, Creditors, Stock) — arriving at the identical Rs 1,00,000 Cash from Operating Activities, but via a completely different presentation.",
+      application: "Virtually all exam problems, and most real Indian companies' published Cash Flow Statements, use the Indirect Method for the Operating Activities section — making it essential to master its specific technique (covered in detail in the next topic) for both academic and practical purposes.",
+      examPoints: [
+        'Both methods give the SAME final Cash from Operating Activities figure — they differ only in presentation/starting point.',
+        'Direct Method: gross cash receipts/payments shown directly. Indirect Method: starts from Net Profit, adjusts for non-cash items and working capital changes.',
+        'Investing and Financing Activities sections are presented IDENTICALLY under both methods — the choice of method only affects the Operating Activities section.',
+        'Indirect Method is the standard, most commonly tested approach.',
+      ],
+      examQuestions: [
+        'Differentiate between the Direct Method and Indirect Method of preparing a Cash Flow Statement.',
+        'Why does the Indirect Method arrive at the same Cash from Operating Activities figure as the Direct Method, despite starting from a completely different number (Net Profit)?',
+      ]
+    },
+    {
+      name: 'Indirect Method: Treatment of Key Adjustment Items',
+      whatIsIt: {
+        definition: "Under the Indirect Method, several specific items require careful treatment because they are NON-CASH (like depreciation) or represent transactions spanning MULTIPLE activity categories (like the sale of a fixed asset, or provisions for tax/dividend) — getting these adjustments right is the core technical skill of this topic.",
+        meaning: "Simply starting from Net Profit is not enough — several common items need to be carefully unwound and correctly re-allocated to the right activity category (Operating, Investing, or Financing) before the Cash Flow Statement will be correct."
+      },
+      explanation: [
+        "The general technique for each of these tricky items is to reconstruct the relevant LEDGER ACCOUNT (as a working note) using the Opening Balance, Closing Balance, and any given additional information, and use it to derive the missing figure (e.g., actual cash paid, or profit/loss on sale) as the BALANCING figure."
+      ],
+      types: [
+        {name:'Depreciation (non-cash expense)', explanation:'Depreciation reduces Net Profit but involves NO actual cash outflow in the current period — so it must be ADDED BACK to Net Profit when computing Cash from Operations (it never appears as a separate Investing or Financing cash flow at all; it is purely an add-back).'},
+        {name:'Fixed Assets WITHOUT a separate Provision for Depreciation account', explanation:'When the Fixed Asset account itself represents WDV (Written Down Value, i.e., net of depreciation), and an asset is sold during the year: Step 1 — record the sale proceeds as an Investing cash INFLOW (credit the FA account, debit Bank). Step 2 — the difference between the asset\'s WDV and its sale proceeds is a Profit or Loss on Sale; a LOSS is ADDED BACK to Net Profit (it reduced profit but wasn\'t a cash outflow), while a PROFIT is DEDUCTED from Net Profit (it increased profit but the CASH effect is already fully captured in the Investing inflow, so counting it again in Operating would double-count it). Worked example: Fixed Asset (WDV) Rs 25,000 sold for Rs 20,000, giving a Loss on Sale of Rs 5,000 (25,000−20,000). This Rs 5,000 loss is ADDED BACK to Net Profit under Operating Activities, and the full Rs 20,000 sale proceeds is shown as an Investing Activities INFLOW.'},
+        {name:'Fixed Assets WITH a separate Provision for Depreciation (Accumulated Depreciation) account', explanation:'Here the Fixed Asset account represents ORIGINAL COST, and a separate Provision for Depreciation (PFD) account tracks accumulated depreciation. Worked example: A fixed asset with WDV Rs 25,000 (i.e., Cost Rs 35,000, less Accumulated Depreciation Rs 10,000) is sold for Rs 20,000; depreciation charged for the year (on the whole asset block) is Rs 30,000. Step 1 — transfer the SOLD asset\'s accumulated depreciation out of the PFD account into the FA account: PFD A/c Dr. Rs 10,000 To FA A/c Rs 10,000 (this reduces the FA account down to the asset\'s WDV for the sale calculation). Step 2 — record the sale proceeds as an Investing inflow: Bank A/c Dr. Rs 20,000 To FA A/c Rs 20,000. Step 3 — the resulting Rs 5,000 Loss on Sale (WDV 25,000 − Sale Proceeds 20,000) is recorded: P&L A/c Dr. Rs 5,000 To FA A/c Rs 5,000, and ADDED BACK to Net Profit under Operating Activities. Step 4 — the FULL YEAR\'s depreciation charge (Rs 30,000, on the entire remaining asset block, not just the sold asset) is recorded: Depreciation A/c Dr. Rs 30,000 To PFD A/c Rs 30,000, and this Rs 30,000 is ALSO added back to Net Profit under Operating Activities (as a separate, additional add-back to the Rs 5,000 loss).'},
+        {name:'Provision for Taxation', explanation:'Reconstruct the Provision for Tax account: Opening Balance (last year\'s provision) + Current Year\'s Tax Provision (charged to P&L this year) − Actual Tax PAID during the year = Closing Balance. The ACTUAL TAX PAID (the balancing figure) is shown as a SEPARATE DEDUCTION under Operating Activities (after "Cash from Operations," before arriving at "Net Cash from Operating Activities") — while the CURRENT YEAR\'S provision (a non-cash charge in the P&L) is ADDED BACK when computing Funds from Operations, since it reduced Net Profit without being an actual cash outflow yet. Worked example: Opening Provision for Tax Rs 50,000; Current year\'s provision (charged to P&L) Rs 58,000; Closing Provision for Tax Rs 60,000. Actual Tax Paid (balancing figure) = 50,000 + 58,000 − 60,000 = **Rs 48,000**, shown as a deduction under Operating Activities; the Rs 58,000 current provision is added back to Net Profit.'},
+        {name:'Proposed / Interim Dividend', explanation:'Reconstruct the Proposed Dividend account similarly. The PRIOR year\'s proposed dividend (once formally approved by shareholders) is PAID during the current year, and this actual payment is shown as a FINANCING ACTIVITIES outflow. The CURRENT year\'s newly proposed dividend (an appropriation of this year\'s profit, not yet actually paid) is ADDED BACK to Net Profit under Operating Activities (since providing for it reduced the Surplus/Reserves figure without being an actual cash outflow yet). Interim Dividend (already paid during the year, unlike Proposed Dividend which is only a year-end provision) is directly shown as a Financing Activities outflow for the amount actually paid.'},
+      ],
+      example: "Putting several of these together: a company's Net Profit as per P&L (after all charges) increased Reserves & Surplus by Rs 50,000 for the year. During the year, Depreciation of Rs 40,000 was charged, a Provision for Tax of Rs 30,000 was newly created (this year's charge), and a Proposed Dividend of Rs 25,000 was newly proposed (this year's appropriation). Building up 'Funds from Operations': Net Profit increase Rs 50,000 + Depreciation add-back Rs 40,000 + Provision for Tax add-back Rs 30,000 + Proposed Dividend add-back Rs 25,000 = Funds from Operations (before working capital changes) = **Rs 1,45,000** — demonstrating how MULTIPLE non-cash/appropriation items are all added back together to reconstruct the true operating cash-generating capacity, before working capital changes (increase/decrease in Debtors, Creditors, Stock) are then applied to arrive at the final Cash from Operations figure.",
+      advantages: [
+        {point:'The ledger-reconstruction technique is universally applicable', explanation:'Whether the item is Provision for Tax, Proposed Dividend, or any other provision/reserve, reconstructing its T-account (Opening + additions − the balancing "actual cash" figure = Closing) reliably extracts the correct cash flow figure needed.'},
+      ],
+      limitations: [
+        {point:'Requires careful, disciplined tracking of MULTIPLE moving parts at once', explanation:'A single fixed asset sale with a separate Provision for Depreciation account requires FOUR distinct ledger entries/effects to be tracked correctly — a common source of student errors is missing one of these steps.'},
+      ],
+      application: "These adjustment techniques are applied together, layered onto the basic Net-Profit starting point, in every realistic exam-level Cash Flow Statement problem — mastering the ledger-reconstruction (T-account) technique for Provision for Tax, Proposed Dividend, and Fixed Assets/Provision for Depreciation is therefore the core practical skill of this entire chapter.",
+      examPoints: [
+        'Depreciation: always simply ADDED BACK to Net Profit (non-cash expense).',
+        'Fixed Asset sold at a LOSS: loss added back to profit; sale PROCEEDS (full amount) shown as Investing inflow.',
+        'Fixed Asset sold at a PROFIT: profit deducted from Net Profit (to avoid double-counting); sale proceeds shown as Investing inflow.',
+        'Provision for Tax / Proposed Dividend: reconstruct the T-account — Opening + Current Year Charge − Actual Paid = Closing; Actual Paid is the balancing figure.',
+        'Actual Tax Paid = separate deduction under Operating Activities. Actual Dividend Paid = Financing Activities outflow. Current year\'s NEW provision/appropriation for either = added back to Net Profit.',
+      ],
+      examQuestions: [
+        'A fixed asset with WDV Rs 25,000 (Provision for Depreciation Rs 10,000, so Cost Rs 35,000) is sold for Rs 20,000, and total depreciation charged for the year is Rs 30,000. Show all the cash flow adjustments required.',
+        'Opening Provision for Tax is Rs 50,000, current year\'s provision is Rs 58,000, and closing Provision for Tax is Rs 60,000. Calculate the actual tax paid during the year, and show how it is treated in the Cash Flow Statement.',
+        'Explain why a profit on sale of a fixed asset is DEDUCTED from Net Profit under Operating Activities, while a loss on sale is ADDED BACK.',
+      ]
+    },
+    {
+      name: 'Linking the Balance Sheet to the Cash Flow Statement',
+      whatIsIt: {
+        definition: "Every line item on a Schedule III Balance Sheet has a specific, predictable Cash Flow Statement treatment — understanding this direct linkage lets a student systematically work through an entire Balance Sheet, line by line, to build a complete Cash Flow Statement.",
+        meaning: "Rather than memorizing the Cash Flow Statement as a separate, disconnected topic, recognizing that EVERY Balance Sheet change has a specific cash flow consequence turns Balance Sheet analysis directly into Cash Flow Statement preparation."
+      },
+      explanation: [
+        "This linkage follows logically from the fact that the Cash Flow Statement is fundamentally just an explanation of WHY the Cash & Cash Equivalents balance moved from its Opening to Closing figure — and that movement is caused by changes in every OTHER Balance Sheet line."
+      ],
+      components: [
+        {name:'Share Capital', explanation:'New shares issued → Financing inflow. Share buyback → Financing outflow. A Bonus Issue → NO cash flow at all (it is purely an internal transfer from Reserves to Share Capital, with no cash moving in or out).'},
+        {name:'Reserves & Surplus', explanation:'The CHANGE in Surplus (P&L balance) is the starting point for calculating Operating Cash Flow under the indirect method; all appropriation items (transfers to reserves, proposed dividend) are ADDED BACK to this change in Surplus.'},
+        {name:'Long-Term Borrowings', explanation:'New loan/debenture raised → Financing inflow. Principal repaid → Financing outflow. (Interest paid is a Financing-related cash outflow, but is typically added back in the P&L adjustment under Operating Activities first, then shown as an outflow under Financing — check the specific convention being followed.)'},
+        {name:'Deferred Tax Liability/Asset (Net)', explanation:'A purely non-cash item. Increase in DTL → add back to Net Profit under Operating Activities; decrease → deduct. (Opposite treatment for Deferred Tax ASSET.)'},
+        {name:'Trade Payables (Creditors)', explanation:'INCREASE in Trade Payables → ADD to Operating Profit (the business is holding onto cash longer by delaying supplier payments). DECREASE → SUBTRACT.'},
+        {name:'Short-Term/Long-Term Provisions (e.g., Provision for Tax)', explanation:'Provision CREATED (charged to P&L) → add back under Operating Activities (non-cash). Actual PAYMENT against the provision → Operating outflow (see the dedicated Provision for Tax working note technique).'},
+        {name:'Tangible/Intangible Fixed Assets', explanation:'Purchase → Investing outflow. Sale → Investing inflow. Profit/Loss on sale removed from Operating Profit (deducted/added back respectively). Depreciation/Amortization → added back under Operating Activities (non-cash).'},
+        {name:'Non-Current/Current Investments', explanation:'Purchase → Investing outflow. Sale → Investing inflow. Profit/loss on sale removed from Operating Profit, same logic as for fixed assets.'},
+        {name:'Inventories', explanation:'INCREASE in Inventory → SUBTRACT from Operating Profit (cash is tied up in unsold stock). DECREASE → ADD.'},
+        {name:'Trade Receivables (Debtors)', explanation:'INCREASE in Trade Receivables → SUBTRACT from Operating Profit (cash has not yet been collected). DECREASE → ADD.'},
+        {name:'Cash & Cash Equivalents', explanation:'Not an "activity" in itself — it is the OPENING and CLOSING balance that the whole statement reconciles: Operating + Investing + Financing Cash Flow = Closing Cash − Opening Cash.'},
+        {name:'Prepaid Expenses / Other Current Assets', explanation:'INCREASE in Prepaid Expenses → SUBTRACT from Operating Profit (cash paid out ahead of the related expense being recognized). DECREASE → ADD back.'},
+      ],
+      example: "Working systematically down a Balance Sheet: if Trade Payables increased by Rs 20,000, Trade Receivables increased by Rs 15,000, and Inventory increased by Rs 10,000 during the year, the working-capital adjustment to Funds from Operations is: ADD Rs 20,000 (Creditors increase) − Rs 15,000 (Debtors increase) − Rs 10,000 (Stock increase) = a NET reduction of Rs 5,000 to Funds from Operations — meaning, despite the underlying profit figure, working capital changes alone absorbed a net Rs 5,000 of cash this year (largely because Debtors and Stock grew faster than the cash-conserving benefit from Creditors also growing).",
+      advantages: [
+        {point:'Turns Balance Sheet analysis into a systematic checklist', explanation:'Rather than trying to recall the Cash Flow Statement format from memory, a student can work down EVERY line of a given Balance Sheet (Opening vs Closing), and this table tells them exactly what cash flow treatment each line change requires.'},
+      ],
+      application: "This systematic, line-by-line Balance Sheet approach is the most reliable way to ensure NO cash flow effect is missed when solving a full Cash Flow Statement problem from a given set of two Balance Sheets (Opening and Closing) plus additional information — working through every single line, rather than only the 'obvious' ones, catches adjustments a student might otherwise overlook.",
+      examPoints: [
+        'Increase in a CURRENT LIABILITY (Creditors, Outstanding Expenses) → ADD to Operating Profit. Increase in a CURRENT ASSET (Debtors, Stock, Prepaid Expenses) → SUBTRACT from Operating Profit.',
+        'Bonus Issue of shares → ZERO cash flow effect (pure internal transfer between Reserves and Share Capital).',
+        'Systematically go through EVERY Balance Sheet line (Opening vs Closing) to ensure no cash flow effect is missed.',
+      ],
+      examQuestions: [
+        'Explain why an increase in Trade Payables is ADDED to Operating Profit, while an increase in Trade Receivables is SUBTRACTED.',
+        'Why does a Bonus Issue of shares have NO effect on the Cash Flow Statement?',
+        'Given the changes in several Balance Sheet items (Creditors, Debtors, Stock), calculate the net working-capital adjustment to Funds from Operations.',
+      ]
+    },
+    {
+      name: 'Preparing a Cash Flow Statement: Format and Complete Worked Example',
+      whatIsIt: {
+        definition: "The standard Cash Flow Statement format (Indirect Method) presents three sequential sections — Cash Flow from Operating Activities, Cash Flow from Investing Activities, and Cash Flow from Financing Activities — and reconciles their combined Net Cash Flow to the movement in Cash & Cash Equivalents from Opening to Closing balance.",
+        meaning: "This is the final, complete template that brings together every technique from this chapter — classification of activities, non-cash add-backs, working capital adjustments, and the specific treatment of tricky items like fixed asset sales, tax, and dividends — into one finished statement."
+      },
+      explanation: [
+        "The standard layout is: START with Net Profit (the change in Surplus/P&L, adjusted for any appropriations like dividend/reserve transfers already included in that change) → ADD BACK non-cash items (Depreciation, Amortization, Loss on Sale of Assets, Provisions created) → DEDUCT non-operating gains (Profit on Sale of Assets) → this gives 'Funds from Operations' (also called Adjusted Profit before Working Capital Changes) → ADJUST for working capital changes (increase/decrease in Creditors, Debtors, Stock, etc.) → this gives 'Cash from Operations (CFO)' → DEDUCT Income Tax actually paid → this gives 'Net Cash from Operating Activities' → then separately list Investing Activities (purchase/sale of fixed assets, investments) → then Financing Activities (loans raised/repaid, share issues, dividend paid) → SUM all three sections for 'Net Cash Flow' → ADD Opening Cash & Cash Equivalents → arrive at Closing Cash & Cash Equivalents (which must match the actual closing Balance Sheet figure, as the final check)."
+      ],
+      process: [
+        {step:'Compute the change in Surplus (P&L/Reserves) and build Funds from Operations', explanation:'Start with Net Profit for the year, add back Depreciation, any Loss on Sale of Assets, Provision for Tax created, Proposed Dividend created, Goodwill/Preliminary Expenses written off; deduct any Profit on Sale of Assets.'},
+        {step:'Adjust for working capital changes', explanation:'Add increases in Current Liabilities (like Creditors); subtract increases in Current Assets (like Debtors, Stock, Prepaid Expenses) — and vice versa for decreases.'},
+        {step:'Deduct actual Income Tax Paid', explanation:'Using the Provision for Tax working note technique, to arrive at Net Cash from Operating Activities.'},
+        {step:'List Investing Activities', explanation:'Purchase of fixed assets/investments (outflows); sale proceeds of fixed assets/investments (inflows) — using the full sale proceeds, not the profit/loss figure (which was already handled in step 1).'},
+        {step:'List Financing Activities', explanation:'Loans/debentures raised (inflows); loans repaid, dividend paid, share buyback (outflows); fresh share capital issued (inflow).'},
+        {step:'Sum all three sections and reconcile to Cash & Cash Equivalents', explanation:'Net Cash Flow = Operating + Investing + Financing; add this to Opening C&CE to arrive at Closing C&CE, which must match the Balance Sheet figure.'},
+      ],
+      example: "Complete worked example: A company's Surplus (P&L) increased by Rs 50,000 during the year (this is the Net Profit retained). Depreciation charged for the year was Rs 40,000. Trade Payables (Creditors) increased by Rs 20,000; Trade Receivables (Debtors) increased by Rs 15,000; Inventory (Stock) increased by Rs 10,000. During the year, Machinery was purchased for Rs 60,000 (Investing outflow), and a fresh Bank Loan of Rs 30,000 was raised (Financing inflow). Opening Cash & Cash Equivalents was Rs 20,000. Building the statement: CASH FLOW FROM OPERATING ACTIVITIES — Net Profit (change in Surplus) Rs 50,000; Add: Depreciation Rs 40,000 → Funds from Operations (FFO) = Rs 90,000; Add: Increase in Creditors Rs 20,000; Less: Increase in Debtors Rs 15,000; Less: Increase in Stock Rs 10,000 → Net Cash from Operating Activities = 90,000+20,000−15,000−10,000 = **Rs 85,000**. CASH FLOW FROM INVESTING ACTIVITIES — Purchase of Machinery (Rs 60,000) → Net Cash Used in Investing Activities = **(Rs 60,000)**. CASH FLOW FROM FINANCING ACTIVITIES — Bank Loan Taken Rs 30,000 → Net Cash from Financing Activities = **Rs 30,000**. NET CASH FLOW for the year = 85,000 − 60,000 + 30,000 = **Rs 55,000**. Add: Opening Cash & Cash Equivalents Rs 20,000. CLOSING CASH & CASH EQUIVALENTS = 55,000 + 20,000 = **Rs 75,000** — this figure must exactly match the actual Cash & Cash Equivalents shown on the company's closing Balance Sheet, confirming the statement has been correctly prepared.",
+      advantages: [
+        {point:'Brings every technique in the chapter together into one complete, checkable statement', explanation:'The final reconciliation to the ACTUAL closing Balance Sheet cash figure is a powerful, built-in accuracy check — if the numbers don\'t match, an error exists somewhere in the working.'},
+      ],
+      application: "This exact template — Operating (via Funds from Operations, working capital adjustments, tax paid), then Investing, then Financing, reconciled to Opening/Closing Cash & Cash Equivalents — is the standard format for EVERY Cash Flow Statement exam problem and every real company's published Annual Report Cash Flow Statement in India.",
+      examPoints: [
+        'Standard sequence: Net Profit → add back non-cash items → Funds from Operations → adjust working capital → Cash from Operations → less tax paid → Net Cash from Operating Activities → Investing Activities → Financing Activities → Net Cash Flow → add Opening C&CE → Closing C&CE.',
+        'ALWAYS verify the computed Closing Cash & Cash Equivalents matches the actual Balance Sheet figure — this is the definitive accuracy check for the whole statement.',
+        'Sale proceeds of assets/investments (FULL amount) go under Investing; only the profit/loss PORTION is adjusted under Operating.',
+      ],
+      examQuestions: [
+        'Given a company\'s Net Profit, Depreciation, working capital changes, and investing/financing transactions, prepare a complete Cash Flow Statement (Indirect Method) and reconcile it to the closing cash balance.',
+        'Explain the standard sequence followed when preparing a Cash Flow Statement, from Net Profit down to Closing Cash & Cash Equivalents.',
+      ]
+    },
+  ],
+}, [
+  {difficulty:'easy', q:"A Cash Flow Statement is prepared as per which Accounting Standard?", options:["AS-1","AS-2","AS-3","AS-6"], correct:2,
+    why:"The Cash Flow Statement is prepared as per Accounting Standard (AS) 3, 'Cash Flow Statement'.",
+    whyNot:{0:"AS-1 deals with Disclosure of Accounting Policies, not Cash Flow Statements.",1:"AS-2 deals with Valuation of Inventories, not Cash Flow Statements.",3:"AS-6 deals with Depreciation Accounting, not Cash Flow Statements."}},
+  {difficulty:'easy', q:"Which of the following is classified as a FINANCING activity in a Cash Flow Statement?", options:["Cash received from customers","Purchase of machinery","Proceeds from issuing debentures","Payment to suppliers"], correct:2,
+    why:"Proceeds from issuing debentures represent a change in the entity's borrowings, making it a Financing activity.",
+    whyNot:{0:"Cash received from customers is an Operating activity (core, revenue-producing business).",1:"Purchase of machinery is an Investing activity (acquisition of a long-term asset).",3:"Payment to suppliers is an Operating activity (core business expense)."}},
+  {difficulty:'easy', q:"Depreciation is treated in a Cash Flow Statement (Indirect Method) by:", options:["Showing it as an Investing Activities outflow","Adding it back to Net Profit under Operating Activities, since it is a non-cash expense","Showing it as a Financing Activities outflow","Ignoring it completely, since it does not affect cash"], correct:1,
+    why:"Depreciation is a non-cash expense that reduced Net Profit without any actual cash outflow, so it must be ADDED BACK to Net Profit under Operating Activities.",
+    whyNot:{0:"Depreciation is not an Investing activity — no cash actually moves for depreciation itself.",2:"Depreciation is not a Financing activity either.",3:"While depreciation itself involves no cash movement, it MUST be adjusted for (added back), since it distorts the starting Net Profit figure used in the Indirect Method."}},
+  {difficulty:'moderate', q:"A company's Trade Payables (Creditors) increased by Rs 20,000 during the year. What is the correct treatment in the Cash Flow Statement (Indirect Method)?", options:["Subtract Rs 20,000 from Operating Profit","Add Rs 20,000 to Operating Profit","Show it as an Investing Activities inflow","Show it as a Financing Activities inflow"], correct:1,
+    why:"An increase in Trade Payables (Creditors) means the business delayed paying suppliers, effectively conserving cash — so it is ADDED to Operating Profit under working capital adjustments.",
+    whyNot:{0:"Subtracting would be the correct treatment for an INCREASE in a current asset (like Debtors or Stock), not a current liability like Creditors.",2:"Trade Payables changes are a working-capital item under Operating Activities, not an Investing activity.",3:"Trade Payables changes are a working-capital item under Operating Activities, not a Financing activity."}},
+  {difficulty:'moderate', q:"A fixed asset with WDV Rs 25,000 is sold for Rs 20,000. How is this reflected in the Cash Flow Statement?", options:["Rs 20,000 shown as Operating inflow only", "Rs 20,000 shown as Investing Activities inflow, and the Rs 5,000 loss added back to Net Profit under Operating Activities", "Rs 25,000 shown as Investing inflow, with no other adjustment", "The transaction is ignored since it resulted in a loss"], correct:1,
+    why:"The full sale proceeds (Rs 20,000) are shown as an Investing Activities inflow, and the resulting Rs 5,000 loss (WDV 25,000 minus proceeds 20,000) — which reduced Net Profit but was not a cash outflow — is added back under Operating Activities.",
+    whyNot:{0:"Asset sale proceeds are an INVESTING activity, not an Operating one.",2:"The Investing inflow should be the actual SALE PROCEEDS (Rs 20,000), not the WDV (Rs 25,000) — using WDV would misstate the actual cash received.",3:"A loss-making sale still generates real cash (Rs 20,000) and must be fully reflected in the statement — it cannot be ignored."}},
+  {difficulty:'moderate', q:"Opening Provision for Tax is Rs 50,000, the current year's tax provision (charged to P&L) is Rs 58,000, and closing Provision for Tax is Rs 60,000. What is the actual tax PAID during the year?", options:["Rs 50,000","Rs 58,000","Rs 48,000","Rs 60,000"], correct:2,
+    why:"Reconstructing the Provision for Tax account: Opening (50,000) + Current Year's Provision (58,000) − Actual Tax Paid = Closing (60,000). Actual Tax Paid = 50,000 + 58,000 − 60,000 = Rs 48,000.",
+    whyNot:{0:"Rs 50,000 is simply the Opening balance, not the actual amount paid during the year.",1:"Rs 58,000 is the current year's NEW provision (a non-cash charge), not the actual cash paid.",3:"Rs 60,000 is the Closing balance, not the amount actually paid out in cash."}},
+  {difficulty:'moderate', q:"A Bonus Issue of shares (issuing free shares to existing shareholders out of Reserves) has what effect on the Cash Flow Statement?", options:["A large Financing Activities inflow","A large Financing Activities outflow","No effect at all — it is a pure internal transfer between Reserves and Share Capital, with no cash movement","It is shown under Investing Activities"], correct:2,
+    why:"A Bonus Issue simply transfers an amount from Reserves to Share Capital on the Balance Sheet — no actual cash comes in or goes out, so it has NO effect on the Cash Flow Statement at all.",
+    whyNot:{0:"No cash is actually received by the company in a Bonus Issue — it is not a genuine financing inflow.",1:"No cash is paid out either — there is no outflow.",3:"It is not an Investing item; more fundamentally, it doesn't appear on the Cash Flow Statement at all, since no cash moves."}},
+  {difficulty:'difficult', q:"A company's Net Profit is Rs 50,000, Depreciation is Rs 40,000, Trade Payables increased by Rs 20,000, Trade Receivables increased by Rs 15,000, and Inventory increased by Rs 10,000. What is the Net Cash from Operating Activities?", options:["Rs 50,000","Rs 90,000","Rs 85,000","Rs 125,000"], correct:2,
+    why:"Funds from Operations = Net Profit (50,000) + Depreciation (40,000) = 90,000. Working capital adjustment: + Increase in Creditors (20,000) − Increase in Debtors (15,000) − Increase in Stock (10,000) = −5,000. Net Cash from Operating Activities = 90,000 − 5,000 = Rs 85,000.",
+    whyNot:{0:"Rs 50,000 is just the Net Profit figure, before adding back Depreciation and adjusting for working capital changes.",1:"Rs 90,000 is the Funds from Operations figure, BEFORE the working capital adjustment is applied.",3:"Rs 1,25,000 incorrectly adds all the working capital changes as positive, ignoring that increases in Debtors and Stock should be SUBTRACTED, not added."}},
+  {difficulty:'difficult', q:"Why does the Indirect Method ADD BACK a Loss on Sale of an asset to Net Profit, but DEDUCT a Profit on Sale of an asset?", options:["Because losses are always ignored and profits are always doubled in accounting", "Because both the loss/profit already affected Net Profit (the P&L), but the FULL cash effect of the sale is separately captured under Investing Activities — so the P&L's profit/loss portion must be removed from Operating to avoid double-counting or mis-stating operating cash flow", "Because Losses represent cash inflows and Profits represent cash outflows", "There is no such distinction; both are always added back identically"], correct:1,
+    why:"Since the full sale proceeds are already shown once, correctly, as an Investing Activities inflow, the P&L's profit or loss on that sale (which is really just a NON-OPERATING, non-cash-flow-relevant figure once the Investing inflow is separately captured) must be reversed OUT of the Operating Activities section — added back if it was a loss (which had reduced profit), or deducted if it was a profit (which had increased profit) — so that Operating Activities reflects only genuine day-to-day operating cash generation.",
+    whyNot:{0:"This mischaracterizes standard accounting treatment entirely — there is no such blanket rule.",2:"This reverses the actual cash nature of profit and loss — neither is itself a direct cash flow; both are P&L entries requiring this specific reversal treatment.",3:"There absolutely is a distinction — losses are ADDED BACK, profits are DEDUCTED, precisely to avoid double-counting the cash effect that's already captured under Investing Activities."}},
+]);
+})();
+
+
 /* ---------------- DEMO MODULE (sample content to try the system) ---------------- */
 const DEMO_CHAPTER = {
   id:'demo', title:'Sample Chapter: Motivation', topics:['Meaning of motivation','Content theories (Maslow, Herzberg, McClelland)','Process theories (Vroom, Adams, Locke)'],
