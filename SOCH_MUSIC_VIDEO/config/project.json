@@ -1,0 +1,141 @@
+{
+  "project": {
+    "title": "SOCH",
+    "artist": "Rishi Shah",
+    "language": "Hindi/Hinglish",
+    "explicit": true,
+    "target_duration_sec": 180
+  },
+
+  "music": {
+    "bpm": 96,
+    "beat_offset_sec": 0.0,
+    "_beat_offset_help": "Time (seconds) of the first downbeat in the REAL song. Set this after you have the track so cuts land on the beat.",
+    "key": "dark minor (e.g. F minor)",
+    "song_basename": "soch_song",
+    "accepted_extensions": [".wav", ".mp3", ".flac", ".m4a"],
+    "min_ok_duration_sec": 150,
+    "max_ok_duration_sec": 215
+  },
+
+  "planned_timeline": [
+    {"id": "intro",      "label": "Intro",                 "start": 0,   "end": 12},
+    {"id": "verse1",     "label": "Verse 1",               "start": 12,  "end": 45},
+    {"id": "hook",       "label": "Hook",                  "start": 45,  "end": 65},
+    {"id": "verse2",     "label": "Verse 2",               "start": 65,  "end": 98},
+    {"id": "bridge",     "label": "Bridge / Beat switch",  "start": 98,  "end": 108},
+    {"id": "verse3",     "label": "Verse 3",               "start": 108, "end": 140},
+    {"id": "final_hook", "label": "Final hook",            "start": 140, "end": 165},
+    {"id": "outro",      "label": "Outro",                 "start": 165, "end": 180}
+  ],
+
+  "actual_timeline": null,
+  "_actual_timeline_help": "After the real song exists, listen and copy planned_timeline here with the REAL section start/end seconds. Scenes and subtitles are remapped to it automatically. null = use planned_timeline. The last section always extends to the song's real end.",
+
+  "pronunciation_overrides": {
+    "Q ki": "kyunki",
+    "mitthi": "meethi",
+    "Mitthi": "Meethi"
+  },
+  "_pronunciation_help": "Applied ONLY to text sent to the AI singer. Subtitles always show the approved wording.",
+
+  "music_generation": {
+    "provider": "elevenlabs",
+    "elevenlabs": {
+      "api_key_env": "ELEVENLABS_API_KEY",
+      "endpoint": "https://api.elevenlabs.io/v1/music",
+      "model_id": "music_v1",
+      "output_format": "mp3_44100_128",
+      "respect_sections_durations": true,
+      "request_timeout_sec": 600,
+      "max_retries": 3
+    },
+    "global_positive_styles": [
+      "original aggressive Mumbai street rap",
+      "desi trap",
+      "96 BPM",
+      "dark minor key",
+      "deep sliding 808 bass",
+      "punchy hard-hitting drums",
+      "Indian percussion accents: dhol and tabla",
+      "atmospheric city night ambience",
+      "confident male Hindi/Hinglish rap vocal, clear and upfront",
+      "anthemic chantable hook with gang vocals",
+      "modern clean mix"
+    ],
+    "global_negative_styles": [
+      "imitation of any specific artist's voice or flow",
+      "pop ballad",
+      "EDM drop",
+      "autotune-heavy singing",
+      "female lead vocal",
+      "muddy mix",
+      "lo-fi"
+    ],
+    "section_styles": {
+      "intro":      ["sparse", "city ambience", "train horn", "filtered 808 rumble", "spoken vocal"],
+      "verse1":     ["full beat drop", "aggressive rap delivery", "dhol accents"],
+      "hook":       ["chant hook", "call and response gang vocals", "biggest energy"],
+      "verse2":     ["tight hi-hats", "tabla accents", "confident storytelling flow"],
+      "bridge":     ["beat switch", "drums cut out", "half-time", "dark pad", "tabla roll", "spoken whisper vocal"],
+      "verse3":     ["new harder beat", "double-time hi-hats", "distorted 808", "dhol hits"],
+      "final_hook": ["hook returns bigger", "extra gang vocals", "crowd noise"],
+      "outro":      ["beat filters down", "spoken vocal", "train passing", "ambience fade out"]
+    }
+  },
+
+  "video_generation": {
+    "provider": "runway",
+    "runway": {
+      "api_key_env": "RUNWAYML_API_SECRET",
+      "base_url": "https://api.dev.runwayml.com/v1",
+      "api_version": "2024-11-06",
+      "text_to_video_model": "gen4.5",
+      "image_to_video_model": "gen4_turbo",
+      "keyframe_model": "gen4_image",
+      "video_ratio": "1280:720",
+      "keyframe_ratio": "1920:1080",
+      "allowed_durations": [5, 10],
+      "reference_tag": "rishi",
+      "poll_interval_sec": 10,
+      "task_timeout_sec": 900,
+      "max_retries": 4
+    },
+    "max_slowdown": 1.25,
+    "_max_slowdown_help": "A clip may be slowed by at most this factor to fill its slot; beyond that it is looped (and a warning is logged). Never stretched spatially."
+  },
+
+  "edit": {
+    "fps": 30,
+    "snap_cuts_to_beat": true,
+    "crf": 18,
+    "x264_preset": "medium",
+    "audio_bitrate": "320k",
+    "master": {"width": 1920, "height": 1080, "file": "output/SOCH_Official_Music_Video.mp4"},
+    "vertical": {"width": 1080, "height": 1920, "file": "output/SOCH_Reel_9x16.mp4"},
+    "hook_reel": {
+      "file": "output/SOCH_Hook_Reel.mp4",
+      "start": 137.5,
+      "end": 172.5,
+      "_help": "35 s around the final hook. Must be 30-60 s. Times are snapped to the beat grid.",
+      "title_text": "SOCH — Rishi Shah",
+      "audio_fade_in": 0.4,
+      "audio_fade_out": 1.5
+    }
+  },
+
+  "subtitles": {
+    "srt_file": "lyrics/subtitles.srt",
+    "font": "Arial",
+    "fonts_dir": "assets/fonts",
+    "max_chars_per_row": 42,
+    "min_cue_sec": 1.0,
+    "max_cue_sec": 6.0,
+    "gap_sec": 0.08,
+    "sparse_section_max_cue_sec": 3.5,
+    "master_style": {"font_size": 54, "outline": 3, "shadow": 1, "margin_v": 70, "margin_lr": 160},
+    "vertical_style": {"font_size": 62, "outline": 4, "shadow": 1, "margin_v": 520, "margin_lr": 90},
+    "hook_highlight_colour": "&H0000D7FF",
+    "_colour_help": "ASS colours are &HAABBGGRR. &H0000D7FF = amber. Used for hook lines."
+  }
+}

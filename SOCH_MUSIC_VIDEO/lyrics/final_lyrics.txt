@@ -1,0 +1,103 @@
+# SOCH — Rishi Shah
+# Original Hindi/Hinglish Mumbai street rap. ~96 BPM. Explicit (one line).
+#
+# FORMAT (read by the scripts — keep it):
+#   [section_id]      section header; ids must match config/project.json
+#   {text}            stage direction / sound cue — NOT sung, NOT subtitled
+#   # text            comment — ignored
+#   any other line    a lyric line — sung/rapped AND shown as one subtitle cue
+#
+# The 12 lines marked in lyrics/original_lines.txt are Rishi's approved lines
+# and must stay word-for-word. See lyrics/LYRICS_NOTES.md for flagged wording.
+
+[intro]
+{city night ambience, distant local train horn, low drone, filtered 808 rumble}
+Yeh sheher sota nahi, bas aankhein band karta hai
+Har gali mein ek sapna, har sapna yahan ladta hai
+Rishi Shah... S-O-C-H
+Chal!
+
+[verse1]
+{beat drops: full 808, punchy drums, dhol accents}
+Zaban inki mitthi,
+Aur gandi hai yeh soch,
+Paiso ke hai bhukhe,
+Inki niyat mein hai khot.
+Muh pe smile, peeche chhuri, yahi inka trade hai
+Haath milaate dil se nahi, sirf apne fayde se
+Maine dekha asli chehra jab andhera chhaya tha
+Jo kehte the "bhai bhai", unka phone bhi na aaya tha
+Chilla chilla kar yeh haters kahenge,
+What the fuck he has wrote?
+I don't wanna stop,
+Jab tak inki badal jaati soch.
+Notebook mein raatein meri, pen se nikla dhuaan
+Underpass ki deewaron pe likha maine apna naam
+
+[hook]
+{chant hook, crowd gang vocals answer "Soch!"}
+Soch! Soch! Badlegi soch!
+Mitthi zaban, khota dil, dekh inki soch
+Soch! Soch! Badlegi soch!
+Main na rukunga jab tak na badle inki soch
+Gali gali bole: Soch! (Soch!)
+Poori Mumbai bole: Soch! (Soch!)
+Haath upar, awaaz bada: Soch! (Soch!)
+Jab tak na badle: Soch!
+
+[verse2]
+{beat returns, tighter hi-hats, tabla accents}
+Khade hain line me Q ki bade mere shows,
+Ticket meri sasti Q ki mehenge hai yeh log.
+Basement ka mic tha, wahin se shuru safar
+Bees log the pehle, ab housefull har ek hall
+Woh gine apne note, main ginu kitne gaaye mere bol
+Unko chahiye daam, mujhe chahiye naam
+Sasta mera ticket, par mehenga mera kaam
+Local ki bheed mein likhi maine har ek line
+Pasine ki syahi, aur sabr mera sign
+Jo bole "kuch nahi hoga", woh aaj line mein khade
+Maine kuch nahi bhoola, bas dil se hum bade
+Mic pakad ke bolun, yeh shor nahi, yeh josh hai
+Har show mein ek hi naara: badlegi yeh soch hai
+
+[bridge]
+{BEAT SWITCH: drums cut, half-time, dark pad, single tabla roll, then new harder pattern}
+Ruk... saans le
+Sheher sun raha hai
+Jo gira, wahi uthke chal raha hai
+Beat badal. Ab sun!
+
+[verse3]
+{new beat: harder, double-time hi-hats, distorted 808, dhol hits on every 4th bar}
+Ab bhi hum shine karte mere school waale dost,
+Rap sikhane waale mere college waale dost.
+Canteen ki table pe bani pehli beat
+Khaali jeb, bhari aankhein, par irade the complete
+Jo the tab saath, wohi aaj bhi saath hain
+Sheher badle, naam badle, par wahi haath hain
+Naqli log aaye jab chamakne laga naam
+Asli log the tab bhi, jab na tha koi kaam
+Loyalty ka rate kabhi market mein na girta
+Jo mehnat se bana, woh toofan se na darta
+Rooftop pe khade hum, neeche sheher ki roshni
+Yeh jeet sabki hai, sirf meri nahi akeli
+
+[final_hook]
+{hook returns, bigger: extra gang vocals, crowd noise}
+Soch! Soch! Badlegi soch!
+Mitthi zaban, khota dil, dekh inki soch
+Soch! Soch! Badlegi soch!
+Main na rukunga jab tak na badle inki soch
+Gali gali bole: Soch! (Soch!)
+Poori Mumbai bole: Soch! (Soch!)
+School se college tak: Soch! (Soch!)
+Stage se gali tak: Soch!
+Jab tak na badle: Soch!
+
+[outro]
+{beat filters down, train passes, ambience returns}
+Soch badlo, sheher badlega
+Mehnat bolegi, shor nahi
+Gali se stage tak... yeh safar hamara
+Rishi Shah. Soch.

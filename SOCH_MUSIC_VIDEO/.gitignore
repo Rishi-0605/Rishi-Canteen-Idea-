@@ -1,0 +1,26 @@
+# secrets
+.env
+
+# large / generated media (keep folder placeholders)
+assets/audio/*
+!assets/audio/.gitkeep
+assets/generated_clips/**/*.mp4
+assets/generated_clips/**/*.mov
+assets/generated_clips/**/*.webm
+assets/generated_clips/**/*.mkv
+assets/generated_clips/keyframes/
+assets/lipsync_audio/*
+!assets/lipsync_audio/.gitkeep
+assets/character_reference/*
+!assets/character_reference/.gitkeep
+!assets/character_reference/README.md
+output/*
+!output/.gitkeep
+logs/*
+!logs/.gitkeep
+prompts/generated/
+
+# python
+__pycache__/
+*.pyc
+.venv/
