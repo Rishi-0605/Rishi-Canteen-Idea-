@@ -138,9 +138,10 @@ def t_music_request():
     assert abs(req["_total_sec"] - 180) < 0.01, "section durations must total 180 s"
     text = json.dumps(req, ensure_ascii=False)
     assert "kyunki" in text and " Q ki " not in text, "pronunciation override not applied"
+    assert "meethi" in text and "itthi" not in text, "mitthi -> meethi override not applied"
     key = get_secret(cfg["music_generation"]["elevenlabs"]["api_key_env"])
     assert not key or key not in text, "secret leaked into request preview"
-    return f"{len(plan['sections'])} sections, 'Q ki' sent as 'kyunki'"
+    return f"{len(plan['sections'])} sections, 'Q ki' -> 'kyunki', 'mitthi' -> 'meethi' for the singer"
 
 
 @test("video adapter: dry-run plans (no network)")

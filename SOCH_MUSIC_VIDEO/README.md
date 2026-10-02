@@ -56,7 +56,8 @@ python scripts/generate_music.py --confirm-paid  # PAID: generates and saves ass
 - The audio is only saved if real audio comes back and FFmpeg can decode it.
 - It does **not** auto-retry after a timeout (the song may already have been billed); it tells you to
   check your ElevenLabs history first.
-- `"Q ki"` is sent to the singer as **"kyunki"** so it isn't pronounced "queue". Subtitles keep "Q ki".
+- `"Q ki"` is sent to the singer as **"kyunki"** and `"mitthi"` as **"meethi"** (sweet), so they're
+  pronounced correctly. Subtitles keep your spellings.
 
 ### Option B: any music tool you already use (manual, free here)
 Open `prompts/music_prompt.txt`, which has the style box, exclusions, structure and the full lyrics.
@@ -169,8 +170,8 @@ The hook reel window is set in `config/project.json → edit.hook_reel` (default
 - `lyrics/final_lyrics.txt` has the full song: intro, 3 verses, hook, beat-switch bridge, final hook
   and outro.
 - `lyrics/original_lines.txt` has Rishi's 12 approved lines, kept word-for-word. Tests enforce this.
-- **`lyrics/LYRICS_NOTES.md` lists 7 flagged wordings that need your decision** (e.g. *mitthi*
-  meaning *meethi*? and a clean-version line).
+- `lyrics/LYRICS_NOTES.md` records the wording decisions (mitthi = *meethi*, explicit line kept,
+  "waale" spelling).
 
 ---
 
@@ -190,7 +191,7 @@ soch.py                          start here
 config/project.json              timeline, BPM, providers, export + subtitle settings
 lyrics/final_lyrics.txt          full song (parsed by the scripts)
 lyrics/original_lines.txt        approved lines (word-for-word)
-lyrics/LYRICS_NOTES.md           flagged wording, please review
+lyrics/LYRICS_NOTES.md           wording decisions
 lyrics/subtitles.srt             editable subtitles (approximate timings)
 prompts/music_prompt.txt         copy-paste prompt for manual music tools
 prompts/scene_prompts.json       32-scene shot list + prompts

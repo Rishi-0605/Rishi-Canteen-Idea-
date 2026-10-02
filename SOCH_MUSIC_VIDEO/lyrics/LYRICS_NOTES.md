@@ -1,20 +1,21 @@
-# Lyrics notes — please review
+# Lyrics notes — decisions
 
-Your 12 original lines (`original_lines.txt`) are kept **exactly as you wrote them**.
-I made **no** spelling changes, because each candidate change could also be a deliberate
-choice. The automated tests check that every one of these lines appears word-for-word in
+Your 12 original lines (`original_lines.txt`) are kept as you wrote them, with **one**
+spelling change you approved: "Rap sikhane wale" → "Rap sikhane **waale**". The automated tests check that every one of these lines appears word-for-word in
 `final_lyrics.txt` and in `subtitles.srt`.
 
-## Flagged wording (your call)
+## Decisions
 
-| # | Line | Question | What I assumed |
+Items 1, 3 and 6 were decided by Rishi; the rest are kept as written.
+
+| # | Line | Question | Decision / assumption |
 |---|------|----------|----------------|
-| 1 | "Zaban inki **mitthi**" | *meethi* (sweet) or *mitti* (soil/dirt)? | **meethi** = "their tongue is sweet" (fake sweet talk). The hook reuses it ("Mitthi zaban, khota dil"). |
+| 1 | "Zaban inki **mitthi**" | *meethi* (sweet) or *mitti* (soil/dirt)? | **DECIDED: meethi (sweet).** Spelling "mitthi" kept on screen; the AI singer is sent "meethi" (`pronunciation_overrides`) so it isn't sung as *mitti*. |
 | 2 | "**Q ki**" (×2) | Texting shorthand for *kyunki* (because). | Kept on screen as "Q ki". **For AI vocals only**, it is sent as "kyunki" (see `pronunciation_overrides` in `config/project.json`) so the singer doesn't say "queue ki". |
-| 3 | "What the fuck he has **wrote**?" | Grammatically "has written". Explicit word. | Intentional slang (quoting haters). Kept. The track is marked **explicit**. A clean radio edit would need a replacement line from you, e.g. "What the hell he has wrote?" — not applied. |
+| 3 | "What the fuck he has **wrote**?" | Grammatically "has written". Explicit word. | **DECIDED: keep as is (explicit).** The track is marked explicit. |
 | 4 | "Jab tak inki badal **jaati** soch" | Strict grammar would be "badal na jaaye". | Meaning: "until their mindset changes". Kept. |
 | 5 | "Ab bhi hum shine karte mere school waale dost" | Who shines — "we (me + my school friends) still shine", or "my school friends still make us shine"? | "We still shine together — my school friends." Kept. |
-| 6 | "Rap sikhane **wale**" vs "college **waale**" | Spelling is inconsistent within the line. | Kept as written. Change to "waale" if you want consistency (edit both `final_lyrics.txt` and `original_lines.txt`). |
+| 6 | "Rap sikhane **wale**" vs "college **waale**" | Spelling is inconsistent within the line. | **DECIDED: changed to "waale".** |
 | 7 | "line **me**" vs "niyat **mein**" | Two spellings of the same word. | Kept as written. |
 
 ## What I wrote around your lines

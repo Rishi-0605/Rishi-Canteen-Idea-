@@ -27,8 +27,9 @@ Total length: ~3:00. 96 BPM (1 bar = 2.5 s).
   2:45-3:00  Outro: beat filters down, spoken vocal, train passing, ambience fade out
 
 --- LYRICS BOX (paste) ---------------------------------------------------------------
-NOTE: "Q ki" is written as "kyunki" below so the AI singer pronounces it correctly.
-On-screen subtitles keep your original spelling "Q ki".
+NOTE: "Q ki" is written as "kyunki" and "mitthi" as "meethi" below so the AI singer
+pronounces them correctly (meethi = sweet).
+On-screen subtitles keep your original spellings "Q ki" and "mitthi".
 
 [Intro]
 (city night ambience, distant local train horn, low drone, filtered 808 rumble)
@@ -39,7 +40,7 @@ Chal!
 
 [Verse 1]
 (beat drops: full 808, punchy drums, dhol accents)
-Zaban inki mitthi,
+Zaban inki meethi,
 Aur gandi hai yeh soch,
 Paiso ke hai bhukhe,
 Inki niyat mein hai khot.
@@ -57,7 +58,7 @@ Underpass ki deewaron pe likha maine apna naam
 [Hook]
 (chant hook, crowd gang vocals answer "Soch!")
 Soch! Soch! Badlegi soch!
-Mitthi zaban, khota dil, dekh inki soch
+Meethi zaban, khota dil, dekh inki soch
 Soch! Soch! Badlegi soch!
 Main na rukunga jab tak na badle inki soch
 Gali gali bole: Soch! (Soch!)
@@ -91,7 +92,7 @@ Beat badal. Ab sun!
 [Verse 3]
 (new beat: harder, double-time hi-hats, distorted 808, dhol hits on every 4th bar)
 Ab bhi hum shine karte mere school waale dost,
-Rap sikhane wale mere college waale dost.
+Rap sikhane waale mere college waale dost.
 Canteen ki table pe bani pehli beat
 Khaali jeb, bhari aankhein, par irade the complete
 Jo the tab saath, wohi aaj bhi saath hain
@@ -106,7 +107,7 @@ Yeh jeet sabki hai, sirf meri nahi akeli
 [Final Hook]
 (hook returns, bigger: extra gang vocals, crowd noise)
 Soch! Soch! Badlegi soch!
-Mitthi zaban, khota dil, dekh inki soch
+Meethi zaban, khota dil, dekh inki soch
 Soch! Soch! Badlegi soch!
 Main na rukunga jab tak na badle inki soch
 Gali gali bole: Soch! (Soch!)

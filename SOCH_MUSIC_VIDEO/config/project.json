@@ -33,7 +33,9 @@
   "_actual_timeline_help": "After the real song exists, listen and copy planned_timeline here with the REAL section start/end seconds. Scenes and subtitles are remapped to it automatically. null = use planned_timeline. The last section always extends to the song's real end.",
 
   "pronunciation_overrides": {
-    "Q ki": "kyunki"
+    "Q ki": "kyunki",
+    "mitthi": "meethi",
+    "Mitthi": "Meethi"
   },
   "_pronunciation_help": "Applied ONLY to text sent to the AI singer. Subtitles always show the approved wording.",
 
