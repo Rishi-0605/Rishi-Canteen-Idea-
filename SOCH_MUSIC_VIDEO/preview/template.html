@@ -149,7 +149,7 @@ label.vol input { accent-color: var(--sodium); width: 110px; }
       <div class="cur" id="cur">Press play. Lyrics appear here on the beat.</div>
       <div class="progress"><div id="cueprog"></div></div>
       <div class="next" id="nextline"></div>
-      <p class="small" id="voicenote">The robot voice uses your browser's built-in text-to-speech. It only reads the words; it can't rap or hit the beat.</p>
+      <p class="small" id="voicenote">Robot reading voice: your device's built-in voice reads each line as it lights up, and the beat is turned down so you can hear it. It reads the words; it can't rap.</p>
       <h2 style="margin-top:18px">Hear your rap for free</h2>
       <ol class="tips">
         <li><b>Headphones on</b>, play a section, and rap the highlighted line when it lights up.</li>
@@ -272,7 +272,7 @@ let ac = null, out, lp, comp, master, bus, noiseBuf, distCurve, amb = null, ambG
 function initAudio() {
   if (ac) return;
   ac = new (window.AudioContext || window.webkitAudioContext)();
-  master = ac.createGain(); master.gain.value = +$("#vol").value;
+  master = ac.createGain(); master.gain.value = beatLevel();
   comp = ac.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 4; comp.attack.value = 0.004; comp.release.value = 0.2;
   lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 18000;
   lp.connect(comp); comp.connect(master); master.connect(ac.destination);
@@ -446,7 +446,10 @@ $("#play").onclick = () => playing ? pause() : play();
 $("#bigplay").onclick = () => play();
 $("#restart").onclick = () => { if (playing) play(0); else { pausedAt = 0; play(0); } };
 $("#loop").onclick = e => { loopOn = !loopOn; loopSec = loopOn ? sectionAt(songTime()) : null; e.currentTarget.setAttribute("aria-pressed", loopOn); };
-$("#vol").oninput = e => { if (master) master.gain.setTargetAtTime(+e.target.value, ac.currentTime, 0.02); };
+const DUCK = 0.3; // beat level while the reading voice is on, so the voice is clearly heard
+function beatLevel() { return +$("#vol").value * (voiceOn ? DUCK : 1); }
+function applyBeatLevel() { if (master) master.gain.setTargetAtTime(beatLevel(), ac.currentTime, 0.05); }
+$("#vol").oninput = applyBeatLevel;
 $("#subs").onclick = e => { const v = e.currentTarget.getAttribute("aria-pressed") !== "true"; e.currentTarget.setAttribute("aria-pressed", v); showSubs = v; };
 document.addEventListener("keydown", e => {
   if (e.target.closest("input, button, [role=slider]") && e.code === "Space") return;
@@ -462,24 +465,37 @@ function pickVoice() {
 }
 if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 $("#voice").onclick = e => {
-  if (!("speechSynthesis" in window)) { $("#voicenote").textContent = "This browser has no built-in text-to-speech, so the reading voice isn't available."; return; }
+  const note = $("#voicenote");
+  if (!("speechSynthesis" in window)) { note.textContent = "This browser has no built-in voice, so the reading voice isn't available. Try Chrome or Safari."; return; }
   voiceOn = !voiceOn; e.currentTarget.setAttribute("aria-pressed", voiceOn);
+  applyBeatLevel();
+  if (!voiceOn) { speechSynthesis.cancel(); note.textContent = "Reading voice off. Beat back to full volume."; return; }
   pickVoice();
-  $("#voicenote").textContent = voiceOn
-    ? `Reading voice on${voice ? ` (${voice.name})` : ""}. It only reads the words; it can't rap or hit the beat. Your own voice will sound much better.`
-    : "The robot voice uses your browser's built-in text-to-speech. It only reads the words; it can't rap or hit the beat.";
-  if (!voiceOn) speechSynthesis.cancel();
+  // Phones only allow speech that starts inside a tap, so say one word right now to unlock it.
+  speechSynthesis.cancel();
+  const hello = new SpeechSynthesisUtterance("Soch!");
+  if (voice) { hello.voice = voice; hello.lang = voice.lang; }
+  hello.volume = 1; hello.rate = 1;
+  speechSynthesis.speak(hello);
+  note.textContent = `Reading voice on${voice ? ` (${voice.name})` : ""}. The beat is turned down so you can hear it. ` +
+    "If you still hear nothing: turn up your phone or computer volume, and on iPhone switch off silent mode. It reads the words; it can't rap.";
+  if (!voice && !(speechSynthesis.getVoices() || []).length) note.textContent += " (No voices found on this device yet; it may take a few seconds to load.)";
 };
+let speakTimer = null;
 function speak(cue) {
   if (!voiceOn || !playing) return;
+  clearTimeout(speakTimer);
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(cue.say);
-  if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "hi-IN";
-  const len = cue.say.length, slot = Math.max(0.8, cue.e - cue.s);
-  u.rate = clamp(len / 13 / slot, 0.9, 1.8); u.pitch = 0.85; u.volume = 1;
-  speechSynthesis.speak(u);
+  // a short gap after cancel(): Chrome sometimes stays silent if speak() follows immediately
+  speakTimer = setTimeout(() => {
+    const u = new SpeechSynthesisUtterance(cue.say);
+    if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = "hi-IN";
+    const len = cue.say.length, slot = Math.max(0.8, cue.e - cue.s);
+    u.rate = clamp(len / 13 / slot, 0.9, 1.8); u.pitch = 0.9; u.volume = 1;
+    speechSynthesis.resume(); // Chrome can get stuck "paused" after long sessions
+    speechSynthesis.speak(u);
+  }, 60);
 }
-
 /* format */
 const canvas = $("#screen"), ctx = canvas.getContext("2d");
 const world = document.createElement("canvas"); world.width = 1280; world.height = 720;
