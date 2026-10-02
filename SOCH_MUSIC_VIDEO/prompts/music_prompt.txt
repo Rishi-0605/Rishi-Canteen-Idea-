@@ -1,0 +1,123 @@
+SOCH — Rishi Shah — MUSIC PROMPT (for manual use in any AI music tool's web UI)
+==========================================================================
+Use this if you generate the song by hand (e.g. in a tool's website) instead of the API.
+Then import the downloaded file with:
+    python scripts/generate_music.py --import "path/to/downloaded_song.mp3"
+
+RULES: Original music and vocal identity only. Do not type any artist's name into
+the style box and do not ask for "in the style of <artist>".
+
+--- STYLE / GENRE BOX (paste) ---------------------------------------------------
+
+original aggressive Mumbai street rap, desi trap, 96 BPM, dark minor key, deep sliding 808 bass, punchy hard-hitting drums, Indian percussion accents: dhol and tabla, atmospheric city night ambience, confident male Hindi/Hinglish rap vocal, clear and upfront, anthemic chantable hook with gang vocals, modern clean mix.
+
+--- EXCLUDE / NEGATIVE STYLES (if the tool has this box) ---------------------------
+
+imitation of any specific artist's voice or flow, pop ballad, EDM drop, autotune-heavy singing, female lead vocal, muddy mix, lo-fi.
+
+--- STRUCTURE / TIMING TARGET -------------------------------------------------------
+Total length: ~3:00. 96 BPM (1 bar = 2.5 s).
+  0:00-0:12  Intro: sparse, city ambience, train horn, filtered 808 rumble, spoken vocal
+  0:12-0:45  Verse 1: full beat drop, aggressive rap delivery, dhol accents
+  0:45-1:05  Hook: chant hook, call and response gang vocals, biggest energy
+  1:05-1:38  Verse 2: tight hi-hats, tabla accents, confident storytelling flow
+  1:38-1:48  Bridge / Beat switch: beat switch, drums cut out, half-time, dark pad, tabla roll, spoken whisper vocal
+  1:48-2:20  Verse 3: new harder beat, double-time hi-hats, distorted 808, dhol hits
+  2:20-2:45  Final hook: hook returns bigger, extra gang vocals, crowd noise
+  2:45-3:00  Outro: beat filters down, spoken vocal, train passing, ambience fade out
+
+--- LYRICS BOX (paste) ---------------------------------------------------------------
+NOTE: "Q ki" is written as "kyunki" below so the AI singer pronounces it correctly.
+On-screen subtitles keep your original spelling "Q ki".
+
+[Intro]
+(city night ambience, distant local train horn, low drone, filtered 808 rumble)
+Yeh sheher sota nahi, bas aankhein band karta hai
+Har gali mein ek sapna, har sapna yahan ladta hai
+Rishi Shah... S-O-C-H
+Chal!
+
+[Verse 1]
+(beat drops: full 808, punchy drums, dhol accents)
+Zaban inki mitthi,
+Aur gandi hai yeh soch,
+Paiso ke hai bhukhe,
+Inki niyat mein hai khot.
+Muh pe smile, peeche chhuri, yahi inka trade hai
+Haath milaate dil se nahi, sirf apne fayde se
+Maine dekha asli chehra jab andhera chhaya tha
+Jo kehte the "bhai bhai", unka phone bhi na aaya tha
+Chilla chilla kar yeh haters kahenge,
+What the fuck he has wrote?
+I don't wanna stop,
+Jab tak inki badal jaati soch.
+Notebook mein raatein meri, pen se nikla dhuaan
+Underpass ki deewaron pe likha maine apna naam
+
+[Hook]
+(chant hook, crowd gang vocals answer "Soch!")
+Soch! Soch! Badlegi soch!
+Mitthi zaban, khota dil, dekh inki soch
+Soch! Soch! Badlegi soch!
+Main na rukunga jab tak na badle inki soch
+Gali gali bole: Soch! (Soch!)
+Poori Mumbai bole: Soch! (Soch!)
+Haath upar, awaaz bada: Soch! (Soch!)
+Jab tak na badle: Soch!
+
+[Verse 2]
+(beat returns, tighter hi-hats, tabla accents)
+Khade hain line me kyunki bade mere shows,
+Ticket meri sasti kyunki mehenge hai yeh log.
+Basement ka mic tha, wahin se shuru safar
+Bees log the pehle, ab housefull har ek hall
+Woh gine apne note, main ginu kitne gaaye mere bol
+Unko chahiye daam, mujhe chahiye naam
+Sasta mera ticket, par mehenga mera kaam
+Local ki bheed mein likhi maine har ek line
+Pasine ki syahi, aur sabr mera sign
+Jo bole "kuch nahi hoga", woh aaj line mein khade
+Maine kuch nahi bhoola, bas dil se hum bade
+Mic pakad ke bolun, yeh shor nahi, yeh josh hai
+Har show mein ek hi naara: badlegi yeh soch hai
+
+[Bridge - Beat Switch]
+(BEAT SWITCH: drums cut, half-time, dark pad, single tabla roll, then new harder pattern)
+Ruk... saans le
+Sheher sun raha hai
+Jo gira, wahi uthke chal raha hai
+Beat badal. Ab sun!
+
+[Verse 3]
+(new beat: harder, double-time hi-hats, distorted 808, dhol hits on every 4th bar)
+Ab bhi hum shine karte mere school waale dost,
+Rap sikhane wale mere college waale dost.
+Canteen ki table pe bani pehli beat
+Khaali jeb, bhari aankhein, par irade the complete
+Jo the tab saath, wohi aaj bhi saath hain
+Sheher badle, naam badle, par wahi haath hain
+Naqli log aaye jab chamakne laga naam
+Asli log the tab bhi, jab na tha koi kaam
+Loyalty ka rate kabhi market mein na girta
+Jo mehnat se bana, woh toofan se na darta
+Rooftop pe khade hum, neeche sheher ki roshni
+Yeh jeet sabki hai, sirf meri nahi akeli
+
+[Final Hook]
+(hook returns, bigger: extra gang vocals, crowd noise)
+Soch! Soch! Badlegi soch!
+Mitthi zaban, khota dil, dekh inki soch
+Soch! Soch! Badlegi soch!
+Main na rukunga jab tak na badle inki soch
+Gali gali bole: Soch! (Soch!)
+Poori Mumbai bole: Soch! (Soch!)
+School se college tak: Soch! (Soch!)
+Stage se gali tak: Soch!
+Jab tak na badle: Soch!
+
+[Outro]
+(beat filters down, train passes, ambience returns)
+Soch badlo, sheher badlega
+Mehnat bolegi, shor nahi
+Gali se stage tak... yeh safar hamara
+Rishi Shah. Soch.
