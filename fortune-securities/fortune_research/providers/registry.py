@@ -26,7 +26,8 @@ def register_factory(name: str, fn: Callable) -> None:
 
 def _nse(settings, http):
     from .nse import NSEProvider
-    return NSEProvider(http)
+    return NSEProvider(http, max_bhav_days=settings.get("providers.nse.max_bhav_days", 400),
+                       max_filings=settings.get("providers.nse.max_filings", 8))
 
 
 def _bse(settings, http):
@@ -45,6 +46,12 @@ def _rss(settings, http):
                        settings.get("providers.rss.allowed_domains", []))
 
 
+def _ir(settings, http):
+    from .ir import IRProvider
+    return IRProvider(http)
+
+
+register_factory("ir", _ir)
 register_factory("nse", _nse)
 register_factory("bse", _bse)
 register_factory("yahoo", _yahoo)

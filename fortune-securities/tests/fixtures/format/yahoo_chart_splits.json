@@ -1,0 +1,3 @@
+{"_comment": "HAND-WRITTEN FORMAT FIXTURE: fictional EXAMPLECO", "chart": {"error": null, "result": [{"meta": {"symbol": "EXAMPLECO.NS"},
+  "timestamp": [1710388800, 1710475200], "indicators": {"quote": [{"open": [300, 101], "high": [302, 103], "low": [299, 100], "close": [301, 102], "volume": [1000, 3100]}]},
+  "events": {"splits": {"1710475200": {"date": 1710475200, "numerator": 3, "denominator": 2, "splitRatio": "3:2"}}}}]}}

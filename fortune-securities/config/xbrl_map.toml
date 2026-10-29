@@ -1,0 +1,48 @@
+# XBRL element (local name) -> canonical line item, for SEBI LODR Reg. 33 financial-results
+# filings published by NSE/BSE (Ind AS "in-capmkt" taxonomy).
+#
+# STATUS: element names below follow the Ind AS results taxonomy as commonly published, but they
+# have NOT yet been confirmed against a live filing in this project (the build sandbox cannot reach
+# NSE/BSE). The parser lists every numeric element it could not map ("unmapped"), so after the first
+# real filing is retrieved, check that list and correct this file. Earlier names win if several match.
+
+[line_items]
+revenue              = ["RevenueFromOperations"]
+other_income         = ["OtherIncome"]
+total_income         = ["Income", "TotalIncome"]
+total_expenses       = ["Expenses", "TotalExpenses"]
+cost_of_goods_sold   = ["CostOfMaterialsConsumed"]
+employee_expenses    = ["EmployeeBenefitExpense"]
+finance_costs        = ["FinanceCosts"]
+depreciation         = ["DepreciationDepletionAndAmortisationExpense", "DepreciationAndAmortisationExpense"]
+exceptional_items    = ["ExceptionalItemsBeforeTax", "ExceptionalItems"]
+pbt                  = ["ProfitBeforeTax", "ProfitLossBeforeTax"]
+tax_expense          = ["TaxExpense", "TotalTaxExpense"]
+pat                  = ["ProfitLossForPeriod", "ProfitLossForThePeriod", "ProfitLossForPeriodFromContinuingOperations"]
+pat_attributable     = ["ProfitOrLossAttributableToOwnersOfParent", "ProfitLossAttributableToOwnersOfParent"]
+eps_diluted          = ["DilutedEarningsLossPerShareFromContinuingOperations", "DilutedEarningsPerShare",
+                        "DilutedEarningsLossPerShareFromContinuingAndDiscontinuedOperations"]
+eps_basic            = ["BasicEarningsLossPerShareFromContinuingOperations", "BasicEarningsPerShare"]
+equity_share_capital = ["PaidUpValueOfEquityShareCapital", "EquityShareCapital"]
+other_equity         = ["OtherEquity"]
+total_equity         = ["Equity", "TotalEquity"]
+total_assets         = ["Assets", "TotalAssets"]
+trade_receivables    = ["TradeReceivablesCurrent"]
+inventories          = ["Inventories"]
+cash_and_equivalents = ["CashAndCashEquivalents"]
+trade_payables       = ["TradePayablesCurrent"]
+borrowings_noncurrent = ["BorrowingsNoncurrent"]
+borrowings_current   = ["BorrowingsCurrent"]
+cfo                  = ["CashFlowsFromUsedInOperatingActivities", "NetCashFlowsFromUsedInOperatingActivities"]
+
+[metadata]
+# non-numeric elements used to verify identity and context of the document
+company_name = ["NameOfTheCompany", "NameOfCompany"]
+symbol       = ["Symbol", "NSESymbol"]
+scrip_code   = ["ScripCode", "BSEScripCode"]
+isin         = ["ISIN"]
+basis        = ["NatureOfReportStandaloneConsolidated"]
+audited      = ["WhetherResultsAreAuditedOrUnaudited"]
+period_start = ["DateOfStartOfReportingPeriod"]
+period_end   = ["DateOfEndOfReportingPeriod"]
+face_value   = ["FaceValueOfEquityShareCapital"]

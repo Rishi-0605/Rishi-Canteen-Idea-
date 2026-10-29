@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- HAND-WRITTEN FORMAT FIXTURE: Google News search RSS shape, fictional EXAMPLECO -->
+<rss version="2.0"><channel><title>"Exampleco" - Google News</title>
+<item><title>Exampleco Q2 profit rises 15% on defence orders - The Economic Times</title><link>https://news.google.com/rss/articles/AAA1</link>
+  <pubDate>Fri, 07 Nov 2025 14:00:00 GMT</pubDate><source url="https://economictimes.indiatimes.com">The Economic Times</source></item>
+<item><title>Exampleco Q2 profit rises 15% on defence orders - Business Standard</title><link>https://news.google.com/rss/articles/AAA2</link>
+  <pubDate>Fri, 07 Nov 2025 16:00:00 GMT</pubDate><source url="https://www.business-standard.com">Business Standard</source></item>
+<item><title>Exampleco shares: 5 stocks to buy now - Random Tips Blog</title><link>https://news.google.com/rss/articles/AAA3</link>
+  <pubDate>Fri, 07 Nov 2025 18:00:00 GMT</pubDate><source url="https://random-tips.invalid">Random Tips Blog</source></item>
+<item><title>Exampleco wins order worth Rs 500 crore - Mint</title><link>https://news.google.com/rss/articles/AAA4</link>
+  <pubDate>Mon, 10 Nov 2025 09:00:00 GMT</pubDate><source url="https://www.livemint.com">Mint</source></item>
+</channel></rss>

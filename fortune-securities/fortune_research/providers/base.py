@@ -11,6 +11,8 @@ Capabilities:
   governance     dict from the annual report (auditor, RPT, contingent liabilities)
   news           list[Announcement] with category "news" from credible publishers
   benchmark      PriceSeries for an index
+  corporate_actions  list[CorporateAction] (splits, bonuses, dividends)
+  documents      list[dict] of company documents (annual reports, results, presentations, transcripts)
 
 A method returns None (or empty) when the provider has no data, and raises
 ProviderError when it tried and failed. It never returns made-up values.
@@ -24,7 +26,7 @@ from typing import Optional
 from ..models import PriceSeries, Security
 
 CAPABILITIES = ("master", "profile", "financials", "prices", "announcements", "shareholding",
-                "governance", "news", "benchmark")
+                "governance", "news", "benchmark", "corporate_actions", "documents")
 
 
 class ProviderError(Exception):
@@ -64,4 +66,10 @@ class Provider:
 
     def benchmark(self, name: str, start: Optional[dt.date] = None,
                   end: Optional[dt.date] = None) -> Optional[PriceSeries]:
+        raise NotImplementedError
+
+    def corporate_actions(self, sec: Security) -> list:
+        raise NotImplementedError
+
+    def documents(self, sec: Security) -> list:
         raise NotImplementedError

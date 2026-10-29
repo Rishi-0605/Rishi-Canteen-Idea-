@@ -32,6 +32,9 @@ data/manual/
     news.csv            publisher headlines (treated as leads)
     shareholding.csv    quarterly shareholding pattern
     governance.json     annual-report governance facts, with page references
+    corporate_actions.csv  splits, bonuses, dividends (ex_date, subject, source_url, ...)
+    documents/          PDFs you downloaded (results, annual reports, presentations, transcripts)
+      documents.json    manifest: [{"file", "url", "kind", "period", "published", "publisher", "official"}]
 ```
 
 ### master.csv
@@ -59,6 +62,8 @@ The NSE `EQUITY_L.csv` file can be converted to this layout, and once the NSE pr
 | `source_url`, `source_title`, `publisher`, `official` | the filing you copied it from, and whether that is an official source |
 | `published` | date the filing was published (analyses dated earlier will not see it) |
 | `retrieved_at` | when you took the number (ISO timestamp) |
+| `period_start` | optional: first day of the period (flags 15-month transition years) |
+| `locator` | optional: where in the document (e.g. `p.4, line "Revenue from operations"`) |
 
 Line items:
 P&L `revenue` (revenue from operations), `other_income`, `operating_expenses` (total expenses excluding finance
@@ -97,3 +102,15 @@ news: `date, publisher, headline, source_url, official, published, retrieved_at`
   "source": {"url": "...", "title": "Annual report FY26", "publisher": "...", "official": true,
              "published": "2026-08-01", "page": "118-125", "retrieved_at": "..."}}}}
 ```
+
+### corporate_actions.csv
+
+`ex_date, subject, source_url, publisher, official, retrieved_at[, kind, factor]`. The subject is parsed
+("Bonus 1:2" gives factor 1.5; "Face Value Split ... From Rs 10/- ... To Rs 2/-" gives factor 5). Give `kind`
+and `factor` explicitly only when the subject cannot be parsed. Factor = shares after / shares before.
+
+### documents/documents.json
+
+Each PDF needs the URL you downloaded it from (that becomes its citation), its kind
+(`results`, `annual_report`, `presentation`, `transcript`, `disclosure`), the period and the publication date.
+Figures found in PDFs are shown with their page for you to check. They never enter calculations automatically.

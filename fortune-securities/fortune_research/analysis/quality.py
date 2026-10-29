@@ -17,10 +17,11 @@ AMOUNT_ITEMS = {"revenue", "other_income", "operating_expenses", "cost_of_goods_
                 "borrowings_noncurrent", "borrowings_current", "lease_liabilities", "cash_and_equivalents",
                 "current_investments", "trade_receivables", "inventories", "trade_payables", "current_assets",
                 "current_liabilities", "total_assets", "total_liabilities", "contingent_liabilities", "cfo", "capex",
-                "dividends_paid", "ebitda"}
+                "dividends_paid", "ebitda", "total_expenses", "total_income", "exceptional_items", "employee_expenses"}
 NON_NEGATIVE = {"revenue", "trade_receivables", "inventories", "trade_payables", "cash_and_equivalents", "total_assets",
                 "shares_outstanding", "borrowings_noncurrent", "borrowings_current", "depreciation", "finance_costs"}
-EXPECTED_UNIT = {"eps_diluted": "INR per share", "shares_outstanding": "shares"}
+EXPECTED_UNIT = {"eps_diluted": "INR per share", "eps_basic": "INR per share", "shares_outstanding": "shares"}
+PERIOD_DAYS = {"FY": (350, 380), "Q": (85, 95)}
 
 
 def _close(a: float, b: float, rel: float, abs_tol: float) -> bool:
@@ -30,13 +31,26 @@ def _close(a: float, b: float, rel: float, abs_tol: float) -> bool:
 def check_facts(facts: list, basis: str) -> list:
     issues = []
     seen = {}
-    for f in facts:
+    odd_periods = set()
+    for f in sorted(facts, key=lambda x: x.source.published or ""):
         key = (f.name, f.period_type, f.period_end, f.basis)
-        if key in seen and seen[key].value != f.value:
-            issues.append(DataIssue("error", "duplicate_conflict",
-                                    "%s %s %s given twice with different values (%s vs %s)"
-                                    % (f.name, f.period_label, f.basis, seen[key].value, f.value), "financials"))
+        prev = seen.get(key)
+        if prev is not None and prev.value is not None and f.value is not None and \
+                abs(prev.value - f.value) > max(0.01, 0.0005 * abs(prev.value)):
+            if prev.source.published and f.source.published and prev.source.published != f.source.published:
+                issues.append(DataIssue("warning", "restated", "%s %s %s restated: %s (filed %s) -> %s (filed %s); the later filing is used"
+                                        % (f.name, f.period_label, f.basis, prev.value, prev.source.published[:10], f.value,
+                                           f.source.published[:10]), "financials"))
+            else:
+                issues.append(DataIssue("error", "duplicate_conflict",
+                                        "%s %s %s given twice with different values (%s vs %s)"
+                                        % (f.name, f.period_label, f.basis, prev.value, f.value), "financials"))
         seen[key] = f
+        if f.period_start and f.period_type in PERIOD_DAYS:
+            days = (f.period_end - f.period_start).days + 1
+            lo, hi = PERIOD_DAYS[f.period_type]
+            if not lo <= days <= hi:
+                odd_periods.add((f.period_label, days))
         want = "INR crore" if f.name in AMOUNT_ITEMS else EXPECTED_UNIT.get(f.name)
         if want and f.unit != want:
             issues.append(DataIssue("error", "unit_mismatch", "%s %s has unit %s, expected %s"
@@ -44,6 +58,9 @@ def check_facts(facts: list, basis: str) -> list:
         if f.name in NON_NEGATIVE and f.value is not None and f.value < 0:
             issues.append(DataIssue("error", "negative_value", "%s %s is negative (%s)" % (f.name, f.period_label, f.value),
                                     "financials"))
+    for lab, days in sorted(odd_periods):
+        issues.append(DataIssue("warning", "non_standard_period", "%s covers %d days, not a standard %s: growth against it "
+                                "is not like-for-like" % (lab, days, "year" if lab.startswith("FY") else "quarter"), "financials"))
     # reconciliation, per basis in use
     idx = {(f.name, f.period_type, f.period_end): f for f in facts if f.basis in (basis, "n/a")}
     periods = sorted({(k[1], k[2]) for k in idx})
@@ -54,6 +71,12 @@ def check_facts(facts: list, basis: str) -> list:
         if None not in (pbt, tax, pat) and not _close(pbt - tax, pat, 0.01, 0.5):
             issues.append(DataIssue("warning", "pl_reconcile", "%s: PBT - tax = %.2f but PAT = %.2f (exceptional items, "
                                     "discontinued ops or associates may explain it)" % (lab, pbt - tax, pat), "financials"))
+        tot, exc = v("total_expenses", pt, pe), v("exceptional_items", pt, pe) or 0.0
+        if None not in (tot, pbt) and v("revenue", pt, pe) is not None and v("other_income", pt, pe) is not None:
+            calc = v("revenue", pt, pe) + v("other_income", pt, pe) - tot + exc
+            if not _close(calc, pbt, 0.01, 0.5):
+                issues.append(DataIssue("warning", "pbt_reconcile", "%s: revenue + other income - total expenses (+ exceptional) = %.2f "
+                                        "but PBT = %.2f" % (lab, calc, pbt), "financials"))
         parts = [v(n, pt, pe) for n in ("revenue", "other_income", "operating_expenses", "depreciation", "finance_costs")]
         if None not in parts and pbt is not None:
             calc = parts[0] + parts[1] - parts[2] - parts[3] - parts[4]

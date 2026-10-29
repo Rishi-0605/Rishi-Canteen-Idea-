@@ -42,7 +42,10 @@ class Statements:
         bases = {f.basis for f in facts if f.period_type == "FY"}
         self.basis = prefer if prefer in bases else (sorted(bases)[0] if bases else prefer)
         self.idx: dict = {}
-        for f in facts:
+        # When a figure appears in several filings (a later filing repeats it as a comparative,
+        # possibly restated), the most recently PUBLISHED one wins.
+        pub = lambda f: f.source.published or ""  # noqa: E731
+        for f in sorted(facts, key=pub):
             if f.basis in (self.basis, "n/a"):
                 self.idx[(f.name, f.period_type, f.period_end)] = f
         self.all_bases = sorted({f.basis for f in facts})
@@ -119,6 +122,12 @@ def _ebitda(st: Statements, pt: str, pe: dt.date, label: str) -> Metric:
     if opex is not None:
         return derive("ebitda", label, "INR crore", "revenue - operating_expenses",
                       {"revenue": rev, "operating_expenses": opex}, lambda revenue, operating_expenses: revenue - operating_expenses)
+    tot = st.get("total_expenses", pt, pe)
+    if tot is not None:  # exchange results report total expenses including finance costs and D&A
+        return derive("ebitda", label, "INR crore", "revenue - (total_expenses - finance_costs - depreciation)",
+                      {"revenue": rev, "total_expenses": tot, "finance_costs": st.get("finance_costs", pt, pe),
+                       "depreciation": st.get("depreciation", pt, pe)},
+                      lambda revenue, total_expenses, finance_costs, depreciation: revenue - (total_expenses - finance_costs - depreciation))
     return derive("ebitda", label, "INR crore", "pbt + finance_costs + depreciation - other_income",
                   {"pbt": st.get("pbt", pt, pe), "finance_costs": st.get("finance_costs", pt, pe),
                    "depreciation": st.get("depreciation", pt, pe), "other_income": st.get("other_income", pt, pe)},

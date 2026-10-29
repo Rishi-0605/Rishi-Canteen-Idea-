@@ -42,8 +42,9 @@ def derive(name: str, period: str, unit: str, formula: str, inputs: dict, fn: Ca
 
 def given(name: str, period: str, value: Optional[float], unit: str, formula: str, source_ids=None,
           note: str = "") -> Metric:
+    """A figure copied from a source (kind="reported")."""
     return Metric(name, value, unit, period, formula, list(source_ids or []),
-                  [] if value is not None else [name], note)
+                  [] if value is not None else [name], note, kind="reported")
 
 
 def cagr(start: float, end: float, years: float) -> Optional[float]:

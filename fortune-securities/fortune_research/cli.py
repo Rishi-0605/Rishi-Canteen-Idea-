@@ -10,6 +10,9 @@
     python -m fortune_research resolve "sample manufacturing"
     python -m fortune_research history SAMPLEMFG
     python -m fortune_research show SAMPLEMFG --section forensic   # from the latest saved record
+    python -m fortune_research health --symbol BEL [--only nse,bse] [--capture DIR] [--json]
+    python -m fortune_research documents BEL [--find "Revenue from operations"]
+    python -m fortune_research verify BEL [--record FILE.csv]
     python -m fortune_research providers [--check]
     python -m fortune_research sources [--limit 30]
 
@@ -23,6 +26,7 @@ import argparse
 import json
 import re
 import sys
+from pathlib import Path
 
 from .agent import ResearchAgent, ResolutionError
 from .config import ConfigError, Settings
@@ -125,6 +129,38 @@ def _print_portfolio(rep: dict) -> None:
         print("  report: %s\n  excel:  %s" % (rep["report_md_path"], rep["report_xlsx_path"]))
 
 
+def _health(args, agent) -> int:
+    from . import health
+    from .identity import resolve
+    from .models import Security
+    from .providers.registry import Registry
+    reg = Registry(agent.settings, on_fetch=lambda e: agent.store.log_fetch(e, "health"))
+    if args.capture:
+        reg.http.capture_dir = Path(args.capture)
+    master = reg.fetch_all("master")
+    res = resolve(args.symbol, master) if master else None
+    if res is not None and res.status == "resolved":
+        sec = res.security
+        note = "resolved via securities master"
+    else:
+        sec = Security(args.symbol, None, nse_symbol=args.symbol.upper())
+        note = "NOT resolved via any master (%s): probing with the symbol as given" % (res.status if res else "no master available")
+    profile, _ = reg.fetch("profile", sec)
+    only = [x.strip() for x in args.only.split(",")] if args.only else None
+    results = health.run(reg, sec, only=only, profile=profile, benchmark=agent.settings.get("portfolio.benchmark", "NIFTY50"))
+    agent.store.save_health(args.symbol, results)
+    if args.json:
+        print(json.dumps({"target": sec.to_dict(), "resolution": note, "results": [r.to_dict() for r in results]}, default=str, indent=1))
+    else:
+        print("Target: %s (%s)" % (args.symbol, note))
+        print(health.render(results, sec, agent.as_of))
+        out = agent.settings.path("general.data_dir") / "health" / ("health_%s_%s.md" % (args.symbol, agent.as_of.isoformat()))
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(health.render(results, sec, agent.as_of), encoding="utf-8")
+        print("saved: %s" % out)
+    return 0 if all(r.status in ("OPERATIONAL", "PARTIAL") for r in results if r.provider != "local") else 4
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="fortune_research", description="FORTUNE SECURITIES Indian equity research agent")
     ap.add_argument("--sample", action="store_true", help="use the synthetic sample data and sample database")
@@ -146,6 +182,16 @@ def main(argv=None) -> int:
     p.add_argument("query", nargs="+")
     p = sub.add_parser("history")
     p.add_argument("query", nargs="+")
+    p = sub.add_parser("health", help="check every enabled data source with a real retrieval for a test company")
+    p.add_argument("--symbol", required=True, help="NSE symbol (or BSE code / ISIN) of the test company, e.g. BEL")
+    p.add_argument("--only", help="comma-separated provider names")
+    p.add_argument("--capture", help="save raw live responses (with URL, timestamp, sha256) into this folder as fixtures")
+    p = sub.add_parser("documents", help="list company documents and locate a line item in them")
+    p.add_argument("query", nargs="+")
+    p.add_argument("--find", help="line-item text to locate, e.g. 'Revenue from operations'")
+    p = sub.add_parser("verify", help="independent check of extracted figures against the original documents")
+    p.add_argument("query", nargs="+")
+    p.add_argument("--record", help="filled worksheet CSV to store")
     p = sub.add_parser("show", help="print one section of the latest saved analysis (no fetching)")
     p.add_argument("query", nargs="+")
     p.add_argument("--section", choices=sorted(SECTIONS), default="summary")
@@ -195,6 +241,44 @@ def main(argv=None) -> int:
                 s = json.loads(a["summary_json"])
                 print("#%d  %s  as of %s  %s / %s / risk %s  %s" % (a["id"], a["created_at"], a["as_of"], s["fundamentals"], s["valuation_position"],
                                                                  s["risk_level"], a["report_md_path"] or ""))
+        elif args.cmd == "health":
+            return _health(args, agent)
+        elif args.cmd == "documents":
+            b = agent.bundle(" ".join(args.query))
+            if not b.documents:
+                print("no documents: add PDFs under companies/<SYMBOL>/documents/ (with documents.json) or enable [providers.ir]")
+                return 1
+            from . import documents as D
+            for d in b.documents:
+                s = d.summary()
+                print("%-13s %-50s period %-8s pages %-4s units %s %s" % (s["kind"], s["title"][:50], s["period"] or "n/a", s["pages"],
+                                                                         ",".join(s["units_detected"]) or "not found", s["error"] or ""))
+                print("              %s  sha256 %s" % (s["url"], s["sha256"][:16]))
+                if args.find:
+                    for h in D.locate(d, args.find):
+                        print("    p.%-4s %-90s numbers=%s unit=%s [%s]" % (h["page"], h["line"][:90], h["numbers"], h["unit"], h["status"]))
+        elif args.cmd == "verify":
+            from . import verify as V
+            c = agent.store.find_company(" ".join(args.query))
+            if not c:
+                print("no saved analyses for %s: run 'analyse' first" % " ".join(args.query), file=sys.stderr)
+                return 1
+            rec = agent.store.latest_analysis(c["key"])
+            if args.record:
+                rows, problems = V.read_worksheet(Path(args.record))
+                for pr in problems:
+                    print("  skipped %s" % pr)
+                n = agent.store.save_verifications(c["key"], rec["_id"], rows)
+                bad = [r for r in rows if not r["matches"]]
+                print("recorded %d checked figures (%d mismatches)" % (n, len(bad)))
+                for r in bad:
+                    print("  MISMATCH %s %s: extracted %s, document %s (%s)" % (r["figure"], r["period"], r["extracted_value"], r["checked_value"], r["source_url"]))
+                return 0 if not bad else 3
+            out = agent.settings.path("general.data_dir") / "verification" / ("%s_record%d.csv" % (c["nse_symbol"] or c["bse_code"], rec["_id"]))
+            V.write_worksheet(rec, out)
+            print("worksheet with %d reported figures: %s" % (len(V.worksheet_rows(rec)), out))
+            print("open each source_url, find the figure at `locator`, fill checked_value, checked_by, checked_on; then run:")
+            print("  python -m fortune_research verify %s --record %s" % (" ".join(args.query), out))
         elif args.cmd == "show":
             c = agent.store.find_company(" ".join(args.query))
             if not c:

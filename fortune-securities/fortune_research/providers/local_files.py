@@ -8,11 +8,14 @@ time). Rows without a source URL are rejected, not silently accepted.
 from __future__ import annotations
 
 import csv
+import dataclasses
 import json
 from pathlib import Path
 from typing import Optional
 
-from ..models import (Announcement, Fact, PriceBar, PriceSeries, Security, ShareholdingRecord, Source,
+from .. import documents as D
+from ..analysis.corporate_actions import parse_subject
+from ..models import (Announcement, CorporateAction, Fact, PriceBar, PriceSeries, Security, ShareholdingRecord, Source,
                       fy_label, now_ist, parse_date)
 from ..units import UnitError, normalise
 from .base import Provider, ProviderError
@@ -41,7 +44,7 @@ class LocalFilesProvider(Provider):
     name = "local"
     official = False  # the files are manual copies; each row says whether ITS source is official
     capabilities = frozenset(["master", "profile", "financials", "prices", "announcements", "shareholding",
-                              "governance", "news", "benchmark"])
+                              "governance", "news", "benchmark", "corporate_actions", "documents"])
 
     def __init__(self, roots: list):
         self.roots = [Path(r) for r in roots]
@@ -114,9 +117,15 @@ class LocalFilesProvider(Provider):
             except (KeyError, ValueError, UnitError, ProviderError) as exc:
                 self.issues.append(("financials.csv line %d" % i, str(exc)))
                 continue
+            try:
+                ps = parse_date(row.get("period_start")) if row.get("period_start") else None
+            except ValueError:
+                ps = None
+            if row.get("locator"):
+                src = dataclasses.replace(src, locator=row["locator"])
             facts.append(Fact(name=row["line_item"].strip(), value=value, unit=unit, period_end=pe,
                               period_type=ptype, basis=(row.get("basis") or "consolidated").lower(),
-                              source=src))
+                              source=src, period_start=ps))
         return facts
 
     def _series(self, csv_path: Path, meta_path: Path, synthetic: bool, title: str,
@@ -242,3 +251,47 @@ class LocalFilesProvider(Provider):
                                     published=s.get("published"), period=fy, synthetic=syn,
                                     note=("page %s" % s["page"]) if s.get("page") else "manual/local file entry")
         return g
+
+    def corporate_actions(self, sec: Security) -> list:
+        """corporate_actions.csv: ex_date, subject, source_url[, kind, factor, publisher, official, retrieved_at].
+        kind/factor are parsed from the subject when not given."""
+        d = self._company_dir(sec)
+        if not d or not (d / "corporate_actions.csv").exists():
+            return []
+        syn = self._synthetic(sec)
+        out = []
+        for i, row in enumerate(_read_csv(d / "corporate_actions.csv"), start=2):
+            try:
+                ex = parse_date(row["ex_date"])
+                src = self._source(row, row.get("subject") or "Corporate action", syn)
+            except (KeyError, ValueError, ProviderError) as exc:
+                self.issues.append(("corporate_actions.csv line %d" % i, str(exc)))
+                continue
+            kind, factor = parse_subject(row.get("subject", ""))
+            if row.get("factor"):
+                factor = _float(row["factor"])
+                kind = row.get("kind") or kind
+            out.append(CorporateAction(ex, kind, factor, row.get("subject", ""), src))
+        return sorted(out, key=lambda a: a.ex_date)
+
+    def documents(self, sec: Security, profile=None) -> list:
+        """PDFs you downloaded yourself, in companies/<KEY>/documents/ with a documents.json manifest:
+        [{"file": "q2fy26-results.pdf", "url": "<where you downloaded it>", "kind": "results",
+          "period": "Q2FY26", "published": "2025-11-10", "publisher": "NSE", "official": true}]"""
+        d = self._company_dir(sec)
+        man = self._json(d / "documents" / "documents.json") if d else None
+        if not man:
+            return []
+        out = []
+        for i, m in enumerate(man):
+            f = d / "documents" / (m.get("file") or "")
+            if not m.get("url"):
+                self.issues.append(("documents.json entry %d" % (i + 1), "no source url"))
+                continue
+            if not f.is_file():
+                self.issues.append(("documents.json entry %d" % (i + 1), "file not found: %s" % f.name))
+                continue
+            out.append(D.build(f.read_bytes(), m["url"], title=m.get("title") or f.name, kind=m.get("kind"),
+                               period=m.get("period"), published=m.get("published"), official=bool(m.get("official", True)),
+                               publisher=m.get("publisher", "")))
+        return out

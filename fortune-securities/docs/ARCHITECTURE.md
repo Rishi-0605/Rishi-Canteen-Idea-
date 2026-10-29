@@ -50,7 +50,15 @@ fortune-securities/
       local_files.py       local CSV/JSON provider (manual input, sample data) - works today
       nse.py               NSE official archives / JSON endpoints (written, NOT verified live)
       bse.py               BSE official API (written, NOT verified live)
-      yahoo.py             Yahoo .NS/.BO chart (unofficial; prices only; flagged)
+      yahoo.py             Yahoo .NS/.BO chart + split events (unofficial; flagged)
+      xbrl.py              Reg. 33 results XBRL instance parser (config/xbrl_map.toml)
+      ir.py                company investor-relations websites (PDF documents)
+      rss.py               news feeds with publisher allowlist and near-duplicate merging
+    documents.py         PDF text with page numbers, unit detection, line-item locator (review-only)
+    health.py            provider health check: connection vs retrieval vs suitability per calculation
+    verify.py            independent verification worksheet (figures vs original documents)
+    analysis/corporate_actions.py   split/bonus parsing, price back-adjustment, per-share restatement
+    analysis/lookahead.py           point-in-time availability (LODR deadlines when dates are unknown)
     portfolio/
       reader.py            [module 1] CSV/XLSX import, column aliases, account identifiers
       reconcile.py         holdings vs transactions reconciliation, validation

@@ -1,5 +1,7 @@
-# Python 3.11+ is required (tomllib). Already present in this environment; nothing was installed for this project.
-# The core calculations use only the standard library; these are for file I/O and HTTP.
+# Python 3.11+ is required (tomllib). All of these were already present in the build environment;
+# nothing was installed for this project.
 pandas>=2.0        # reading XLSX portfolio exports
 openpyxl>=3.1      # XLSX read/write (Excel export)
 requests>=2.31     # network providers (disabled by default)
+pypdf>=4.0         # text extraction from company PDFs (documents)
+reportlab>=4.0     # tests only: builds PDFs for the document-extraction tests

@@ -18,7 +18,18 @@ python3 -m fortune_research resolve "Sample Manufacturing"     # identity + veri
 python3 -m fortune_research resolve 990001.BO
 python3 -m fortune_research analyse SAMPLEMFG                     # full retrieval + analysis
 python3 -m fortune_research show SAMPLEMFG --section identity     # providers used, data dates and ages
+python3 -m fortune_research health --symbol BEL                   # real retrieval check of every enabled source
+python3 -m fortune_research documents BEL --find "Revenue from operations"
+python3 -m fortune_research verify BEL                            # worksheet to check figures against the originals
 ```
+
+## Before trusting live data
+
+- Run `health` first. Only rows marked OPERATIONAL (or PARTIAL with the unsuitable uses understood) are usable.
+  CONNECTED_NO_DATA means the server answered but returned nothing usable (often a bot-protection page). Never
+  describe that as a successful retrieval.
+- Live figures stay **UNVERIFIED** in reports until checked with `verify`. Say so when you summarise.
+- If a source fails, say which one and what calculation it stopped. Never fill the gap from memory or sample data.
 
 ## Identity rules
 
@@ -29,8 +40,8 @@ python3 -m fortune_research show SAMPLEMFG --section identity     # providers us
 ## Data sources, in priority order
 
 Configured per capability under `[providers]` in settings. Official sources come first: NSE/BSE filings and
-company documents, then licensed vendors, then unofficial sources. The NSE/BSE network adapters are written but
-**not verified live** and are disabled by default. Until they are enabled, data comes from the local files in
+company documents, then licensed vendors, then unofficial sources. The NSE/BSE/Yahoo/IR/news adapters are written but
+**not verified live** and are disabled by default (status: `docs/PROVIDERS.md`). Until they are enabled, data comes from the local files in
 `data/manual/` (layout: `docs/DATA_FORMATS.md`). When the user gives you a filing, help them enter its numbers
 into that layout with the filing's URL, publication date and period on every row.
 

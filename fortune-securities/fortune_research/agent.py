@@ -13,7 +13,9 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from . import __version__
+from .analysis import corporate_actions as ca_mod
 from .analysis import financials as fin_mod
+from .analysis import lookahead
 from .analysis import forensic as forensic_mod
 from .analysis import news as news_mod
 from .analysis import portfolio as port_mod
@@ -26,14 +28,20 @@ from .config import Settings
 from .identity import Resolution, check_profile, resolve
 from .memory.diff import compare
 from .memory.store import Store
-from .models import DataIssue, Metric, PriceSeries, fy_label, now_ist
+from .models import DataIssue, Metric, PriceSeries, Source, fy_label, now_ist
 from .portfolio import reader, reconcile
 from .providers.registry import Registry
 
 
 class ResolutionError(Exception):
-    def __init__(self, res: Resolution):
+    def __init__(self, res: Resolution, master_failures: list = ()):
         self.resolution = res
+        self.master_failures = list(master_failures)
+        if res.status == "not_found" and master_failures:
+            msg = ("'%s' could not be resolved because securities masters failed to load (%s). Nothing was analysed; "
+                   "run `health --symbol %s` for details." % (res.query, "; ".join(master_failures), res.query))
+            super().__init__(msg)
+            return
         if res.status == "ambiguous":
             msg = "'%s' matches several securities: %s. Use the NSE symbol, BSE code or ISIN." % (
                 res.query, "; ".join("%s (%s, %s)" % (c.name, c.display_symbol, c.isin) for c in res.candidates))
@@ -56,6 +64,9 @@ class Bundle:
     news: list = field(default_factory=list)
     providers: dict = field(default_factory=dict)
     full: bool = False
+    corporate_actions: list = field(default_factory=list)
+    documents: list = field(default_factory=list)
+    issues: list = field(default_factory=list)  # DataIssues raised while assembling the bundle
 
 
 class ResearchAgent:
@@ -78,7 +89,8 @@ class ResearchAgent:
     def resolve(self, query: str) -> Resolution:
         res = resolve(query, self.master)
         if res.status != "resolved":
-            raise ResolutionError(res)
+            failures = ["%s: %s" % (p, msg[:120]) for cap, p, msg in self.registry.errors if cap == "master"]
+            raise ResolutionError(res, failures)
         return res
 
     def bundle(self, query: str, full: bool = True) -> Bundle:
@@ -95,15 +107,30 @@ class ResearchAgent:
         if series:
             series.bars = [b for b in series.bars if b.date <= self.as_of]
         b = Bundle(sec, res, profile, facts or [], series, providers=prov, full=full)
-        published_by = lambda src: not src.published or src.published[:10] <= self.as_of.isoformat()  # noqa: E731
+        # point-in-time: nothing published after the analysis date (see analysis/lookahead.py)
+        b.facts, la_issues, _ = lookahead.filter_facts(b.facts, self.as_of)
+        b.issues += la_issues
+        acts, prov["corporate_actions"] = reg.fetch("corporate_actions", sec)
+        b.corporate_actions = [a for a in (acts or []) if a.ex_date <= self.as_of]
+        if b.corporate_actions:
+            if prov["corporate_actions"] == "yahoo":
+                b.issues.append(DataIssue("warning", "ca_unofficial", "split/bonus history from Yahoo (unofficial): confirm against "
+                                          "the exchange corporate-action record", "corporate_actions"))
+            b.facts, ca_issues = ca_mod.adjust_per_share(b.facts, b.corporate_actions, self.as_of)
+            b.issues += ca_issues + ca_mod.adjust_prices(b.series, b.corporate_actions, self.as_of)
         if full:
             sh, prov["shareholding"] = reg.fetch("shareholding", sec)
-            b.shareholding = [r for r in (sh or []) if r.quarter_end <= self.as_of and published_by(r.source)]
+            b.shareholding, sh_issues = lookahead.filter_shareholding(sh or [], self.as_of)
+            b.issues += sh_issues
             b.governance, prov["governance"] = reg.fetch("governance", sec)
             since = self.as_of - dt.timedelta(days=365)
             b.announcements = [a for a in reg.fetch_all("announcements", sec, since) if a.date <= self.as_of]
             b.news = [a for a in reg.fetch_all("news", sec, since) if a.date <= self.as_of]
-        b.facts = [f for f in b.facts if f.period_end <= self.as_of and published_by(f.source)]
+            docs, prov["documents"] = reg.fetch("documents", sec, profile=profile)
+            b.documents = [d for d in (docs or []) if not d.published or d.published[:10] <= self.as_of.isoformat()]
+            for d in b.documents:
+                if d.error:
+                    b.issues.append(DataIssue("warning", "document_unreadable", "%s: %s" % (d.title, d.error), "documents"))
         self._bundles[sec.key] = b
         return b
 
@@ -218,7 +245,7 @@ class ResearchAgent:
         s = self.settings
         b = self.bundle(query)
         sec, res, prof = b.security, b.resolution, b.profile or {}
-        issues: list = []
+        issues: list = list(b.issues)
         for where, msg in self.registry.local.issues:
             issues.append(DataIssue("warning", "rejected_row", "%s: %s" % (where, msg), "input"))
         self.registry.local.issues.clear()
@@ -299,6 +326,15 @@ class ResearchAgent:
         for rec_ in ((b.governance or {}).get("fiscal_years") or {}).values():
             if rec_.get("_source"):
                 srcs.setdefault(rec_["_source"].id, rec_["_source"])
+        for a in b.corporate_actions:
+            srcs.setdefault(a.source.id, a.source)
+        doc_rows = []
+        for d in b.documents:
+            ds = Source(url=d.url, title=d.title, publisher=d.publisher, official=d.official, provider="documents",
+                        retrieved_at=now_ist().isoformat(), published=d.published, period=d.period, synthetic=sec.synthetic,
+                        locator="sha256 %s" % d.sha256[:16])
+            srcs.setdefault(ds.id, ds)
+            doc_rows.append({**d.summary(), "source_id": ds.id})
         issues += quality.check_sources(srcs.values())
         # assemble
         metrics = {k: m.to_dict() for k, m in fa.flat().items()}
@@ -311,9 +347,22 @@ class ResearchAgent:
             last = b.shareholding[-1]
             for k in ("promoter_pct", "promoter_pledged_pct", "fii_pct", "dii_pct", "public_pct"):
                 metrics["own." + k] = Metric(k, getattr(last, k), "%", fy_label(last.quarter_end, "Q"), "shareholding pattern",
-                                             [last.source.id]).to_dict()
+                                             [last.source.id], [] if getattr(last, k) is not None else [k], kind="reported").to_dict()
         findings = [f.to_dict() for f in forensic + rr.findings]
+        key_figures = self._key_figures(metrics, vr, rr)
+        ver = self.store.verification_summary(sec.key)
+        if sec.synthetic:
+            ver["status"] = "not applicable (synthetic sample data)"
+        elif ver["mismatched"]:
+            ver["status"] = "MISMATCHES FOUND"
+            issues.append(DataIssue("error", "verification_mismatch", "%d extracted figures did not match the original document when "
+                                    "checked by hand (see the verifications table)" % ver["mismatched"], "verification"))
+        elif ver["checked"]:
+            ver["status"] = "%d figures checked against original documents, all matched" % ver["checked"]
+        else:
+            ver["status"] = "UNVERIFIED: no figure has yet been checked against the original documents"
         summary = self._summary(fa, vr, ta, rr, forensic, issues, ages, sec)
+        summary["independent_verification"] = ver["status"]
         rec = {
             "created_at": now_ist().isoformat(), "as_of": self.as_of.isoformat(), "agent_version": __version__,
             "settings_origin": s.origin, "synthetic": sec.synthetic or s.synthetic,
@@ -339,6 +388,9 @@ class ResearchAgent:
                           "benchmark": self.settings.get("portfolio.benchmark") if bench else None},
             "risk": {"level": rr.level, "scenarios": rr.scenarios, "liquidity": rr.liquidity},
             "conditions": conditions, "state": state, "news": nw,
+            "corporate_actions": [{"ex_date": a.ex_date.isoformat(), "kind": a.kind, "factor": a.factor, "description": a.description,
+                                   "official": a.source.official, "source_id": a.source.id} for a in b.corporate_actions],
+            "documents": doc_rows,
             "shareholding": [{"quarter": fy_label(r.quarter_end, "Q"), "quarter_end": r.quarter_end.isoformat(),
                               "promoter_pct": r.promoter_pct, "promoter_pledged_pct": r.promoter_pledged_pct, "fii_pct": r.fii_pct,
                               "dii_pct": r.dii_pct, "public_pct": r.public_pct, "source_id": r.source.id} for r in b.shareholding],
@@ -351,7 +403,7 @@ class ResearchAgent:
             "data_issues": [i.to_dict() for i in issues],
             "sources": [x.to_dict() for x in srcs.values()],
             "research_notes": self.store.notes_for(sec.display_symbol),
-            "summary": summary, "confidence": summary["confidence"],
+            "summary": summary, "confidence": summary["confidence"], "key_figures": key_figures, "verification": ver,
         }
         prev = self.store.latest_analysis(sec.key)
         rec["comparison"] = compare(prev, rec) if prev else None
@@ -391,6 +443,33 @@ class ResearchAgent:
         if not prev:
             return {"company": cur["company"] if cur else c, "comparison": None, "message": "only one saved analysis: nothing to compare"}
         return {"company": cur["company"], "comparison": compare(prev, cur), "record": cur}
+
+    @staticmethod
+    def _key_figures(metrics: dict, vr, rr) -> list:
+        """The figures a reader acts on, each with its kind, formula and evidence."""
+        rows = []
+        for key, label in (("ttm.revenue", "Revenue, TTM"), ("ttm.pat", "Net profit (PAT), TTM"), ("ttm.eps", "EPS, TTM"),
+                           ("ttm.ebitda_margin", "EBITDA margin, TTM"), ("fy.revenue", "Revenue, latest FY"),
+                           ("fy.pat", "PAT, latest FY"), ("fy.roe", "ROE, latest FY"), ("fy.roce", "ROCE, latest FY"),
+                           ("fy.debt_to_equity", "Debt / equity, latest FY"), ("fy.cfo", "Cash from operations, latest FY"),
+                           ("val.price", "Share price"), ("val.market_cap", "Market capitalisation"), ("val.pe", "P/E (TTM)"),
+                           ("val.ev_ebitda", "EV / EBITDA (TTM)"), ("own.promoter_pct", "Promoter holding"),
+                           ("own.promoter_pledged_pct", "Promoter shares pledged")):
+            m = metrics.get(key)
+            if m is None:
+                continue
+            rows.append({"label": label, "key": key, "value": m["value"], "unit": m["unit"], "period": m["period"],
+                         "kind": m.get("kind", "calculated"), "formula": m["formula"], "source_ids": m["source_ids"],
+                         "missing": m["missing"], "note": m.get("note", "")})
+        if vr.fair_value:
+            rows.append({"label": "Model fair value (mid)", "key": "valuation.fair_value", "value": vr.fair_value["mid"], "unit": "INR",
+                         "period": "current", "kind": "estimate", "formula": "median of %s" % ", ".join(vr.fair_value["methods"]),
+                         "source_ids": [], "missing": [], "note": "depends on the assumptions listed"})
+        bear = rr.scenarios.get("bear")
+        if bear:
+            rows.append({"label": "Bear-case price", "key": "risk.bear", "value": bear["price"], "unit": "INR", "period": "scenario",
+                         "kind": "estimate", "formula": bear["basis"], "source_ids": [], "missing": [], "note": ""})
+        return rows
 
     # -- summary ----------------------------------------------------------------------
     @staticmethod

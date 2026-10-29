@@ -141,11 +141,11 @@ class Skills(unittest.TestCase):
 
 class ProviderConfig(unittest.TestCase):
     def test_example_settings_only_list_providers_that_implement_the_capability(self):
-        from fortune_research.providers import bse, nse, rss, yahoo
+        from fortune_research.providers import bse, ir, nse, rss, yahoo
         from fortune_research.providers.base import CAPABILITIES
         from fortune_research.providers.local_files import LocalFilesProvider
         caps = {"local": LocalFilesProvider.capabilities, "nse": nse.NSEProvider.capabilities, "bse": bse.BSEProvider.capabilities,
-                "yahoo": yahoo.YahooProvider.capabilities, "rss": rss.RSSProvider.capabilities}
+                "yahoo": yahoo.YahooProvider.capabilities, "rss": rss.RSSProvider.capabilities, "ir": ir.IRProvider.capabilities}
         s = Settings.load()
         for cap in CAPABILITIES:
             for name in s.get("providers.%s" % cap):

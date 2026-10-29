@@ -104,12 +104,22 @@ def render_company(rec: dict) -> str:
                                                                        n(fv["mid"]) if fv else "n/a", s["valuation_position"].replace("_", " "))],
         ["Price trend", s["trend"]], ["Risk level", r["level"]],
         ["Data confidence", "%s (%d data errors; stale core data: %s)" % (s["confidence"], s["data_errors"], ", ".join(s["stale_core_datasets"]) or "none")],
+        ["Independent verification", s.get("independent_verification", "n/a")],
     ])
     cmp_ = rec.get("comparison")
     L += ["", "**Since the previous analysis:** %s" % (cmp_["headline"] if cmp_ else "first analysis of this company.")]
     top = [f for f in rec["findings"] if f["severity"] in ("critical", "high", "medium")]
     if top:
         L += ["", "Key flags:"] + ["- **%s** %s %s" % (f["severity"].upper(), f["message"], cite(f["source_ids"])) for f in top[:8]]
+    kf = rec.get("key_figures") or []
+    if kf:
+        L += ["", "### Key figures and evidence", ""]
+        L += _table(["Figure", "Value", "Period", "Kind", "How it was obtained", "Evidence"],
+                    [[k["label"], (n(k["value"]) + (" " + k["unit"] if k["unit"] and k["value"] is not None else "")) if k["value"] is not None
+                      else "n/a (missing: %s)" % (", ".join(k["missing"]) or "input not meaningful"), k["period"], k["kind"],
+                      k["formula"] + ((" (%s)" % k["note"]) if k.get("note") else ""), cite(k["source_ids"]) or "-"] for k in kf])
+        L += ["", "Kinds: **reported** = copied from the cited filing or exchange record; **calculated** = arithmetic on reported "
+              "figures (formula shown); **estimate** = model output that depends on the assumptions in section 11."]
     L += [""]
     # 2 identity
     L += ["## 2. Company identity and verification", ""]
@@ -142,6 +152,15 @@ def render_company(rec: dict) -> str:
             n(ttm.get("pat", {}).get("value")), n(ttm.get("eps", {}).get("value")), cite(ttm.get("revenue", {}).get("source_ids"))), ""]
     for note in rec["financial_notes"]:
         L += ["- Note: %s" % note]
+    acts = rec.get("corporate_actions") or []
+    if acts:
+        L += ["", "### Corporate actions (applied up to the analysis date)", ""]
+        L += _table(["Ex-date", "Action", "Share factor", "Official?", "Source"],
+                    [[a["ex_date"], a["description"], n(a["factor"], 4) if a["factor"] else "-", "yes" if a["official"] else "NO",
+                      cite([a["source_id"]])] for a in acts])
+        L += ["", "Splits and bonuses with a factor are used to back-adjust unadjusted prices and to restate per-share figures "
+              "from filings published before the ex-date. See the data-quality section for what was adjusted."]
+    L += [""]
     # 4 forensic
     L += ["## 4. Governance and forensic review", ""]
     fz = [f for f in rec["findings"] if f["module"] == "forensic"]
@@ -209,15 +228,33 @@ def render_company(rec: dict) -> str:
     L += ["- %s" % x["text"] for x in rec["conditions"]] or ["- none could be set from the available data"]
     L += [""]
     # 8 news
-    L += ["## 8. Announcements and news (last 12 months)", ""]
+    L += ["## 8. Announcements, documents and news (last 12 months)", ""]
     items = rec["news"]["items"]
-    if items:
-        L += _table(["Date", "Source", "Category", "Materiality", "Subject", "New?", "Ref"],
+    filings = [i for i in items if not i["is_news"]]
+    media = [i for i in items if i["is_news"]]
+    L += ["### Company disclosures (exchange filings)", ""]
+    if filings:
+        L += _table(["Date", "Exchange", "Category", "Materiality", "Subject", "New?", "Ref"],
                     [[i["date"], i["exchange"], i["category"], i["materiality"], i["subject"][:110], "yes" if i["new"] else "", cite([i["source_id"]])]
-                     for i in items[:25]])
-        L += ["", "%d item(s), %d new since the previous analysis. Exchange filings are primary; publisher headlines are leads to verify." % (len(items), rec["news"]["new_count"])]
+                     for i in filings[:25]])
     else:
-        L += ["No announcements retrieved."]
+        L += ["No exchange announcements retrieved."]
+    L += ["", "### Media coverage (commentary; not company statements)", ""]
+    if media:
+        L += _table(["Date", "Publisher", "Headline", "New?", "Ref"],
+                    [[i["date"], i["exchange"], i["subject"][:110], "yes" if i["new"] else "", cite([i["source_id"]])] for i in media[:15]])
+    else:
+        L += ["No media items retrieved."]
+    L += ["", "%d item(s), %d new since the previous analysis. Exchange filings are primary evidence; media reports are leads to "
+          "verify against the filing." % (len(items), rec["news"]["new_count"])]
+    docs = rec.get("documents") or []
+    if docs:
+        L += ["", "### Company documents", ""]
+        L += _table(["Kind", "Title", "Period", "Published", "Pages", "Units stated", "Status", "Ref"],
+                    [[d["kind"], d["title"][:70], d["period"] or "n/a", d["published"] or "n/a", d["pages"], ", ".join(d["units_detected"]) or "not found",
+                      d["error"] or "text extracted", cite([d["source_id"]])] for d in docs])
+        L += ["", "Figures located in PDFs are evidence to check, not inputs: use `documents <symbol> --find \"<line item>\"` "
+              "to see the page and line."]
     L += [""]
     # 9 portfolio
     L += ["## 9. Fit with the current portfolio", ""]

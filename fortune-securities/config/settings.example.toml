@@ -15,16 +15,19 @@ amount_unit = "INR crore"     # every amount is normalised to this unit
 [providers]
 # Priority order per capability. The first provider that returns data wins and
 # is recorded as the source. Official sources (exchange/company) come first.
-# Only providers that implement a capability are listed; see docs/ARCHITECTURE.md.
-master        = ["local", "nse"]     # BSE scrip master: not implemented yet
-profile       = ["local"]
-financials    = ["local"]            # NSE XBRL results parser: not implemented yet
-prices        = ["local", "nse", "yahoo"]
-announcements = ["local", "nse", "bse"]
-shareholding  = ["local"]            # NSE shareholding-pattern adapter: not implemented yet
-governance    = ["local"]            # annual report: manual input
-news          = ["local", "rss"]
-benchmark     = ["local"]
+# Only providers that implement a capability are listed. Status of each: docs/PROVIDERS.md.
+# A provider listed here is used only if [providers.<name>] enabled = true.
+master            = ["local", "nse", "bse"]
+profile           = ["local"]
+financials        = ["local", "nse"]          # nse = Reg. 33 results XBRL
+prices            = ["local", "nse", "yahoo"] # nse = official bhavcopy (unadjusted); yahoo = unofficial fallback
+announcements     = ["local", "nse", "bse"]
+shareholding      = ["local", "nse"]          # nse gives promoter/public totals only (no pledge detail)
+corporate_actions = ["local", "nse", "yahoo"] # yahoo split events are unofficial; used only if nothing official
+governance        = ["local"]                 # annual report: manual input
+news              = ["local", "rss"]
+benchmark         = ["local", "yahoo"]
+documents         = ["local", "ir"]           # ir = company investor-relations website PDFs
 
 [providers.local]
 # Folders holding manual / exported data in the documented layout (docs/DATA_FORMATS.md)
@@ -33,6 +36,8 @@ roots = ["data/manual"]
 [providers.nse]
 enabled = false          # official, but endpoints are undocumented; enable after reviewing NSE terms
 min_interval_seconds = 1.5
+max_bhav_days = 400      # one bhavcopy file per trading day; cached after the first download
+max_filings = 8          # results XBRL instances parsed per company
 
 [providers.bse]
 enabled = false
@@ -42,9 +47,14 @@ min_interval_seconds = 1.5
 enabled = false          # UNOFFICIAL. Prices only. Never treated as an exchange source.
 min_interval_seconds = 1.0
 
+[providers.ir]
+enabled = false          # company investor-relations websites (pages/documents listed in company.json)
+
 [providers.rss]
 enabled = false
-feeds = []               # e.g. publisher RSS URLs you are permitted to read
+# Feed URLs; "{query}" is replaced by the URL-encoded company name. Google News search RSS aggregates
+# publishers: the <source> of each item is checked against allowed_domains. Review each feed's terms.
+feeds = []               # e.g. "https://news.google.com/rss/search?q=%22{query}%22&hl=en-IN&gl=IN&ceid=IN:en"
 allowed_domains = ["economictimes.indiatimes.com", "business-standard.com", "livemint.com",
                    "moneycontrol.com", "reuters.com", "thehindubusinessline.com"]
 

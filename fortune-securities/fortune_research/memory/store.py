@@ -47,6 +47,11 @@ CREATE TABLE IF NOT EXISTS portfolio_imports (id INTEGER PRIMARY KEY AUTOINCREME
   holdings_json TEXT, transactions_json TEXT, issues_json TEXT, reconciliation_json TEXT);
 CREATE TABLE IF NOT EXISTS portfolio_reports (id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT, as_of TEXT,
   summary_json TEXT, report_md_path TEXT, report_xlsx_path TEXT);
+CREATE TABLE IF NOT EXISTS health_checks (id INTEGER PRIMARY KEY AUTOINCREMENT, run_at TEXT, target TEXT, provider TEXT,
+  capability TEXT, status TEXT, result_json TEXT);
+CREATE TABLE IF NOT EXISTS verifications (id INTEGER PRIMARY KEY AUTOINCREMENT, company_key TEXT, analysis_id INTEGER,
+  figure TEXT, period TEXT, extracted_value REAL, unit TEXT, source_url TEXT, locator TEXT, published TEXT,
+  checked_value REAL, matches INTEGER, checked_by TEXT, checked_on TEXT, notes TEXT, recorded_at TEXT);
 CREATE TABLE IF NOT EXISTS research_notes (id INTEGER PRIMARY KEY AUTOINCREMENT, imported_at TEXT, date TEXT, symbol TEXT,
   author TEXT, title TEXT, note TEXT, stance TEXT, source_url TEXT, source_file TEXT,
   UNIQUE(date, symbol, title, note));
@@ -208,3 +213,33 @@ class Store:
     def notes_for(self, symbol: str) -> list:
         with self._conn() as db:
             return [dict(r) for r in db.execute("SELECT * FROM research_notes WHERE symbol=? ORDER BY date DESC", (symbol.upper(),))]
+
+    # -- health checks and verification -----------------------------------------------------
+    def save_health(self, target: str, results: list) -> None:
+        ts = now_ist().isoformat()
+        with self._conn() as db:
+            db.executemany("INSERT INTO health_checks (run_at, target, provider, capability, status, result_json) VALUES (?,?,?,?,?,?)",
+                           [(ts, target, r.provider, r.capability, r.status, _j(r.to_dict())) for r in results])
+
+    def latest_health(self) -> list:
+        with self._conn() as db:
+            row = db.execute("SELECT MAX(run_at) AS t FROM health_checks").fetchone()
+            if not row or not row["t"]:
+                return []
+            return [dict(r) for r in db.execute("SELECT provider, capability, status, target, run_at FROM health_checks WHERE run_at=?",
+                                                (row["t"],))]
+
+    def save_verifications(self, company_key: str, analysis_id: int, rows: list) -> int:
+        ts = now_ist().isoformat()
+        with self._conn() as db:
+            db.executemany("INSERT INTO verifications (company_key, analysis_id, figure, period, extracted_value, unit, source_url, locator, "
+                           "published, checked_value, matches, checked_by, checked_on, notes, recorded_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                           [(company_key, analysis_id, r["figure"], r["period"], r["extracted_value"], r["unit"], r["source_url"], r["locator"],
+                             r["published"], r["checked_value"], r["matches"], r["checked_by"], r["checked_on"], r["notes"], ts) for r in rows])
+        return len(rows)
+
+    def verification_summary(self, company_key: str) -> dict:
+        with self._conn() as db:
+            rows = [dict(r) for r in db.execute("SELECT matches FROM verifications WHERE company_key=?", (company_key,))]
+        return {"checked": len(rows), "matched": sum(1 for r in rows if r["matches"] == 1),
+                "mismatched": sum(1 for r in rows if r["matches"] == 0)}

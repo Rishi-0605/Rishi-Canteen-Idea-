@@ -12,6 +12,7 @@ without its query string's secret-looking parameters.
 from __future__ import annotations
 
 import hashlib
+import re
 import sqlite3
 from contextlib import contextmanager
 import threading
@@ -58,6 +59,25 @@ def _connect(path: Path):
         db.close()
 
 
+def parse_json(body: bytes, url: str = ""):
+    """Decode a JSON API response. A 200 status with an HTML body (bot-protection or
+    login page) is a failed retrieval, not data: raise with a clear reason."""
+    import json
+    text = body.decode("utf-8", "replace").lstrip("\ufeff").strip()
+    if not text:
+        raise FetchError("empty response body", url=redact(url))
+    if text[:1] == "<":
+        hint = "HTML page instead of JSON (bot protection, login or error page)"
+        low = text[:2000].lower()
+        if "access denied" in low or "akamai" in low or "captcha" in low:
+            hint = "HTML 'access denied' / bot-protection page instead of JSON"
+        raise FetchError(hint, url=redact(url))
+    try:
+        return json.loads(text)
+    except ValueError as exc:
+        raise FetchError("invalid JSON: %s" % exc, url=redact(url))
+
+
 class ResponseCache:
     def __init__(self, path: Path):
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -90,7 +110,7 @@ class HttpClient:
                  cache_ttl_seconds: float = 12 * 3600,
                  on_fetch: Optional[Callable[[dict], None]] = None,
                  sleep: Callable[[float], None] = time.sleep,
-                 transport: Optional[Callable] = None):
+                 transport: Optional[Callable] = None, capture_dir: Optional[Path] = None):
         self.user_agent = user_agent
         self.timeout = timeout
         self.max_retries = max_retries
@@ -99,6 +119,7 @@ class HttpClient:
         self.cache_ttl = cache_ttl_seconds
         self.on_fetch = on_fetch
         self.sleep = sleep
+        self.capture_dir = Path(capture_dir) if capture_dir else None  # save raw responses as test fixtures
         self._last = {}
         self._min_interval = {}
         self._session = requests.Session() if (requests and transport is None) else None
@@ -122,6 +143,16 @@ class HttpClient:
             if wait > 0:
                 self.sleep(wait)
         self._last[host] = time.monotonic()
+
+    def _capture(self, url: str, provider: str, body: bytes) -> None:
+        import json
+        self.capture_dir.mkdir(parents=True, exist_ok=True)
+        sha = hashlib.sha256(body).hexdigest()
+        name = "%s-%s" % (provider or "http", sha[:16])
+        (self.capture_dir / (name + ".body")).write_bytes(body)
+        (self.capture_dir / (name + ".meta.json")).write_text(json.dumps(
+            {"url": redact(url), "provider": provider, "retrieved_at": now_ist().isoformat(), "sha256": sha, "bytes": len(body),
+             "note": "captured live response; real-source fixture"}, indent=1), encoding="utf-8")
 
     def _log(self, **entry) -> None:
         if self.on_fetch:
@@ -148,12 +179,15 @@ class HttpClient:
             except FetchError:
                 raise
             except Exception as exc:  # network error: retry
-                last_err = FetchError("network error: %s" % exc.__class__.__name__, url=redact(url))
+                detail = re.sub(r"\?[^\s'\"]*", "?<query redacted>", str(exc))[:180]  # never echo query strings (may hold keys)
+                last_err = FetchError("network error: %s: %s" % (exc.__class__.__name__, detail), url=redact(url))
                 status, body = None, b""
             if status is not None:
                 if status == 200:
                     if self.cache and use_cache:
                         self.cache.put(ckey, url, status, body)
+                    if self.capture_dir:
+                        self._capture(url, provider, body)
                     self._log(provider=provider, url=redact(url), status=status, cache_hit=False,
                               bytes=len(body), sha256=hashlib.sha256(body).hexdigest())
                     return body

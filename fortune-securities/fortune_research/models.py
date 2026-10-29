@@ -58,9 +58,13 @@ def parse_datetime(value: Any) -> Optional[dt.datetime]:
 
 
 def fy_label(period_end: dt.date, period_type: str) -> str:
-    """Indian fiscal labels: FY ends 31 March. 2026-03-31 FY -> FY26, 2026-09-30 Q -> Q2FY27."""
+    """Indian fiscal labels: FY ends 31 March. 2026-03-31 FY -> FY26, 2026-09-30 Q -> Q2FY27.
+    A fiscal year ending in another month is labelled with its end month (FY2025-Dec) so it
+    is never mistaken for an April-March year."""
     fy = period_end.year + (1 if period_end.month > 3 else 0)
     if period_type == "FY":
+        if period_end.month != 3:
+            return "FY%d-%s" % (period_end.year, period_end.strftime("%b"))
         return "FY%02d" % (fy % 100)
     if period_type == "Q":
         q = {6: 1, 9: 2, 12: 3, 3: 4}.get(period_end.month)
@@ -80,6 +84,7 @@ class Source:
     period: Optional[str] = None  # reporting period the source covers
     synthetic: bool = False
     note: str = ""
+    locator: str = ""  # where in the document: page number, XBRL element/context, JSON field
 
     @property
     def id(self) -> str:
@@ -101,6 +106,8 @@ class Fact:
     period_type: str  # FY | Q | POINT
     basis: str  # consolidated | standalone | n/a
     source: Source
+    period_start: Optional[dt.date] = None  # when known (XBRL contexts give it); detects 15-month years etc.
+    note: str = ""  # e.g. "adjusted for 1:2 bonus (ex 2024-03-15)"
 
     @property
     def period_label(self) -> str:
@@ -117,6 +124,7 @@ class Metric:
     source_ids: list = field(default_factory=list)
     missing: list = field(default_factory=list)
     note: str = ""
+    kind: str = "calculated"  # reported (copied from a source) | calculated (arithmetic on reported) | estimate (model output)
 
     @property
     def available(self) -> bool:
@@ -241,3 +249,19 @@ class ShareholdingRecord:
     dii_pct: Optional[float]
     public_pct: Optional[float]
     source: Source
+
+
+@dataclass
+class CorporateAction:
+    """A split, bonus or consolidation. `factor` is shares-after / shares-before
+    (1:1 bonus -> 2.0; face value 10 -> 2 split -> 5.0). Dividends are kept with
+    factor None: they do not change the share count."""
+    ex_date: dt.date
+    kind: str  # split | bonus | consolidation | dividend | rights | other
+    factor: Optional[float]
+    description: str
+    source: Source
+
+    @property
+    def fingerprint(self) -> str:
+        return hashlib.sha1(("%s|%s|%s" % (self.ex_date, self.kind, self.factor)).encode()).hexdigest()[:12]

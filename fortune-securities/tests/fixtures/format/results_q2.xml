@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- HAND-WRITTEN FORMAT FIXTURE: fictional EXAMPLECO, invented values -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:in-capmkt="http://www.sebi.gov.in/xbrl/2023-05-31/in-capmkt"
+            xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xbrli:context id="OneD"><xbrli:entity><xbrli:identifier scheme="http://www.sebi.gov.in">EXAMPLECO</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2025-07-01</xbrli:startDate><xbrli:endDate>2025-09-30</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="FourD"><xbrli:entity><xbrli:identifier scheme="http://www.sebi.gov.in">EXAMPLECO</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2024-07-01</xbrli:startDate><xbrli:endDate>2024-09-30</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="YTD"><xbrli:entity><xbrli:identifier scheme="http://www.sebi.gov.in">EXAMPLECO</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2025-04-01</xbrli:startDate><xbrli:endDate>2025-09-30</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="SegA"><xbrli:entity><xbrli:identifier scheme="http://www.sebi.gov.in">EXAMPLECO</xbrli:identifier>
+    <xbrli:segment><xbrldi:explicitMember dimension="in-capmkt:SegmentsAxis">in-capmkt:DefenceMember</xbrldi:explicitMember></xbrli:segment></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2025-07-01</xbrli:startDate><xbrli:endDate>2025-09-30</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="AsOn"><xbrli:entity><xbrli:identifier scheme="http://www.sebi.gov.in">EXAMPLECO</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:instant>2025-09-30</xbrli:instant></xbrli:period></xbrli:context>
+  <xbrli:unit id="INR"><xbrli:measure>iso4217:INR</xbrli:measure></xbrli:unit>
+  <xbrli:unit id="INRPerShare"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:INR</xbrli:measure></xbrli:unitNumerator>
+    <xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit>
+  <xbrli:unit id="shares"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit>
+  <in-capmkt:NameOfTheCompany contextRef="OneD">EXAMPLECO LIMITED</in-capmkt:NameOfTheCompany>
+  <in-capmkt:Symbol contextRef="OneD">EXAMPLECO</in-capmkt:Symbol>
+  <in-capmkt:ScripCode contextRef="OneD">999001</in-capmkt:ScripCode>
+  <in-capmkt:ISIN contextRef="OneD">INEZ9E101010</in-capmkt:ISIN>
+  <in-capmkt:NatureOfReportStandaloneConsolidated contextRef="OneD">Consolidated</in-capmkt:NatureOfReportStandaloneConsolidated>
+  <in-capmkt:WhetherResultsAreAuditedOrUnaudited contextRef="OneD">Unaudited</in-capmkt:WhetherResultsAreAuditedOrUnaudited>
+  <in-capmkt:RevenueFromOperations contextRef="OneD" unitRef="INR" decimals="-5">12345600000</in-capmkt:RevenueFromOperations>
+  <in-capmkt:OtherIncome contextRef="OneD" unitRef="INR" decimals="-5">234500000</in-capmkt:OtherIncome>
+  <in-capmkt:Expenses contextRef="OneD" unitRef="INR" decimals="-5">10580100000</in-capmkt:Expenses>
+  <in-capmkt:FinanceCosts contextRef="OneD" unitRef="INR" decimals="-5">45000000</in-capmkt:FinanceCosts>
+  <in-capmkt:DepreciationDepletionAndAmortisationExpense contextRef="OneD" unitRef="INR" decimals="-5">210000000</in-capmkt:DepreciationDepletionAndAmortisationExpense>
+  <in-capmkt:ProfitBeforeTax contextRef="OneD" unitRef="INR" decimals="-5">2000000000</in-capmkt:ProfitBeforeTax>
+  <in-capmkt:TaxExpense contextRef="OneD" unitRef="INR" decimals="-5">504000000</in-capmkt:TaxExpense>
+  <in-capmkt:ProfitLossForPeriod contextRef="OneD" unitRef="INR" decimals="-5">1496000000</in-capmkt:ProfitLossForPeriod>
+  <in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations contextRef="OneD" unitRef="INRPerShare" decimals="2">2.99</in-capmkt:DilutedEarningsLossPerShareFromContinuingOperations>
+  <in-capmkt:PaidUpValueOfEquityShareCapital contextRef="OneD" unitRef="INR" decimals="-5">500000000</in-capmkt:PaidUpValueOfEquityShareCapital>
+  <in-capmkt:RevenueFromOperations contextRef="FourD" unitRef="INR" decimals="-5">10800000000</in-capmkt:RevenueFromOperations>
+  <in-capmkt:ProfitLossForPeriod contextRef="FourD" unitRef="INR" decimals="-5">1300000000</in-capmkt:ProfitLossForPeriod>
+  <in-capmkt:RevenueFromOperations contextRef="YTD" unitRef="INR" decimals="-5">23000000000</in-capmkt:RevenueFromOperations>
+  <in-capmkt:RevenueFromOperations contextRef="SegA" unitRef="INR" decimals="-5">9000000000</in-capmkt:RevenueFromOperations>
+  <in-capmkt:Inventories contextRef="AsOn" unitRef="INR" decimals="-5">3100000000</in-capmkt:Inventories>
+  <in-capmkt:SomeNewTaxonomyElement contextRef="OneD" unitRef="INR" decimals="-5">777000000</in-capmkt:SomeNewTaxonomyElement>
+</xbrli:xbrl>

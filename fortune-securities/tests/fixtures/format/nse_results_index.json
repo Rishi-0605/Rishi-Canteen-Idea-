@@ -1,0 +1,6 @@
+[{"_comment": "HAND-WRITTEN FORMAT FIXTURE: fictional EXAMPLECO", "symbol": "EXAMPLECO", "companyName": "EXAMPLECO LIMITED", "audited": "Un-Audited", "consolidated": "Consolidated", "period": "Quarterly",
+  "fromDate": "01-Jul-2025", "toDate": "30-Sep-2025", "filingDate": "07-Nov-2025 17:30", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/EXAMPLECO_Q2.xml"},
+ {"symbol": "EXAMPLECO", "audited": "Un-Audited", "consolidated": "Non-Consolidated", "period": "Quarterly",
+  "fromDate": "01-Jul-2025", "toDate": "30-Sep-2025", "filingDate": "07-Nov-2025 17:30", "xbrl": "-"},
+ {"symbol": "EXAMPLECO", "consolidated": "Consolidated", "fromDate": "01-Apr-2025", "toDate": "30-Jun-2025", "filingDate": "08-Aug-2025 16:00",
+  "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/EXAMPLECO_Q1.xml"}]

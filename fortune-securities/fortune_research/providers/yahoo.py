@@ -11,15 +11,14 @@ v8 chart JSON shape; NOT verified live (blocked in the development sandbox).
 from __future__ import annotations
 
 import datetime as dt
-import json
 import urllib.parse
 from typing import Optional
 
-from ..models import IST, PriceBar, PriceSeries, Security, Source, now_ist
+from ..models import IST, CorporateAction, PriceBar, PriceSeries, Security, Source, now_ist
 from .base import Provider, ProviderError
-from .http import FetchError, HttpClient
+from .http import FetchError, HttpClient, parse_json
 
-CHART_URL = "https://query2.finance.yahoo.com/v8/finance/chart/%s?range=%s&interval=1d"
+CHART_URL = "https://query2.finance.yahoo.com/v8/finance/chart/%s?range=%s&interval=1d&events=split"
 
 
 def parse_chart(payload: dict, url: str, retrieved_at: str) -> Optional[PriceSeries]:
@@ -50,23 +49,50 @@ def parse_chart(payload: dict, url: str, retrieved_at: str) -> Optional[PriceSer
     return PriceSeries(bars=bars, source=src, exchange=exch, adjusted=False)
 
 
+def parse_splits(payload: dict, url: str, retrieved_at: str) -> list:
+    """Split events in the chart response (events.splits). Unofficial: use to cross-check exchange data."""
+    res = (((payload or {}).get("chart") or {}).get("result") or [None])[0] or {}
+    out = []
+    for ev in ((res.get("events") or {}).get("splits") or {}).values():
+        num, den = ev.get("numerator"), ev.get("denominator")
+        if not num or not den or not ev.get("date"):
+            continue
+        d = dt.datetime.fromtimestamp(ev["date"], IST).date()
+        f = float(num) / float(den)
+        src = Source(url=url, title="Yahoo Finance split event (unofficial)", publisher="Yahoo Finance", official=False,
+                     provider="yahoo", retrieved_at=retrieved_at, published=d.isoformat(), locator="events.splits")
+        # Yahoo reports bonus issues as splits too; kind says what we know
+        out.append(CorporateAction(d, "split_or_bonus", f, "%s:%s (Yahoo split event)" % (num, den), src))
+    return sorted(out, key=lambda a: a.ex_date)
+
+
 class YahooProvider(Provider):
     name = "yahoo"
     official = False
-    capabilities = frozenset(["prices", "benchmark"])
+    capabilities = frozenset(["prices", "benchmark", "corporate_actions"])
 
     def __init__(self, http: HttpClient, range_: str = "2y"):
         self.http = http
         self.range = range_
         http.set_min_interval("query2.finance.yahoo.com", 1.0)
 
-    def _get(self, symbol: str) -> Optional[PriceSeries]:
+    def _payload(self, symbol: str) -> tuple:
         url = CHART_URL % (urllib.parse.quote(symbol), self.range)
         try:
-            payload = json.loads(self.http.get(url, provider=self.name))
-        except (FetchError, ValueError) as exc:
+            return parse_json(self.http.get(url, provider=self.name), url), url
+        except FetchError as exc:
             raise ProviderError("Yahoo chart unavailable: %s" % exc)
+
+    def _get(self, symbol: str) -> Optional[PriceSeries]:
+        payload, url = self._payload(symbol)
         return parse_chart(payload, url, now_ist().isoformat())
+
+    def corporate_actions(self, sec: Security) -> list:
+        sym = sec.yahoo_symbol("NSE") or sec.yahoo_symbol("BSE")
+        if not sym:
+            return []
+        payload, url = self._payload(sym)
+        return parse_splits(payload, url, now_ist().isoformat())
 
     def prices(self, sec: Security, start=None, end=None) -> Optional[PriceSeries]:
         sym = sec.yahoo_symbol("NSE") or sec.yahoo_symbol("BSE")
