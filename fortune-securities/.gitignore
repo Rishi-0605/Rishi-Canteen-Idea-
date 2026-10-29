@@ -1,0 +1,5 @@
+# Your data, research database, caches and reports stay local
+data/
+config/settings.toml
+__pycache__/
+*.pyc

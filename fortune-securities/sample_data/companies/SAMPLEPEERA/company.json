@@ -1,0 +1,11 @@
+{
+  "name": "Sample Peer Alpha Limited",
+  "isin": "INEZ9A101014",
+  "nse_symbol": "SAMPLEPEERA",
+  "bse_code": "990002",
+  "sector": "Capital Goods",
+  "industry": "Industrial Machinery",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional company used to test the research agent."
+}

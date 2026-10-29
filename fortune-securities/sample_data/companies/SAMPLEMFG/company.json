@@ -1,0 +1,16 @@
+{
+  "name": "Sample Manufacturing Limited",
+  "isin": "INEZ9M101010",
+  "nse_symbol": "SAMPLEMFG",
+  "bse_code": "990001",
+  "sector": "Capital Goods",
+  "industry": "Industrial Machinery",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional maker of industrial machinery components (synthetic test company; not a real business).",
+  "peers": [
+    "SAMPLEPEERA",
+    "SAMPLEPEERB",
+    "SAMPLEPEERC"
+  ]
+}

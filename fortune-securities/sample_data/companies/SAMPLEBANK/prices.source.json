@@ -1,0 +1,10 @@
+{
+  "url": "https://example.invalid/sample/samplebank/prices",
+  "title": "Daily prices SAMPLEBANK (synthetic)",
+  "publisher": "Sample Exchange (synthetic)",
+  "official": true,
+  "synthetic": true,
+  "retrieved_at": "2026-10-20T18:00:00+05:30",
+  "exchange": "NSE",
+  "adjusted": true
+}

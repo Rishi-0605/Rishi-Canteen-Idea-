@@ -1,0 +1,11 @@
+{
+  "name": "Sample Peer Gamma Engineering Limited",
+  "isin": "INEZ9C101012",
+  "nse_symbol": "SAMPLEPEERC",
+  "bse_code": "990004",
+  "sector": "Capital Goods",
+  "industry": "Industrial Machinery",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional company used to test the research agent."
+}

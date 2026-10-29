@@ -1,0 +1,12 @@
+date,exchange,category,subject,source_url,publisher,official,published,retrieved_at
+2025-11-10,NSE,,Unaudited financial results for the quarter ended 30-Sep-2025,https://example.invalid/sample/samplemfg/ann-2025-11-10,Sample Exchange (synthetic),true,2025-11-10,2026-10-20T18:00:00+05:30
+2026-01-05,NSE,,Closure of trading window,https://example.invalid/sample/samplemfg/ann-2026-01-05,Sample Exchange (synthetic),true,2026-01-05,2026-10-20T18:00:00+05:30
+2026-02-10,NSE,,Outcome of board meeting - unaudited financial results Q3,https://example.invalid/sample/samplemfg/ann-2026-02-10,Sample Exchange (synthetic),true,2026-02-10,2026-10-20T18:00:00+05:30
+2026-03-02,NSE,,Order received from a fictional customer worth INR 120 crore,https://example.invalid/sample/samplemfg/ann-2026-03-02,Sample Exchange (synthetic),true,2026-03-02,2026-10-20T18:00:00+05:30
+2026-04-10,NSE,,Disclosure under Regulation 31(1) of SEBI SAST - creation of pledge by promoter,https://example.invalid/sample/samplemfg/ann-2026-04-10,Sample Exchange (synthetic),true,2026-04-10,2026-10-20T18:00:00+05:30
+2026-05-15,NSE,,Audited financial results for the year ended 31-Mar-2026; dividend recommended,https://example.invalid/sample/samplemfg/ann-2026-05-15,Sample Exchange (synthetic),true,2026-05-15,2026-10-20T18:00:00+05:30
+2026-06-12,NSE,,Credit rating reaffirmed by a fictional rating agency,https://example.invalid/sample/samplemfg/ann-2026-06-12,Sample Exchange (synthetic),true,2026-06-12,2026-10-20T18:00:00+05:30
+2026-07-15,NSE,,Disclosure under Regulation 31(1) of SEBI SAST - additional pledge of promoter shares,https://example.invalid/sample/samplemfg/ann-2026-07-15,Sample Exchange (synthetic),true,2026-07-15,2026-10-20T18:00:00+05:30
+2026-08-08,NSE,,Unaudited financial results for the quarter ended 30-Jun-2026,https://example.invalid/sample/samplemfg/ann-2026-08-08,Sample Exchange (synthetic),true,2026-08-08,2026-10-20T18:00:00+05:30
+2026-08-20,NSE,,Notice of 31st annual general meeting,https://example.invalid/sample/samplemfg/ann-2026-08-20,Sample Exchange (synthetic),true,2026-08-20,2026-10-20T18:00:00+05:30
+2026-09-25,NSE,,Voting results of AGM,https://example.invalid/sample/samplemfg/ann-2026-09-25,Sample Exchange (synthetic),true,2026-09-25,2026-10-20T18:00:00+05:30

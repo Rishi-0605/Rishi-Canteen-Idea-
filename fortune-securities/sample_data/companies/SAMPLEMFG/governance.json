@@ -1,0 +1,42 @@
+{
+  "fiscal_years": {
+    "FY25": {
+      "auditor": "Sample & Co LLP (fictional)",
+      "audit_opinion": "unmodified",
+      "emphasis_of_matter": null,
+      "auditor_changed": false,
+      "auditor_resigned": false,
+      "caro_adverse_remarks": [],
+      "rpt_total_cr": 95,
+      "rpt_note": "purchases from a promoter-group entity",
+      "source": {
+        "url": "https://example.invalid/sample/samplemfg/annual-report-fy25",
+        "title": "Annual report FY25 (synthetic)",
+        "publisher": "Sample Manufacturing Limited (synthetic)",
+        "official": true,
+        "published": "2025-08-01",
+        "page": "112-118",
+        "retrieved_at": "2026-10-20T18:00:00+05:30"
+      }
+    },
+    "FY26": {
+      "auditor": "Sample & Co LLP (fictional)",
+      "audit_opinion": "unmodified",
+      "emphasis_of_matter": null,
+      "auditor_changed": false,
+      "auditor_resigned": false,
+      "caro_adverse_remarks": [],
+      "rpt_total_cr": 140,
+      "rpt_note": "purchases from a promoter-group entity",
+      "source": {
+        "url": "https://example.invalid/sample/samplemfg/annual-report-fy26",
+        "title": "Annual report FY26 (synthetic)",
+        "publisher": "Sample Manufacturing Limited (synthetic)",
+        "official": true,
+        "published": "2026-08-01",
+        "page": "118-125",
+        "retrieved_at": "2026-10-20T18:00:00+05:30"
+      }
+    }
+  }
+}

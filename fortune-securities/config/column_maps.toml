@@ -1,0 +1,33 @@
+# Column aliases for portfolio imports. Matching ignores case, spaces, dots and
+# underscores ("Avg. cost" == "avgcost"). Add your broker's headers here.
+# Broker exports differ by version; check the import report after each new file.
+
+[holdings]
+account   = ["account", "account id", "client id", "demat", "demat account", "dp id", "ucc", "portfolio", "account_id"]
+symbol    = ["symbol", "trading symbol", "tradingsymbol", "instrument", "scrip", "stock", "ticker", "nse symbol", "security"]
+isin      = ["isin", "isin code", "isin number"]
+exchange  = ["exchange", "exch", "segment"]
+quantity  = ["quantity", "qty", "qty.", "quantity available", "holding quantity", "shares", "units", "net qty"]
+avg_cost  = ["avg cost", "average cost", "avg. cost", "avg price", "average price", "buy avg", "buy average", "cost price", "avg buy price"]
+name      = ["name", "company", "company name", "security name", "stock name"]
+
+[transactions]
+date      = ["date", "trade date", "transaction date", "order execution time", "execution date"]
+account   = ["account", "account id", "client id", "demat", "ucc", "portfolio", "account_id"]
+symbol    = ["symbol", "trading symbol", "tradingsymbol", "instrument", "scrip", "stock", "ticker"]
+isin      = ["isin", "isin code"]
+exchange  = ["exchange", "exch"]
+side      = ["side", "trade type", "type", "buy/sell", "transaction type", "action"]
+quantity  = ["quantity", "qty", "qty.", "shares", "units"]
+price     = ["price", "trade price", "rate", "avg price", "execution price"]
+charges   = ["charges", "brokerage", "fees", "total charges"]
+trade_id  = ["trade id", "trade_id", "order id", "contract note", "reference"]
+
+[research_notes]
+date       = ["date", "note date", "as of"]
+symbol     = ["symbol", "stock", "ticker", "company"]
+author     = ["author", "analyst", "by"]
+title      = ["title", "headline", "subject"]
+note       = ["note", "notes", "summary", "comment", "thesis"]
+stance     = ["stance", "view", "rating", "conclusion"]
+source_url = ["source", "source url", "link", "url"]

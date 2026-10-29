@@ -1,0 +1,10 @@
+period_end,period_type,basis,line_item,value,unit,source_url,source_title,publisher,official,published,retrieved_at
+2026-09-30,Q,consolidated,revenue,498,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,other_income,9,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,operating_expenses,418,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,depreciation,17,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,finance_costs,5,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,pbt,67,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,tax_expense,17,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,pat,50,INR crore,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30
+2026-09-30,Q,consolidated,eps_diluted,5.0,INR per share,https://example.invalid/sample/samplemfg/quarterly-results-Q2FY27,Quarterly Results Q2FY27 (synthetic),Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30

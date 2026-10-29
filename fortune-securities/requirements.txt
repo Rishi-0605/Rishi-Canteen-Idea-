@@ -1,0 +1,5 @@
+# Already present in this environment; nothing was installed for this project.
+# The core calculations use only the standard library; these are for file I/O and HTTP.
+pandas>=2.0        # reading XLSX portfolio exports
+openpyxl>=3.1      # XLSX read/write (Excel export)
+requests>=2.31     # network providers (disabled by default)

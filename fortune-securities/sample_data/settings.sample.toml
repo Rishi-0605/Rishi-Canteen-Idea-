@@ -1,0 +1,25 @@
+# Settings for the SYNTHETIC sample dataset (used by --sample and the tests).
+# Uses its own database and report folder so sample runs never mix with real research.
+
+[general]
+synthetic = true
+database = "data/sample/research.db"
+reports_dir = "data/sample/reports"
+data_dir = "data/sample"
+
+[providers.local]
+roots = ["sample_data"]
+
+[portfolio]
+holdings_files = ["sample_data/portfolio/holdings.csv", "sample_data/portfolio/holdings_broker2.xlsx"]
+transaction_files = ["sample_data/portfolio/transactions.csv"]
+research_note_files = ["sample_data/portfolio/research_notes.csv"]
+benchmark = "NIFTY50"
+
+[valuation]
+# SYNTHETIC DEMO ASSUMPTIONS. They are not market observations. Set your own in config/settings.toml.
+risk_free_rate = 0.068
+risk_free_rate_as_of = "sample (synthetic)"
+risk_free_rate_source = "synthetic demo assumption, not a market observation"
+equity_risk_premium = 0.055
+terminal_growth = 0.05

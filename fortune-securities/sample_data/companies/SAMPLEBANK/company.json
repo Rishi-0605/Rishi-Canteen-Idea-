@@ -1,0 +1,11 @@
+{
+  "name": "Sample Bank Limited",
+  "isin": "INEZ9K101012",
+  "nse_symbol": "SAMPLEBANK",
+  "bse_code": "990005",
+  "sector": "Banks",
+  "industry": "Private Sector Bank",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional company used to test the research agent."
+}

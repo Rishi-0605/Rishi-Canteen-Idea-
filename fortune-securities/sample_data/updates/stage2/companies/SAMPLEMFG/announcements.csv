@@ -1,0 +1,4 @@
+date,exchange,category,subject,source_url,publisher,official,published,retrieved_at
+2026-10-22,NSE,,Disclosure under Regulation 31(1) of SEBI SAST - pledge of promoter shares,https://example.invalid/sample/samplemfg/ann-2026-10-22,Sample Exchange (synthetic),true,2026-10-22,2026-10-29T18:00:00+05:30
+2026-10-24,NSE,,Resignation of Chief Financial Officer (CFO),https://example.invalid/sample/samplemfg/ann-2026-10-24,Sample Exchange (synthetic),true,2026-10-24,2026-10-29T18:00:00+05:30
+2026-10-27,NSE,,Unaudited financial results for the quarter ended 30-Sep-2026,https://example.invalid/sample/samplemfg/ann-2026-10-27,Sample Exchange (synthetic),true,2026-10-27,2026-10-29T18:00:00+05:30

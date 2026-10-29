@@ -1,0 +1,11 @@
+{
+  "name": "Sample Peer Beta Industries Limited",
+  "isin": "INEZ9B101013",
+  "nse_symbol": "SAMPLEPEERB",
+  "bse_code": "990003",
+  "sector": "Capital Goods",
+  "industry": "Industrial Machinery",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional company used to test the research agent."
+}

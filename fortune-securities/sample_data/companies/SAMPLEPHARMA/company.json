@@ -1,0 +1,11 @@
+{
+  "name": "Sample Pharmaceuticals Limited",
+  "isin": "INEZ9P101017",
+  "nse_symbol": "SAMPLEPHARMA",
+  "bse_code": "990008",
+  "sector": "Healthcare",
+  "industry": "Pharmaceuticals",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional company used to test the research agent."
+}

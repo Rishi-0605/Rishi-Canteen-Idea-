@@ -1,0 +1,10 @@
+name,isin,nse_symbol,bse_code,series,synthetic,source_url,publisher,official,retrieved_at
+Sample Manufacturing Limited,INEZ9M101010,SAMPLEMFG,990001,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Peer Alpha Limited,INEZ9A101014,SAMPLEPEERA,990002,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Peer Beta Industries Limited,INEZ9B101013,SAMPLEPEERB,990003,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Peer Gamma Engineering Limited,INEZ9C101012,SAMPLEPEERC,990004,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Bank Limited,INEZ9K101012,SAMPLEBANK,990005,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Infotech Limited,INEZ9T101013,SAMPLEIT,990006,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Consumer Products Limited,INEZ9F101019,SAMPLEFMCG,990007,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample Pharmaceuticals Limited,INEZ9P101017,SAMPLEPHARMA,990008,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30
+Sample No Data Limited,INEZ9N101019,SAMPLENODATA,990009,EQ,true,https://example.invalid/sample/master,Sample Exchange (synthetic),false,2026-10-20T18:00:00+05:30

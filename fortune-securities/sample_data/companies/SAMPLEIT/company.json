@@ -1,0 +1,11 @@
+{
+  "name": "Sample Infotech Limited",
+  "isin": "INEZ9T101013",
+  "nse_symbol": "SAMPLEIT",
+  "bse_code": "990006",
+  "sector": "Information Technology",
+  "industry": "IT Services",
+  "face_value": 10,
+  "synthetic": true,
+  "description": "Fictional company used to test the research agent."
+}

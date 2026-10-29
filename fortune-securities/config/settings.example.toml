@@ -1,0 +1,95 @@
+# FORTUNE SECURITIES research agent settings.
+#
+# Copy to config/settings.toml (git-ignored) and edit. Values in settings.toml
+# override these defaults. Paths are relative to the fortune-securities/ folder.
+#
+# Credentials: never put a key in this file. Name the environment variable that
+# holds it (api_key_env = "MY_VENDOR_KEY") and export it in your shell.
+
+[general]
+data_dir = "data"
+database = "data/research.db"
+reports_dir = "data/reports"
+amount_unit = "INR crore"     # every amount is normalised to this unit
+
+[providers]
+# Priority order per capability. The first provider that returns data wins and
+# is recorded as the source. Official sources (exchange/company) come first.
+master        = ["local", "nse", "bse"]
+profile       = ["local"]
+financials    = ["local"]            # NSE XBRL results parser: planned
+prices        = ["local", "nse", "yahoo"]
+announcements = ["local", "nse", "bse"]
+shareholding  = ["local", "nse"]
+governance    = ["local"]            # annual report: manual input
+news          = ["local", "rss"]
+benchmark     = ["local"]
+
+[providers.local]
+# Folders holding manual / exported data in the documented layout (docs/DATA_FORMATS.md)
+roots = ["data/manual"]
+
+[providers.nse]
+enabled = false          # official, but endpoints are undocumented; enable after reviewing NSE terms
+min_interval_seconds = 1.5
+
+[providers.bse]
+enabled = false
+min_interval_seconds = 1.5
+
+[providers.yahoo]
+enabled = false          # UNOFFICIAL. Prices only. Never treated as an exchange source.
+min_interval_seconds = 1.0
+
+[providers.rss]
+enabled = false
+feeds = []               # e.g. publisher RSS URLs you are permitted to read
+allowed_domains = ["economictimes.indiatimes.com", "business-standard.com", "livemint.com",
+                   "moneycontrol.com", "reuters.com", "thehindubusinessline.com"]
+
+[http]
+timeout_seconds = 20
+max_retries = 3
+backoff_seconds = 2.0
+cache_ttl_hours = 12
+user_agent = "FortuneSecuritiesResearch/0.1 (personal research; contact: set-in-settings)"
+
+[portfolio]
+holdings_files = ["data/portfolio/holdings.csv"]          # CSV or XLSX; several allowed
+transaction_files = ["data/portfolio/transactions.csv"]
+research_note_files = []                                    # historical research CSV/XLSX
+benchmark = "NIFTY50"                                       # file benchmarks/NIFTY50.csv in a local root
+mask_account_ids = true                                     # reports show only the last 4 characters
+max_single_stock_weight = 0.15
+max_sector_weight = 0.35
+
+[staleness]              # days before a dataset is reported as stale
+prices = 5
+quarterly_results = 140  # LODR Reg. 33: results within 45 days of quarter end (60 for Q4), plus slack
+annual_results = 456
+shareholding = 120
+announcements = 45
+
+[valuation]
+# These are judgement inputs. They are printed as assumptions in every report.
+# DCF and cost-of-equity methods do NOT run until they are set.
+# risk_free_rate = 0.0          # 10Y G-sec yield (RBI DBIE / CCIL), as a decimal
+# risk_free_rate_as_of = ""     # date you read it
+# risk_free_rate_source = ""    # URL you read it from
+# equity_risk_premium = 0.0
+terminal_growth = 0.05
+forecast_years = 5
+beta_fallback = 1.0             # used only when beta cannot be estimated from prices
+min_peers = 2
+
+[technical]
+sma_windows = [20, 50, 200]
+rsi_period = 14
+macd = [12, 26, 9]
+pivot_window = 5
+min_bars = 30
+
+[risk]
+adv_participation = 0.10        # assume you can trade 10% of average daily traded value
+bear_eps_decline = 0.20
+bear_multiple_percentile = 25
