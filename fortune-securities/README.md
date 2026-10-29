@@ -7,11 +7,16 @@ keeps a research memory, and tells you what changed since the last report.
 **It is not a trading bot.** No module can place an order, and it neither asks for nor stores brokerage or
 trading credentials.
 
+## Requirements
+
+Python 3.11 or newer (the config loader uses `tomllib`), plus `pandas`, `openpyxl` and `requests`
+(`requirements.txt`). Tested on Python 3.13.
+
 ## Quick start (synthetic sample data first)
 
 ```bash
 cd fortune-securities
-python3 -m unittest discover -s tests          # 110 offline tests
+python3 -m unittest discover -s tests          # 113 offline tests
 python3 scripts/demo_sample.py                 # the whole workflow on fictional data, in a temp folder
 
 python3 -m fortune_research --sample --as-of 2026-10-20 ask "Analyse my portfolio"

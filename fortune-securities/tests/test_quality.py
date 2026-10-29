@@ -76,6 +76,15 @@ class Reconcile(unittest.TestCase):
         self.assertIn("negative_value", c)
 
 
+class Provenance(unittest.TestCase):
+    def test_source_dated_after_retrieval_is_an_error(self):
+        ok = src("a", published="2026-10-01")  # helper sources are retrieved 2026-10-01
+        bad = src("b", published="2026-10-28")
+        issues = quality.check_sources([ok, bad])
+        self.assertEqual([(i.code, i.severity) for i in issues], [("provenance_inconsistent", "error")])
+        self.assertIn("2026-10-28", issues[0].message)
+
+
 class Staleness(unittest.TestCase):
     def test_stale_missing_and_future(self):
         as_of = dt.date(2026, 10, 29)

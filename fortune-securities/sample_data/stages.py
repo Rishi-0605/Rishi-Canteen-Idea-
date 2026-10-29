@@ -1,7 +1,7 @@
 """Build a working copy of the SYNTHETIC sample data at stage 1 or stage 2.
 
 Stage 2 appends the rows under sample_data/updates/stage2/ to the matching
-CSV files (new results, shareholding, announcements, prices), which is how
+CSV files and replaces the matching JSON metadata files (new results, shareholding, announcements, prices), which is how
 new disclosures arrive in real use.
 """
 
@@ -25,6 +25,8 @@ def build(dest: Path, stage: int = 1) -> Path:
 
 
 def apply(dest: Path, overlay: Path) -> None:
+    for f in overlay.rglob("*.json"):  # metadata files (e.g. a newer retrieval time) replace the old ones
+        shutil.copyfile(f, dest / f.relative_to(overlay))
     for f in overlay.rglob("*.csv"):
         target = dest / f.relative_to(overlay)
         lines = f.read_text(encoding="utf-8").splitlines()[1:]

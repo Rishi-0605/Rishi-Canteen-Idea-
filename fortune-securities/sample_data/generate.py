@@ -228,9 +228,11 @@ def main() -> None:
     for r in rb[1:]:
         bench.append(bench[-1] * math.exp(r))
     w(HERE / "benchmarks" / "NIFTY50.csv", ["date", "close"], [[d.isoformat(), round(c, 2)] for d, c in zip(days1, bench)])
-    wj(HERE / "benchmarks" / "NIFTY50.source.json", {"url": BASE + "/benchmarks/nifty50", "title": "SAMPLE benchmark index (synthetic stand-in for NIFTY 50)",
-                                                      "publisher": "Sample Index Provider (synthetic)", "official": False, "synthetic": True,
-                                                      "retrieved_at": RETRIEVED, "exchange": "NSE", "adjusted": True})
+    # stage 2 re-retrieves the series, so its source metadata carries the later retrieval time
+    for base, when in ((HERE, RETRIEVED), (HERE / "updates" / "stage2", RETRIEVED2)):
+        wj(base / "benchmarks" / "NIFTY50.source.json", {"url": BASE + "/benchmarks/nifty50", "title": "SAMPLE benchmark index (synthetic stand-in for NIFTY 50)",
+                                                          "publisher": "Sample Index Provider (synthetic)", "official": False, "synthetic": True,
+                                                          "retrieved_at": when, "exchange": "NSE", "adjusted": True})
     w(HERE / "updates" / "stage2" / "benchmarks" / "NIFTY50.csv", ["date", "close"],
       [[d.isoformat(), round(c, 2)] for d, c in zip(days2, bench) if d > STAGE1_END])
     # master
@@ -250,9 +252,10 @@ def main() -> None:
         allbars = bars(sym, days2, closes)
         w(cdir / "prices.csv", ["date", "open", "high", "low", "close", "volume"], allbars[:len(days1)])
         w(HERE / "updates" / "stage2" / "companies" / sym / "prices.csv", ["date", "open", "high", "low", "close", "volume"], allbars[len(days1):])
-        wj(cdir / "prices.source.json", {"url": "%s/%s/prices" % (BASE, sym.lower()), "title": "Daily prices %s (synthetic)" % sym,
-                                         "publisher": "Sample Exchange (synthetic)", "official": True, "synthetic": True,
-                                         "retrieved_at": RETRIEVED, "exchange": "NSE", "adjusted": True})
+        for base, when in ((cdir, RETRIEVED), (HERE / "updates" / "stage2" / "companies" / sym, RETRIEVED2)):
+            wj(base / "prices.source.json", {"url": "%s/%s/prices" % (BASE, sym.lower()), "title": "Daily prices %s (synthetic)" % sym,
+                                             "publisher": "Sample Exchange (synthetic)", "official": True, "synthetic": True,
+                                             "retrieved_at": when, "exchange": "NSE", "adjusted": True})
         prof = {"name": n, "isin": isin(iss), "nse_symbol": sym, "bse_code": b, "sector": sector, "industry": industry,
                 "face_value": 10, "synthetic": True, "description": "Fictional company used to test the research agent."}
         if sym == "SAMPLEMFG":

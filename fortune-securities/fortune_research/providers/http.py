@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import hashlib
 import sqlite3
+from contextlib import contextmanager
 import threading
 import time
 import urllib.parse
@@ -46,12 +47,23 @@ def redact(url: str) -> str:
     return urllib.parse.urlunsplit(parts._replace(query=urllib.parse.urlencode(q)))
 
 
+@contextmanager
+def _connect(path: Path):
+    """Commit and always close; sqlite3's own context manager leaves the connection open."""
+    db = sqlite3.connect(path)
+    try:
+        with db:
+            yield db
+    finally:
+        db.close()
+
+
 class ResponseCache:
     def __init__(self, path: Path):
         path.parent.mkdir(parents=True, exist_ok=True)
         self.path = path
         self._lock = threading.Lock()
-        with sqlite3.connect(self.path) as db:
+        with _connect(self.path) as db:
             db.execute("CREATE TABLE IF NOT EXISTS http_cache (key TEXT PRIMARY KEY, url TEXT, "
                        "fetched_at REAL, status INTEGER, body BLOB)")
 
@@ -60,14 +72,14 @@ class ResponseCache:
         return hashlib.sha256((url + "|" + repr(sorted((headers or {}).items()))).encode()).hexdigest()
 
     def get(self, key: str, ttl_seconds: float) -> Optional[tuple]:
-        with self._lock, sqlite3.connect(self.path) as db:
+        with self._lock, _connect(self.path) as db:
             row = db.execute("SELECT fetched_at, status, body FROM http_cache WHERE key=?", (key,)).fetchone()
         if row and (time.time() - row[0]) <= ttl_seconds:
             return row
         return None
 
     def put(self, key: str, url: str, status: int, body: bytes) -> None:
-        with self._lock, sqlite3.connect(self.path) as db:
+        with self._lock, _connect(self.path) as db:
             db.execute("INSERT OR REPLACE INTO http_cache VALUES (?,?,?,?,?)",
                        (key, redact(url), time.time(), status, body))
 

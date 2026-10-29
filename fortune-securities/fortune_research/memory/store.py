@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Optional
 
@@ -65,11 +66,18 @@ class Store:
             if not db.execute("SELECT version FROM schema_version").fetchone():
                 db.execute("INSERT INTO schema_version VALUES (?)", (SCHEMA_VERSION,))
 
+    @contextmanager
     def _conn(self):
+        """Commit on success, roll back on error, and always close (sqlite3's own
+        context manager commits but leaves the connection open)."""
         db = sqlite3.connect(self.path)
-        db.row_factory = sqlite3.Row
-        db.execute("PRAGMA foreign_keys = ON")
-        return db
+        try:
+            db.row_factory = sqlite3.Row
+            db.execute("PRAGMA foreign_keys = ON")
+            with db:
+                yield db
+        finally:
+            db.close()
 
     # -- source log ---------------------------------------------------------------
     def log_fetch(self, entry: dict, context: str = "") -> None:

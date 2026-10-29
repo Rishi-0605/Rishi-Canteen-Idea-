@@ -15,12 +15,13 @@ amount_unit = "INR crore"     # every amount is normalised to this unit
 [providers]
 # Priority order per capability. The first provider that returns data wins and
 # is recorded as the source. Official sources (exchange/company) come first.
-master        = ["local", "nse", "bse"]
+# Only providers that implement a capability are listed; see docs/ARCHITECTURE.md.
+master        = ["local", "nse"]     # BSE scrip master: not implemented yet
 profile       = ["local"]
-financials    = ["local"]            # NSE XBRL results parser: planned
+financials    = ["local"]            # NSE XBRL results parser: not implemented yet
 prices        = ["local", "nse", "yahoo"]
 announcements = ["local", "nse", "bse"]
-shareholding  = ["local", "nse"]
+shareholding  = ["local"]            # NSE shareholding-pattern adapter: not implemented yet
 governance    = ["local"]            # annual report: manual input
 news          = ["local", "rss"]
 benchmark     = ["local"]

@@ -299,6 +299,7 @@ class ResearchAgent:
         for rec_ in ((b.governance or {}).get("fiscal_years") or {}).values():
             if rec_.get("_source"):
                 srcs.setdefault(rec_["_source"].id, rec_["_source"])
+        issues += quality.check_sources(srcs.values())
         # assemble
         metrics = {k: m.to_dict() for k, m in fa.flat().items()}
         for k, m in vr.multiples.items():

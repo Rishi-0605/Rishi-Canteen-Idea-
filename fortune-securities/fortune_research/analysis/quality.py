@@ -111,6 +111,20 @@ def staleness(as_of: dt.date, limits: dict, latest: dict) -> tuple:
     return issues, ages
 
 
+def check_sources(sources) -> list:
+    """A source published (or with data dated) after its retrieval time means the
+    provenance is wrong: the retrieval stamp is stale or the date is mis-entered."""
+    issues = []
+    for s in sources:
+        if not s.published or not s.retrieved_at:
+            continue
+        if s.published[:10] > s.retrieved_at[:10]:
+            issues.append(DataIssue("error", "provenance_inconsistent", "source '%s' is dated %s but marked retrieved %s; "
+                                    "update its retrieved_at or correct the date" % (s.title, s.published[:10], s.retrieved_at[:10]),
+                                    "sources"))
+    return issues
+
+
 def check_prices(series) -> list:
     issues = []
     if not series or not series.bars:

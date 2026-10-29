@@ -137,3 +137,16 @@ class Skills(unittest.TestCase):
             self.assertGreater(len(m.group(2)), 300, name)
             for rule in ("Never fabricate a number", "No orders, no trading credentials", "python3 -m fortune_research"):
                 self.assertIn(rule, text, name)
+
+
+class ProviderConfig(unittest.TestCase):
+    def test_example_settings_only_list_providers_that_implement_the_capability(self):
+        from fortune_research.providers import bse, nse, rss, yahoo
+        from fortune_research.providers.base import CAPABILITIES
+        from fortune_research.providers.local_files import LocalFilesProvider
+        caps = {"local": LocalFilesProvider.capabilities, "nse": nse.NSEProvider.capabilities, "bse": bse.BSEProvider.capabilities,
+                "yahoo": yahoo.YahooProvider.capabilities, "rss": rss.RSSProvider.capabilities}
+        s = Settings.load()
+        for cap in CAPABILITIES:
+            for name in s.get("providers.%s" % cap):
+                self.assertIn(cap, caps[name], "%s listed for %s but does not implement it" % (name, cap))

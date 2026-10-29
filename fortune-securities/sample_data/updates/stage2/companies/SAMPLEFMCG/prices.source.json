@@ -1,0 +1,10 @@
+{
+  "url": "https://example.invalid/sample/samplefmcg/prices",
+  "title": "Daily prices SAMPLEFMCG (synthetic)",
+  "publisher": "Sample Exchange (synthetic)",
+  "official": true,
+  "synthetic": true,
+  "retrieved_at": "2026-10-29T18:00:00+05:30",
+  "exchange": "NSE",
+  "adjusted": true
+}

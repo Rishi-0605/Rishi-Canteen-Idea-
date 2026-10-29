@@ -74,7 +74,8 @@ class Workflow(unittest.TestCase):
         for f in self.r1["findings"]:
             for sid in f["source_ids"]:
                 self.assertIn(sid, ids, f["code"])
-        md = open(self.r1["report_md_path"], encoding="utf-8").read()
+        with open(self.r1["report_md_path"], encoding="utf-8") as fh:
+            md = fh.read()
         self.assertIn("SYNTHETIC SAMPLE DATA", md)
         n_sources = len(self.r1["sources"])
         cited = {int(x) for x in re.findall(r"\[(\d+)\]", md)}
@@ -89,6 +90,7 @@ class Workflow(unittest.TestCase):
     # 5: record saved
     def test_record_saved(self):
         db = sqlite3.connect(self.s2.path("general.database"))
+        self.addCleanup(db.close)
         n = db.execute("SELECT COUNT(*) FROM analyses").fetchone()[0]
         self.assertEqual(n, 2)
         self.assertGreater(db.execute("SELECT COUNT(*) FROM metrics WHERE analysis_id=1").fetchone()[0], 50)
@@ -115,6 +117,12 @@ class Workflow(unittest.TestCase):
         self.assertIn("disclosure_kmp_change", new_codes)
         self.assertIn("earnings_decline", new_codes)
         self.assertEqual(self.r2["news"]["new_count"], 3)  # earlier items already seen
+
+    def test_stage2_record_is_clean_including_provenance(self):
+        self.assertEqual(self.r2["data_issues"], [])
+        for s in self.r2["sources"]:
+            if s.get("published"):
+                self.assertLessEqual(s["published"][:10], s["retrieved_at"][:10], s["title"])
 
     def test_no_refresh_comparison_matches(self):
         out = self.agent2.what_changed("SAMPLEMFG", refresh=False)
